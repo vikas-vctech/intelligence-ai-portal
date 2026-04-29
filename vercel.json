@@ -1,5 +1,4 @@
 {
-  "name": "intelligence-ai-portal",
   "rewrites": [
     { "source": "/", "destination": "/Intelligence_AI_Portal.html" }
   ]
