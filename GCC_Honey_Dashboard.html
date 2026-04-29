@@ -10,6 +10,32 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;font-family:'Segoe UI',system-ui,Arial,sans-serif;overflow:hidden}
+/* ── MOBILE / TABLET RESPONSIVE ────────────────────────── */
+@media (max-width:1023px){
+  html,body{height:auto!important;overflow-x:hidden;overflow-y:auto}
+  .app-shell{height:auto!important;min-height:100vh;overflow:visible!important}
+  .sidebar{position:fixed;top:0;left:0;height:100vh;z-index:100;transform:translateX(-100%);transition:transform .28s cubic-bezier(.4,0,.2,1)}
+  .sidebar.mobile-open{transform:translateX(0)}
+  .sb-toggle{display:none!important}
+  .main-area{overflow:visible!important;min-height:100vh}
+  .panel-wrap{height:auto!important;overflow-y:visible!important;padding-bottom:48px}
+  #mobile-sb-btn{display:flex!important}
+}
+@media (max-width:767px){
+  .kpi-row{grid-template-columns:repeat(2,1fr);gap:8px}
+  .grid3{grid-template-columns:1fr}
+  .grid2{grid-template-columns:1fr}
+  .top-bar{padding:0 14px;gap:8px}
+  .top-bar-title{font-size:13px}
+  .top-bar-right .top-bar-meta{display:none}
+  .top-bar-right .top-bar-sep{display:none}
+  .panel-wrap{padding:14px 14px 48px}
+}
+@media (min-width:768px) and (max-width:1023px){
+  .grid3{grid-template-columns:repeat(2,1fr)}
+  .kpi-row{grid-template-columns:repeat(2,1fr)}
+  .panel-wrap{padding:20px 22px 48px}
+}
 @keyframes spin{to{transform:rotate(360deg)}}
 
 /* ══ APP SHELL ══════════════════════════════════════════════ */
@@ -195,7 +221,14 @@ html,body{height:100%;font-family:'Segoe UI',system-ui,Arial,sans-serif;overflow
 ══════════════════════════════════════════════════════════════ -->
 <div class="main-area">
 
+  <!-- Mobile overlay -->
+  <div id="mobile-overlay" onclick="closeMobileSidebar()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:90"></div>
+
   <div class="top-bar">
+    <!-- Hamburger — shown only on tablet/mobile via CSS -->
+    <button id="mobile-sb-btn" onclick="toggleMobileSidebar()" style="display:none;align-items:center;justify-content:center;padding:6px;border-radius:6px;border:none;background:transparent;cursor:pointer;color:#002147;margin-right:2px;flex-shrink:0">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
     <span class="top-bar-title" id="tb-title">UAE Honey Market</span>
     <div class="top-bar-sep"></div>
     <span class="top-bar-crumb">2025–2030 &nbsp;·&nbsp; <strong id="tb-panel-name">Dashboard</strong></span>
@@ -768,9 +801,30 @@ function switchSec(name) {
 
 let _sbCollapsed = false;
 function toggleSidebar() {
+  if (window.innerWidth < 1024) return; // handled by toggleMobileSidebar on mobile
   _sbCollapsed = !_sbCollapsed;
   document.getElementById('sidebar').classList.toggle('collapsed', _sbCollapsed);
 }
+
+function toggleMobileSidebar() {
+  const sb = document.getElementById('sidebar');
+  const ov = document.getElementById('mobile-overlay');
+  const isOpen = sb.classList.contains('mobile-open');
+  sb.classList.toggle('mobile-open', !isOpen);
+  ov.style.display = isOpen ? 'none' : 'block';
+}
+function closeMobileSidebar() {
+  document.getElementById('sidebar').classList.remove('mobile-open');
+  document.getElementById('mobile-overlay').style.display = 'none';
+}
+
+function _handleResize() {
+  const btn = document.getElementById('mobile-sb-btn');
+  const isMobile = window.innerWidth < 1024;
+  if (btn) btn.style.display = isMobile ? 'flex' : 'none';
+  if (!isMobile) closeMobileSidebar();
+}
+window.addEventListener('resize', _handleResize);
 
 // ── INIT ─────────────────────────────────────────────────────
 Chart.register(ChartDataLabels);
@@ -779,6 +833,7 @@ Chart.defaults.font.family = "'Segoe UI',Arial,sans-serif";
 Chart.defaults.font.size   = 11;
 Chart.defaults.color       = '#6B7280';
 
+_handleResize();
 loadSec('dashboard', 'United Arab Emirates');
 </script>
 </body>

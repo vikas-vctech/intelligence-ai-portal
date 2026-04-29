@@ -13,28 +13,33 @@
   * { box-sizing: border-box; }
   body { font-family: 'Inter', system-ui, sans-serif; }
 
-  /* Sidebar */
+  /* Sidebar drawer */
+  #portal-sidebar {
+    transition: transform 0.28s cubic-bezier(.4,0,.2,1);
+  }
+  /* Pages */
+  .page { display:none; }
+  .page.active { display:flex; flex-direction:column; }
+
+  /* Sidebar nav items */
   .nav-item {
     display:flex; align-items:center; gap:9px;
-    padding:8px 12px; border-radius:6px; cursor:pointer;
+    padding:10px 12px; border-radius:6px; cursor:pointer;
     font-size:13px; color:#374151; margin:1px 6px;
     transition:background .13s, color .13s; text-decoration:none;
-    user-select:none;
+    user-select:none; -webkit-tap-highlight-color:transparent;
   }
   .nav-item:hover { background:#F0F4FF; color:#1565C0; }
   .nav-item.active { background:#EEF2FF; color:#002147; font-weight:600; }
   .nav-item .chevron { margin-left:auto; transition:transform .2s; }
   .nav-item.open .chevron { transform:rotate(90deg); }
   .sub-item {
-    display:block; padding:6px 12px 6px 38px; font-size:12px;
+    display:block; padding:8px 12px 8px 38px; font-size:12px;
     color:#4B5563; cursor:pointer; border-radius:4px; margin:0 6px;
     transition:background .12s, color .12s; text-decoration:none;
+    -webkit-tap-highlight-color:transparent;
   }
   .sub-item:hover { background:#F3F4F6; color:#1565C0; }
-
-  /* Pages */
-  .page { display:none; }
-  .page.active { display:flex; flex-direction:column; }
 
   /* Hero gradient */
   .hero-bg {
@@ -48,6 +53,10 @@
     overflow:hidden;
   }
   .report-card:hover { box-shadow:0 8px 24px rgba(0,33,71,.12); transform:translateY(-2px); }
+  @media (hover: none) {
+    .report-card:hover { transform: none; box-shadow: none; }
+    .report-card:active { box-shadow:0 4px 12px rgba(0,33,71,.1); }
+  }
 
   /* Tag badges */
   .tag { font-size:10px; font-weight:600; letter-spacing:.04em;
@@ -67,36 +76,48 @@
 
   /* Collapsible sub-menu */
   .sub-menu { overflow:hidden; max-height:0; transition:max-height .25s ease; }
-  .sub-menu.open { max-height:200px; }
+  .sub-menu.open { max-height:300px; }
 
-  /* Search highlight */
   input:focus { outline:none; }
 
-  /* CTA button */
   .btn-primary {
     background:#002147; color:#fff; border-radius:8px;
     padding:10px 24px; font-size:14px; font-weight:600;
     cursor:pointer; transition:background .15s; border:none;
+    -webkit-tap-highlight-color:transparent;
   }
   .btn-primary:hover { background:#1565C0; }
   .btn-outline {
     background:transparent; color:#002147; border:1.5px solid #002147;
     border-radius:8px; padding:9px 22px; font-size:14px; font-weight:600;
     cursor:pointer; transition:all .15s;
+    -webkit-tap-highlight-color:transparent;
   }
   .btn-outline:hover { background:#EEF2FF; }
 
-  /* Search bar */
   .search-input { border:1.5px solid #D1D5DB; border-radius:8px; }
   .search-input:focus { border-color:#1565C0; box-shadow:0 0 0 3px rgba(21,101,192,.12); }
+
+  /* Mobile filter grid */
+  @media (max-width: 639px) {
+    .co-filter-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .co-filter-full { grid-column: span 2; }
+    .co-filter-btns { display:flex; gap:8px; grid-column: span 2; }
+  }
 </style>
 </head>
-<body class="flex h-screen overflow-hidden bg-gray-50">
+
+<!-- overlay — shown behind the mobile sidebar -->
+<body class="bg-gray-50 overflow-x-hidden">
+<div id="portal-overlay" class="fixed inset-0 bg-black/50 z-40 hidden" onclick="closePortalSidebar()"></div>
+
+<div class="flex h-screen overflow-hidden">
 
 <!-- ═══════════════════════════════════════════════════════
      SIDEBAR
 ═══════════════════════════════════════════════════════ -->
-<aside class="w-48 bg-white border-r border-gray-200 flex flex-col h-screen shrink-0">
+<aside id="portal-sidebar"
+  class="fixed md:static inset-y-0 left-0 z-50 w-64 md:w-48 bg-white border-r border-gray-200 flex flex-col h-screen shrink-0 -translate-x-full md:translate-x-0">
 
   <!-- Logo -->
   <div class="flex items-center gap-2 h-14 px-4 border-b border-gray-100">
@@ -107,6 +128,10 @@
       <div class="font-bold text-xs" style="color:#002147">Intelligent AI</div>
       <div class="text-gray-400 text-xs">Markets</div>
     </div>
+    <!-- Close button — mobile only -->
+    <button class="md:hidden ml-auto p-1 text-gray-400 hover:text-gray-600" onclick="closePortalSidebar()">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
   </div>
 
   <!-- Nav -->
@@ -175,10 +200,8 @@
       <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
       Contact Us
     </a>
-
   </nav>
 
-  <!-- Collapse hint -->
   <div class="px-4 py-3 border-t border-gray-100 text-xs text-gray-400">
     Intelligent AI Markets v1.0
   </div>
@@ -187,31 +210,36 @@
 <!-- ═══════════════════════════════════════════════════════
      MAIN AREA
 ═══════════════════════════════════════════════════════ -->
-<div class="flex-1 flex flex-col overflow-hidden">
+<div class="flex-1 flex flex-col overflow-hidden min-w-0">
 
   <!-- TOP BAR -->
-  <header class="h-14 bg-white border-b border-gray-200 flex items-center px-5 gap-4 shrink-0">
-    <!-- Search (compact, in header) -->
-    <div class="flex-1 max-w-md relative">
+  <header class="h-14 bg-white border-b border-gray-200 flex items-center px-3 md:px-5 gap-2 md:gap-4 shrink-0">
+    <!-- Hamburger (mobile only) -->
+    <button class="md:hidden p-2 rounded-lg text-gray-500 hover:bg-gray-100 shrink-0" onclick="openPortalSidebar()">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
+    </button>
+
+    <!-- Search -->
+    <div class="flex-1 max-w-xs md:max-w-md relative">
       <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 15.803 7.5 7.5 0 0015.803 15.803z"/></svg>
-      <input id="header-search" type="text" placeholder="Find market reports &amp; statistics…"
-        class="w-full pl-9 pr-4 py-2 text-sm bg-gray-50 search-input"
+      <input id="header-search" type="text" placeholder="Search reports…"
+        class="w-full pl-9 pr-3 py-2 text-sm bg-gray-50 search-input"
         onkeydown="if(event.key==='Enter') doHeaderSearch(this.value)">
     </div>
+
     <!-- Right actions -->
-    <div class="flex items-center gap-3 ml-auto">
-      <span class="text-sm text-gray-500 hidden md:block">Statistics</span>
-      <span class="text-gray-300">|</span>
-      <span class="text-sm text-gray-500 hidden md:block">Reports</span>
-      <span class="text-gray-300">|</span>
-      <span class="text-sm text-gray-500 hidden md:block">Pricing</span>
-      <button class="btn-outline text-xs py-1.5 px-4" onclick="showComingSoon('Login')">Log in</button>
-      <button class="btn-primary text-xs py-1.5 px-4">Sign up</button>
+    <div class="flex items-center gap-2 ml-auto shrink-0">
+      <span class="text-sm text-gray-500 hidden lg:block">Statistics</span>
+      <span class="text-gray-300 hidden lg:block">|</span>
+      <span class="text-sm text-gray-500 hidden lg:block">Reports</span>
+      <span class="text-gray-300 hidden lg:block">|</span>
+      <button class="hidden sm:block border border-gray-300 text-gray-600 text-xs font-semibold py-1.5 px-3 rounded-lg hover:bg-gray-50" onclick="showComingSoon('Login')">Log in</button>
+      <button class="btn-primary text-xs py-1.5 px-3 md:px-4">Sign up</button>
     </div>
   </header>
 
   <!-- CONTENT AREA -->
-  <div class="flex-1 scroll-y">
+  <div class="flex-1 overflow-y-auto">
 
     <!-- ─────────────────────────────────────────────────
          PAGE: HOME
@@ -219,58 +247,58 @@
     <div id="page-home" class="page active">
 
       <!-- Hero -->
-      <div class="hero-bg px-6 py-16 text-center">
+      <div class="hero-bg px-4 md:px-6 py-10 md:py-16 text-center">
         <p class="text-xs font-semibold tracking-widest uppercase mb-2" style="color:#1565C0">Intelligent AI Markets</p>
-        <h1 class="text-3xl font-bold mb-2" style="color:#002147">Demand Intelligence Portal</h1>
-        <p class="text-gray-500 text-sm mb-8">Bottom-up market forecasts &amp; demand estimation models for consumer products worldwide</p>
+        <h1 class="text-2xl md:text-3xl font-bold mb-2" style="color:#002147">Demand Intelligence Portal</h1>
+        <p class="text-gray-500 text-sm mb-6 max-w-md mx-auto">Bottom-up market forecasts &amp; demand estimation models for consumer products worldwide</p>
 
         <!-- Search tabs -->
-        <div class="inline-flex bg-white rounded-lg border border-gray-200 p-1 mb-5 shadow-sm">
+        <div class="inline-flex bg-white rounded-lg border border-gray-200 p-1 mb-4 shadow-sm">
           <button class="px-4 py-1.5 rounded-md text-sm font-medium" style="background:#002147;color:#fff">Search</button>
           <button class="px-4 py-1.5 rounded-md text-sm text-gray-400" onclick="showComingSoon('AI Analysis')">AI Analysis</button>
         </div>
 
         <!-- Search bar -->
         <div class="max-w-2xl mx-auto flex gap-0 shadow-md rounded-xl overflow-hidden border border-gray-200 bg-white">
-          <div class="flex items-center pl-4">
-            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 15.803 7.5 7.5 0 0015.803 15.803z"/></svg>
+          <div class="flex items-center pl-3 md:pl-4">
+            <svg class="w-4 h-4 md:w-5 md:h-5 text-gray-400" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 15.803 7.5 7.5 0 0015.803 15.803z"/></svg>
           </div>
           <input id="hero-search" type="text" placeholder="Find market statistics &amp; reports…"
-            class="flex-1 px-4 py-3.5 text-sm text-gray-700 bg-transparent outline-none"
+            class="flex-1 px-3 md:px-4 py-3 md:py-3.5 text-sm text-gray-700 bg-transparent outline-none min-w-0"
             oninput="filterReports(this.value)"
             onkeydown="if(event.key==='Enter') filterReports(this.value)">
-          <button class="px-6 py-3 text-sm font-semibold text-white" style="background:#1565C0" onclick="filterReports(document.getElementById('hero-search').value)">Search</button>
+          <button class="px-4 md:px-6 py-3 text-sm font-semibold text-white shrink-0" style="background:#1565C0" onclick="filterReports(document.getElementById('hero-search').value)">Search</button>
         </div>
 
         <!-- Popular tags -->
         <div class="mt-4 flex flex-wrap justify-center gap-2">
           <span class="text-sm text-gray-500 font-medium">Popular:</span>
-          <span class="tag cursor-pointer border border-gray-300 bg-white text-gray-600 hover:bg-blue-50" onclick="filterReports('Consumer Goods')">Consumer Goods</span>
-          <span class="tag cursor-pointer border border-gray-300 bg-white text-gray-600 hover:bg-blue-50" onclick="filterReports('Food')">Food &amp; Beverages</span>
-          <span class="tag cursor-pointer border border-gray-300 bg-white text-gray-600 hover:bg-blue-50" onclick="filterReports('GCC')">GCC Markets</span>
-          <span class="tag cursor-pointer border border-gray-300 bg-white text-gray-600 hover:bg-blue-50" onclick="filterReports('Honey')">Honey</span>
-          <span class="tag cursor-pointer border border-gray-300 bg-white text-gray-600 hover:bg-blue-50" onclick="filterReports('MENA')">MENA Region</span>
+          <span class="tag cursor-pointer border border-gray-300 bg-white text-gray-600 hover:bg-blue-50 py-1" onclick="filterReports('Consumer Goods')">Consumer Goods</span>
+          <span class="tag cursor-pointer border border-gray-300 bg-white text-gray-600 hover:bg-blue-50 py-1" onclick="filterReports('Food')">Food &amp; Beverages</span>
+          <span class="tag cursor-pointer border border-gray-300 bg-white text-gray-600 hover:bg-blue-50 py-1" onclick="filterReports('GCC')">GCC Markets</span>
+          <span class="tag cursor-pointer border border-gray-300 bg-white text-gray-600 hover:bg-blue-50 py-1" onclick="filterReports('Honey')">Honey</span>
+          <span class="tag cursor-pointer border border-gray-300 bg-white text-gray-600 hover:bg-blue-50 py-1" onclick="filterReports('MENA')">MENA Region</span>
         </div>
       </div>
 
       <!-- Featured Reports -->
-      <div class="px-8 py-10">
-        <div class="flex items-center justify-between mb-6">
+      <div class="px-4 md:px-8 py-6 md:py-10">
+        <div class="flex items-center justify-between mb-5">
           <div>
-            <h2 class="text-lg font-bold text-gray-800">Featured Reports</h2>
-            <p class="text-sm text-gray-400 mt-0.5">Live demand estimation models — updated from Supabase</p>
+            <h2 class="text-base md:text-lg font-bold text-gray-800">Featured Reports</h2>
+            <p class="text-xs md:text-sm text-gray-400 mt-0.5">Live demand estimation models — updated from Supabase</p>
           </div>
-          <a class="text-sm font-medium" style="color:#1565C0" onclick="showPage('industries')">Browse all industries →</a>
+          <a class="text-xs md:text-sm font-medium shrink-0 ml-2" style="color:#1565C0" onclick="showPage('industries')">Browse all →</a>
         </div>
 
         <!-- Cards grid -->
-        <div id="reports-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+        <div id="reports-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-5">
 
           <!-- GCC Honey — LIVE -->
           <div class="report-card" data-tags="honey gcc food consumer" onclick="openReport('GCC_Honey_Dashboard.html','GCC Honey Markets 2024–2030')">
-            <div class="h-28 flex items-center justify-center text-5xl" style="background:linear-gradient(135deg,#FEF3C7,#FDE68A)">🍯</div>
+            <div class="h-24 md:h-28 flex items-center justify-center text-4xl md:text-5xl" style="background:linear-gradient(135deg,#FEF3C7,#FDE68A)">🍯</div>
             <div class="p-4">
-              <div class="flex gap-1.5 mb-2">
+              <div class="flex gap-1.5 mb-2 flex-wrap">
                 <span class="tag" style="background:#DCFCE7;color:#166534">Live</span>
                 <span class="tag" style="background:#EEF2FF;color:#3730A3">Consumer Goods</span>
               </div>
@@ -284,7 +312,7 @@
                 <span class="tag border border-gray-200 text-gray-500">BHR</span>
                 <span class="tag border border-gray-200 text-gray-500">OMN</span>
               </div>
-              <button class="w-full py-2 rounded-lg text-xs font-semibold text-white" style="background:#002147">
+              <button class="w-full py-2.5 rounded-lg text-xs font-semibold text-white" style="background:#002147">
                 View Dashboard →
               </button>
             </div>
@@ -292,7 +320,7 @@
 
           <!-- Placeholder cards -->
           <div class="report-card opacity-60" data-tags="" onclick="showComingSoon('Olive Oil GCC')">
-            <div class="h-28 flex items-center justify-center text-5xl bg-gray-50">🫒</div>
+            <div class="h-24 md:h-28 flex items-center justify-center text-4xl md:text-5xl bg-gray-50">🫒</div>
             <div class="p-4">
               <div class="flex gap-1.5 mb-2">
                 <span class="tag" style="background:#F3F4F6;color:#6B7280">Coming Soon</span>
@@ -300,12 +328,12 @@
               </div>
               <h3 class="font-bold text-sm text-gray-900 mb-1">GCC Olive Oil Markets</h3>
               <p class="text-xs text-gray-500 leading-relaxed mb-3">Demand estimation for premium olive oil across GCC retail and food service channels.</p>
-              <button class="w-full py-2 rounded-lg text-xs font-semibold text-gray-400 bg-gray-100" disabled>Coming Soon</button>
+              <button class="w-full py-2.5 rounded-lg text-xs font-semibold text-gray-400 bg-gray-100" disabled>Coming Soon</button>
             </div>
           </div>
 
           <div class="report-card opacity-60" data-tags="" onclick="showComingSoon('Dairy GCC')">
-            <div class="h-28 flex items-center justify-center text-5xl bg-gray-50">🥛</div>
+            <div class="h-24 md:h-28 flex items-center justify-center text-4xl md:text-5xl bg-gray-50">🥛</div>
             <div class="p-4">
               <div class="flex gap-1.5 mb-2">
                 <span class="tag" style="background:#F3F4F6;color:#6B7280">Coming Soon</span>
@@ -313,12 +341,12 @@
               </div>
               <h3 class="font-bold text-sm text-gray-900 mb-1">GCC Dairy Markets</h3>
               <p class="text-xs text-gray-500 leading-relaxed mb-3">Milk, cheese, labneh and halloumi demand across GCC with expat–national segmentation.</p>
-              <button class="w-full py-2 rounded-lg text-xs font-semibold text-gray-400 bg-gray-100" disabled>Coming Soon</button>
+              <button class="w-full py-2.5 rounded-lg text-xs font-semibold text-gray-400 bg-gray-100" disabled>Coming Soon</button>
             </div>
           </div>
 
           <div class="report-card opacity-60" data-tags="" onclick="showComingSoon('Dates MENA')">
-            <div class="h-28 flex items-center justify-center text-5xl bg-gray-50">🌴</div>
+            <div class="h-24 md:h-28 flex items-center justify-center text-4xl md:text-5xl bg-gray-50">🌴</div>
             <div class="p-4">
               <div class="flex gap-1.5 mb-2">
                 <span class="tag" style="background:#F3F4F6;color:#6B7280">Coming Soon</span>
@@ -326,7 +354,7 @@
               </div>
               <h3 class="font-bold text-sm text-gray-900 mb-1">GCC Dates &amp; Dried Fruit</h3>
               <p class="text-xs text-gray-500 leading-relaxed mb-3">Premium dates and dried fruit demand including Ramadan seasonal surge modelling.</p>
-              <button class="w-full py-2 rounded-lg text-xs font-semibold text-gray-400 bg-gray-100" disabled>Coming Soon</button>
+              <button class="w-full py-2.5 rounded-lg text-xs font-semibold text-gray-400 bg-gray-100" disabled>Coming Soon</button>
             </div>
           </div>
 
@@ -340,22 +368,22 @@
         </div>
 
         <!-- Stats row -->
-        <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div class="bg-white rounded-xl border border-gray-100 p-5 text-center shadow-sm">
+        <div class="mt-8 md:mt-12 grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+          <div class="bg-white rounded-xl border border-gray-100 p-4 md:p-5 text-center shadow-sm">
             <div class="text-2xl font-bold" style="color:#002147">6</div>
-            <div class="text-xs text-gray-500 mt-1">GCC Countries Covered</div>
+            <div class="text-xs text-gray-500 mt-1">GCC Countries</div>
           </div>
-          <div class="bg-white rounded-xl border border-gray-100 p-5 text-center shadow-sm">
+          <div class="bg-white rounded-xl border border-gray-100 p-4 md:p-5 text-center shadow-sm">
             <div class="text-2xl font-bold" style="color:#1565C0">720</div>
-            <div class="text-xs text-gray-500 mt-1">Data Points in Supabase</div>
+            <div class="text-xs text-gray-500 mt-1">Data Points</div>
           </div>
-          <div class="bg-white rounded-xl border border-gray-100 p-5 text-center shadow-sm">
+          <div class="bg-white rounded-xl border border-gray-100 p-4 md:p-5 text-center shadow-sm">
             <div class="text-2xl font-bold" style="color:#00796B">7yr</div>
             <div class="text-xs text-gray-500 mt-1">Forecast Horizon</div>
           </div>
-          <div class="bg-white rounded-xl border border-gray-100 p-5 text-center shadow-sm">
+          <div class="bg-white rounded-xl border border-gray-100 p-4 md:p-5 text-center shadow-sm">
             <div class="text-2xl font-bold" style="color:#B45309">4</div>
-            <div class="text-xs text-gray-500 mt-1">Demand Channels Modelled</div>
+            <div class="text-xs text-gray-500 mt-1">Demand Channels</div>
           </div>
         </div>
       </div>
@@ -366,42 +394,42 @@
          PAGE: INDUSTRIES
     ───────────────────────────────────────────────── -->
     <div id="page-industries" class="page">
-      <div class="px-8 py-8">
-        <h2 class="text-xl font-bold text-gray-800 mb-1">Industries</h2>
-        <p class="text-sm text-gray-400 mb-6">Browse market reports by industry. Click any sub-category to view available reports.</p>
+      <div class="px-4 md:px-8 py-6 md:py-8">
+        <h2 class="text-lg md:text-xl font-bold text-gray-800 mb-1">Industries</h2>
+        <p class="text-sm text-gray-400 mb-5">Browse market reports by industry. Tap any sub-category to view available reports.</p>
 
         <div class="bg-white rounded-xl border border-gray-200 divide-y divide-gray-100">
 
           <!-- Consumer Products — ACTIVE -->
-          <div class="p-6 industry-row">
-            <div class="flex gap-8">
-              <div class="w-44 shrink-0">
+          <div class="p-4 md:p-6 industry-row">
+            <div class="flex flex-col md:flex-row md:gap-8 gap-3">
+              <div class="md:w-44 shrink-0">
                 <span class="font-bold text-sm" style="color:#002147">Consumer Products</span>
                 <div class="mt-1"><span class="tag" style="background:#DCFCE7;color:#166534">Live Reports</span></div>
               </div>
-              <div class="grid grid-cols-2 gap-x-10 gap-y-1.5 flex-1">
-                <a class="text-sm flex items-center gap-1 cursor-pointer" style="color:#1565C0" onclick="openReport('GCC_Honey_Dashboard.html','GCC Honey Markets 2024–2030')">
-                  <svg class="w-3.5 h-3.5 opacity-60" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2 flex-1">
+                <a class="text-sm flex items-center gap-1.5 cursor-pointer py-1" style="color:#1565C0" onclick="openReport('GCC_Honey_Dashboard.html','GCC Honey Markets 2024–2030')">
+                  <svg class="w-3.5 h-3.5 shrink-0 opacity-60" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
                   Honey — GCC Markets
                 </a>
-                <a class="text-sm flex items-center gap-1 text-gray-400 cursor-not-allowed">
-                  <svg class="w-3.5 h-3.5 opacity-40" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
-                  Olive Oil — GCC Markets <span class="text-xs text-gray-300 ml-1">(soon)</span>
+                <a class="text-sm flex items-center gap-1.5 text-gray-400 cursor-not-allowed py-1">
+                  <svg class="w-3.5 h-3.5 shrink-0 opacity-40" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+                  Olive Oil — GCC <span class="text-xs text-gray-300 ml-1">(soon)</span>
                 </a>
-                <a class="text-sm flex items-center gap-1 text-gray-400 cursor-not-allowed">
-                  <svg class="w-3.5 h-3.5 opacity-40" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
-                  Dairy — GCC Markets <span class="text-xs text-gray-300 ml-1">(soon)</span>
+                <a class="text-sm flex items-center gap-1.5 text-gray-400 cursor-not-allowed py-1">
+                  <svg class="w-3.5 h-3.5 shrink-0 opacity-40" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+                  Dairy — GCC <span class="text-xs text-gray-300 ml-1">(soon)</span>
                 </a>
-                <a class="text-sm flex items-center gap-1 text-gray-400 cursor-not-allowed">
-                  <svg class="w-3.5 h-3.5 opacity-40" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+                <a class="text-sm flex items-center gap-1.5 text-gray-400 cursor-not-allowed py-1">
+                  <svg class="w-3.5 h-3.5 shrink-0 opacity-40" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
                   Dates &amp; Dried Fruit — GCC <span class="text-xs text-gray-300 ml-1">(soon)</span>
                 </a>
-                <a class="text-sm flex items-center gap-1 text-gray-400 cursor-not-allowed">
-                  <svg class="w-3.5 h-3.5 opacity-40" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+                <a class="text-sm flex items-center gap-1.5 text-gray-400 cursor-not-allowed py-1">
+                  <svg class="w-3.5 h-3.5 shrink-0 opacity-40" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
                   Personal Care — GCC <span class="text-xs text-gray-300 ml-1">(soon)</span>
                 </a>
-                <a class="text-sm flex items-center gap-1 text-gray-400 cursor-not-allowed">
-                  <svg class="w-3.5 h-3.5 opacity-40" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+                <a class="text-sm flex items-center gap-1.5 text-gray-400 cursor-not-allowed py-1">
+                  <svg class="w-3.5 h-3.5 shrink-0 opacity-40" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
                   Beverages — MENA <span class="text-xs text-gray-300 ml-1">(soon)</span>
                 </a>
               </div>
@@ -409,62 +437,62 @@
           </div>
 
           <!-- Other industries — placeholders -->
-          <div class="p-6 industry-row">
-            <div class="flex gap-8">
-              <div class="w-44 shrink-0"><span class="font-bold text-sm text-gray-800">Consumer Services</span></div>
-              <div class="grid grid-cols-2 gap-x-10 gap-y-1.5 flex-1">
-                <span class="text-sm text-gray-300">Food Services &amp; Delivery <em class="text-xs">(soon)</em></span>
-                <span class="text-sm text-gray-300">Education Services <em class="text-xs">(soon)</em></span>
-                <span class="text-sm text-gray-300">Leisure &amp; Hospitality <em class="text-xs">(soon)</em></span>
-                <span class="text-sm text-gray-300">Travel &amp; Tourism <em class="text-xs">(soon)</em></span>
+          <div class="p-4 md:p-6 industry-row">
+            <div class="flex flex-col md:flex-row md:gap-8 gap-2">
+              <div class="md:w-44 shrink-0 font-bold text-sm text-gray-800">Consumer Services</div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1 flex-1 text-sm text-gray-300">
+                <span>Food Services &amp; Delivery <em class="text-xs">(soon)</em></span>
+                <span>Education Services <em class="text-xs">(soon)</em></span>
+                <span>Leisure &amp; Hospitality <em class="text-xs">(soon)</em></span>
+                <span>Travel &amp; Tourism <em class="text-xs">(soon)</em></span>
               </div>
             </div>
           </div>
 
-          <div class="p-6 industry-row">
-            <div class="flex gap-8">
-              <div class="w-44 shrink-0"><span class="font-bold text-sm text-gray-800">Financial Services</span></div>
-              <div class="grid grid-cols-2 gap-x-10 gap-y-1.5 flex-1">
-                <span class="text-sm text-gray-300">Retail Banking <em class="text-xs">(soon)</em></span>
-                <span class="text-sm text-gray-300">Insurance <em class="text-xs">(soon)</em></span>
-                <span class="text-sm text-gray-300">Payments &amp; Transfers <em class="text-xs">(soon)</em></span>
-                <span class="text-sm text-gray-300">Lending &amp; Financing <em class="text-xs">(soon)</em></span>
+          <div class="p-4 md:p-6 industry-row">
+            <div class="flex flex-col md:flex-row md:gap-8 gap-2">
+              <div class="md:w-44 shrink-0 font-bold text-sm text-gray-800">Financial Services</div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1 flex-1 text-sm text-gray-300">
+                <span>Retail Banking <em class="text-xs">(soon)</em></span>
+                <span>Insurance <em class="text-xs">(soon)</em></span>
+                <span>Payments &amp; Transfers <em class="text-xs">(soon)</em></span>
+                <span>Lending &amp; Financing <em class="text-xs">(soon)</em></span>
               </div>
             </div>
           </div>
 
-          <div class="p-6 industry-row">
-            <div class="flex gap-8">
-              <div class="w-44 shrink-0"><span class="font-bold text-sm text-gray-800">Technology</span></div>
-              <div class="grid grid-cols-2 gap-x-10 gap-y-1.5 flex-1">
-                <span class="text-sm text-gray-300">Smartphones &amp; Devices <em class="text-xs">(soon)</em></span>
-                <span class="text-sm text-gray-300">Consumer Electronics <em class="text-xs">(soon)</em></span>
-                <span class="text-sm text-gray-300">Software &amp; Apps <em class="text-xs">(soon)</em></span>
-                <span class="text-sm text-gray-300">E-Commerce Platforms <em class="text-xs">(soon)</em></span>
+          <div class="p-4 md:p-6 industry-row">
+            <div class="flex flex-col md:flex-row md:gap-8 gap-2">
+              <div class="md:w-44 shrink-0 font-bold text-sm text-gray-800">Technology</div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1 flex-1 text-sm text-gray-300">
+                <span>Smartphones &amp; Devices <em class="text-xs">(soon)</em></span>
+                <span>Consumer Electronics <em class="text-xs">(soon)</em></span>
+                <span>Software &amp; Apps <em class="text-xs">(soon)</em></span>
+                <span>E-Commerce Platforms <em class="text-xs">(soon)</em></span>
               </div>
             </div>
           </div>
 
-          <div class="p-6 industry-row">
-            <div class="flex gap-8">
-              <div class="w-44 shrink-0"><span class="font-bold text-sm text-gray-800">Healthcare &amp; Pharma</span></div>
-              <div class="grid grid-cols-2 gap-x-10 gap-y-1.5 flex-1">
-                <span class="text-sm text-gray-300">Pharmaceuticals <em class="text-xs">(soon)</em></span>
-                <span class="text-sm text-gray-300">Medical Devices <em class="text-xs">(soon)</em></span>
-                <span class="text-sm text-gray-300">Diagnostics <em class="text-xs">(soon)</em></span>
-                <span class="text-sm text-gray-300">Health &amp; Wellness <em class="text-xs">(soon)</em></span>
+          <div class="p-4 md:p-6 industry-row">
+            <div class="flex flex-col md:flex-row md:gap-8 gap-2">
+              <div class="md:w-44 shrink-0 font-bold text-sm text-gray-800">Healthcare &amp; Pharma</div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1 flex-1 text-sm text-gray-300">
+                <span>Pharmaceuticals <em class="text-xs">(soon)</em></span>
+                <span>Medical Devices <em class="text-xs">(soon)</em></span>
+                <span>Diagnostics <em class="text-xs">(soon)</em></span>
+                <span>Health &amp; Wellness <em class="text-xs">(soon)</em></span>
               </div>
             </div>
           </div>
 
-          <div class="p-6 industry-row">
-            <div class="flex gap-8">
-              <div class="w-44 shrink-0"><span class="font-bold text-sm text-gray-800">Energy &amp; Power</span></div>
-              <div class="grid grid-cols-2 gap-x-10 gap-y-1.5 flex-1">
-                <span class="text-sm text-gray-300">Renewable Energy <em class="text-xs">(soon)</em></span>
-                <span class="text-sm text-gray-300">Oil &amp; Gas <em class="text-xs">(soon)</em></span>
-                <span class="text-sm text-gray-300">Energy Storage <em class="text-xs">(soon)</em></span>
-                <span class="text-sm text-gray-300">Power Generation <em class="text-xs">(soon)</em></span>
+          <div class="p-4 md:p-6 industry-row">
+            <div class="flex flex-col md:flex-row md:gap-8 gap-2">
+              <div class="md:w-44 shrink-0 font-bold text-sm text-gray-800">Energy &amp; Power</div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1 flex-1 text-sm text-gray-300">
+                <span>Renewable Energy <em class="text-xs">(soon)</em></span>
+                <span>Oil &amp; Gas <em class="text-xs">(soon)</em></span>
+                <span>Energy Storage <em class="text-xs">(soon)</em></span>
+                <span>Power Generation <em class="text-xs">(soon)</em></span>
               </div>
             </div>
           </div>
@@ -478,72 +506,77 @@
          PAGE: COMPANIES
     ───────────────────────────────────────────────── -->
     <div id="page-companies" class="page">
-      <div class="px-8 py-8">
-        <h2 class="text-xl font-bold text-gray-800 mb-1">Companies</h2>
-        <p class="text-sm text-gray-400 mb-6">Search and explore consumer goods companies active in the GCC &amp; MENA region.</p>
+      <div class="px-4 md:px-8 py-6 md:py-8">
+        <h2 class="text-lg md:text-xl font-bold text-gray-800 mb-1">Companies</h2>
+        <p class="text-sm text-gray-400 mb-5">Search and explore consumer goods companies active in the GCC &amp; MENA region.</p>
 
-        <!-- Filters -->
-        <div class="bg-white rounded-xl border border-gray-200 p-4 mb-4 flex flex-wrap gap-3 items-end">
-          <div class="flex flex-col gap-1">
-            <label class="text-xs text-gray-400 uppercase font-semibold tracking-wide">Search</label>
-            <input id="co-search" type="text" placeholder="Company Search…" oninput="filterCompanies()"
-              class="w-44 px-3 py-1.5 text-sm search-input">
+        <!-- Filters — responsive grid on mobile -->
+        <div class="bg-white rounded-xl border border-gray-200 p-4 mb-4">
+          <div class="co-filter-grid flex flex-wrap gap-3 items-end">
+            <div class="flex flex-col gap-1 co-filter-item" style="min-width:140px">
+              <label class="text-xs text-gray-400 uppercase font-semibold tracking-wide">Search</label>
+              <input id="co-search" type="text" placeholder="Company Search…" oninput="filterCompanies()"
+                class="px-3 py-2 text-sm search-input w-full">
+            </div>
+            <div class="flex flex-col gap-1 co-filter-item" style="min-width:130px">
+              <label class="text-xs text-gray-400 uppercase font-semibold tracking-wide">Sector</label>
+              <select id="co-sector" onchange="filterCompanies()" class="px-3 py-2 text-sm search-input bg-white w-full">
+                <option value="">Select Sector</option>
+                <option>Consumer Goods</option>
+                <option>Food &amp; Beverages</option>
+                <option>Retail</option>
+                <option>Healthcare</option>
+              </select>
+            </div>
+            <div class="flex flex-col gap-1 co-filter-item" style="min-width:150px">
+              <label class="text-xs text-gray-400 uppercase font-semibold tracking-wide">Industry</label>
+              <select id="co-industry" onchange="filterCompanies()" class="px-3 py-2 text-sm search-input bg-white w-full">
+                <option value="">Select Industry</option>
+                <option>Specialty Food</option>
+                <option>Packaged Food</option>
+                <option>Personal Care</option>
+                <option>Home &amp; Decor</option>
+              </select>
+            </div>
+            <div class="flex flex-col gap-1 co-filter-item" style="min-width:110px">
+              <label class="text-xs text-gray-400 uppercase font-semibold tracking-wide">Sort By</label>
+              <select id="co-sort" onchange="filterCompanies()" class="px-3 py-2 text-sm search-input bg-white w-full">
+                <option>Latest</option>
+                <option>Revenue ↓</option>
+                <option>Name A–Z</option>
+              </select>
+            </div>
+            <div class="flex gap-2 items-end pb-0.5">
+              <button class="btn-primary text-sm py-2 px-4" onclick="filterCompanies()">Search</button>
+              <button class="btn-outline text-sm py-2 px-3" onclick="resetCompanies()">Reset</button>
+            </div>
           </div>
-          <div class="flex flex-col gap-1">
-            <label class="text-xs text-gray-400 uppercase font-semibold tracking-wide">Sector</label>
-            <select id="co-sector" onchange="filterCompanies()" class="w-36 px-3 py-1.5 text-sm search-input bg-white">
-              <option value="">Select Sector</option>
-              <option>Consumer Goods</option>
-              <option>Food &amp; Beverages</option>
-              <option>Retail</option>
-              <option>Healthcare</option>
-            </select>
-          </div>
-          <div class="flex flex-col gap-1">
-            <label class="text-xs text-gray-400 uppercase font-semibold tracking-wide">Industry</label>
-            <select id="co-industry" onchange="filterCompanies()" class="w-44 px-3 py-1.5 text-sm search-input bg-white">
-              <option value="">Select Industry</option>
-              <option>Specialty Food</option>
-              <option>Packaged Food</option>
-              <option>Personal Care</option>
-              <option>Home &amp; Decor</option>
-            </select>
-          </div>
-          <div class="flex flex-col gap-1">
-            <label class="text-xs text-gray-400 uppercase font-semibold tracking-wide">Sort By</label>
-            <select id="co-sort" onchange="filterCompanies()" class="w-32 px-3 py-1.5 text-sm search-input bg-white">
-              <option>Latest</option>
-              <option>Revenue ↓</option>
-              <option>Name A–Z</option>
-            </select>
-          </div>
-          <button class="btn-primary text-sm py-1.5 px-5" onclick="filterCompanies()">Search</button>
-          <button class="btn-outline text-sm py-1.5 px-4" onclick="resetCompanies()">Reset</button>
         </div>
 
-        <!-- Table -->
+        <!-- Table — horizontally scrollable on mobile -->
         <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
-          <table class="w-full text-sm">
-            <thead>
-              <tr class="text-xs text-gray-400 uppercase tracking-wide" style="border-bottom:1px solid #F3F4F6">
-                <th class="text-left px-5 py-3 font-semibold">Company</th>
-                <th class="text-left px-4 py-3 font-semibold hidden md:table-cell">HQ</th>
-                <th class="text-left px-4 py-3 font-semibold hidden lg:table-cell">Sector</th>
-                <th class="text-left px-4 py-3 font-semibold hidden lg:table-cell">Industry</th>
-                <th class="text-left px-4 py-3 font-semibold hidden xl:table-cell">Revenue</th>
-                <th class="text-left px-4 py-3 font-semibold hidden xl:table-cell">Employees</th>
-                <th class="text-left px-4 py-3 font-semibold">Status</th>
-              </tr>
-            </thead>
-            <tbody id="co-table-body">
-            </tbody>
-          </table>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm min-w-max md:min-w-0">
+              <thead>
+                <tr class="text-xs text-gray-400 uppercase tracking-wide" style="border-bottom:1px solid #F3F4F6">
+                  <th class="text-left px-4 md:px-5 py-3 font-semibold">Company</th>
+                  <th class="text-left px-4 py-3 font-semibold">HQ</th>
+                  <th class="text-left px-4 py-3 font-semibold hidden md:table-cell">Sector</th>
+                  <th class="text-left px-4 py-3 font-semibold hidden md:table-cell">Industry</th>
+                  <th class="text-left px-4 py-3 font-semibold hidden lg:table-cell">Revenue</th>
+                  <th class="text-left px-4 py-3 font-semibold hidden lg:table-cell">Employees</th>
+                  <th class="text-left px-4 py-3 font-semibold">Status</th>
+                </tr>
+              </thead>
+              <tbody id="co-table-body"></tbody>
+            </table>
+          </div>
 
           <!-- Pagination -->
-          <div class="flex items-center justify-between px-5 py-3 border-t border-gray-100">
-            <button id="co-prev" class="text-sm px-4 py-1.5 rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-50 disabled:opacity-40" onclick="coPage(-1)">Previous</button>
+          <div class="flex items-center justify-between px-4 md:px-5 py-3 border-t border-gray-100">
+            <button id="co-prev" class="text-sm px-3 md:px-4 py-1.5 rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-50 disabled:opacity-40" onclick="coPage(-1)">← Prev</button>
             <span id="co-page-info" class="text-xs text-gray-400"></span>
-            <button id="co-next" class="text-sm px-4 py-1.5 rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-50 disabled:opacity-40" onclick="coPage(1)">Next</button>
+            <button id="co-next" class="text-sm px-3 md:px-4 py-1.5 rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-50 disabled:opacity-40" onclick="coPage(1)">Next →</button>
           </div>
         </div>
       </div>
@@ -554,25 +587,25 @@
          PAGE: SURVEY
     ───────────────────────────────────────────────── -->
     <div id="page-survey" class="page">
-      <div class="min-h-full flex flex-col">
+      <div class="flex flex-col">
         <!-- Hero split -->
-        <div class="flex flex-col lg:flex-row min-h-80 flex-1">
+        <div class="flex flex-col lg:flex-row">
           <!-- Left: copy -->
-          <div class="flex-1 flex flex-col justify-center px-12 py-16" style="background:linear-gradient(135deg,#002147 0%,#1565C0 100%)">
+          <div class="flex-1 flex flex-col justify-center px-6 md:px-12 py-10 md:py-16" style="background:linear-gradient(135deg,#002147 0%,#1565C0 100%)">
             <p class="text-blue-200 text-xs font-semibold tracking-widest uppercase mb-3">Survey Intelligence</p>
-            <h2 class="text-white text-3xl font-bold leading-snug mb-4">All your survey data in one<br>unified Intelligent AI portal</h2>
+            <h2 class="text-white text-2xl md:text-3xl font-bold leading-snug mb-4">All your survey data in one<br class="hidden sm:block">unified Intelligent AI portal</h2>
             <p class="text-blue-100 text-sm leading-relaxed max-w-md mb-8">
-              Streamline your workflow with access to consumer survey data, multimedia research content, and related documents — all in one place. Connect primary research to our demand estimation models seamlessly.
+              Streamline your workflow with access to consumer survey data, multimedia research content, and related documents — all in one place.
             </p>
             <div class="flex flex-wrap gap-3">
               <button class="bg-white font-semibold text-sm px-6 py-2.5 rounded-lg" style="color:#002147" onclick="showComingSoon('Talk to Expert')">Talk to a Consumer Expert</button>
-              <button class="border border-blue-300 text-blue-100 font-semibold text-sm px-6 py-2.5 rounded-lg hover:bg-blue-900" onclick="showComingSoon('Learn More')">Learn More</button>
+              <button class="border border-blue-300 text-blue-100 font-semibold text-sm px-5 py-2.5 rounded-lg hover:bg-blue-900" onclick="showComingSoon('Learn More')">Learn More</button>
             </div>
           </div>
 
           <!-- Right: placeholder mockup -->
-          <div class="flex-1 flex items-center justify-center bg-gray-50 p-10 min-h-64">
-            <div class="w-full max-w-md bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
+          <div class="flex-1 flex items-center justify-center bg-gray-50 p-6 md:p-10 min-h-64">
+            <div class="w-full max-w-sm bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
               <div class="bg-gray-100 px-4 py-2 flex gap-1.5 items-center">
                 <span class="w-3 h-3 rounded-full bg-red-300"></span>
                 <span class="w-3 h-3 rounded-full bg-yellow-300"></span>
@@ -580,23 +613,23 @@
                 <span class="ml-3 text-xs text-gray-400">Consumer Survey — GCC Markets</span>
               </div>
               <div class="p-5">
-                <p class="text-xs font-semibold text-gray-600 mb-2">When you think of honey, which of the following associations come to mind?</p>
-                <div class="space-y-2">
+                <p class="text-xs font-semibold text-gray-600 mb-3">When you think of honey, which of the following associations come to mind?</p>
+                <div class="space-y-2.5">
                   <div class="flex items-center gap-2">
                     <div class="flex-1 bg-amber-100 rounded h-5 overflow-hidden"><div class="h-full rounded" style="width:72%;background:#B45309"></div></div>
-                    <span class="text-xs text-gray-500 w-16">Natural (72%)</span>
+                    <span class="text-xs text-gray-500 w-20">Natural (72%)</span>
                   </div>
                   <div class="flex items-center gap-2">
                     <div class="flex-1 bg-amber-100 rounded h-5 overflow-hidden"><div class="h-full rounded" style="width:58%;background:#D97706"></div></div>
-                    <span class="text-xs text-gray-500 w-16">Healthy (58%)</span>
+                    <span class="text-xs text-gray-500 w-20">Healthy (58%)</span>
                   </div>
                   <div class="flex items-center gap-2">
                     <div class="flex-1 bg-amber-100 rounded h-5 overflow-hidden"><div class="h-full rounded" style="width:45%;background:#F59E0B"></div></div>
-                    <span class="text-xs text-gray-500 w-16">Premium (45%)</span>
+                    <span class="text-xs text-gray-500 w-20">Premium (45%)</span>
                   </div>
                   <div class="flex items-center gap-2">
                     <div class="flex-1 bg-amber-100 rounded h-5 overflow-hidden"><div class="h-full rounded" style="width:38%;background:#FCD34D"></div></div>
-                    <span class="text-xs text-gray-500 w-16">Gift (38%)</span>
+                    <span class="text-xs text-gray-500 w-20">Gift (38%)</span>
                   </div>
                 </div>
                 <div class="mt-4 grid grid-cols-2 gap-2 text-xs text-gray-400 border-t pt-3">
@@ -605,22 +638,22 @@
                   <div><span class="font-medium text-gray-600">Income:</span> Select ▾</div>
                   <div><span class="font-medium text-gray-600">Country:</span> Select ▾</div>
                 </div>
-                <button class="mt-3 w-full py-1.5 rounded-lg text-xs font-semibold text-white" style="background:#1565C0" onclick="showComingSoon('Apply Filter')">Apply Filter</button>
+                <button class="mt-3 w-full py-2 rounded-lg text-xs font-semibold text-white" style="background:#1565C0" onclick="showComingSoon('Apply Filter')">Apply Filter</button>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Industry focus section -->
-        <div class="px-12 py-10 bg-white border-t border-gray-100">
-          <h3 class="text-base font-bold text-gray-700 mb-5 text-center">Industries we focus on</h3>
-          <div class="flex flex-wrap justify-center gap-3">
-            <span class="px-4 py-2 bg-gray-50 rounded-lg text-sm font-medium text-gray-600 border">Consumer Goods</span>
-            <span class="px-4 py-2 bg-gray-50 rounded-lg text-sm font-medium text-gray-600 border">Food &amp; Beverages</span>
-            <span class="px-4 py-2 bg-gray-50 rounded-lg text-sm font-medium text-gray-600 border">Personal Care</span>
-            <span class="px-4 py-2 bg-gray-50 rounded-lg text-sm font-medium text-gray-600 border">Retail &amp; E-Commerce</span>
-            <span class="px-4 py-2 bg-gray-50 rounded-lg text-sm font-medium text-gray-600 border">Healthcare</span>
-            <span class="px-4 py-2 bg-gray-50 rounded-lg text-sm font-medium text-gray-600 border">Financial Services</span>
+        <!-- Industry focus -->
+        <div class="px-6 md:px-12 py-8 bg-white border-t border-gray-100">
+          <h3 class="text-base font-bold text-gray-700 mb-4 text-center">Industries we focus on</h3>
+          <div class="flex flex-wrap justify-center gap-2 md:gap-3">
+            <span class="px-3 md:px-4 py-2 bg-gray-50 rounded-lg text-sm font-medium text-gray-600 border">Consumer Goods</span>
+            <span class="px-3 md:px-4 py-2 bg-gray-50 rounded-lg text-sm font-medium text-gray-600 border">Food &amp; Beverages</span>
+            <span class="px-3 md:px-4 py-2 bg-gray-50 rounded-lg text-sm font-medium text-gray-600 border">Personal Care</span>
+            <span class="px-3 md:px-4 py-2 bg-gray-50 rounded-lg text-sm font-medium text-gray-600 border">Retail &amp; E-Commerce</span>
+            <span class="px-3 md:px-4 py-2 bg-gray-50 rounded-lg text-sm font-medium text-gray-600 border">Healthcare</span>
+            <span class="px-3 md:px-4 py-2 bg-gray-50 rounded-lg text-sm font-medium text-gray-600 border">Financial Services</span>
           </div>
         </div>
       </div>
@@ -631,40 +664,32 @@
          PAGE: REPORT VIEWER (iframe)
     ───────────────────────────────────────────────── -->
     <div id="page-report" class="page" style="height:calc(100vh - 56px)">
-      <!-- Breadcrumb bar -->
-      <div class="bg-white border-b border-gray-200 px-5 py-2 flex items-center gap-2 text-sm shrink-0">
+      <div class="bg-white border-b border-gray-200 px-4 md:px-5 py-2 flex items-center gap-2 text-sm shrink-0">
         <button onclick="showPage('home')" class="flex items-center gap-1 text-blue-600 hover:underline">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/></svg>
           Home
         </button>
         <span class="text-gray-300">/</span>
-        <span class="text-gray-700 font-medium" id="report-breadcrumb">Report</span>
+        <span class="text-gray-700 font-medium truncate" id="report-breadcrumb">Report</span>
       </div>
-      <!-- iframe fills remaining height -->
       <iframe id="report-iframe" src="" class="w-full border-0 flex-1" style="height:calc(100vh - 56px - 40px)"></iframe>
     </div><!-- /page-report -->
 
   </div><!-- /content area -->
 </div><!-- /main -->
+</div><!-- /flex root -->
 
-
-<!-- ═══════════════════════════════════════════════════════
-     TOAST / NOTIFICATION
-═══════════════════════════════════════════════════════ -->
-<div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-gray-800 text-white text-sm px-5 py-2.5 rounded-lg shadow-lg hidden transition-all">
+<!-- Toast -->
+<div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-gray-800 text-white text-sm px-5 py-2.5 rounded-lg shadow-lg hidden">
   <span id="toast-msg"></span>
 </div>
 
-
-<!-- ═══════════════════════════════════════════════════════
-     JAVASCRIPT
-═══════════════════════════════════════════════════════ -->
 <script>
 // ─── Company Data ────────────────────────────────────
 const CO_DATA = [
   {name:'Al Shifa Natural Honey', hq:'Riyadh, Saudi Arabia', sector:'Consumer Goods', industry:'Specialty Food', rev:'$50M–$100M', emp:'201–500', status:'Active'},
   {name:'Apis Dorsata Holdings', hq:'Dubai, UAE', sector:'Consumer Goods', industry:'Specialty Food', rev:'$10M–$50M', emp:'51–200', status:'Active'},
-  {name:'Sidr Valley Co.', hq:'Sana\'a, Yemen / GCC Ops', sector:'Consumer Goods', industry:'Specialty Food', rev:'$5M–$10M', emp:'11–50', status:'Active'},
+  {name:'Sidr Valley Co.', hq:"Sana'a, Yemen / GCC Ops", sector:'Consumer Goods', industry:'Specialty Food', rev:'$5M–$10M', emp:'11–50', status:'Active'},
   {name:'GCC Foods & Commodities', hq:'Abu Dhabi, UAE', sector:'Food & Beverages', industry:'Packaged Food', rev:'$100M–$500M', emp:'501–1000', status:'Active'},
   {name:'Manuka Health MENA', hq:'Dubai, UAE', sector:'Consumer Goods', industry:'Specialty Food', rev:'$10M–$50M', emp:'51–200', status:'Active'},
   {name:'Al Nahl Group', hq:'Riyadh, Saudi Arabia', sector:'Consumer Goods', industry:'Specialty Food', rev:'$1M–$5M', emp:'11–50', status:'Active'},
@@ -686,23 +711,23 @@ function renderCoTable() {
   const rows = _coFiltered.slice(start, start + CO_PAGE_SIZE);
   body.innerHTML = rows.map(c => `
     <tr class="tbl-row">
-      <td class="px-5 py-3 font-medium text-blue-700">${c.name}</td>
-      <td class="px-4 py-3 text-gray-500 hidden md:table-cell text-xs">${c.hq}</td>
-      <td class="px-4 py-3 text-gray-500 hidden lg:table-cell text-xs">${c.sector}</td>
-      <td class="px-4 py-3 text-gray-500 hidden lg:table-cell text-xs">${c.industry}</td>
-      <td class="px-4 py-3 text-gray-500 hidden xl:table-cell text-xs">${c.rev}</td>
-      <td class="px-4 py-3 text-gray-500 hidden xl:table-cell text-xs">${c.emp}</td>
+      <td class="px-4 md:px-5 py-3 font-medium text-blue-700 text-sm">${c.name}</td>
+      <td class="px-4 py-3 text-gray-500 text-xs">${c.hq}</td>
+      <td class="px-4 py-3 text-gray-500 text-xs hidden md:table-cell">${c.sector}</td>
+      <td class="px-4 py-3 text-gray-500 text-xs hidden md:table-cell">${c.industry}</td>
+      <td class="px-4 py-3 text-gray-500 text-xs hidden lg:table-cell">${c.rev}</td>
+      <td class="px-4 py-3 text-gray-500 text-xs hidden lg:table-cell">${c.emp}</td>
       <td class="px-4 py-3"><span class="status-active">${c.status}</span></td>
     </tr>`).join('');
   const total = _coFiltered.length;
   const pages = Math.ceil(total / CO_PAGE_SIZE);
-  document.getElementById('co-page-info').textContent = `Page ${_coPage+1} of ${Math.max(1,pages)} (${total} results)`;
+  document.getElementById('co-page-info').textContent = `${_coPage+1}/${Math.max(1,pages)} (${total})`;
   document.getElementById('co-prev').disabled = _coPage === 0;
   document.getElementById('co-next').disabled = _coPage >= pages - 1;
 }
 
 function filterCompanies() {
-  const q = (document.getElementById('co-search').value || '').toLowerCase();
+  const q   = (document.getElementById('co-search').value || '').toLowerCase();
   const sec = document.getElementById('co-sector').value;
   const ind = document.getElementById('co-industry').value;
   _coFiltered = CO_DATA.filter(c =>
@@ -729,22 +754,21 @@ function coPage(dir) {
   renderCoTable();
 }
 
-// ─── Report Cards Search ─────────────────────────────
+// ─── Report Search ───────────────────────────────────
 function filterReports(q) {
   q = (q || '').toLowerCase().trim();
   const cards = document.querySelectorAll('#reports-grid .report-card');
   let visible = 0;
   cards.forEach(c => {
-    const tags = c.dataset.tags || '';
+    const tags  = c.dataset.tags || '';
     const title = c.querySelector('h3') ? c.querySelector('h3').textContent.toLowerCase() : '';
     const match = !q || tags.includes(q) || title.includes(q);
     c.style.display = match ? '' : 'none';
     if (match) visible++;
   });
   const noRes = document.getElementById('no-results');
-  const qEl = document.getElementById('no-results-query');
-  if (q && visible === 0) { noRes.classList.remove('hidden'); qEl.textContent = q; }
-  else { noRes.classList.add('hidden'); }
+  if (q && visible === 0) { noRes.classList.remove('hidden'); document.getElementById('no-results-query').textContent = q; }
+  else noRes.classList.add('hidden');
 }
 
 function clearSearch() {
@@ -758,6 +782,16 @@ function doHeaderSearch(q) {
   filterReports(q);
 }
 
+// ─── Mobile sidebar ───────────────────────────────────
+function openPortalSidebar() {
+  document.getElementById('portal-sidebar').classList.remove('-translate-x-full');
+  document.getElementById('portal-overlay').classList.remove('hidden');
+}
+function closePortalSidebar() {
+  document.getElementById('portal-sidebar').classList.add('-translate-x-full');
+  document.getElementById('portal-overlay').classList.add('hidden');
+}
+
 // ─── Page Navigation ──────────────────────────────────
 const PAGE_IDS = ['home','industries','companies','survey','report'];
 const NAV_MAP  = {home:'nav-home', industries:'nav-industries', companies:'nav-companies', survey:'nav-survey'};
@@ -767,12 +801,12 @@ function showPage(name) {
     const el = document.getElementById('page-' + id);
     if (el) el.classList.toggle('active', id === name);
   });
-  // Update nav active state
   Object.entries(NAV_MAP).forEach(([p, navId]) => {
     const el = document.getElementById(navId);
     if (el) el.classList.toggle('active', p === name);
   });
   if (name === 'companies') renderCoTable();
+  closePortalSidebar(); // always close on mobile when navigating
 }
 
 function openReport(url, title) {
@@ -786,19 +820,17 @@ function toggleMenu(id) {
   const menu = document.getElementById('menu-' + id);
   const nav  = document.getElementById('nav-' + id);
   const isOpen = menu.classList.contains('open');
-  // Close all
   document.querySelectorAll('.sub-menu').forEach(m => m.classList.remove('open'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('open'));
   if (!isOpen) {
     menu.classList.add('open');
     nav.classList.add('open');
-    // Also navigate to the page
     const pageMap = {industries:'industries', companies:'companies'};
     if (pageMap[id]) showPage(pageMap[id]);
   }
 }
 
-// ─── Coming Soon Toast ────────────────────────────────
+// ─── Toast ───────────────────────────────────────────
 let _toastTimer;
 function showComingSoon(feature) {
   const toast = document.getElementById('toast');
