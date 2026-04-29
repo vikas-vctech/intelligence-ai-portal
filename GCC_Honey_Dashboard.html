@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GCC Honey Market · Intelligence AI</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;font-family:'Segoe UI',system-ui,Arial,sans-serif;overflow:hidden}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ══ APP SHELL ══════════════════════════════════════════════ */
+.app-shell{display:flex;height:100vh;overflow:hidden}
+
+/* ══ SIDEBAR ════════════════════════════════════════════════ */
+.sidebar{width:240px;flex-shrink:0;background:#1C2B3D;display:flex;flex-direction:column;overflow-y:auto;overflow-x:hidden;transition:width .22s ease;border-right:1px solid #243D58}
+.sidebar.collapsed{width:54px}
+.sidebar::-webkit-scrollbar{width:4px}
+.sidebar::-webkit-scrollbar-track{background:transparent}
+.sidebar::-webkit-scrollbar-thumb{background:#2E4F6E;border-radius:2px}
+
+.sb-brand{padding:18px 16px 16px;background:#162233;border-bottom:1px solid #243D58;flex-shrink:0;display:flex;align-items:center;gap:11px;min-height:62px}
+.sb-brand-icon{width:32px;height:32px;background:#2565B8;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;font-weight:900;color:#fff;letter-spacing:-.5px}
+.sb-brand-text{overflow:hidden;white-space:nowrap}
+.sb-brand-name{font-size:12px;font-weight:800;color:#D4EAF6;letter-spacing:.3px;line-height:1}
+.sb-brand-sub{font-size:9.5px;color:#4A6A8A;margin-top:3px;letter-spacing:.2px}
+
+.sb-toggle{position:absolute;top:70px;left:228px;width:22px;height:22px;background:#2565B8;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:10;transition:left .22s ease;box-shadow:0 2px 6px rgba(0,0,0,.4)}
+.sb-toggle svg{width:10px;height:10px;fill:#fff;transition:transform .22s}
+.sidebar.collapsed .sb-toggle{left:42px}
+.sidebar.collapsed .sb-toggle svg{transform:rotate(180deg)}
+
+.sb-section{padding:18px 16px 6px;font-size:9px;font-weight:700;color:#3A5A7A;letter-spacing:1.3px;text-transform:uppercase;white-space:nowrap;overflow:hidden}
+.sidebar.collapsed .sb-section{opacity:0;height:0;padding:0}
+
+.sb-item{display:flex;align-items:center;gap:12px;padding:10px 16px;cursor:pointer;border-left:3px solid transparent;transition:background .12s,border-color .12s;color:#8BAABF;font-size:12.5px;font-weight:500;white-space:nowrap;overflow:hidden;user-select:none}
+.sb-item:hover{background:rgba(255,255,255,.06);color:#C8DFF0}
+.sb-item.active{background:rgba(37,101,184,.18);border-left-color:#2565B8;color:#FFFFFF;font-weight:600}
+.sb-item-icon{width:18px;height:18px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;opacity:.8}
+.sb-item-label{overflow:hidden;text-overflow:ellipsis}
+.sidebar.collapsed .sb-item-label{display:none}
+.sidebar.collapsed .sb-item{padding:12px 0;justify-content:center;border-left:none;border-right:3px solid transparent}
+.sidebar.collapsed .sb-item.active{border-right-color:#2565B8;background:rgba(37,101,184,.18)}
+
+.sb-divider{height:1px;background:#243D58;margin:10px 0}
+.sidebar.collapsed .sb-divider{margin:8px 6px}
+
+.sb-filters{padding:4px 14px 8px;overflow:hidden}
+.sidebar.collapsed .sb-filters{display:none}
+.sb-filter-group{margin-bottom:12px}
+.sb-filter-label{font-size:9px;font-weight:700;color:#3A5A7A;letter-spacing:.9px;text-transform:uppercase;margin-bottom:5px}
+.sb-select{width:100%;background:#1A3450;color:#A8C8E0;border:1px solid #2E4F6E;border-radius:4px;padding:7px 26px 7px 10px;font-size:11.5px;appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5'%3E%3Cpath d='M0 0l4 5 4-5z' fill='%234A6A8A'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center}
+.sb-select:focus{outline:none;border-color:#2565B8}
+.sb-select option{background:#1C2B3D}
+.sb-country-sel{color:#C8DFF0;border-color:#2565B8;font-weight:600;font-size:12px}
+
+.sb-footer{margin-top:auto;padding:14px 16px;background:#162233;border-top:1px solid #243D58;flex-shrink:0}
+.sidebar.collapsed .sb-footer{padding:10px 0;text-align:center}
+.sb-footer-txt{font-size:9.5px;color:#3A5A7A;line-height:1.7;white-space:nowrap;overflow:hidden}
+.sb-footer-tag{display:inline-block;background:#1A3450;border:1px solid #2E4F6E;border-radius:3px;padding:2px 7px;font-size:9px;color:#4A6A8A;letter-spacing:.4px;margin-top:4px}
+.sidebar.collapsed .sb-footer-txt,.sidebar.collapsed .sb-footer-tag{display:none}
+.sb-footer-dot{width:8px;height:8px;border-radius:50%;background:#2565B8;display:none;margin:0 auto}
+.sidebar.collapsed .sb-footer-dot{display:block}
+
+/* ══ MAIN AREA ══════════════════════════════════════════════ */
+.main-area{flex:1;display:flex;flex-direction:column;overflow:hidden;background:#F2F5F8;min-width:0}
+
+.top-bar{background:#FFFFFF;border-bottom:1px solid #DDE4EC;padding:0 28px;height:52px;display:flex;align-items:center;gap:16px;flex-shrink:0}
+.top-bar-title{font-size:14px;font-weight:800;color:#002147;letter-spacing:-.3px}
+.top-bar-sep{width:1px;height:20px;background:#DDE4EC}
+.top-bar-crumb{font-size:11px;color:#9CA3AF}
+.top-bar-crumb strong{color:#002147;font-weight:700}
+.top-bar-badge{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:600;color:#2565B8;background:#EBF3FA;border:1px solid #A3BDD8;border-radius:3px;padding:3px 8px}
+.top-bar-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.top-bar-meta{font-size:10px;color:#9CA3AF}
+.loading-spinner{width:16px;height:16px;border:2px solid #DDE4EC;border-top-color:#2565B8;border-radius:50%;animation:spin .75s linear infinite;display:none}
+
+.panel-wrap{flex:1;overflow-y:auto;padding:24px 28px 52px}
+.panel-wrap::-webkit-scrollbar{width:6px}
+.panel-wrap::-webkit-scrollbar-track{background:#F2F5F8}
+.panel-wrap::-webkit-scrollbar-thumb{background:#C8D6E5;border-radius:3px}
+
+/* ══ PANELS ═════════════════════════════════════════════════ */
+.sec-panel{display:none}
+.sec-panel.active{display:block}
+
+/* KPIs */
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.kpi{background:#FFFFFF;border:1px solid #DDE4EC;border-radius:5px;padding:17px 18px 15px;border-top:3px solid #002147}
+.kpi.teal{border-top-color:#00796B}
+.kpi.amber{border-top-color:#B45309}
+.kpi.coral{border-top-color:#9B1C1C}
+.kpi-lbl{font-size:9px;font-weight:700;color:#6B7280;text-transform:uppercase;letter-spacing:.9px}
+.kpi-val{font-size:22px;font-weight:800;color:#002147;margin:5px 0 3px;line-height:1;letter-spacing:-1px}
+.kpi.teal .kpi-val{color:#00796B}
+.kpi.amber .kpi-val{color:#B45309}
+.kpi.coral .kpi-val{color:#9B1C1C}
+.kpi-sub{font-size:10px;color:#9CA3AF}
+
+/* Section heads */
+.section-head{display:flex;align-items:baseline;gap:10px;margin:24px 0 14px;padding-bottom:9px;border-bottom:1.5px solid #EBF3FA}
+.section-head h2{font-size:10px;font-weight:800;color:#002147;text-transform:uppercase;letter-spacing:1.2px}
+.section-head span{font-size:10px;color:#9CA3AF}
+
+/* Grids & Cards */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:12px}
+.card{background:#FFFFFF;border:1px solid #DDE4EC;border-radius:5px;padding:15px 17px}
+.card:hover{border-color:#A3BDD8}
+.card-title{font-size:11px;font-weight:700;color:#002147;margin-bottom:2px}
+.card-sub{font-size:9.5px;color:#9CA3AF;margin-bottom:13px}
+.chart-wrap{position:relative}
+
+/* Error banner */
+.err-banner{background:#FEF2F2;border:1px solid #FECACA;border-radius:4px;padding:12px 16px;color:#9B1C1C;font-size:12px;margin-bottom:16px;display:none}
+
+/* Footnote */
+.footnote{font-size:9.5px;color:#9CA3AF;margin-top:28px;text-align:center;padding-top:12px;border-top:1px solid #DDE4EC;line-height:1.9}
+</style>
+</head>
+<body>
+<div class="app-shell">
+
+<!-- ══════════════════════════════════════════════════════════
+     SIDEBAR
+══════════════════════════════════════════════════════════════ -->
+<nav class="sidebar" id="sidebar">
+
+  <div class="sb-brand">
+    <div class="sb-brand-icon">IA</div>
+    <div class="sb-brand-text">
+      <div class="sb-brand-name">Intelligence AI</div>
+      <div class="sb-brand-sub">GCC Honey Market</div>
+    </div>
+  </div>
+
+  <div class="sb-toggle" id="sbToggle" onclick="toggleSidebar()">
+    <svg viewBox="0 0 10 10"><path d="M7 1L3 5l4 4" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+
+  <!-- Country selector -->
+  <div class="sb-section">Market</div>
+  <div class="sb-filters" style="padding-top:4px">
+    <div class="sb-filter-group">
+      <div class="sb-filter-label">Country</div>
+      <select class="sb-select sb-country-sel" id="countrySelect" onchange="onCountryChange(this.value)">
+        <option value="United Arab Emirates">UAE</option>
+        <option value="Saudi Arabia">Saudi Arabia</option>
+        <option value="Kuwait">Kuwait</option>
+        <option value="Qatar">Qatar</option>
+        <option value="Bahrain">Bahrain</option>
+        <option value="Oman">Oman</option>
+      </select>
+    </div>
+    <div class="sb-filter-group">
+      <div class="sb-filter-label">Product</div>
+      <select class="sb-select" disabled style="opacity:.5;cursor:not-allowed">
+        <option>Honey</option>
+      </select>
+    </div>
+    <div class="sb-filter-group">
+      <div class="sb-filter-label">Period</div>
+      <select class="sb-select" disabled style="opacity:.5;cursor:not-allowed">
+        <option>2025 – 2030</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="sb-divider"></div>
+
+  <!-- Navigation -->
+  <div class="sb-section">Analysis</div>
+  <div class="sb-item active" onclick="switchSec('dashboard')" id="nav-dashboard">
+    <span class="sb-item-icon">⊞</span>
+    <span class="sb-item-label">Dashboard</span>
+  </div>
+  <div class="sb-item" onclick="switchSec('compare')" id="nav-compare">
+    <span class="sb-item-icon">⊟</span>
+    <span class="sb-item-label">GCC Compare</span>
+  </div>
+
+  <div class="sb-footer">
+    <div class="sb-footer-dot"></div>
+    <div class="sb-footer-txt">Demand Estimation Engine<br>Bottom-up 4-step waterfall</div>
+    <div class="sb-footer-tag">v2 · Apr 2026</div>
+  </div>
+
+</nav>
+
+<!-- ══════════════════════════════════════════════════════════
+     MAIN AREA
+══════════════════════════════════════════════════════════════ -->
+<div class="main-area">
+
+  <div class="top-bar">
+    <span class="top-bar-title" id="tb-title">UAE Honey Market</span>
+    <div class="top-bar-sep"></div>
+    <span class="top-bar-crumb">2025–2030 &nbsp;·&nbsp; <strong id="tb-panel-name">Dashboard</strong></span>
+    <div class="top-bar-right">
+      <span class="top-bar-badge" id="tb-fx">AED 3.6725 / USD</span>
+      <span class="top-bar-meta">FAO · Euromonitor · ITC Trademap</span>
+      <div class="loading-spinner" id="spinner"></div>
+    </div>
+  </div>
+
+  <div class="panel-wrap">
+
+    <!-- ═══ DASHBOARD PANEL ═══ -->
+    <div class="sec-panel active" id="sec-dashboard">
+
+      <div id="err-dashboard" class="err-banner"></div>
+
+      <div class="kpi-row">
+        <div class="kpi">
+          <div class="kpi-lbl">Total Market 2025</div>
+          <div class="kpi-val" id="kv1">—</div>
+          <div class="kpi-sub" id="ks1">local currency · all channels</div>
+        </div>
+        <div class="kpi teal">
+          <div class="kpi-lbl">Total Market 2030</div>
+          <div class="kpi-val" id="kv2">—</div>
+          <div class="kpi-sub" id="ks2">local currency · all channels</div>
+        </div>
+        <div class="kpi amber">
+          <div class="kpi-lbl">Volume CAGR 2025–30</div>
+          <div class="kpi-val" id="kv3">—</div>
+          <div class="kpi-sub">Retail household channel</div>
+        </div>
+        <div class="kpi coral">
+          <div class="kpi-lbl">Value CAGR 2025–30</div>
+          <div class="kpi-val" id="kv4">—</div>
+          <div class="kpi-sub">Full market · all channels</div>
+        </div>
+      </div>
+
+      <div class="section-head"><h2>Market Overview</h2><span>Trade-anchored supply-side model · all channels · 2025–2030</span></div>
+      <div class="grid3">
+        <div class="card">
+          <div class="card-title">Total Market Volume by Year (Tonnes)</div>
+          <div class="card-sub">All channels stacked</div>
+          <div class="chart-wrap" style="height:250px"><canvas id="ch-mktvol"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Total Market Value by Year</div>
+          <div class="card-sub" id="sub-mktval">Local currency million · all channels</div>
+          <div class="chart-wrap" style="height:250px"><canvas id="ch-mktval"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Market Split by Channel, 2025</div>
+          <div class="card-sub">% of total market value</div>
+          <div class="chart-wrap" style="height:250px"><canvas id="ch-chsplit"></canvas></div>
+        </div>
+      </div>
+
+      <div class="section-head"><h2>By Product Type</h2><span>Retail household channel · penetration model · 2025–2030</span></div>
+      <div class="grid3">
+        <div class="card">
+          <div class="card-title">Sub-Category Value 2025</div>
+          <div class="card-sub" id="sub-scval">Local currency million · retail household</div>
+          <div class="chart-wrap" style="height:250px"><canvas id="ch-scval"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Sub-Category Share 2025</div>
+          <div class="card-sub">% of retail channel value</div>
+          <div class="chart-wrap" style="height:250px"><canvas id="ch-scshare"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Sub-Category Value Trend</div>
+          <div class="card-sub">Retail channel · stacked by product type</div>
+          <div class="chart-wrap" style="height:250px"><canvas id="ch-sctrend"></canvas></div>
+        </div>
+      </div>
+
+      <div class="section-head"><h2>Distribution Channels</h2><span>Trade-anchored channel decomposition · 2025–2030</span></div>
+      <div class="grid3">
+        <div class="card">
+          <div class="card-title">Channel Value 2025</div>
+          <div class="card-sub" id="sub-chval">Local currency million</div>
+          <div class="chart-wrap" style="height:250px"><canvas id="ch-chval"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Channel Value Share 2025</div>
+          <div class="card-sub">% of total market</div>
+          <div class="chart-wrap" style="height:250px"><canvas id="ch-chshare"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Channel Value Trend 2025–2030</div>
+          <div class="card-sub">All channels stacked</div>
+          <div class="chart-wrap" style="height:250px"><canvas id="ch-chtrend"></canvas></div>
+        </div>
+      </div>
+
+      <div class="footnote">
+        Data sourced from demand estimation model · Supabase live data · Bottom-up 4-step waterfall methodology<br>
+        FAO FAOSTAT · Euromonitor · ITC Trademap · UN Comtrade · Central bank FX rates · Apr 2026
+      </div>
+    </div>
+
+    <!-- ═══ GCC COMPARE PANEL ═══ -->
+    <div class="sec-panel" id="sec-compare">
+
+      <div id="err-compare" class="err-banner"></div>
+
+      <div class="kpi-row">
+        <div class="kpi">
+          <div class="kpi-lbl">GCC Total Market 2025</div>
+          <div class="kpi-val" id="gcc-kv1">—</div>
+          <div class="kpi-sub">USD million · all channels</div>
+        </div>
+        <div class="kpi teal">
+          <div class="kpi-lbl">GCC Total Market 2030</div>
+          <div class="kpi-val" id="gcc-kv2">—</div>
+          <div class="kpi-sub">USD million · all channels</div>
+        </div>
+        <div class="kpi amber">
+          <div class="kpi-lbl">GCC Volume CAGR 2025–30</div>
+          <div class="kpi-val" id="gcc-kv3">—</div>
+          <div class="kpi-sub">Retail channel aggregate</div>
+        </div>
+        <div class="kpi coral">
+          <div class="kpi-lbl">GCC Value CAGR 2025–30</div>
+          <div class="kpi-val" id="gcc-kv4">—</div>
+          <div class="kpi-sub">All channels · USD</div>
+        </div>
+      </div>
+
+      <div class="section-head"><h2>GCC Market Overview</h2><span>All 6 countries · USD · 2025–2030</span></div>
+      <div class="grid2">
+        <div class="card">
+          <div class="card-title">Total Market Size by Country, 2025 (USD M)</div>
+          <div class="card-sub">Ranked by market size · all channels</div>
+          <div class="chart-wrap" style="height:270px"><canvas id="ch-gcc-bar"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-title">GCC Market Share 2025</div>
+          <div class="card-sub">% of total GCC honey market · USD</div>
+          <div class="chart-wrap" style="height:270px"><canvas id="ch-gcc-donut"></canvas></div>
+        </div>
+      </div>
+      <div style="margin-bottom:12px">
+        <div class="card">
+          <div class="card-title">GCC Market Growth Trajectory (USD Million)</div>
+          <div class="card-sub">Total market value per country · 2025–2030</div>
+          <div class="chart-wrap" style="height:280px"><canvas id="ch-gcc-line"></canvas></div>
+        </div>
+      </div>
+      <div class="grid2">
+        <div class="card">
+          <div class="card-title">Value CAGR 2025–30 by Country</div>
+          <div class="card-sub">Compound annual growth rate · total market USD</div>
+          <div class="chart-wrap" style="height:230px"><canvas id="ch-gcc-cagr"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Market Value 2025 vs 2030 by Country (USD M)</div>
+          <div class="card-sub">Base year vs forecast end · all channels</div>
+          <div class="chart-wrap" style="height:230px"><canvas id="ch-gcc-2530"></canvas></div>
+        </div>
+      </div>
+
+      <div class="footnote">
+        GCC-wide comparison · Supabase live data · All values in USD at fixed 2026 exchange rates<br>
+        FAO FAOSTAT · Euromonitor · ITC Trademap · UN Comtrade · Apr 2026
+      </div>
+    </div>
+
+  </div><!-- /panel-wrap -->
+</div><!-- /main-area -->
+</div><!-- /app-shell -->
+
+<script>
+// ── CONFIG ──────────────────────────────────────────────────
+const SB_URL = 'https://rxewwqkivkqoqpanfyku.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ4ZXd3cWtpdmtxb3FwYW5meWt1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY2MjQ2MTYsImV4cCI6MjA5MjIwMDYxNn0.7o59IVoJeiVIjnxdJqThSksEf0hWcp8Pv4QE6idQy5E';
+
+const COUNTRY_CFG = {
+  'United Arab Emirates': { label:'UAE',          currency:'AED', fx:3.6725 },
+  'Saudi Arabia':         { label:'Saudi Arabia', currency:'SAR', fx:3.75   },
+  'Kuwait':               { label:'Kuwait',       currency:'KWD', fx:0.307  },
+  'Qatar':                { label:'Qatar',        currency:'QAR', fx:3.64   },
+  'Bahrain':              { label:'Bahrain',      currency:'BHD', fx:0.377  },
+  'Oman':                 { label:'Oman',         currency:'OMR', fx:0.385  },
+};
+const GCC_ORDER = [
+  {id:'Saudi Arabia',         label:'KSA', color:'#002147'},
+  {id:'United Arab Emirates', label:'UAE', color:'#1565C0'},
+  {id:'Kuwait',               label:'KWT', color:'#2E86C1'},
+  {id:'Oman',                 label:'OMN', color:'#00796B'},
+  {id:'Qatar',                label:'QAT', color:'#B45309'},
+  {id:'Bahrain',              label:'BHR', color:'#9B1C1C'},
+];
+const FCST_YEARS = [2025,2026,2027,2028,2029,2030];
+const CH_ORDER   = ['Retail Household','HoReCa','Food Manufacturing','Gifting / Seasonal'];
+const C_CH       = ['#002147','#00796B','#B45309','#9B1C1C'];
+const C_SC       = ['#002147','#1565C0','#00796B','#B45309','#9B1C1C'];
+const G = '#F3F4F6', TXT = '#9CA3AF';
+
+// ── CHART HELPERS ───────────────────────────────────────────
+const _ci = {};
+function mc(id, cfg) {
+  if (_ci[id]) { try { _ci[id].destroy(); } catch(e){} delete _ci[id]; }
+  const el = document.getElementById(id);
+  if (!el) return;
+  _ci[id] = new Chart(el, cfg);
+}
+
+const _sum = (arr, f) => arr.reduce((s,r) => s + parseFloat(r[f] || 0), 0);
+const _cagr = (a, b, n) => a > 0 && b > 0 ? (Math.pow(b/a, 1/n) - 1) * 100 : 0;
+
+function dlBar(fmt, horiz=false) {
+  return {
+    display:true, anchor:'end', align:horiz?'right':'top', offset:horiz?4:2,
+    color:'#374151', font:{size:9.5,weight:'600'},
+    formatter: v => fmt==='M' ? `${v.toFixed(1)}M` : fmt==='t' ? `${Math.round(v).toLocaleString()}t` : fmt==='pct' ? `${v.toFixed(1)}%` : v.toFixed(1)
+  };
+}
+function dlDonut() {
+  return {
+    display:true, color:'#fff', font:{size:10,weight:'700'},
+    formatter:(v,ctx) => { const t=ctx.dataset.data.reduce((a,b)=>a+b,0); const p=v/t*100; return p<6?'':`${p.toFixed(0)}%`; }
+  };
+}
+function donutOpts(pos='right') {
+  return {
+    responsive:true, maintainAspectRatio:false,
+    plugins:{
+      datalabels: dlDonut(),
+      legend:{position:pos,labels:{boxWidth:10,padding:8,font:{size:10},color:'#374151'}},
+      tooltip:{callbacks:{label:c=>{const t=c.dataset.data.reduce((a,b)=>a+b,0);return`${c.label}: ${c.parsed.toFixed(1)} (${(c.parsed/t*100).toFixed(1)}%)`;}}},
+    }
+  };
+}
+function totalAnnotLine(labels, data, fmt) {
+  const ff = v => fmt==='t' ? `${Math.round(v).toLocaleString()}t` : `${v.toFixed(0)}M`;
+  return {
+    type:'line', label:'__total__', data,
+    borderColor:'transparent', backgroundColor:'transparent',
+    pointRadius:0, pointHoverRadius:0, fill:false,
+    datalabels:{display:true,anchor:'end',align:'top',offset:3,color:'#002147',font:{size:9.5,weight:'700'},formatter:ff}
+  };
+}
+function stackedOpts(yFmt, tipFmt) {
+  return {
+    responsive:true, maintainAspectRatio:false,
+    scales:{
+      x:{stacked:true, grid:{color:'transparent'}, border:{color:'#E5E7EB'}, ticks:{maxRotation:0,color:TXT}},
+      y:{stacked:true, grid:{color:G}, border:{color:'transparent'}, beginAtZero:true, grace:'18%', ticks:{callback:yFmt,color:TXT}}
+    },
+    plugins:{
+      legend:{position:'bottom',labels:{boxWidth:10,padding:10,font:{size:10},color:'#374151',filter:i=>i.text!=='__total__'}},
+      tooltip:{mode:'index',callbacks:{label:tipFmt}}
+    }
+  };
+}
+
+// ── DATA CACHE & FETCH ──────────────────────────────────────
+const _cache = {};
+async function fetchRows(country) {
+  const key = country || '__all';
+  if (_cache[key]) return _cache[key];
+  let url = `${SB_URL}/rest/v1/demand_estimates?select=country,sub_category,channel,year,volume,value_local,value_usd,currency&product_category=eq.Honey&order=country.asc,year.asc,channel.asc,sub_category.asc`;
+  if (country) url += `&country=eq.${encodeURIComponent(country)}`;
+  const r = await fetch(url, { headers:{ apikey:SB_KEY, Authorization:`Bearer ${SB_KEY}` } });
+  if (!r.ok) throw new Error(`HTTP ${r.status}: ${r.statusText}`);
+  const data = await r.json();
+  if (!Array.isArray(data)) throw new Error('Unexpected response from Supabase');
+  _cache[key] = data;
+  return data;
+}
+
+// ── LOADING STATE ────────────────────────────────────────────
+function setLoading(on) {
+  document.getElementById('spinner').style.display = on ? 'block' : 'none';
+}
+function showErr(panelId, msg) {
+  const el = document.getElementById(`err-${panelId}`);
+  if (el) { el.textContent = `⚠ ${msg}`; el.style.display = 'block'; }
+}
+function hideErr(panelId) {
+  const el = document.getElementById(`err-${panelId}`);
+  if (el) el.style.display = 'none';
+}
+
+// ══════════════════════════════════════════════════════════════
+// SINGLE-COUNTRY RENDER
+// ══════════════════════════════════════════════════════════════
+function renderCountry(rows, countryKey) {
+  const cfg  = COUNTRY_CFG[countryKey];
+  const cur  = cfg.currency;
+  const fmtM = v => `${cur} ${v.toFixed(0)}M`;
+
+  // Sort sub-cats by retail value in 2025 descending
+  const retRows  = rows.filter(r => r.channel === 'Retail Household');
+  const subcats  = [...new Set(rows.map(r => r.sub_category))];
+  subcats.sort((a,b) => {
+    const av = _sum(retRows.filter(r=>r.sub_category===a&&r.year===2025), 'value_local');
+    const bv = _sum(retRows.filter(r=>r.sub_category===b&&r.year===2025), 'value_local');
+    return bv - av;
+  });
+
+  // Channel aggregates
+  const chVal = CH_ORDER.map(ch => FCST_YEARS.map(y => _sum(rows.filter(r=>r.channel===ch&&r.year===y), 'value_local')));
+  const chVol = CH_ORDER.map(ch => FCST_YEARS.map(y => _sum(rows.filter(r=>r.channel===ch&&r.year===y), 'volume')));
+  const totVal = FCST_YEARS.map((_,i) => CH_ORDER.reduce((s,_,ci)=>s+chVal[ci][i],0));
+  const totVol = FCST_YEARS.map((_,i) => CH_ORDER.reduce((s,_,ci)=>s+chVol[ci][i],0));
+
+  // Sub-cat aggregates (retail HH)
+  const scVal = subcats.map(sc => FCST_YEARS.map(y => _sum(retRows.filter(r=>r.sub_category===sc&&r.year===y), 'value_local')));
+  const scVol = subcats.map(sc => FCST_YEARS.map(y => _sum(retRows.filter(r=>r.sub_category===sc&&r.year===y), 'volume')));
+  const totRetVal = FCST_YEARS.map((_,i) => subcats.reduce((s,_,si)=>s+scVal[si][i],0));
+  const totRetVol = FCST_YEARS.map((_,i) => subcats.reduce((s,_,si)=>s+scVol[si][i],0));
+
+  // KPIs
+  document.getElementById('kv1').textContent = fmtM(totVal[0]);
+  document.getElementById('kv2').textContent = fmtM(totVal[5]);
+  document.getElementById('kv3').textContent = `${_cagr(totRetVol[0],totRetVol[5],5).toFixed(1)}%`;
+  document.getElementById('kv4').textContent = `${_cagr(totVal[0],totVal[5],5).toFixed(1)}%`;
+  document.getElementById('ks1').textContent = `${cur} million · all channels`;
+  document.getElementById('ks2').textContent = `${cur} million · all channels`;
+  document.getElementById('sub-mktval').textContent = `${cur} million · all channels`;
+  document.getElementById('sub-scval').textContent  = `${cur} million · retail household`;
+  document.getElementById('sub-chval').textContent  = `${cur} million · all channels`;
+
+  // ── Market overview ──
+  mc('ch-mktvol', {type:'bar', data:{
+    labels:FCST_YEARS,
+    datasets:[
+      ...CH_ORDER.map((ch,i)=>({label:ch, data:chVol[i], backgroundColor:C_CH[i], stack:'s'})),
+      totalAnnotLine(FCST_YEARS, totVol, 't')
+    ]
+  }, options:stackedOpts(v=>`${v.toFixed(0)}t`, c=>`${c.dataset.label}: ${c.parsed.y.toFixed(0)} t`)});
+
+  mc('ch-mktval', {type:'bar', data:{
+    labels:FCST_YEARS,
+    datasets:[
+      ...CH_ORDER.map((ch,i)=>({label:ch, data:chVal[i], backgroundColor:C_CH[i], stack:'s'})),
+      totalAnnotLine(FCST_YEARS, totVal, 'M')
+    ]
+  }, options:stackedOpts(v=>`${v.toFixed(0)}M`, c=>`${c.dataset.label}: ${cur} ${c.parsed.y.toFixed(1)}M`)});
+
+  mc('ch-chsplit', {type:'doughnut', data:{
+    labels:CH_ORDER,
+    datasets:[{data:CH_ORDER.map((_,i)=>chVal[i][0]), backgroundColor:C_CH, borderWidth:2, borderColor:'#fff'}]
+  }, options:donutOpts()});
+
+  // ── Sub-categories ──
+  mc('ch-scval', {type:'bar', data:{
+    labels:subcats,
+    datasets:[{data:subcats.map((_,i)=>scVal[i][0]), backgroundColor:C_SC.slice(0,subcats.length), borderRadius:2, datalabels:dlBar('M')}]
+  }, options:{
+    responsive:true, maintainAspectRatio:false,
+    scales:{
+      x:{grid:{color:'transparent'},border:{color:'#E5E7EB'},ticks:{maxRotation:18,font:{size:9.5},color:'#374151'}},
+      y:{grid:{color:G},border:{color:'transparent'},beginAtZero:true,grace:'18%',ticks:{callback:v=>`${v.toFixed(0)}M`,color:TXT}}
+    },
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${cur} ${c.parsed.y.toFixed(1)}M`}}}
+  }});
+
+  mc('ch-scshare', {type:'doughnut', data:{
+    labels:subcats,
+    datasets:[{data:subcats.map((_,i)=>scVal[i][0]), backgroundColor:C_SC.slice(0,subcats.length), borderWidth:2, borderColor:'#fff'}]
+  }, options:donutOpts()});
+
+  mc('ch-sctrend', {type:'bar', data:{
+    labels:FCST_YEARS,
+    datasets:[
+      ...subcats.map((sc,i)=>({label:sc, data:scVal[i], backgroundColor:C_SC[i]||'#607D8B', stack:'s'})),
+      totalAnnotLine(FCST_YEARS, totRetVal, 'M')
+    ]
+  }, options:stackedOpts(v=>`${v.toFixed(0)}M`, c=>`${c.dataset.label}: ${cur} ${c.parsed.y.toFixed(1)}M`)});
+
+  // ── Channels ──
+  mc('ch-chval', {type:'bar', data:{
+    labels:CH_ORDER,
+    datasets:[{data:CH_ORDER.map((_,i)=>chVal[i][0]), backgroundColor:C_CH, borderRadius:2, datalabels:dlBar('M')}]
+  }, options:{
+    responsive:true, maintainAspectRatio:false,
+    scales:{
+      x:{grid:{color:'transparent'},border:{color:'#E5E7EB'},ticks:{maxRotation:0,font:{size:10},color:'#374151'}},
+      y:{grid:{color:G},border:{color:'transparent'},beginAtZero:true,grace:'18%',ticks:{callback:v=>`${v.toFixed(0)}M`,color:TXT}}
+    },
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${cur} ${c.parsed.y.toFixed(1)}M`}}}
+  }});
+
+  mc('ch-chshare', {type:'doughnut', data:{
+    labels:CH_ORDER,
+    datasets:[{data:CH_ORDER.map((_,i)=>chVal[i][0]), backgroundColor:C_CH, borderWidth:2, borderColor:'#fff'}]
+  }, options:donutOpts()});
+
+  mc('ch-chtrend', {type:'bar', data:{
+    labels:FCST_YEARS,
+    datasets:[
+      ...CH_ORDER.map((ch,i)=>({label:ch, data:chVal[i], backgroundColor:C_CH[i], stack:'s'})),
+      totalAnnotLine(FCST_YEARS, totVal, 'M')
+    ]
+  }, options:stackedOpts(v=>`${v.toFixed(0)}M`, c=>`${c.dataset.label}: ${cur} ${c.parsed.y.toFixed(1)}M`)});
+}
+
+// ══════════════════════════════════════════════════════════════
+// GCC COMPARE RENDER
+// ══════════════════════════════════════════════════════════════
+function renderGCC(rows) {
+  const s = (arr, f) => arr.reduce((t,r)=>t+parseFloat(r[f]||0),0);
+
+  // Total USD value by country by year
+  const ccVal = GCC_ORDER.map(cc =>
+    FCST_YEARS.map(y => s(rows.filter(r=>r.country===cc.id&&r.year===y), 'value_usd'))
+  );
+  const gccTot = FCST_YEARS.map((_,yi) => GCC_ORDER.reduce((t,_,ci)=>t+ccVal[ci][yi],0));
+
+  // Retail volume for CAGR
+  const retRows = rows.filter(r=>r.channel==='Retail Household');
+  const ccRetVol = GCC_ORDER.map(cc =>
+    FCST_YEARS.map(y => s(retRows.filter(r=>r.country===cc.id&&r.year===y), 'volume'))
+  );
+  const gccRetVol = FCST_YEARS.map((_,yi) => GCC_ORDER.reduce((t,_,ci)=>t+ccRetVol[ci][yi],0));
+
+  // GCC KPIs
+  const g25=gccTot[0], g30=gccTot[5], gv25=gccRetVol[0], gv30=gccRetVol[5];
+  document.getElementById('gcc-kv1').textContent = `USD ${g25.toFixed(0)}M`;
+  document.getElementById('gcc-kv2').textContent = `USD ${g30.toFixed(0)}M`;
+  document.getElementById('gcc-kv3').textContent = `${_cagr(gv25,gv30,5).toFixed(1)}%`;
+  document.getElementById('gcc-kv4').textContent = `${_cagr(g25,g30,5).toFixed(1)}%`;
+
+  const v25arr  = GCC_ORDER.map((_,i)=>ccVal[i][0]);
+  const v30arr  = GCC_ORDER.map((_,i)=>ccVal[i][5]);
+  const cagrArr = GCC_ORDER.map((_,i)=>_cagr(ccVal[i][0],ccVal[i][5],5));
+
+  // Sort by 2025 value desc for ranked charts
+  const idx = GCC_ORDER.map((_,i)=>i).sort((a,b)=>v25arr[b]-v25arr[a]);
+  const rLabels = idx.map(i=>GCC_ORDER[i].label);
+  const rColors = idx.map(i=>GCC_ORDER[i].color);
+  const rV25    = idx.map(i=>v25arr[i]);
+  const rV30    = idx.map(i=>v30arr[i]);
+  const rCagr   = idx.map(i=>cagrArr[i]);
+
+  // Market size horizontal bar
+  mc('ch-gcc-bar', {type:'bar', data:{
+    labels:rLabels,
+    datasets:[{
+      label:'Market Value 2025 (USD M)', data:rV25, backgroundColor:rColors, borderRadius:2,
+      datalabels:{display:true,anchor:'end',align:'right',offset:4,color:'#374151',font:{size:9.5,weight:'600'},formatter:v=>`$${v.toFixed(0)}M`}
+    }]
+  }, options:{
+    responsive:true, maintainAspectRatio:false, indexAxis:'y',
+    scales:{
+      x:{grid:{color:G},border:{color:'transparent'},beginAtZero:true,grace:'22%',ticks:{callback:v=>`$${v.toFixed(0)}M`,color:TXT}},
+      y:{grid:{color:'transparent'},border:{color:'#E5E7EB'},ticks:{font:{size:11},color:'#374151'}}
+    },
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`$${c.parsed.x.toFixed(1)}M`}}}
+  }});
+
+  // Market share donut
+  mc('ch-gcc-donut', {type:'doughnut', data:{
+    labels:GCC_ORDER.map(c=>c.label),
+    datasets:[{data:v25arr, backgroundColor:GCC_ORDER.map(c=>c.color), borderWidth:2, borderColor:'#fff'}]
+  }, options:donutOpts('right')});
+
+  // Growth trajectory line
+  mc('ch-gcc-line', {type:'line', data:{
+    labels:FCST_YEARS,
+    datasets:GCC_ORDER.map((cc,i)=>({
+      label:cc.label, data:ccVal[i],
+      borderColor:cc.color, backgroundColor:cc.color+'22',
+      pointRadius:3, pointHoverRadius:5, tension:0.35, fill:false,
+      datalabels:{display:false}
+    }))
+  }, options:{
+    responsive:true, maintainAspectRatio:false,
+    scales:{
+      x:{grid:{color:'transparent'},border:{color:'#E5E7EB'},ticks:{color:TXT}},
+      y:{grid:{color:G},border:{color:'transparent'},beginAtZero:true,grace:'10%',ticks:{callback:v=>`$${v.toFixed(0)}M`,color:TXT}}
+    },
+    plugins:{
+      legend:{position:'bottom',labels:{boxWidth:10,padding:10,font:{size:10},color:'#374151'}},
+      tooltip:{mode:'index',callbacks:{label:c=>`${c.dataset.label}: $${c.parsed.y.toFixed(1)}M`}}
+    }
+  }});
+
+  // CAGR horizontal bar
+  mc('ch-gcc-cagr', {type:'bar', data:{
+    labels:rLabels,
+    datasets:[{
+      label:'CAGR 2025–30 (%)', data:rCagr, backgroundColor:rColors, borderRadius:2,
+      datalabels:{display:true,anchor:'end',align:'right',offset:4,color:'#374151',font:{size:9.5,weight:'600'},formatter:v=>`${v.toFixed(1)}%`}
+    }]
+  }, options:{
+    responsive:true, maintainAspectRatio:false, indexAxis:'y',
+    scales:{
+      x:{grid:{color:G},border:{color:'transparent'},beginAtZero:true,grace:'22%',ticks:{callback:v=>`${v.toFixed(1)}%`,color:TXT}},
+      y:{grid:{color:'transparent'},border:{color:'#E5E7EB'},ticks:{font:{size:11},color:'#374151'}}
+    },
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`CAGR: ${c.parsed.x.toFixed(1)}%`}}}
+  }});
+
+  // 2025 vs 2030 grouped bar
+  mc('ch-gcc-2530', {type:'bar', data:{
+    labels:rLabels,
+    datasets:[
+      {label:'2025', data:rV25, backgroundColor:rColors.map(c=>c+'88'), borderRadius:2, datalabels:{display:false}},
+      {label:'2030', data:rV30, backgroundColor:rColors,                 borderRadius:2, datalabels:{display:false}},
+    ]
+  }, options:{
+    responsive:true, maintainAspectRatio:false,
+    scales:{
+      x:{grid:{color:'transparent'},border:{color:'#E5E7EB'},ticks:{color:'#374151'}},
+      y:{grid:{color:G},border:{color:'transparent'},beginAtZero:true,grace:'15%',ticks:{callback:v=>`$${v.toFixed(0)}M`,color:TXT}}
+    },
+    plugins:{
+      legend:{position:'bottom',labels:{boxWidth:10,padding:10,font:{size:10},color:'#374151'}},
+      tooltip:{callbacks:{label:c=>`$${c.parsed.y.toFixed(1)}M`}}
+    }
+  }});
+}
+
+// ══════════════════════════════════════════════════════════════
+// ORCHESTRATION
+// ══════════════════════════════════════════════════════════════
+let _curCountry = 'United Arab Emirates';
+let _curSec     = 'dashboard';
+
+async function loadSec(sec, country) {
+  setLoading(true);
+  hideErr(sec);
+  try {
+    if (sec === 'compare') {
+      const rows = await fetchRows(null);
+      renderGCC(rows);
+    } else {
+      const rows = await fetchRows(country);
+      renderCountry(rows, country);
+    }
+  } catch(e) {
+    showErr(sec, `Failed to load data: ${e.message}. Check that the Supabase anon key has read access.`);
+  }
+  setLoading(false);
+}
+
+function updateTopBar(country) {
+  const cfg = COUNTRY_CFG[country];
+  document.getElementById('tb-title').textContent = `${cfg.label} Honey Market`;
+  document.getElementById('tb-fx').textContent    = `${cfg.currency} ${cfg.fx.toFixed(4)} / USD`;
+}
+
+async function onCountryChange(val) {
+  _curCountry = val;
+  updateTopBar(val);
+  if (_curSec !== 'compare') {
+    await loadSec('dashboard', val);
+  }
+}
+
+// Navigation
+const PANEL_NAMES = {dashboard:'Dashboard', compare:'GCC Compare'};
+function switchSec(name) {
+  ['dashboard','compare'].forEach(p => {
+    const el  = document.getElementById(`sec-${p}`);
+    const nav = document.getElementById(`nav-${p}`);
+    if(el)  el.classList.toggle('active', p===name);
+    if(nav) nav.classList.toggle('active', p===name);
+  });
+  document.getElementById('tb-panel-name').textContent = PANEL_NAMES[name]||name;
+  _curSec = name;
+  loadSec(name, _curCountry);
+}
+
+let _sbCollapsed = false;
+function toggleSidebar() {
+  _sbCollapsed = !_sbCollapsed;
+  document.getElementById('sidebar').classList.toggle('collapsed', _sbCollapsed);
+}
+
+// ── INIT ─────────────────────────────────────────────────────
+Chart.register(ChartDataLabels);
+Chart.defaults.plugins.datalabels.display = false;
+Chart.defaults.font.family = "'Segoe UI',Arial,sans-serif";
+Chart.defaults.font.size   = 11;
+Chart.defaults.color       = '#6B7280';
+
+loadSec('dashboard', 'United Arab Emirates');
+</script>
+</body>
+</html>
