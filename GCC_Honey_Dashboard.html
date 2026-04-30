@@ -298,6 +298,48 @@ body::after{
   .content-area{overflow:visible}
   .panel-wrap{padding:0;max-width:none}
 }
+
+/* ══ LIGHT MODE ════════════════════════════════════════════ */
+html[data-theme="light"] {
+  --bg-primary:  #FAF7F0;
+  --bg-card:     #FFFFFF;
+  --bg-nav:      #F5F0E8;
+  --bg-nav-deep: #EDE8DC;
+  --text-primary:   #2A1800;
+  --text-secondary: #5A4E3E;
+  --text-muted:     #9A8E7E;
+  --text-on-dark:   #1A0E00;
+  --border: #E5DDD0;
+  --grid:   #F0EBE0;
+}
+html[data-theme="light"] body::after{opacity:.010}
+html[data-theme="light"] .content-area::-webkit-scrollbar-track{background:#F5F0E8}
+html[data-theme="light"] .content-area::-webkit-scrollbar-thumb{background:#D8D0C0}
+html[data-theme="light"] .top-nav{
+  border-bottom-color:#E0D8C8;
+  background-image:
+    radial-gradient(circle at 1px 1px,rgba(180,110,8,.12) 1px,transparent 0),
+    radial-gradient(circle at 15px 15px,rgba(180,110,8,.06) 1px,transparent 0);
+}
+html[data-theme="light"] .nav-brand{border-right-color:#E0D8C8}
+html[data-theme="light"] .nav-brand-sub{color:#9A8E7E}
+html[data-theme="light"] .nav-sep{background:#E0D8C8}
+html[data-theme="light"] .nav-btn{color:#7A6A5A}
+html[data-theme="light"] .nav-filter-label{color:#9A8E7E}
+html[data-theme="light"] .nav-meta{color:#9A8E7E}
+html[data-theme="light"] .nav-select{
+  background:#F5F0E8;color:#5A4E3E;border-color:#D8D0C0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5'%3E%3Cpath d='M0 0l4 5 4-5z' fill='%23A09080'/%3E%3C/svg%3E");
+}
+html[data-theme="light"] .nav-select option{background:#FAF7F0}
+html[data-theme="light"] .nav-select-country{color:#2A1800;border-color:#C8B8A0}
+html[data-theme="light"] .nav-filters{border-top-color:#E0D8C8}
+html[data-theme="light"] .loading-spinner{border-color:#E0D8C8}
+html[data-theme="light"] .card:hover{border-color:#D8D0C0;box-shadow:0 4px 20px rgba(0,0,0,.08)}
+html[data-theme="light"] .data-table tbody td{border-bottom-color:#F0EBE0}
+html[data-theme="light"] #theme-toggle{
+  background:rgba(180,110,8,.08);border-color:rgba(180,110,8,.22)
+}
 </style>
 </head>
 <body>
@@ -349,6 +391,14 @@ body::after{
   <div class="nav-right">
     <span class="nav-fx-badge" id="tb-fx">AED 3.6725 / USD</span>
     <span class="nav-meta">FAO · Euromonitor · ITC Trademap</span>
+    <button id="theme-toggle" onclick="toggleTheme()" title="Toggle light / dark mode"
+      style="background:rgba(232,146,10,.08);border:1px solid rgba(232,146,10,.18);
+             border-radius:16px;padding:4px 11px;cursor:pointer;
+             color:#E8920A;display:flex;align-items:center;gap:5px;
+             transition:background .15s;font-family:'Fira Mono',monospace;
+             font-size:11px;white-space:nowrap;flex-shrink:0;line-height:1.4">
+      <span id="theme-icon">☀</span><span id="theme-lbl">Light</span>
+    </button>
     <div class="loading-spinner" id="spinner"></div>
   </div>
 </header>
@@ -573,6 +623,37 @@ function formatValue(value, format) {
   }
 }
 
+// ── THEME ─────────────────────────────────────────────────
+function _getChartColors() {
+  const light = document.documentElement.dataset.theme === 'light';
+  return {
+    G:       light ? '#E8E0D0' : '#0F1A28',
+    TXT:     light ? '#9A8E7E' : '#3E4E62',
+    LBL:     light ? '#7A6040' : '#A09070',
+    LEG:     light ? '#9A8E7E' : '#6A7A8A',
+    CARD_BG: light ? '#FFFFFF' : '#0C1624',
+  };
+}
+function toggleTheme() {
+  const html = document.documentElement;
+  const toLight = html.dataset.theme !== 'light';
+  html.dataset.theme = toLight ? 'light' : '';
+  localStorage.setItem('iai-theme', toLight ? 'light' : 'dark');
+  Chart.defaults.color = toLight ? '#9A8E7E' : '#3E4E62';
+  _updateThemeBtn(toLight);
+  dashboard.loadSection(dashboard.activeSection, dashboard.activeCountry);
+}
+function _updateThemeBtn(isLight) {
+  const icon = document.getElementById('theme-icon');
+  const lbl  = document.getElementById('theme-lbl');
+  if (icon) icon.textContent = isLight ? '🌙' : '☀';
+  if (lbl)  lbl.textContent  = isLight ? 'Dark' : 'Light';
+}
+(function() {
+  const saved = localStorage.getItem('iai-theme');
+  if (saved === 'light') document.documentElement.dataset.theme = 'light';
+})();
+
 // ── AGGREGATION HELPERS ──────────────────────────────────
 const _sum  = (arr, f) => arr.reduce((s,r) => s + parseFloat(r[f] || 0), 0);
 const _cagr = (a, b, n) => a > 0 && b > 0 ? (Math.pow(b/a, 1/n) - 1) * 100 : 0;
@@ -687,11 +768,7 @@ class HoneyDashboard {
   }
 
   renderCharts(rows, subcats, chVal, chVol, scVal, scVol, totVal, totVol, totRetVal, totRetVol, cur) {
-    const G   = '#0F1A28';
-    const TXT = '#3E4E62';
-    const LBL = '#A09070';
-    const LEG = '#6A7A8A';
-    const CARD_BG = '#0C1624';
+    const {G, TXT, LBL, LEG, CARD_BG} = _getChartColors();
 
     const topCh      = CH_ORDER[chVal.map(arr => arr[0]).reduce((bi, v, i, a) => v > a[bi] ? i : bi, 0)];
     const topChShare = totVal[0] > 0 ? (Math.max(...chVal.map(arr => arr[0])) / totVal[0] * 100) : 0;
@@ -867,11 +944,7 @@ class HoneyDashboard {
   }
 
   renderGCC(rows) {
-    const G   = '#0F1A28';
-    const TXT = '#3E4E62';
-    const LBL = '#A09070';
-    const LEG = '#6A7A8A';
-    const CARD_BG = '#0C1624';
+    const {G, TXT, LBL, LEG, CARD_BG} = _getChartColors();
 
     const ccVal    = GCC_ORDER.map(cc => FCST_YEARS.map(y => _sum(rows.filter(r=>r.country===cc.id&&r.year===y), 'value_usd')));
     const gccTot   = FCST_YEARS.map((_,yi) => GCC_ORDER.reduce((t,_,ci) => t + ccVal[ci][yi], 0));
@@ -1016,9 +1089,10 @@ Chart.register(ChartDataLabels);
 Chart.defaults.plugins.datalabels.display = false;
 Chart.defaults.font.family = "'Jost', 'Fira Mono', system-ui, sans-serif";
 Chart.defaults.font.size   = 11;
-Chart.defaults.color       = '#3E4E62';
+Chart.defaults.color       = document.documentElement.dataset.theme === 'light' ? '#9A8E7E' : '#3E4E62';
 
 // ── BOOT ──────────────────────────────────────────────────
+_updateThemeBtn(document.documentElement.dataset.theme === 'light');
 const dashboard = new HoneyDashboard();
 </script>
 </body>

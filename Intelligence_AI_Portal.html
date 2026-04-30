@@ -279,6 +279,65 @@
     to   { opacity: 1; transform: translateY(0); }
   }
   .animate-in { animation: fadeUp .45s cubic-bezier(.22,1,.36,1) both; }
+
+  /* ══ LIGHT MODE ════════════════════════════════════════════ */
+  html[data-theme="light"] {
+    --obsidian: #F8F5EE;
+    --card:     #FFFFFF;
+    --surface:  #F5F2EA;
+    --sidebar:  #FDFBF7;
+    --border:   #E5DDD0;
+    --border-hi:#C8C0B0;
+    --amber:    #B07808;
+    --amber-hi: #C88A10;
+    --amber-dim:rgba(176,120,8,.1);
+    --text-1:   #2A1800;
+    --text-2:   #5A4E3E;
+    --text-3:   #9A8E7E;
+    --text-ink: #1A0E00;
+    --teal:     #1A7A60;
+    --rust:     #8A2010;
+  }
+  /* Restore Tailwind natural values (override dark !important rules) */
+  html[data-theme="light"] .bg-white   { background-color: #ffffff !important; }
+  html[data-theme="light"] .bg-gray-50 { background-color: #f9fafb !important; }
+  html[data-theme="light"] .bg-gray-100{ background-color: #f3f4f6 !important; }
+  html[data-theme="light"] .border-gray-200 { border-color: #e5e7eb !important; }
+  html[data-theme="light"] .border-gray-100 { border-color: #f3f4f6 !important; }
+  html[data-theme="light"] .divide-gray-100 > * + * { border-color: #f3f4f6 !important; }
+  html[data-theme="light"] .text-gray-800 { color: #1f2937 !important; }
+  html[data-theme="light"] .text-gray-700 { color: #374151 !important; }
+  html[data-theme="light"] .text-gray-600 { color: #4b5563 !important; }
+  html[data-theme="light"] .text-gray-500 { color: #6b7280 !important; }
+  html[data-theme="light"] .text-gray-400 { color: #9ca3af !important; }
+  html[data-theme="light"] .text-gray-300 { color: #d1d5db !important; }
+  html[data-theme="light"] .hover\:bg-gray-100:hover { background-color: #f3f4f6 !important; }
+  html[data-theme="light"] .hover\:bg-gray-50:hover  { background-color: #f9fafb !important; }
+  html[data-theme="light"] .shadow-sm { box-shadow: 0 1px 2px rgba(0,0,0,.05) !important; }
+  html[data-theme="light"] .shadow-lg { box-shadow: 0 10px 15px rgba(0,0,0,.10) !important; }
+  html[data-theme="light"] .shadow-md { box-shadow: 0 4px 6px rgba(0,0,0,.07) !important; }
+  html[data-theme="light"] .text-blue-700 { color: #1d4ed8 !important; }
+  html[data-theme="light"] .text-blue-600 { color: #2563eb !important; }
+  html[data-theme="light"] .text-blue-200 { color: #93c5fd !important; }
+  html[data-theme="light"] .text-blue-100 { color: #dbeafe !important; }
+  html[data-theme="light"] .border-b { border-color: #e5e7eb !important; }
+  /* Hero */
+  html[data-theme="light"] .hero-bg {
+    background: linear-gradient(160deg, #F8F5EE 0%, #F5F0E8 60%, #FAF7F2 100%);
+  }
+  html[data-theme="light"] .hero-bg::before {
+    background-image: radial-gradient(circle at 20% 50%, rgba(176,120,8,.05) 0%, transparent 50%),
+                      radial-gradient(circle at 80% 20%, rgba(176,120,8,.03) 0%, transparent 40%);
+  }
+  /* Scrollbar */
+  html[data-theme="light"] .scroll-y::-webkit-scrollbar-track { background: var(--surface); }
+  html[data-theme="light"] .scroll-y::-webkit-scrollbar-thumb { background: var(--border-hi); }
+  /* Grain */
+  html[data-theme="light"] body::after { opacity: 0.008; }
+  /* Search tab background */
+  html[data-theme="light"] .inline-flex[style*="rgba(255,255,255,.04)"] {
+    background: rgba(0,0,0,.04) !important;
+  }
 </style>
 </head>
 
@@ -404,6 +463,13 @@
       <span class="hidden lg:block" style="color:var(--border-hi)">|</span>
       <span class="text-sm hidden lg:block" style="color:var(--text-3)">Reports</span>
       <span class="hidden lg:block" style="color:var(--border-hi)">|</span>
+      <button id="portal-theme-toggle" onclick="toggleTheme()" title="Toggle light / dark mode"
+              class="flex items-center gap-1.5 text-xs py-1.5 px-2.5 rounded-lg shrink-0"
+              style="border:1px solid var(--border-hi);color:var(--text-2);background:transparent;
+                     cursor:pointer;font-family:'Fira Mono',monospace;transition:all .15s">
+        <span id="portal-theme-icon">☀</span>
+        <span id="portal-theme-lbl" class="hidden sm:inline">Light</span>
+      </button>
       <button class="hidden sm:block text-xs font-semibold py-1.5 px-3 rounded-lg"
               style="border:1px solid var(--border-hi);color:var(--text-2)"
               onclick="showComingSoon('Login')">Log in</button>
@@ -1093,8 +1159,28 @@ function showComingSoon(feature) {
   _toastTimer = setTimeout(() => toast.classList.add('hidden'), 2500);
 }
 
+// ─── Theme ────────────────────────────────────────────
+function toggleTheme() {
+  const html = document.documentElement;
+  const toLight = html.dataset.theme !== 'light';
+  html.dataset.theme = toLight ? 'light' : '';
+  localStorage.setItem('iai-theme', toLight ? 'light' : 'dark');
+  _updatePortalThemeBtn(toLight);
+}
+function _updatePortalThemeBtn(isLight) {
+  const icon = document.getElementById('portal-theme-icon');
+  const lbl  = document.getElementById('portal-theme-lbl');
+  if (icon) icon.textContent = isLight ? '🌙' : '☀';
+  if (lbl)  lbl.textContent  = isLight ? 'Dark' : 'Light';
+}
+(function() {
+  const saved = localStorage.getItem('iai-theme');
+  if (saved === 'light') document.documentElement.dataset.theme = 'light';
+})();
+
 // ─── Init ─────────────────────────────────────────────
 renderCoTable();
+_updatePortalThemeBtn(document.documentElement.dataset.theme === 'light');
 </script>
 </body>
 </html>
