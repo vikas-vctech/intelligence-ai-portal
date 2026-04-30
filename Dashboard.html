@@ -380,18 +380,18 @@ body{display:block} /* layout handled by inner flex wrapper */
   color:var(--text-secondary);padding:5px;border-radius:4px;margin-right:2px;flex-shrink:0;
 }
 .sb-logo{
-  display:flex;align-items:center;gap:8px;
-  height:56px;padding:0 16px;flex-shrink:0;
-  border-bottom:1px solid var(--border);
-}
-.sb-logo-icon{
-  width:28px;height:28px;border-radius:4px;flex-shrink:0;
-  border:1px solid rgba(184,146,74,.35);
+  width:200px;height:200px;flex-shrink:0;
   display:flex;align-items:center;justify-content:center;
+  border-bottom:1px solid var(--border);
+  position:relative;
+  background:var(--bg-nav-deep);
 }
+.sb-logo img{width:148px;height:auto;display:block}
+.sb-logo-icon{display:none} /* unused, kept for safety */
 .sb-logo-close{
-  display:none;margin-left:auto;background:none;border:none;
-  cursor:pointer;color:var(--text-muted);font-size:16px;padding:2px;line-height:1;
+  position:absolute;top:10px;right:10px;
+  display:none;background:none;border:none;
+  cursor:pointer;color:var(--text-muted);font-size:16px;padding:4px;line-height:1;
 }
 @media(max-width:767px){.sb-logo-close{display:block}}
 .sb-nav{flex:1;overflow-y:auto;padding:12px 0}

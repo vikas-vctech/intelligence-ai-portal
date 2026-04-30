@@ -436,11 +436,12 @@
   class="fixed md:static inset-y-0 left-0 z-50 w-64 md:w-48 flex flex-col h-screen shrink-0 -translate-x-full md:translate-x-0">
 
   <!-- Logo -->
-  <div class="flex items-center gap-3 h-14 px-4" style="border-bottom:1px solid var(--border)">
+  <div class="relative flex items-center justify-center shrink-0"
+       style="aspect-ratio:1/1;width:100%;border-bottom:1px solid var(--border);background:var(--sidebar)">
     <img src="Atlas%20Design%20System/assets/atlas_logo_gold_on_midnight.png"
          alt="Atlas Market Intelligence"
-         style="height:34px;width:auto;display:block;flex-shrink:0">
-    <button class="md:hidden ml-auto p-1" style="color:var(--text-3)" onclick="closePortalSidebar()">
+         style="width:72%;height:auto;display:block">
+    <button class="md:hidden absolute top-2.5 right-2.5 p-1" style="color:var(--text-3)" onclick="closePortalSidebar()">
       <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
     </button>
   </div>
