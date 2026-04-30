@@ -708,6 +708,20 @@ html[data-theme="light"] .sb-nav::-webkit-scrollbar-thumb{background:#D8D0C0}
       </div>
     </div>
 
+    <!-- GCC-only: country breakdown charts (hidden for individual countries) -->
+    <div class="grid2" id="gcc-country-row" style="display:none">
+      <div class="card">
+        <div class="card-title">Volume by country — all GCC markets growing through 2030</div>
+        <div class="card-sub" id="sub-vol-country">Total volume (tonnes) · all channels · per country</div>
+        <div class="chart-wrap" style="height:240px"><canvas id="ch-vol-country"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Value by country — GCC combined market size</div>
+        <div class="card-sub" id="sub-val-country">USD million · all channels · per country</div>
+        <div class="chart-wrap" style="height:240px"><canvas id="ch-val-country"></canvas></div>
+      </div>
+    </div>
+
     <!-- Two stacked bar charts side by side -->
     <div class="grid2">
       <div class="card">
@@ -1086,9 +1100,55 @@ class MarketDashboard {
     this.renderKPIs(totVal, totRetVol, cur, this.activeYear);
     this.renderCharts(rows, subcats, chVal, chVol, scVal, scVol, totVal, totVol, totRetVal, totRetVol, cur, volUnit, this.activeYear);
     this.renderTable(totVal, totVol, totRetVol, totUSD, cur, volUnit);
+    const gccRow = document.getElementById('gcc-country-row');
+    if (gccRow) gccRow.style.display = isGCC ? '' : 'none';
+    if (isGCC) this.renderCountryCharts(rows, volUnit);
     document.title = isGCC
       ? `GCC ${product} · Atlas Market Intelligence`
       : `${COUNTRY_CFG[countryKey].label} ${product} · Atlas Market Intelligence`;
+  }
+
+  renderCountryCharts(rows, volUnit) {
+    const {G, TXT, LBL, LEG} = _getChartColors();
+    const _el = (id, txt) => { const e = document.getElementById(id); if(e) e.textContent = txt; };
+
+    const ccVol = GCC_ORDER.map(cc => FCST_YEARS.map(y => _sum(rows.filter(r => r.country===cc.id && r.year===y), 'volume')));
+    const ccVal = GCC_ORDER.map(cc => FCST_YEARS.map(y => _sum(rows.filter(r => r.country===cc.id && r.year===y), 'value_usd')));
+    const totVol = FCST_YEARS.map((_,yi) => GCC_ORDER.reduce((t,_,ci) => t + ccVol[ci][yi], 0));
+    const totVal = FCST_YEARS.map((_,yi) => GCC_ORDER.reduce((t,_,ci) => t + ccVal[ci][yi], 0));
+
+    _el('sub-vol-country', `Total volume (${volUnit}) · all channels · grows ${_cagr(totVol[0],totVol[5],5).toFixed(1)}% CAGR 2025–2030`);
+    _el('sub-val-country', `USD million · all channels · grows ${_cagr(totVal[0],totVal[5],5).toFixed(1)}% CAGR 2025–2030`);
+
+    const annot = (data, fmt) => ({
+      type:'line', label:'__total__', data,
+      borderColor:'transparent', backgroundColor:'transparent',
+      pointRadius:0, pointHoverRadius:0, fill:false,
+      datalabels:{display:true,anchor:'end',align:'top',offset:3,
+        color:LBL,font:{size:9.5,weight:'700'},
+        formatter:fmt==='v'?v=>`${Math.round(v).toLocaleString()} ${volUnit}`:v=>`$${v.toFixed(0)}M`}
+    });
+    const sOpts = (yFmt, tipLbl) => ({
+      responsive:true,maintainAspectRatio:false,
+      scales:{
+        x:{stacked:true,grid:{color:'transparent'},border:{color:G},ticks:{maxRotation:0,color:TXT}},
+        y:{stacked:true,grid:{color:G},border:{color:'transparent'},beginAtZero:true,grace:'18%',ticks:{callback:yFmt,color:TXT}}
+      },
+      plugins:{
+        legend:{position:'bottom',labels:{boxWidth:10,padding:10,font:{size:10},color:LEG,filter:i=>i.text!=='__total__'}},
+        tooltip:{mode:'index',callbacks:{label:tipLbl}}
+      }
+    });
+
+    this.mc('ch-vol-country',{type:'bar',data:{
+      labels:FCST_YEARS,
+      datasets:[...GCC_ORDER.map((cc,i)=>({label:cc.label,data:ccVol[i],backgroundColor:cc.color,stack:'s'})),annot(totVol,'v')]
+    },options:sOpts(v=>`${v.toFixed(0)} ${volUnit}`,c=>`${c.dataset.label}: ${c.parsed.y.toFixed(0)} ${volUnit}`)});
+
+    this.mc('ch-val-country',{type:'bar',data:{
+      labels:FCST_YEARS,
+      datasets:[...GCC_ORDER.map((cc,i)=>({label:cc.label,data:ccVal[i],backgroundColor:cc.color,stack:'s'})),annot(totVal,'M')]
+    },options:sOpts(v=>`$${v.toFixed(0)}M`,c=>`${c.dataset.label}: $${c.parsed.y.toFixed(1)}M`)});
   }
 
   renderKPIs(totVal, totRetVol, cur, year) {
