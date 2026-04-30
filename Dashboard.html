@@ -444,6 +444,70 @@ html[data-theme="light"] .sb-footer{border-top-color:#E0D8C8}
 html[data-theme="light"] .sb-nav::-webkit-scrollbar-thumb{background:#D8D0C0}
 /* Sub-header now has no brand — sidebar carries it */
 .top-nav{min-height:96px}
+
+/* ── PAGE HEADER ─────────────────────────────────────────── */
+.page-header{
+  display:flex;align-items:flex-start;justify-content:space-between;
+  margin-bottom:18px;padding-bottom:16px;
+  border-bottom:1px solid var(--border);flex-wrap:wrap;gap:8px;
+}
+.page-header h1{
+  font-family:var(--font-display);font-size:26px;font-weight:400;
+  color:var(--text-primary);line-height:1.1;letter-spacing:-.01em;
+}
+.page-header-sub{
+  font-size:10.5px;color:var(--text-muted);margin-top:5px;font-family:var(--font-ui);
+}
+.page-header-meta{
+  font-size:9.5px;color:var(--text-muted);font-family:var(--font-mono);
+  text-align:right;white-space:nowrap;padding-top:4px;
+}
+
+/* ── SECTION DIVIDERS ────────────────────────────────────── */
+.sec-divider{
+  display:flex;align-items:center;gap:12px;
+  margin:24px 0 14px;padding:10px 14px;
+  background:var(--bg-card);border:1px solid var(--border);
+  border-left:3px solid var(--atlas-gold);border-radius:var(--radius);
+}
+.sec-divider-icon{color:var(--atlas-gold);display:flex;align-items:center;flex-shrink:0}
+.sec-divider-text h2{
+  font-size:10px;font-weight:600;color:var(--atlas-gold);
+  text-transform:uppercase;letter-spacing:.14em;font-family:var(--font-ui);
+}
+.sec-divider-text span{font-size:9.5px;color:var(--text-muted)}
+
+/* ── SUMMARY TABLE ───────────────────────────────────────── */
+.smry-table{width:100%;border-collapse:collapse;font-size:11px;margin-top:4px}
+.smry-table thead tr:first-child th{
+  padding:4px 8px;text-align:center;font-size:8.5px;font-weight:600;
+  color:var(--atlas-gold);letter-spacing:.1em;text-transform:uppercase;
+  font-family:var(--font-ui);border-bottom:1px solid var(--border);
+}
+.smry-table thead tr:first-child th:first-child{text-align:left;color:transparent}
+.smry-table thead tr:last-child th{
+  padding:5px 8px;text-align:right;font-size:8.5px;font-weight:500;
+  color:var(--text-muted);letter-spacing:.1em;text-transform:uppercase;
+  font-family:var(--font-ui);border-bottom:1px solid var(--border-strong);
+}
+.smry-table thead tr:last-child th:first-child{text-align:left}
+.smry-table tbody td{
+  padding:6px 8px;border-bottom:1px solid var(--border);
+  text-align:right;font-family:var(--font-mono);font-size:11px;color:var(--text-primary);
+}
+.smry-table tbody td:first-child{
+  text-align:left;font-family:var(--font-ui);font-size:11.5px;color:var(--text-primary);
+}
+.smry-dot{
+  display:inline-block;width:7px;height:7px;border-radius:50%;
+  margin-right:7px;vertical-align:middle;flex-shrink:0;
+}
+.smry-table tbody tr:last-child td{
+  font-weight:600;color:var(--atlas-gold);border-bottom:none;
+  border-top:1px solid var(--border-strong);
+}
+.smry-table tbody tr:hover{background:rgba(184,146,74,.04)}
+.smry-cagr{color:var(--positive)!important;font-weight:600}
 </style>
 </head>
 <body>
@@ -611,6 +675,16 @@ html[data-theme="light"] .sb-nav::-webkit-scrollbar-thumb{background:#D8D0C0}
 
     <div id="err-dashboard" class="err-banner"></div>
 
+    <!-- Page header -->
+    <div class="page-header">
+      <div>
+        <h1>Market Overview</h1>
+        <div class="page-header-sub">Trade-anchored supply-side model · All channels · 2025–2030</div>
+      </div>
+      <div class="page-header-meta" id="ph-meta">All values in millions and volumes in tonnes</div>
+    </div>
+
+    <!-- KPI row -->
     <div class="kpi-row">
       <div class="kpi">
         <div class="kpi-lbl">Total Market 2025</div>
@@ -634,60 +708,77 @@ html[data-theme="light"] .sb-nav::-webkit-scrollbar-thumb{background:#D8D0C0}
       </div>
     </div>
 
-    <div class="section-head"><h2>Market Overview</h2><span>Trade-anchored supply-side model · all channels · 2025–2030</span></div>
-    <div class="grid3">
+    <!-- Two stacked bar charts side by side -->
+    <div class="grid2">
       <div class="card">
-        <div class="card-title">Market volume grows steadily through 2030</div>
+        <div class="card-title">Volume (tonnes) grows steadily through 2030</div>
         <div class="card-sub" id="sub-mktvol">Total volume (tonnes) · all channels stacked</div>
-        <div class="chart-wrap" style="height:250px"><canvas id="ch-mktvol"></canvas></div>
+        <div class="chart-wrap" style="height:240px"><canvas id="ch-mktvol"></canvas></div>
       </div>
       <div class="card">
         <div class="card-title">Value growth outpaces volume — premiumisation at work</div>
         <div class="card-sub" id="sub-mktval">Local currency million · all channels</div>
-        <div class="chart-wrap" style="height:250px"><canvas id="ch-mktval"></canvas></div>
-      </div>
-      <div class="card">
-        <div class="card-title">Retail household drives the majority of market value</div>
-        <div class="card-sub" id="sub-chsplit">Channel share of 2025 total market value</div>
-        <div class="chart-wrap" style="height:250px"><canvas id="ch-chsplit"></canvas></div>
+        <div class="chart-wrap" style="height:240px"><canvas id="ch-mktval"></canvas></div>
       </div>
     </div>
 
-    <div class="section-head"><h2>By Product Type</h2><span>Retail household channel · penetration model · 2025–2030</span></div>
+    <!-- Summary table + Growth comparison -->
+    <div class="grid2">
+      <div class="card">
+        <div class="card-title">Summary (2025–2030)</div>
+        <div class="card-sub">Channel-level volume and value with CAGR</div>
+        <div id="summary-table-container"></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Growth comparison (CAGR 2025–2030)</div>
+        <div class="card-sub">Volume CAGR vs Value CAGR by distribution channel</div>
+        <div class="chart-wrap" style="height:224px"><canvas id="ch-growth-cmp"></canvas></div>
+      </div>
+    </div>
+
+    <!-- BY PRODUCT TYPE -->
+    <div class="sec-divider">
+      <div class="sec-divider-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007z"/></svg></div>
+      <div class="sec-divider-text"><h2>By Product Type</h2><span>Retail household channel · Penetration model · 2025–2030</span></div>
+    </div>
     <div class="grid3">
       <div class="card">
         <div class="card-title">Leading sub-category accounts for the largest share of retail value</div>
         <div class="card-sub" id="sub-scval">2025 value by sub-category · retail household</div>
-        <div class="chart-wrap" style="height:250px"><canvas id="ch-scval"></canvas></div>
+        <div class="chart-wrap" style="height:240px"><canvas id="ch-scval"></canvas></div>
       </div>
       <div class="card">
         <div class="card-title">Sub-category composition in 2025</div>
         <div class="card-sub" id="sub-scshare">% of retail channel value</div>
-        <div class="chart-wrap" style="height:250px"><canvas id="ch-scshare"></canvas></div>
+        <div class="chart-wrap" style="height:240px"><canvas id="ch-scshare"></canvas></div>
       </div>
       <div class="card">
         <div class="card-title">All sub-categories grow; premium mix shifts upward</div>
         <div class="card-sub">Retail channel value stacked by product type</div>
-        <div class="chart-wrap" style="height:250px"><canvas id="ch-sctrend"></canvas></div>
+        <div class="chart-wrap" style="height:240px"><canvas id="ch-sctrend"></canvas></div>
       </div>
     </div>
 
-    <div class="section-head"><h2>Distribution Channels</h2><span>Trade-anchored channel decomposition · 2025–2030</span></div>
+    <!-- DISTRIBUTION CHANNELS -->
+    <div class="sec-divider">
+      <div class="sec-divider-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"/></svg></div>
+      <div class="sec-divider-text"><h2>Distribution Channels</h2><span>Trade-anchored channel decomposition · 2025–2030</span></div>
+    </div>
     <div class="grid3">
       <div class="card">
         <div class="card-title">Retail household is the dominant demand channel</div>
         <div class="card-sub" id="sub-chval">2025 market value by channel</div>
-        <div class="chart-wrap" style="height:250px"><canvas id="ch-chval"></canvas></div>
+        <div class="chart-wrap" style="height:240px"><canvas id="ch-chval"></canvas></div>
       </div>
       <div class="card">
         <div class="card-title">Channel mix in 2025</div>
         <div class="card-sub">% of total market value</div>
-        <div class="chart-wrap" style="height:250px"><canvas id="ch-chshare"></canvas></div>
+        <div class="chart-wrap" style="height:240px"><canvas id="ch-chshare"></canvas></div>
       </div>
       <div class="card">
         <div class="card-title">Channel value grows across all segments 2025–2030</div>
         <div class="card-sub">All channels stacked · local currency million</div>
-        <div class="chart-wrap" style="height:250px"><canvas id="ch-chtrend"></canvas></div>
+        <div class="chart-wrap" style="height:240px"><canvas id="ch-chtrend"></canvas></div>
       </div>
     </div>
 
@@ -1038,7 +1129,6 @@ class MarketDashboard {
     _el('sub-mktval',  isAll
       ? `${cur} million · all channels · value CAGR ${_cagr(totVal[0],totVal[5],5).toFixed(1)}%`
       : `${cur} million · all channels · ${activeYear} selected`);
-    _el('sub-chsplit', `${topCh}: ${topChShare.toFixed(0)}% of ${refYr} total market value`);
     _el('sub-scval',   `${topSC} leads at ${topSCShare.toFixed(0)}% of ${refYr} retail value (${cur} M)`);
     _el('sub-chval',   `${cur} million · ${topCh} at ${topChShare.toFixed(0)}% of market`);
 
@@ -1104,10 +1194,71 @@ class MarketDashboard {
       datasets:[...CH_ORDER.map((ch,i)=>({label:ch,data:mask(chVal[i]),backgroundColor:C_CH[i],stack:'s'})),annotLine(mask(totVal),'M')]
     }, options:stkOpts(v=>`${v.toFixed(0)}M`, c=>`${c.dataset.label}: ${cur} ${c.parsed.y.toFixed(1)}M`)});
 
-    this.mc('ch-chsplit', {type:'doughnut', data:{
-      labels:CH_ORDER,
-      datasets:[{data:CH_ORDER.map((_,i)=>chVal[i][yIdx]),backgroundColor:C_CH,borderWidth:2,borderColor:CARD_BG}]
-    }, options:dntOpts()});
+    // Summary table
+    _el('ph-meta', `All values in millions (${cur}) and volumes in ${volUnit}`);
+    const fmtV = v => Math.round(v).toLocaleString();
+    const fmtM = v => `${v.toFixed(0)}M`;
+    const fmtCg = v => `${v.toFixed(1)}%`;
+    let smryHtml = `<table class="smry-table"><thead>
+      <tr>
+        <th>Channel</th>
+        <th colspan="3" style="border-left:1px solid var(--border)">Volume (${volUnit})</th>
+        <th colspan="3" style="border-left:1px solid var(--border)">Value (${cur} M)</th>
+      </tr>
+      <tr>
+        <th></th>
+        <th style="border-left:1px solid var(--border)">2025</th><th>2030</th><th>CAGR</th>
+        <th style="border-left:1px solid var(--border)">2025</th><th>2030</th><th>CAGR</th>
+      </tr>
+    </thead><tbody>`;
+    CH_ORDER.forEach((ch, i) => {
+      const vc = _cagr(chVol[i][0], chVol[i][5], 5);
+      const ac = _cagr(chVal[i][0], chVal[i][5], 5);
+      smryHtml += `<tr>
+        <td><span class="smry-dot" style="background:${C_CH[i]}"></span>${ch}</td>
+        <td style="border-left:1px solid var(--border)">${fmtV(chVol[i][0])}</td>
+        <td>${fmtV(chVol[i][5])}</td>
+        <td class="smry-cagr">${fmtCg(vc)}</td>
+        <td style="border-left:1px solid var(--border)">${fmtM(chVal[i][0])}</td>
+        <td>${fmtM(chVal[i][5])}</td>
+        <td class="smry-cagr">${fmtCg(ac)}</td>
+      </tr>`;
+    });
+    smryHtml += `<tr>
+      <td>Total</td>
+      <td style="border-left:1px solid var(--border)">${fmtV(totVol[0])}</td>
+      <td>${fmtV(totVol[5])}</td>
+      <td class="smry-cagr">${fmtCg(_cagr(totVol[0],totVol[5],5))}</td>
+      <td style="border-left:1px solid var(--border)">${fmtM(totVal[0])}</td>
+      <td>${fmtM(totVal[5])}</td>
+      <td class="smry-cagr">${fmtCg(_cagr(totVal[0],totVal[5],5))}</td>
+    </tr></tbody></table>`;
+    const smryEl = document.getElementById('summary-table-container');
+    if (smryEl) smryEl.innerHTML = smryHtml;
+
+    // Growth comparison chart
+    const gcLabels  = [...CH_ORDER, 'Total Market'];
+    const gcVolCagr = [...CH_ORDER.map((_,i) => _cagr(chVol[i][0],chVol[i][5],5)), _cagr(totVol[0],totVol[5],5)];
+    const gcValCagr = [...CH_ORDER.map((_,i) => _cagr(chVal[i][0],chVal[i][5],5)), _cagr(totVal[0],totVal[5],5)];
+    this.mc('ch-growth-cmp', {type:'bar', data:{
+      labels: gcLabels,
+      datasets:[
+        {label:'Volume CAGR', data:gcVolCagr, backgroundColor:'#3D6B5C', borderRadius:2,
+          datalabels:{display:true,anchor:'end',align:'right',offset:4,color:LBL,font:{size:9.5,weight:'600'},formatter:v=>`${v.toFixed(1)}%`}},
+        {label:'Value CAGR',  data:gcValCagr, backgroundColor:'#6B1F2E', borderRadius:2,
+          datalabels:{display:true,anchor:'end',align:'right',offset:4,color:LBL,font:{size:9.5,weight:'600'},formatter:v=>`${v.toFixed(1)}%`}},
+      ]
+    }, options:{
+      responsive:true, maintainAspectRatio:false, indexAxis:'y',
+      scales:{
+        x:{grid:{color:G},border:{color:'transparent'},beginAtZero:true,grace:'22%',ticks:{callback:v=>`${v.toFixed(0)}%`,color:TXT}},
+        y:{grid:{color:'transparent'},border:{color:G},ticks:{font:{size:10},color:LEG}}
+      },
+      plugins:{
+        legend:{position:'bottom',labels:{boxWidth:10,padding:10,font:{size:10},color:LEG}},
+        tooltip:{mode:'index',callbacks:{label:c=>`${c.dataset.label}: ${c.parsed.x.toFixed(1)}%`}}
+      }
+    }});
 
     // Sub-categories
     this.mc('ch-scval', {type:'bar', data:{
