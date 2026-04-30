@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GCC Honey Market · Intelligence AI</title>
+<title>Intelligence AI Markets</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Fira+Mono:wght@400;500;700&family=Fraunces:opsz,wght@9..144,300;9..144,700;9..144,900&family=Instrument+Sans:wght@400;500;600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -113,7 +113,8 @@ body::after{
 .nav-select{
   background:#08111E;color:#7A8A9A;border:1px solid #162030;
   border-radius:4px;padding:5px 22px 5px 8px;
-  font-size:11.5px;appearance:none;cursor:pointer;font-family:'Jost',sans-serif;
+  font-size:11.5px;appearance:none;-webkit-appearance:none;-moz-appearance:none;
+  cursor:pointer;font-family:'Jost',sans-serif;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5'%3E%3Cpath d='M0 0l4 5 4-5z' fill='%23283848'/%3E%3C/svg%3E");
   background-repeat:no-repeat;background-position:right 6px center;
 }
@@ -324,8 +325,10 @@ html[data-theme="light"] .nav-btn{color:#7A6A5A}
 html[data-theme="light"] .nav-filter-label{color:#9A8E7E}
 html[data-theme="light"] .nav-meta{color:#9A8E7E}
 html[data-theme="light"] .nav-select{
-  background:#F5F0E8;color:#5A4E3E;border-color:#D8D0C0;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5'%3E%3Cpath d='M0 0l4 5 4-5z' fill='%23A09080'/%3E%3C/svg%3E");
+  background:#EDE8DF;color:#3A2E20;border-color:#C0B4A0;
+  appearance:none;-webkit-appearance:none;-moz-appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5'%3E%3Cpath d='M0 0l4 5 4-5z' fill='%23705A3E'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 6px center;
 }
 html[data-theme="light"] .nav-select option{background:#FAF7F0}
 html[data-theme="light"] .nav-select-country{color:#2A1800;border-color:#C8B8A0}
@@ -447,6 +450,11 @@ html[data-theme="light"] .sb-nav::-webkit-scrollbar-thumb{background:#D8D0C0}
       Home
     </a>
 
+    <a class="sb-item" onclick="showSbToast('Statistics')">
+      <svg class="sb-icon" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z"/></svg>
+      Statistics
+    </a>
+
     <div>
       <a class="sb-item sb-open" id="sb-industries" onclick="toggleSbMenu('industries')">
         <svg class="sb-icon" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg>
@@ -454,10 +462,14 @@ html[data-theme="light"] .sb-nav::-webkit-scrollbar-thumb{background:#D8D0C0}
         <svg class="sb-chevron rotated" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
       </a>
       <div class="sb-submenu open" id="sbmenu-industries">
-        <a class="sb-sub sb-active">🍯 GCC Honey Markets</a>
-        <a class="sb-sub" onclick="showSbToast('Olive Oil GCC')">🫒 Olive Oil GCC</a>
-        <a class="sb-sub" onclick="showSbToast('GCC Dairy')">🥛 GCC Dairy</a>
-        <a class="sb-sub" onclick="showSbToast('GCC Dates')">🌴 GCC Dates</a>
+        <a class="sb-sub sb-active" onclick="window.location.href='Intelligence_AI_Portal.html'">
+          <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#22c55e;margin-right:6px;vertical-align:middle;box-shadow:0 0 5px #22c55e"></span>Consumer Products
+        </a>
+        <a class="sb-sub" onclick="showSbToast('Defense &amp; Industrial')">Defense &amp; Industrial</a>
+        <a class="sb-sub" onclick="showSbToast('Pharmaceuticals')">Pharmaceuticals</a>
+        <a class="sb-sub" onclick="showSbToast('Technology')">Technology</a>
+        <a class="sb-sub" onclick="showSbToast('Financial Services')">Financial Services</a>
+        <a class="sb-sub" style="color:var(--text-muted)" onclick="window.location.href='Intelligence_AI_Portal.html'">All Industries →</a>
       </div>
     </div>
 
@@ -479,6 +491,7 @@ html[data-theme="light"] .sb-nav::-webkit-scrollbar-thumb{background:#D8D0C0}
       </a>
       <div class="sb-submenu" id="sbmenu-companies">
         <a class="sb-sub" onclick="window.location.href='Intelligence_AI_Portal.html'">All Companies</a>
+        <a class="sb-sub" onclick="window.location.href='Intelligence_AI_Portal.html'">Consumer Goods</a>
       </div>
     </div>
 
@@ -495,6 +508,11 @@ html[data-theme="light"] .sb-nav::-webkit-scrollbar-thumb{background:#D8D0C0}
     <a class="sb-item" onclick="showSbToast('Survey')">
       <svg class="sb-icon" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z"/></svg>
       Survey
+    </a>
+
+    <a class="sb-item" onclick="showSbToast('Contact Us')">
+      <svg class="sb-icon" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+      Contact Us
     </a>
 
   </nav>
@@ -520,9 +538,6 @@ html[data-theme="light"] .sb-nav::-webkit-scrollbar-thumb{background:#D8D0C0}
     <button class="nav-btn active" onclick="switchSec('dashboard')" id="nav-dashboard">
       <span class="nav-btn-icon">⊞</span> Dashboard
     </button>
-    <button class="nav-btn" onclick="switchSec('compare')" id="nav-compare">
-      <span class="nav-btn-icon">⊟</span> GCC Compare
-    </button>
   </div>
 
   <div class="nav-sep"></div>
@@ -531,6 +546,9 @@ html[data-theme="light"] .sb-nav::-webkit-scrollbar-thumb{background:#D8D0C0}
     <div class="nav-filter-group">
       <span class="nav-filter-label">Country</span>
       <select class="nav-select nav-select-country" id="countrySelect" onchange="onCountryChange(this.value)">
+        <option value="gcc">GCC</option>
+        <option value="mena">MENA</option>
+        <option disabled>──────────</option>
         <option value="United Arab Emirates">UAE</option>
         <option value="Saudi Arabia">Saudi Arabia</option>
         <option value="Kuwait">Kuwait</option>
@@ -541,17 +559,23 @@ html[data-theme="light"] .sb-nav::-webkit-scrollbar-thumb{background:#D8D0C0}
     </div>
     <div class="nav-filter-group">
       <span class="nav-filter-label">Product</span>
-      <select class="nav-select" disabled><option>Honey</option></select>
+      <select class="nav-select" id="productSelect" onchange="onProductChange(this.value)"><option>Honey</option></select>
     </div>
     <div class="nav-filter-group">
-      <span class="nav-filter-label">Period</span>
-      <select class="nav-select" disabled><option>2025 – 2030</option></select>
+      <span class="nav-filter-label">Year</span>
+      <select class="nav-select" id="yearSelect" onchange="onYearChange(this.value)">
+        <option value="all">2025–2030</option>
+        <option value="2025">2025</option>
+        <option value="2026">2026</option>
+        <option value="2027">2027</option>
+        <option value="2028">2028</option>
+        <option value="2029">2029</option>
+        <option value="2030">2030</option>
+      </select>
     </div>
   </div>
 
   <div class="nav-right">
-    <span class="nav-fx-badge" id="tb-fx">AED 3.6725 / USD</span>
-    <span class="nav-meta">FAO · Euromonitor · ITC Trademap</span>
     <div class="loading-spinner" id="spinner"></div>
   </div>
 </header>
@@ -609,7 +633,7 @@ html[data-theme="light"] .sb-nav::-webkit-scrollbar-thumb{background:#D8D0C0}
     <div class="section-head"><h2>By Product Type</h2><span>Retail household channel · penetration model · 2025–2030</span></div>
     <div class="grid3">
       <div class="card">
-        <div class="card-title">Premium honey accounts for the largest share of retail value</div>
+        <div class="card-title">Leading sub-category accounts for the largest share of retail value</div>
         <div class="card-sub" id="sub-scval">2025 value by sub-category · retail household</div>
         <div class="chart-wrap" style="height:250px"><canvas id="ch-scval"></canvas></div>
       </div>
@@ -688,7 +712,7 @@ html[data-theme="light"] .sb-nav::-webkit-scrollbar-thumb{background:#D8D0C0}
     <div class="section-head"><h2>GCC Market Overview</h2><span>All 6 countries · USD · 2025–2030</span></div>
     <div class="grid2">
       <div class="card">
-        <div class="card-title">Saudi Arabia leads the GCC honey market by a wide margin</div>
+        <div class="card-title" id="gcc-bar-title">GCC market leaders ranked by 2025 value</div>
         <div class="card-sub" id="gcc-sub-bar">2025 market size ranked by value · all channels (USD M)</div>
         <div class="chart-wrap" style="height:270px"><canvas id="ch-gcc-bar"></canvas></div>
       </div>
@@ -779,9 +803,6 @@ function formatValue(value, format) {
       if (Math.abs(value) >= 1e6) return `${(value/1e6).toFixed(1)}M`;
       if (Math.abs(value) >= 1e3) return `${(value/1e3).toFixed(1)}K`;
       return value.toLocaleString();
-    case 'tonnes':
-      if (Math.abs(value) >= 1e3) return `${(value/1e3).toFixed(1)}K t`;
-      return `${Math.round(value).toLocaleString()} t`;
     default: return String(value);
   }
 }
@@ -804,7 +825,7 @@ function toggleTheme() {
   localStorage.setItem('iai-theme', toLight ? 'light' : 'dark');
   Chart.defaults.color = toLight ? '#9A8E7E' : '#3E4E62';
   _updateThemeBtn(toLight);
-  dashboard.loadSection(dashboard.activeSection, dashboard.activeCountry);
+  dashboard.loadSection(dashboard.activeSection, dashboard.activeCountry, dashboard.activeProduct);
 }
 function _updateThemeBtn(isLight) {
   const icon = document.getElementById('theme-icon');
@@ -823,10 +844,24 @@ const _cagr = (a, b, n) => a > 0 && b > 0 ? (Math.pow(b/a, 1/n) - 1) * 100 : 0;
 
 // ── DATA FETCH ────────────────────────────────────────────
 const _cache = {};
-async function fetchRows(country) {
-  const key = country || '__all';
+
+async function fetchProducts() {
+  if (_cache['__products']) return _cache['__products'];
+  const url = `${SB_URL}/rest/v1/demand_estimates?select=product_category&order=product_category.asc&limit=5000`;
+  const r = await fetch(url, { headers:{ apikey:SB_KEY, Authorization:`Bearer ${SB_KEY}` } });
+  if (!r.ok) return ['Honey'];
+  const data = await r.json();
+  if (!Array.isArray(data) || data.length === 0) return ['Honey'];
+  const products = [...new Set(data.map(r => r.product_category))].sort();
+  _cache['__products'] = products;
+  return products;
+}
+
+async function fetchRows(country, product) {
+  const prod = product || 'Honey';
+  const key  = (country || '__all') + '__' + prod;
   if (_cache[key]) return _cache[key];
-  let url = `${SB_URL}/rest/v1/demand_estimates?select=country,sub_category,channel,year,volume,value_local,value_usd,currency&product_category=eq.Honey&order=country.asc,year.asc,channel.asc,sub_category.asc`;
+  let url = `${SB_URL}/rest/v1/demand_estimates?select=country,sub_category,channel,year,volume,volume_unit,value_local,value_usd,currency&product_category=eq.${encodeURIComponent(prod)}&order=country.asc,year.asc,channel.asc,sub_category.asc`;
   if (country) url += `&country=eq.${encodeURIComponent(country)}`;
   const r = await fetch(url, { headers:{ apikey:SB_KEY, Authorization:`Bearer ${SB_KEY}` } });
   if (!r.ok) throw new Error(`HTTP ${r.status}: ${r.statusText}`);
@@ -839,20 +874,36 @@ async function fetchRows(country) {
 // ══════════════════════════════════════════════════════════
 // DASHBOARD CLASS
 // ══════════════════════════════════════════════════════════
-class HoneyDashboard {
+class MarketDashboard {
   constructor() {
     this.charts        = {};
     this.activeCountry = 'United Arab Emirates';
     this.activeSection = 'dashboard';
+    this.activeProduct = 'Honey';
+    this.activeYear    = 'all';
     this._sortCol      = 'year';
     this._sortDir      = 'asc';
     this._tableData    = [];
     this._tableCur     = 'AED';
+    this._volUnit      = 'tonnes';
     this.init();
   }
 
   async init() {
-    await this.loadSection('dashboard', this.activeCountry);
+    await this.loadProducts();
+    await this.loadSection('dashboard', this.activeCountry, this.activeProduct);
+  }
+
+  async loadProducts() {
+    try {
+      const products = await fetchProducts();
+      const sel = document.getElementById('productSelect');
+      if (sel) {
+        sel.innerHTML = products.map(p =>
+          `<option value="${p}"${p === this.activeProduct ? ' selected' : ''}>${p}</option>`
+        ).join('');
+      }
+    } catch(e) { /* keep default Honey */ }
   }
 
   mc(id, cfg) {
@@ -874,16 +925,16 @@ class HoneyDashboard {
     if (el) el.style.display = 'none';
   }
 
-  async loadSection(sec, country) {
+  async loadSection(sec, country, product) {
     this.setLoading(true);
     this.hideErr(sec);
     try {
       if (sec === 'compare') {
-        const rows = await fetchRows(null);
-        this.renderGCC(rows);
+        const rows = await fetchRows(null, product);
+        this.renderGCC(rows, product);
       } else {
-        const rows = await fetchRows(country);
-        this.renderCountry(rows, country);
+        const rows = await fetchRows(country, product);
+        this.renderCountry(rows, country, product);
       }
     } catch(e) {
       this.showErr(sec, `Failed to load data: ${e.message}. Check that the Supabase anon key has read access.`);
@@ -891,9 +942,11 @@ class HoneyDashboard {
     this.setLoading(false);
   }
 
-  renderCountry(rows, countryKey) {
-    const cfg = COUNTRY_CFG[countryKey];
-    const cur = cfg.currency;
+  renderCountry(rows, countryKey, product) {
+    const cfg     = COUNTRY_CFG[countryKey];
+    const cur     = cfg.currency;
+    const volUnit = rows.length > 0 && rows[0].volume_unit ? rows[0].volume_unit : 'tonnes';
+    this._volUnit = volUnit;
 
     const retRows = rows.filter(r => r.channel === 'Retail Household');
     const subcats = [...new Set(rows.map(r => r.sub_category))];
@@ -915,34 +968,55 @@ class HoneyDashboard {
 
     const totUSD = FCST_YEARS.map(y => _sum(rows.filter(r => r.year===y), 'value_usd'));
 
-    this.renderKPIs(totVal, totRetVol, cur);
-    this.renderCharts(rows, subcats, chVal, chVol, scVal, scVol, totVal, totVol, totRetVal, totRetVol, cur);
-    this.renderTable(totVal, totVol, totRetVol, totUSD, cur);
-    this.updateFxBadge(countryKey);
+    this.renderKPIs(totVal, totRetVol, cur, this.activeYear);
+    this.renderCharts(rows, subcats, chVal, chVol, scVal, scVol, totVal, totVol, totRetVal, totRetVol, cur, volUnit, this.activeYear);
+    this.renderTable(totVal, totVol, totRetVol, totUSD, cur, volUnit);
+    document.title = `${COUNTRY_CFG[countryKey].label} ${product} Market · Intelligence AI`;
   }
 
-  renderKPIs(totVal, totRetVol, cur) {
+  renderKPIs(totVal, totRetVol, cur, year) {
+    const isAll = year === 'all';
+    const yIdx  = isAll ? 5 : Math.max(0, FCST_YEARS.indexOf(year));
+    const nYrs  = isAll ? 5 : yIdx;
     document.getElementById('kv1').textContent = `${cur} ${totVal[0].toFixed(0)}M`;
-    document.getElementById('kv2').textContent = `${cur} ${totVal[5].toFixed(0)}M`;
-    document.getElementById('kv3').textContent = `${_cagr(totRetVol[0], totRetVol[5], 5).toFixed(1)}%`;
-    document.getElementById('kv4').textContent = `${_cagr(totVal[0], totVal[5], 5).toFixed(1)}%`;
+    document.getElementById('kv2').textContent = `${cur} ${totVal[yIdx].toFixed(0)}M`;
+    document.getElementById('kv3').textContent = nYrs > 0
+      ? `${_cagr(totRetVol[0], totRetVol[yIdx], nYrs).toFixed(1)}%`
+      : '—';
+    document.getElementById('kv4').textContent = nYrs > 0
+      ? `${_cagr(totVal[0], totVal[yIdx], nYrs).toFixed(1)}%`
+      : '—';
     document.getElementById('ks1').textContent = `${cur} million · all channels`;
     document.getElementById('ks2').textContent = `${cur} million · all channels`;
+    const endYear = isAll ? 2030 : year;
+    const endYY   = String(endYear).slice(2);
+    document.querySelector('#sec-dashboard .kpi:nth-child(1) .kpi-lbl').textContent = 'Total Market 2025';
+    document.querySelector('#sec-dashboard .kpi:nth-child(2) .kpi-lbl').textContent = `Total Market ${endYear}`;
+    document.querySelector('#sec-dashboard .kpi:nth-child(3) .kpi-lbl').textContent = `Volume CAGR 2025–${endYY}`;
+    document.querySelector('#sec-dashboard .kpi:nth-child(4) .kpi-lbl').textContent = `Value CAGR 2025–${endYY}`;
   }
 
-  renderCharts(rows, subcats, chVal, chVol, scVal, scVol, totVal, totVol, totRetVal, totRetVol, cur) {
+  renderCharts(rows, subcats, chVal, chVol, scVal, scVol, totVal, totVol, totRetVal, totRetVol, cur, volUnit, activeYear) {
     const {G, TXT, LBL, LEG, CARD_BG} = _getChartColors();
+    const isAll = activeYear === 'all';
+    const yIdx  = isAll ? 0 : Math.max(0, FCST_YEARS.indexOf(activeYear));
+    const mask  = arr => isAll ? arr : arr.map((v, i) => i === yIdx ? v : 0);
+    const refYr = isAll ? 2025 : activeYear;
 
-    const topCh      = CH_ORDER[chVal.map(arr => arr[0]).reduce((bi, v, i, a) => v > a[bi] ? i : bi, 0)];
-    const topChShare = totVal[0] > 0 ? (Math.max(...chVal.map(arr => arr[0])) / totVal[0] * 100) : 0;
+    const topCh      = CH_ORDER[chVal.map(arr => arr[yIdx]).reduce((bi, v, i, a) => v > a[bi] ? i : bi, 0)];
+    const topChShare = totVal[yIdx] > 0 ? (Math.max(...chVal.map(arr => arr[yIdx])) / totVal[yIdx] * 100) : 0;
     const topSC      = subcats[0];
-    const topSCShare = totRetVal[0] > 0 ? (scVal[0][0] / totRetVal[0] * 100) : 0;
+    const topSCShare = totRetVal[yIdx] > 0 ? (scVal[0][yIdx] / totRetVal[yIdx] * 100) : 0;
 
     const _el = (id, txt) => { const e = document.getElementById(id); if(e) e.textContent = txt; };
-    _el('sub-mktvol',  `Total volume (tonnes) · all channels stacked · grows ${_cagr(totVol[0],totVol[5],5).toFixed(1)}% CAGR`);
-    _el('sub-mktval',  `${cur} million · all channels · value CAGR ${_cagr(totVal[0],totVal[5],5).toFixed(1)}%`);
-    _el('sub-chsplit', `${topCh}: ${topChShare.toFixed(0)}% of 2025 total market value`);
-    _el('sub-scval',   `${topSC} leads at ${topSCShare.toFixed(0)}% of 2025 retail value (${cur} M)`);
+    _el('sub-mktvol',  isAll
+      ? `Total volume (${volUnit}) · all channels stacked · grows ${_cagr(totVol[0],totVol[5],5).toFixed(1)}% CAGR`
+      : `Total volume (${volUnit}) · all channels · ${activeYear} selected`);
+    _el('sub-mktval',  isAll
+      ? `${cur} million · all channels · value CAGR ${_cagr(totVal[0],totVal[5],5).toFixed(1)}%`
+      : `${cur} million · all channels · ${activeYear} selected`);
+    _el('sub-chsplit', `${topCh}: ${topChShare.toFixed(0)}% of ${refYr} total market value`);
+    _el('sub-scval',   `${topSC} leads at ${topSCShare.toFixed(0)}% of ${refYr} retail value (${cur} M)`);
     _el('sub-chval',   `${cur} million · ${topCh} at ${topChShare.toFixed(0)}% of market`);
 
     const annotLine = (data, fmt) => ({
@@ -951,7 +1025,9 @@ class HoneyDashboard {
       pointRadius:0, pointHoverRadius:0, fill:false,
       datalabels:{display:true, anchor:'end', align:'top', offset:3,
         color:LBL, font:{size:9.5,weight:'700'},
-        formatter: fmt === 't' ? v => `${Math.round(v).toLocaleString()}t` : v => `${v.toFixed(0)}M`}
+        formatter: fmt === 'v'
+          ? v => `${Math.round(v).toLocaleString()} ${volUnit}`
+          : v => `${v.toFixed(0)}M`}
     });
 
     const stkOpts = (yFmt, tipLabel) => ({
@@ -997,56 +1073,57 @@ class HoneyDashboard {
     // Market overview
     this.mc('ch-mktvol', {type:'bar', data:{
       labels:FCST_YEARS,
-      datasets:[...CH_ORDER.map((ch,i)=>({label:ch,data:chVol[i],backgroundColor:C_CH[i],stack:'s'})),annotLine(totVol,'t')]
-    }, options:stkOpts(v=>`${v.toFixed(0)}t`, c=>`${c.dataset.label}: ${c.parsed.y.toFixed(0)} t`)});
+      datasets:[...CH_ORDER.map((ch,i)=>({label:ch,data:mask(chVol[i]),backgroundColor:C_CH[i],stack:'s'})),annotLine(mask(totVol),'v')]
+    }, options:stkOpts(v=>`${v.toFixed(0)} ${volUnit}`, c=>`${c.dataset.label}: ${c.parsed.y.toFixed(0)} ${volUnit}`)});
 
     this.mc('ch-mktval', {type:'bar', data:{
       labels:FCST_YEARS,
-      datasets:[...CH_ORDER.map((ch,i)=>({label:ch,data:chVal[i],backgroundColor:C_CH[i],stack:'s'})),annotLine(totVal,'M')]
+      datasets:[...CH_ORDER.map((ch,i)=>({label:ch,data:mask(chVal[i]),backgroundColor:C_CH[i],stack:'s'})),annotLine(mask(totVal),'M')]
     }, options:stkOpts(v=>`${v.toFixed(0)}M`, c=>`${c.dataset.label}: ${cur} ${c.parsed.y.toFixed(1)}M`)});
 
     this.mc('ch-chsplit', {type:'doughnut', data:{
       labels:CH_ORDER,
-      datasets:[{data:CH_ORDER.map((_,i)=>chVal[i][0]),backgroundColor:C_CH,borderWidth:2,borderColor:CARD_BG}]
+      datasets:[{data:CH_ORDER.map((_,i)=>chVal[i][yIdx]),backgroundColor:C_CH,borderWidth:2,borderColor:CARD_BG}]
     }, options:dntOpts()});
 
     // Sub-categories
     this.mc('ch-scval', {type:'bar', data:{
       labels:subcats,
-      datasets:[{data:subcats.map((_,i)=>scVal[i][0]),backgroundColor:C_SC.slice(0,subcats.length),borderRadius:2,
+      datasets:[{data:subcats.map((_,i)=>scVal[i][yIdx]),backgroundColor:C_SC.slice(0,subcats.length),borderRadius:2,
         datalabels:{display:true,anchor:'end',align:'top',offset:2,color:LBL,font:{size:9.5,weight:'600'},formatter:v=>`${v.toFixed(0)}M`}}]
     }, options:barOpts(v=>`${v.toFixed(0)}M`, c=>`${cur} ${c.parsed.y.toFixed(1)}M`)});
 
     this.mc('ch-scshare', {type:'doughnut', data:{
       labels:subcats,
-      datasets:[{data:subcats.map((_,i)=>scVal[i][0]),backgroundColor:C_SC.slice(0,subcats.length),borderWidth:2,borderColor:CARD_BG}]
+      datasets:[{data:subcats.map((_,i)=>scVal[i][yIdx]),backgroundColor:C_SC.slice(0,subcats.length),borderWidth:2,borderColor:CARD_BG}]
     }, options:dntOpts()});
 
     this.mc('ch-sctrend', {type:'bar', data:{
       labels:FCST_YEARS,
-      datasets:[...subcats.map((sc,i)=>({label:sc,data:scVal[i],backgroundColor:C_SC[i]||'#607D8B',stack:'s'})),annotLine(totRetVal,'M')]
+      datasets:[...subcats.map((sc,i)=>({label:sc,data:mask(scVal[i]),backgroundColor:C_SC[i]||'#607D8B',stack:'s'})),annotLine(mask(totRetVal),'M')]
     }, options:stkOpts(v=>`${v.toFixed(0)}M`, c=>`${c.dataset.label}: ${cur} ${c.parsed.y.toFixed(1)}M`)});
 
     // Channels
     this.mc('ch-chval', {type:'bar', data:{
       labels:CH_ORDER,
-      datasets:[{data:CH_ORDER.map((_,i)=>chVal[i][0]),backgroundColor:C_CH,borderRadius:2,
+      datasets:[{data:CH_ORDER.map((_,i)=>chVal[i][yIdx]),backgroundColor:C_CH,borderRadius:2,
         datalabels:{display:true,anchor:'end',align:'top',offset:2,color:LBL,font:{size:9.5,weight:'600'},formatter:v=>`${v.toFixed(0)}M`}}]
     }, options:barOpts(v=>`${v.toFixed(0)}M`, c=>`${cur} ${c.parsed.y.toFixed(1)}M`)});
 
     this.mc('ch-chshare', {type:'doughnut', data:{
       labels:CH_ORDER,
-      datasets:[{data:CH_ORDER.map((_,i)=>chVal[i][0]),backgroundColor:C_CH,borderWidth:2,borderColor:CARD_BG}]
+      datasets:[{data:CH_ORDER.map((_,i)=>chVal[i][yIdx]),backgroundColor:C_CH,borderWidth:2,borderColor:CARD_BG}]
     }, options:dntOpts()});
 
     this.mc('ch-chtrend', {type:'bar', data:{
       labels:FCST_YEARS,
-      datasets:[...CH_ORDER.map((ch,i)=>({label:ch,data:chVal[i],backgroundColor:C_CH[i],stack:'s'})),annotLine(totVal,'M')]
+      datasets:[...CH_ORDER.map((ch,i)=>({label:ch,data:mask(chVal[i]),backgroundColor:C_CH[i],stack:'s'})),annotLine(mask(totVal),'M')]
     }, options:stkOpts(v=>`${v.toFixed(0)}M`, c=>`${c.dataset.label}: ${cur} ${c.parsed.y.toFixed(1)}M`)});
   }
 
-  renderTable(totVal, totVol, totRetVol, totUSD, cur) {
+  renderTable(totVal, totVol, totRetVol, totUSD, cur, volUnit) {
     this._tableCur  = cur;
+    this._volUnit   = volUnit;
     this._tableData = FCST_YEARS.map((year, i) => ({
       year, totalVol:totVol[i], retailVol:totRetVol[i], totalVal:totVal[i], usdVal:totUSD[i],
     }));
@@ -1058,7 +1135,7 @@ class HoneyDashboard {
 
   _renderTableDOM() {
     const data = [...this._tableData];
-    const col = this._sortCol, dir = this._sortDir, cur = this._tableCur;
+    const col = this._sortCol, dir = this._sortDir, cur = this._tableCur, vu = this._volUnit;
     data.sort((a, b) => {
       const cmp = a[col] < b[col] ? -1 : a[col] > b[col] ? 1 : 0;
       return dir === 'asc' ? cmp : -cmp;
@@ -1070,8 +1147,8 @@ class HoneyDashboard {
 
     let html = `<table class="data-table"><thead><tr>
       <th onclick="dashboard.sortTable('year')">Year ${arrow('year')}</th>
-      <th onclick="dashboard.sortTable('totalVol')">Total Volume (t) ${arrow('totalVol')}</th>
-      <th onclick="dashboard.sortTable('retailVol')">Retail Volume (t) ${arrow('retailVol')}</th>
+      <th onclick="dashboard.sortTable('totalVol')">Total Volume (${vu}) ${arrow('totalVol')}</th>
+      <th onclick="dashboard.sortTable('retailVol')">Retail Volume (${vu}) ${arrow('retailVol')}</th>
       <th onclick="dashboard.sortTable('totalVal')">Market Value (${cur} M) ${arrow('totalVal')}</th>
       <th onclick="dashboard.sortTable('usdVal')">Market Value (USD M) ${arrow('usdVal')}</th>
       <th>YoY Vol Growth</th>
@@ -1106,7 +1183,7 @@ class HoneyDashboard {
     this._renderTableDOM();
   }
 
-  renderGCC(rows) {
+  renderGCC(rows, product) {
     const {G, TXT, LBL, LEG, CARD_BG} = _getChartColors();
 
     const ccVal    = GCC_ORDER.map(cc => FCST_YEARS.map(y => _sum(rows.filter(r=>r.country===cc.id&&r.year===y), 'value_usd')));
@@ -1133,9 +1210,10 @@ class HoneyDashboard {
     const leader  = GCC_ORDER[idx[0]];
     const topCagr = GCC_ORDER[cagrArr.indexOf(Math.max(...cagrArr))];
     const _el     = (id, txt) => { const e = document.getElementById(id); if(e) e.textContent = txt; };
-    _el('gcc-sub-bar',  `${leader.label} leads at $${rV25[0].toFixed(0)}M · all 6 countries ranked by 2025 value`);
-    _el('gcc-sub-line', `GCC total grows to $${gccTot[5].toFixed(0)}M by 2030 · ${_cagr(gccTot[0],gccTot[5],5).toFixed(1)}% CAGR · shapes differ for colour-blind accessibility`);
-    _el('gcc-sub-cagr', `${topCagr.label} posts highest growth at ${Math.max(...cagrArr).toFixed(1)}% CAGR`);
+    _el('gcc-bar-title', `${leader.label} leads the GCC ${product} market by a wide margin`);
+    _el('gcc-sub-bar',   `${leader.label} leads at $${rV25[0].toFixed(0)}M · all 6 countries ranked by 2025 value`);
+    _el('gcc-sub-line',  `GCC total grows to $${gccTot[5].toFixed(0)}M by 2030 · ${_cagr(gccTot[0],gccTot[5],5).toFixed(1)}% CAGR · shapes differ for colour-blind accessibility`);
+    _el('gcc-sub-cagr',  `${topCagr.label} posts highest growth at ${Math.max(...cagrArr).toFixed(1)}% CAGR`);
 
     this.mc('ch-gcc-bar', {type:'bar', data:{
       labels:rLabels,
@@ -1220,16 +1298,33 @@ class HoneyDashboard {
     }});
   }
 
-  updateFxBadge(countryKey) {
-    const cfg = COUNTRY_CFG[countryKey];
-    document.getElementById('tb-fx').textContent = `${cfg.currency} ${cfg.fx.toFixed(4)} / USD`;
-    document.title = `${cfg.label} Honey Market · Intelligence AI`;
+  async onCountryChange(val) {
+    if (val === 'gcc') {
+      this.switchSec('compare');
+      return;
+    }
+    if (val === 'mena') {
+      showSbToast('MENA coverage');
+      document.getElementById('countrySelect').value = this.activeCountry;
+      return;
+    }
+    this.activeCountry = val;
+    if (this.activeSection !== 'dashboard') {
+      this.switchSec('dashboard');
+    } else {
+      await this.loadSection('dashboard', val, this.activeProduct);
+    }
   }
 
-  async onCountryChange(val) {
-    this.activeCountry = val;
-    if (this.activeSection !== 'compare') {
-      await this.loadSection('dashboard', val);
+  async onProductChange(val) {
+    this.activeProduct = val;
+    await this.loadSection(this.activeSection, this.activeCountry, this.activeProduct);
+  }
+
+  async onYearChange(val) {
+    this.activeYear = val === 'all' ? 'all' : parseInt(val, 10);
+    if (this.activeSection === 'dashboard') {
+      await this.loadSection('dashboard', this.activeCountry, this.activeProduct);
     }
   }
 
@@ -1239,13 +1334,15 @@ class HoneyDashboard {
       document.getElementById(`nav-${p}`)?.classList.toggle('active', p===name);
     });
     this.activeSection = name;
-    this.loadSection(name, this.activeCountry);
+    this.loadSection(name, this.activeCountry, this.activeProduct);
   }
 }
 
 // ── GLOBAL WRAPPERS ───────────────────────────────────────
-function onCountryChange(val) { dashboard.onCountryChange(val); }
-function switchSec(name)      { dashboard.switchSec(name); }
+function onCountryChange(val)  { dashboard.onCountryChange(val); }
+function onProductChange(val)  { dashboard.onProductChange(val); }
+function onYearChange(val)     { dashboard.onYearChange(val); }
+function switchSec(name)       { dashboard.switchSec(name); }
 
 // ── SIDEBAR ───────────────────────────────────────────────
 function openSidebar() {
@@ -1289,7 +1386,7 @@ Chart.defaults.color       = document.documentElement.dataset.theme === 'light' 
 
 // ── BOOT ──────────────────────────────────────────────────
 _updateThemeBtn(document.documentElement.dataset.theme === 'light');
-const dashboard = new HoneyDashboard();
+const dashboard = new MarketDashboard();
 </script>
 </body>
 </html>

@@ -220,6 +220,84 @@
     border-radius: 10px;
   }
 
+  /* ── Sidebar live indicator ── */
+  .sub-item-live { color: var(--amber) !important; font-weight: 600 !important; }
+  .live-dot {
+    display:inline-block;width:6px;height:6px;border-radius:50%;
+    background:#48BFA0;margin-right:6px;flex-shrink:0;
+    box-shadow:0 0 5px rgba(72,191,160,.6);
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+  @keyframes pulse-dot {
+    0%,100%{opacity:1} 50%{opacity:.4}
+  }
+  .nav-group-label {
+    font-size:9px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;
+    color:var(--text-3);padding:10px 16px 4px;pointer-events:none;
+  }
+
+  /* ── Consumer Products drill-down page ── */
+  .cp-section {
+    border:1px solid var(--border);border-radius:10px;
+    background:var(--card);margin-bottom:16px;overflow:hidden;
+  }
+  .cp-section-head {
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 20px;border-bottom:1px solid var(--border);
+  }
+  .cp-section-title {
+    font-family:'Fraunces',serif;font-weight:700;font-size:14px;color:var(--text-1);
+  }
+  .cp-badge-live {
+    font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;
+    background:rgba(72,191,160,.12);color:#48BFA0;border:1px solid rgba(72,191,160,.25);
+  }
+  .cp-badge-soon {
+    font-size:10px;font-weight:500;padding:2px 8px;border-radius:20px;
+    background:rgba(255,255,255,.04);color:var(--text-3);border:1px solid var(--border);
+  }
+  .cp-sub { padding:12px 20px 16px; }
+  .cp-sub + .cp-sub { border-top:1px solid var(--border); }
+  .cp-sub-label {
+    font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+    color:var(--text-3);margin-bottom:8px;
+  }
+  .cp-report-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:6px; }
+  .cp-report-item {
+    display:flex;align-items:center;gap:8px;padding:8px 12px;
+    border-radius:6px;border:1px solid var(--border);cursor:pointer;
+    text-decoration:none;font-size:12px;color:var(--text-2);
+    transition:background .12s,border-color .12s;
+  }
+  .cp-report-item:hover { background:rgba(200,146,10,.06);border-color:rgba(200,146,10,.3);color:var(--amber); }
+  .cp-report-item.live { border-color:rgba(72,191,160,.2);color:var(--text-1); }
+  .cp-report-item.live:hover { background:rgba(72,191,160,.07);border-color:rgba(72,191,160,.4);color:#48BFA0; }
+  .cp-report-item.soon { opacity:.5;cursor:not-allowed; }
+  .cp-report-item.soon:hover { background:transparent;border-color:var(--border);color:var(--text-2); }
+  .cp-report-emoji { font-size:16px;flex-shrink:0; }
+  .cp-report-text { flex:1;min-width:0; }
+  .cp-report-name { font-weight:600;line-height:1.2; }
+  .cp-report-geo  { font-size:10px;color:var(--text-3);margin-top:1px; }
+  .cp-report-badge {
+    font-size:9px;font-weight:600;padding:1px 6px;border-radius:10px;flex-shrink:0;
+    background:rgba(72,191,160,.15);color:#48BFA0;border:1px solid rgba(72,191,160,.3);
+  }
+  .cp-report-soon-lbl {
+    font-size:9px;color:var(--text-3);flex-shrink:0;
+  }
+  .cp-soon-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:6px; }
+  .cp-soon-item {
+    padding:8px 12px;border-radius:6px;border:1px dashed var(--border);
+    font-size:11px;color:var(--text-3);
+  }
+  .breadcrumb-nav {
+    display:flex;align-items:center;gap:6px;font-size:11px;
+    color:var(--text-3);margin-bottom:16px;
+  }
+  .breadcrumb-nav a { cursor:pointer;text-decoration:none; }
+  .breadcrumb-nav a:hover { color:var(--amber); }
+  .breadcrumb-sep { opacity:.4; }
+
   /* ── Stats ── */
   .stat-card {
     background: var(--card) !important;
@@ -375,6 +453,11 @@
       Home
     </a>
 
+    <a class="nav-item" id="nav-statistics" onclick="showPage('statistics')">
+      <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z"/></svg>
+      Statistics
+    </a>
+
     <div>
       <a class="nav-item" id="nav-industries" onclick="toggleMenu('industries')">
         <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg>
@@ -382,10 +465,14 @@
         <svg class="chevron w-3 h-3 ml-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
       </a>
       <div class="sub-menu" id="menu-industries">
-        <a class="sub-item" onclick="openReport('GCC_Honey_Dashboard.html','GCC Honey Markets')">🍯 GCC Honey Markets</a>
-        <a class="sub-item" onclick="showComingSoon('Olive Oil GCC')">🫒 Olive Oil GCC</a>
-        <a class="sub-item" onclick="showComingSoon('GCC Dairy')">🥛 GCC Dairy</a>
-        <a class="sub-item" onclick="showPage('industries')">All Industries →</a>
+        <a class="sub-item sub-item-live" onclick="showPage('consumer-products')">
+          <span class="live-dot"></span>Consumer Products
+        </a>
+        <a class="sub-item" onclick="showComingSoon('Defense &amp; Industrial')">Defense &amp; Industrial</a>
+        <a class="sub-item" onclick="showComingSoon('Pharmaceuticals')">Pharmaceuticals</a>
+        <a class="sub-item" onclick="showComingSoon('Technology')">Technology</a>
+        <a class="sub-item" onclick="showComingSoon('Financial Services')">Financial Services</a>
+        <a class="sub-item" style="color:var(--text-3)" onclick="showPage('industries')">All Industries →</a>
       </div>
     </div>
 
@@ -567,7 +654,7 @@
 
           <!-- GCC Honey — LIVE -->
           <div class="report-card animate-in" data-tags="honey gcc food consumer"
-               onclick="openReport('GCC_Honey_Dashboard.html','GCC Honey Markets 2024–2030')"
+               onclick="openReport('Dashboard.html','GCC Honey Markets 2024–2030')"
                style="animation-delay:.05s">
             <div class="h-24 md:h-28 flex items-center justify-center text-4xl md:text-5xl relative overflow-hidden"
                  style="background:linear-gradient(135deg,#1A0E00 0%,#2A1800 60%,#1A0A00 100%)">
@@ -678,6 +765,168 @@
 
 
     <!-- ─────────────────────────────────────────────────
+         PAGE: STATISTICS
+    ───────────────────────────────────────────────── -->
+    <div id="page-statistics" class="page">
+      <div class="px-4 md:px-8 py-6 md:py-8">
+        <h2 class="text-lg md:text-xl font-bold mb-1 content-page-head">Statistics</h2>
+        <p class="text-sm mb-8" style="color:var(--text-3)">Key market statistics and data summaries across industries and geographies.</p>
+        <div class="flex flex-col items-center justify-center py-20 gap-4">
+          <div class="text-4xl" style="opacity:.25">📊</div>
+          <p class="text-base font-semibold" style="color:var(--text-2)">Statistics dashboard coming soon</p>
+          <p class="text-sm text-center max-w-xs" style="color:var(--text-3)">
+            Aggregated KPIs, cross-industry comparisons, and live data feeds will appear here.
+          </p>
+        </div>
+      </div>
+    </div><!-- /page-statistics -->
+
+
+    <!-- ─────────────────────────────────────────────────
+         PAGE: CONSUMER PRODUCTS
+    ───────────────────────────────────────────────── -->
+    <div id="page-consumer-products" class="page">
+      <div class="px-4 md:px-8 py-6 md:py-8">
+
+        <nav class="breadcrumb-nav">
+          <a onclick="showPage('industries')">Industries</a>
+          <span class="breadcrumb-sep">›</span>
+          <span style="color:var(--amber)">Consumer Products</span>
+        </nav>
+
+        <div class="flex items-start justify-between mb-1 flex-wrap gap-2">
+          <h2 class="text-lg md:text-xl font-bold content-page-head">Consumer Products</h2>
+          <span class="cp-badge-live">● Live Reports Available</span>
+        </div>
+        <p class="text-sm mb-6" style="color:var(--text-3)">
+          Market demand models covering food &amp; beverages, personal care, consumer goods, and appliances across GCC &amp; MENA.
+        </p>
+
+        <!-- ── Food & Beverages ── -->
+        <div class="cp-section">
+          <div class="cp-section-head">
+            <span class="cp-section-title">🥗 Food &amp; Beverages</span>
+            <span class="cp-badge-live">Live</span>
+          </div>
+
+          <div class="cp-sub">
+            <div class="cp-sub-label">Specialty &amp; Natural Foods</div>
+            <div class="cp-report-grid">
+              <a class="cp-report-item live" onclick="openReport('Dashboard.html','GCC Honey Markets 2024–2030')">
+                <span class="cp-report-emoji">🍯</span>
+                <div class="cp-report-text">
+                  <div class="cp-report-name">Honey</div>
+                </div>
+                <span class="cp-report-badge">Live</span>
+              </a>
+              <a class="cp-report-item soon">
+                <span class="cp-report-emoji">🫒</span>
+                <div class="cp-report-text">
+                  <div class="cp-report-name">Olive Oil</div>
+                </div>
+                <span class="cp-report-soon-lbl">Soon</span>
+              </a>
+              <a class="cp-report-item soon">
+                <span class="cp-report-emoji">🌿</span>
+                <div class="cp-report-text">
+                  <div class="cp-report-name">Dates &amp; Dried Fruit</div>
+                </div>
+                <span class="cp-report-soon-lbl">Soon</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="cp-sub">
+            <div class="cp-sub-label">Dairy &amp; Alternatives</div>
+            <div class="cp-report-grid">
+              <a class="cp-report-item live" onclick="openReport('Dashboard.html','UAE Goat Milk 2024–2030')">
+                <span class="cp-report-emoji">🐐</span>
+                <div class="cp-report-text">
+                  <div class="cp-report-name">Goat Milk</div>
+                </div>
+                <span class="cp-report-badge">Live</span>
+              </a>
+              <a class="cp-report-item soon">
+                <span class="cp-report-emoji">🥛</span>
+                <div class="cp-report-text">
+                  <div class="cp-report-name">Cow Milk</div>
+                </div>
+                <span class="cp-report-soon-lbl">Soon</span>
+              </a>
+              <a class="cp-report-item soon">
+                <span class="cp-report-emoji">🌱</span>
+                <div class="cp-report-text">
+                  <div class="cp-report-name">Plant-Based Alternatives</div>
+                </div>
+                <span class="cp-report-soon-lbl">Soon</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="cp-sub">
+            <div class="cp-sub-label">Packaged Beverages &amp; Other</div>
+            <div class="cp-soon-grid">
+              <div class="cp-soon-item">☕ Coffee &amp; Tea</div>
+              <div class="cp-soon-item">🥤 Soft Drinks</div>
+              <div class="cp-soon-item">🍫 Confectionery</div>
+              <div class="cp-soon-item">🌾 Grains &amp; Cereals</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Personal Care & Beauty ── -->
+        <div class="cp-section">
+          <div class="cp-section-head">
+            <span class="cp-section-title">✨ Personal Care &amp; Beauty</span>
+            <span class="cp-badge-soon">Coming Soon</span>
+          </div>
+          <div class="cp-sub">
+            <div class="cp-soon-grid">
+              <div class="cp-soon-item">🧴 Skincare</div>
+              <div class="cp-soon-item">💄 Cosmetics</div>
+              <div class="cp-soon-item">🧼 Personal Hygiene</div>
+              <div class="cp-soon-item">💇 Hair Care</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Consumer Appliances ── -->
+        <div class="cp-section">
+          <div class="cp-section-head">
+            <span class="cp-section-title">🏠 Consumer Appliances</span>
+            <span class="cp-badge-soon">Coming Soon</span>
+          </div>
+          <div class="cp-sub">
+            <div class="cp-soon-grid">
+              <div class="cp-soon-item">❄️ White Goods</div>
+              <div class="cp-soon-item">📺 Consumer Electronics</div>
+              <div class="cp-soon-item">🍳 Kitchen Appliances</div>
+              <div class="cp-soon-item">🌀 Small Appliances</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Consumer Goods (General) ── -->
+        <div class="cp-section">
+          <div class="cp-section-head">
+            <span class="cp-section-title">🛍️ Consumer Goods</span>
+            <span class="cp-badge-soon">Coming Soon</span>
+          </div>
+          <div class="cp-sub">
+            <div class="cp-soon-grid">
+              <div class="cp-soon-item">👗 Apparel &amp; Footwear</div>
+              <div class="cp-soon-item">🏡 Home &amp; Décor</div>
+              <div class="cp-soon-item">📦 Packaged FMCG</div>
+              <div class="cp-soon-item">🎁 Luxury Goods</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /page-consumer-products -->
+
+
+    <!-- ─────────────────────────────────────────────────
          PAGE: INDUSTRIES
     ───────────────────────────────────────────────── -->
     <div id="page-industries" class="page">
@@ -690,34 +939,55 @@
           <div class="p-4 md:p-6 industry-row">
             <div class="flex flex-col md:flex-row md:gap-8 gap-3">
               <div class="md:w-44 shrink-0">
-                <span class="font-bold text-sm" style="color:var(--amber);font-family:'Fraunces',serif">Consumer Products</span>
+                <a class="font-bold text-sm cursor-pointer hover:underline" style="color:var(--amber);font-family:'Fraunces',serif" onclick="showPage('consumer-products')">Consumer Products ›</a>
                 <div class="mt-1"><span class="tag" style="background:rgba(72,191,160,.1);color:#48BFA0;border:1px solid rgba(72,191,160,.2)">Live Reports</span></div>
               </div>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2 flex-1">
                 <a class="text-sm flex items-center gap-1.5 cursor-pointer py-1" style="color:var(--amber)"
-                   onclick="openReport('GCC_Honey_Dashboard.html','GCC Honey Markets 2024–2030')">
+                   onclick="openReport('Dashboard.html','GCC Honey Markets 2024–2030')">
                   <svg class="w-3.5 h-3.5 shrink-0 opacity-60" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
-                  Honey — GCC Markets
+                  Honey
                 </a>
                 <a class="text-sm flex items-center gap-1.5 py-1" style="color:var(--text-3);cursor:not-allowed">
                   <svg class="w-3.5 h-3.5 shrink-0 opacity-30" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
-                  Olive Oil — GCC <span class="text-xs ml-1" style="color:var(--text-3)">(soon)</span>
+                  Olive Oil <em class="text-xs ml-1">(soon)</em>
+                </a>
+                <!-- Dairy — expandable, spans full width -->
+                <div style="grid-column:1/-1">
+                  <a class="text-sm flex items-center gap-1.5 py-1 cursor-pointer" style="color:var(--text-3)"
+                     onclick="toggleEl('dairy-sub','dairy-chev')">
+                    <svg class="w-3.5 h-3.5 shrink-0 opacity-30" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+                    Dairy
+                    <svg id="dairy-chev" class="w-3 h-3 ml-1 opacity-40" style="transition:transform .2s;flex-shrink:0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                  </a>
+                  <div id="dairy-sub" style="display:none" class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1 ml-5 mt-0.5 pb-1">
+                    <a class="text-sm flex items-center gap-1.5 py-0.5 cursor-pointer" style="color:var(--amber)"
+                       onclick="openReport('Dashboard.html','UAE Goat Milk 2024–2030')">
+                      <svg class="w-3.5 h-3.5 shrink-0 opacity-60" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+                      Goat Milk
+                      <span class="text-xs ml-1" style="color:#48BFA0;border:1px solid rgba(72,191,160,.3);padding:0 5px;border-radius:2px">Live</span>
+                    </a>
+                    <a class="text-sm flex items-center gap-1.5 py-0.5" style="color:var(--text-3);cursor:not-allowed">
+                      <svg class="w-3.5 h-3.5 shrink-0 opacity-30" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+                      Cow Milk <em class="text-xs ml-1">(soon)</em>
+                    </a>
+                    <a class="text-sm flex items-center gap-1.5 py-0.5" style="color:var(--text-3);cursor:not-allowed">
+                      <svg class="w-3.5 h-3.5 shrink-0 opacity-30" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+                      Other Dairy Products <em class="text-xs ml-1">(soon)</em>
+                    </a>
+                  </div>
+                </div>
+                <a class="text-sm flex items-center gap-1.5 py-1" style="color:var(--text-3);cursor:not-allowed">
+                  <svg class="w-3.5 h-3.5 shrink-0 opacity-30" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+                  Dates &amp; Dried Fruit <em class="text-xs ml-1">(soon)</em>
                 </a>
                 <a class="text-sm flex items-center gap-1.5 py-1" style="color:var(--text-3);cursor:not-allowed">
                   <svg class="w-3.5 h-3.5 shrink-0 opacity-30" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
-                  Dairy — GCC <span class="text-xs ml-1" style="color:var(--text-3)">(soon)</span>
+                  Personal Care <em class="text-xs ml-1">(soon)</em>
                 </a>
                 <a class="text-sm flex items-center gap-1.5 py-1" style="color:var(--text-3);cursor:not-allowed">
                   <svg class="w-3.5 h-3.5 shrink-0 opacity-30" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
-                  Dates &amp; Dried Fruit — GCC <span class="text-xs ml-1">(soon)</span>
-                </a>
-                <a class="text-sm flex items-center gap-1.5 py-1" style="color:var(--text-3);cursor:not-allowed">
-                  <svg class="w-3.5 h-3.5 shrink-0 opacity-30" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
-                  Personal Care — GCC <span class="text-xs ml-1">(soon)</span>
-                </a>
-                <a class="text-sm flex items-center gap-1.5 py-1" style="color:var(--text-3);cursor:not-allowed">
-                  <svg class="w-3.5 h-3.5 shrink-0 opacity-30" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
-                  Beverages — MENA <span class="text-xs ml-1">(soon)</span>
+                  Beverages <em class="text-xs ml-1">(soon)</em>
                 </a>
               </div>
             </div>
@@ -1114,8 +1384,8 @@ function closePortalSidebar() {
 }
 
 // ─── Page Navigation ──────────────────────────────────
-const PAGE_IDS = ['home','industries','companies','survey','report'];
-const NAV_MAP  = {home:'nav-home', industries:'nav-industries', companies:'nav-companies', survey:'nav-survey'};
+const PAGE_IDS = ['home','statistics','industries','consumer-products','companies','survey','report'];
+const NAV_MAP  = {home:'nav-home', statistics:'nav-statistics', industries:'nav-industries', companies:'nav-companies', survey:'nav-survey'};
 
 function showPage(name) {
   PAGE_IDS.forEach(id => {
@@ -1132,6 +1402,15 @@ function showPage(name) {
 
 function openReport(url, title) {
   window.location.href = url;
+}
+
+function toggleEl(id, chevId) {
+  const el = document.getElementById(id);
+  const chev = document.getElementById(chevId);
+  if (!el) return;
+  const isHidden = el.style.display === 'none';
+  el.style.display = isHidden ? '' : 'none';
+  if (chev) chev.style.transform = isHidden ? 'rotate(180deg)' : '';
 }
 
 // ─── Sidebar sub-menus ────────────────────────────────
