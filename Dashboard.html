@@ -1047,7 +1047,7 @@ class MarketDashboard {
         const rows = await fetchRows(null, product);
         this.renderGCC(rows, product);
       } else {
-        const rows = await fetchRows(country, product);
+        const rows = country === 'gcc' ? await fetchRows(null, product) : await fetchRows(country, product);
         this.renderCountry(rows, country, product);
       }
     } catch(e) {
@@ -1057,35 +1057,38 @@ class MarketDashboard {
   }
 
   renderCountry(rows, countryKey, product) {
-    const cfg     = COUNTRY_CFG[countryKey];
-    const cur     = cfg.currency;
-    const volUnit = rows.length > 0 && rows[0].volume_unit ? rows[0].volume_unit : 'tonnes';
-    this._volUnit = volUnit;
+    const isGCC    = countryKey === 'gcc';
+    const cur      = isGCC ? 'USD' : COUNTRY_CFG[countryKey].currency;
+    const valField = isGCC ? 'value_usd' : 'value_local';
+    const volUnit  = rows.length > 0 && rows[0].volume_unit ? rows[0].volume_unit : 'tonnes';
+    this._volUnit  = volUnit;
 
     const retRows = rows.filter(r => r.channel === 'Retail Household');
     const subcats = [...new Set(rows.map(r => r.sub_category))];
     subcats.sort((a, b) => {
-      const av = _sum(retRows.filter(r => r.sub_category===a && r.year===2025), 'value_local');
-      const bv = _sum(retRows.filter(r => r.sub_category===b && r.year===2025), 'value_local');
+      const av = _sum(retRows.filter(r => r.sub_category===a && r.year===2025), valField);
+      const bv = _sum(retRows.filter(r => r.sub_category===b && r.year===2025), valField);
       return bv - av;
     });
 
-    const chVal = CH_ORDER.map(ch => FCST_YEARS.map(y => _sum(rows.filter(r => r.channel===ch && r.year===y), 'value_local')));
+    const chVal = CH_ORDER.map(ch => FCST_YEARS.map(y => _sum(rows.filter(r => r.channel===ch && r.year===y), valField)));
     const chVol = CH_ORDER.map(ch => FCST_YEARS.map(y => _sum(rows.filter(r => r.channel===ch && r.year===y), 'volume')));
     const totVal = FCST_YEARS.map((_, i) => CH_ORDER.reduce((s,_,ci) => s + chVal[ci][i], 0));
     const totVol = FCST_YEARS.map((_, i) => CH_ORDER.reduce((s,_,ci) => s + chVol[ci][i], 0));
 
-    const scVal    = subcats.map(sc => FCST_YEARS.map(y => _sum(retRows.filter(r => r.sub_category===sc && r.year===y), 'value_local')));
+    const scVal    = subcats.map(sc => FCST_YEARS.map(y => _sum(retRows.filter(r => r.sub_category===sc && r.year===y), valField)));
     const scVol    = subcats.map(sc => FCST_YEARS.map(y => _sum(retRows.filter(r => r.sub_category===sc && r.year===y), 'volume')));
     const totRetVal = FCST_YEARS.map((_, i) => subcats.reduce((s,_,si) => s + scVal[si][i], 0));
     const totRetVol = FCST_YEARS.map((_, i) => subcats.reduce((s,_,si) => s + scVol[si][i], 0));
 
-    const totUSD = FCST_YEARS.map(y => _sum(rows.filter(r => r.year===y), 'value_usd'));
+    const totUSD = isGCC ? totVal : FCST_YEARS.map(y => _sum(rows.filter(r => r.year===y), 'value_usd'));
 
     this.renderKPIs(totVal, totRetVol, cur, this.activeYear);
     this.renderCharts(rows, subcats, chVal, chVol, scVal, scVol, totVal, totVol, totRetVal, totRetVol, cur, volUnit, this.activeYear);
     this.renderTable(totVal, totVol, totRetVol, totUSD, cur, volUnit);
-    document.title = `${COUNTRY_CFG[countryKey].label} ${product} · Atlas Market Intelligence`;
+    document.title = isGCC
+      ? `GCC ${product} · Atlas Market Intelligence`
+      : `${COUNTRY_CFG[countryKey].label} ${product} · Atlas Market Intelligence`;
   }
 
   renderKPIs(totVal, totRetVol, cur, year) {
@@ -1473,10 +1476,6 @@ class MarketDashboard {
   }
 
   async onCountryChange(val) {
-    if (val === 'gcc') {
-      this.switchSec('compare');
-      return;
-    }
     if (val === 'mena') {
       showSbToast('MENA coverage');
       document.getElementById('countrySelect').value = this.activeCountry;
