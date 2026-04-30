@@ -380,16 +380,22 @@ body{display:block} /* layout handled by inner flex wrapper */
   color:var(--text-secondary);padding:5px;border-radius:4px;margin-right:2px;flex-shrink:0;
 }
 .sb-logo{
-  width:200px;height:200px;flex-shrink:0;
+  width:200px;flex-shrink:0;
   display:flex;align-items:center;justify-content:center;
+  padding:14px 24px;
   border-bottom:1px solid var(--border);
   position:relative;
-  background:var(--bg-nav-deep);
+  background:#0E1A2B;
 }
-.sb-logo img{width:148px;height:auto;display:block}
-.sb-logo-icon{display:none} /* unused, kept for safety */
+.sb-logo img{width:100%;height:auto}
+.sb-logo-img-dark{display:block}
+.sb-logo-img-light{display:none}
+html[data-theme="light"] .sb-logo{background:#FFFFFF}
+html[data-theme="light"] .sb-logo-img-dark{display:none}
+html[data-theme="light"] .sb-logo-img-light{display:block}
+.sb-logo-icon{display:none}
 .sb-logo-close{
-  position:absolute;top:10px;right:10px;
+  position:absolute;top:8px;right:8px;
   display:none;background:none;border:none;
   cursor:pointer;color:var(--text-muted);font-size:16px;padding:4px;line-height:1;
 }
@@ -452,9 +458,12 @@ html[data-theme="light"] .sb-nav::-webkit-scrollbar-thumb{background:#D8D0C0}
 <aside class="dash-sidebar" id="dash-sidebar">
 
   <div class="sb-logo">
-    <img src="Atlas%20Design%20System/assets/atlas_logo_gold_on_midnight.png"
-         alt="Atlas Market Intelligence"
-         style="height:34px;width:auto;display:block;flex-shrink:0">
+    <img class="sb-logo-img-dark"
+         src="Atlas%20Design%20System/assets/atlas_logo_gold_on_midnight.png"
+         alt="Atlas Market Intelligence">
+    <img class="sb-logo-img-light"
+         src="Atlas%20Design%20System/assets/atlas_logo_wordmark.png"
+         alt="Atlas Market Intelligence">
     <button class="sb-logo-close" onclick="closeSidebar()">✕</button>
   </div>
 

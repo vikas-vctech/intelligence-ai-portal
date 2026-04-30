@@ -357,6 +357,14 @@
     opacity: 0.018;
   }
 
+  /* ── Logo swap: dark / light mode ── */
+  .portal-logo-wrap { background: #0A1220; }
+  html[data-theme="light"] .portal-logo-wrap { background: #FFFFFF; }
+  .logo-dark  { display: block; }
+  .logo-light { display: none; }
+  html[data-theme="light"] .logo-dark  { display: none; }
+  html[data-theme="light"] .logo-light { display: block; }
+
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(10px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -436,12 +444,15 @@
   class="fixed md:static inset-y-0 left-0 z-50 w-64 md:w-48 flex flex-col h-screen shrink-0 -translate-x-full md:translate-x-0">
 
   <!-- Logo -->
-  <div class="relative flex items-center justify-center shrink-0"
-       style="aspect-ratio:1/1;width:100%;border-bottom:1px solid var(--border);background:var(--sidebar)">
-    <img src="Atlas%20Design%20System/assets/atlas_logo_gold_on_midnight.png"
-         alt="Atlas Market Intelligence"
-         style="width:72%;height:auto;display:block">
-    <button class="md:hidden absolute top-2.5 right-2.5 p-1" style="color:var(--text-3)" onclick="closePortalSidebar()">
+  <div class="portal-logo-wrap relative flex items-center justify-center shrink-0"
+       style="width:100%;padding:14px 24px;border-bottom:1px solid var(--border)">
+    <img class="logo-dark" style="width:100%;height:auto"
+         src="Atlas%20Design%20System/assets/atlas_logo_gold_on_midnight.png"
+         alt="Atlas Market Intelligence">
+    <img class="logo-light" style="width:100%;height:auto"
+         src="Atlas%20Design%20System/assets/atlas_logo_wordmark.png"
+         alt="Atlas Market Intelligence">
+    <button class="md:hidden absolute top-2 right-2 p-1" style="color:var(--text-3)" onclick="closePortalSidebar()">
       <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
     </button>
   </div>
@@ -578,9 +589,10 @@
       <!-- Hero -->
       <div class="hero-bg px-4 md:px-8 py-12 md:py-20 text-center relative z-10">
         <div class="flex justify-center mb-5">
-          <img src="Atlas%20Design%20System/assets/atlas_logo_gold_on_midnight.png"
-               alt="Atlas Market Intelligence"
-               style="height:52px;width:auto;display:block">
+          <img class="logo-dark" src="Atlas%20Design%20System/assets/atlas_logo_gold_on_midnight.png"
+               alt="Atlas Market Intelligence" style="height:52px;width:auto">
+          <img class="logo-light" src="Atlas%20Design%20System/assets/atlas_logo_wordmark.png"
+               alt="Atlas Market Intelligence" style="height:52px;width:auto">
         </div>
         <h1 class="hero-title mb-4">
           Demand<br><em>Intelligence</em>
