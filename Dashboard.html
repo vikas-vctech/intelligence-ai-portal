@@ -80,7 +80,7 @@ body{
   flex-shrink:0;
   display:flex;align-items:center;
   padding:0 20px;
-  min-height:56px;
+  min-height:96px;
   border-bottom:1px solid var(--border);
   position:sticky;top:0;z-index:50;
   flex-wrap:wrap;
@@ -380,14 +380,13 @@ body{display:block} /* layout handled by inner flex wrapper */
   color:var(--text-secondary);padding:5px;border-radius:4px;margin-right:2px;flex-shrink:0;
 }
 .sb-logo{
-  width:200px;flex-shrink:0;
+  width:200px;height:96px;flex-shrink:0;
   display:flex;align-items:center;justify-content:center;
-  padding:14px 24px;
   border-bottom:1px solid var(--border);
   position:relative;
   background:#0E1A2B;
 }
-.sb-logo img{width:100%;height:auto}
+.sb-logo img{max-height:72px;width:auto}
 .sb-logo-img-dark{display:block}
 .sb-logo-img-light{display:none}
 html[data-theme="light"] .sb-logo{background:#FFFFFF}
@@ -444,7 +443,7 @@ html[data-theme="light"] .sb-logo{border-bottom-color:#E0D8C8}
 html[data-theme="light"] .sb-footer{border-top-color:#E0D8C8}
 html[data-theme="light"] .sb-nav::-webkit-scrollbar-thumb{background:#D8D0C0}
 /* Sub-header now has no brand — sidebar carries it */
-.top-nav{min-height:48px}
+.top-nav{min-height:96px}
 </style>
 </head>
 <body>

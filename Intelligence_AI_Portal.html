@@ -107,6 +107,7 @@
   header.top-bar {
     background: var(--card) !important;
     border-bottom: 1px solid var(--border) !important;
+    min-height: 96px !important;
   }
 
   /* ── Hero ── */
@@ -449,11 +450,11 @@
 
   <!-- Logo -->
   <div class="portal-logo-wrap relative flex items-center justify-center shrink-0"
-       style="width:100%;padding:14px 24px;border-bottom:1px solid var(--border)">
-    <img class="logo-dark" style="width:100%;height:auto"
+       style="width:100%;height:96px;border-bottom:1px solid var(--border)">
+    <img class="logo-dark" style="max-height:72px;width:auto"
          src="Atlas%20Design%20System/assets/atlas_logo_gold_on_midnight.png"
          alt="Atlas Market Intelligence">
-    <img class="logo-light" style="width:100%;height:auto"
+    <img class="logo-light" style="max-height:72px;width:auto"
          src="Atlas%20Design%20System/assets/atlas_logo_wordmark.png"
          alt="Atlas Market Intelligence">
     <button class="md:hidden absolute top-2 right-2 p-1" style="color:var(--text-3)" onclick="closePortalSidebar()">
@@ -546,7 +547,7 @@
 <div class="flex-1 flex flex-col overflow-hidden min-w-0">
 
   <!-- TOP BAR -->
-  <header class="top-bar h-14 flex items-center px-3 md:px-5 gap-2 md:gap-4 shrink-0"
+  <header class="top-bar flex items-center px-3 md:px-5 gap-2 md:gap-4 shrink-0"
           style="background:var(--card);border-bottom:1px solid var(--border)">
     <button class="md:hidden p-2 rounded shrink-0" style="color:var(--text-2)"
             onclick="openPortalSidebar()">
