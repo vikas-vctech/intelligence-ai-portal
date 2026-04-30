@@ -4,112 +4,286 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Intelligent AI Markets — Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,700;9..144,900&family=Instrument+Sans:wght@400;500;600&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
   :root {
-    --navy:#002147; --blue:#1565C0; --midblue:#2E86C1;
-    --teal:#00796B; --amber:#B45309; --coral:#9B1C1C;
+    --obsidian: #060910;
+    --card:     #0C1220;
+    --surface:  #101828;
+    --sidebar:  #060810;
+    --border:   #141E30;
+    --border-hi:#1E2E44;
+    --amber:    #C8920A;
+    --amber-hi: #E8A820;
+    --amber-dim:rgba(200,146,10,.12);
+    --text-1:   #C4B890;
+    --text-2:   #6A7A8A;
+    --text-3:   #3A4A5A;
+    --text-ink: #E8D8B0;
+    --teal:     #48BFA0;
+    --rust:     #B84022;
   }
-  * { box-sizing: border-box; }
-  body { font-family: 'Inter', system-ui, sans-serif; }
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    font-family: 'Instrument Sans', system-ui, sans-serif;
+    background: var(--obsidian);
+    color: var(--text-1);
+  }
 
-  /* Sidebar drawer */
+  /* ── Tailwind dark overrides ── */
+  .bg-white   { background-color: var(--card) !important; }
+  .bg-gray-50 { background-color: var(--obsidian) !important; }
+  .bg-gray-100{ background-color: var(--surface) !important; }
+  .border-gray-200 { border-color: var(--border) !important; }
+  .border-gray-100 { border-color: var(--border) !important; }
+  .divide-gray-100 > * + * { border-color: var(--border) !important; }
+  .text-gray-800 { color: var(--text-ink) !important; }
+  .text-gray-700 { color: var(--text-1) !important; }
+  .text-gray-600 { color: var(--text-2) !important; }
+  .text-gray-500 { color: var(--text-2) !important; }
+  .text-gray-400 { color: var(--text-3) !important; }
+  .text-gray-300 { color: var(--text-3) !important; }
+  .hover\:bg-gray-100:hover { background-color: var(--surface) !important; }
+  .hover\:bg-gray-50:hover  { background-color: #0A1018 !important; }
+  .shadow-sm  { box-shadow: 0 1px 4px rgba(0,0,0,.5) !important; }
+  .shadow-lg  { box-shadow: 0 10px 40px rgba(0,0,0,.7) !important; }
+  .shadow-md  { box-shadow: 0 4px 20px rgba(0,0,0,.6) !important; }
+  .text-blue-700 { color: #7ABAE8 !important; }
+  .text-blue-600 { color: var(--amber) !important; }
+  .text-blue-200 { color: var(--amber) !important; }
+  .text-blue-100 { color: #C8A870 !important; }
+  .border-b     { border-color: var(--border) !important; }
+
+  /* Pages */
+  .page { display: none; }
+  .page.active { display: flex; flex-direction: column; }
+
+  /* ── Sidebar ── */
   #portal-sidebar {
+    background: var(--sidebar) !important;
+    border-right: 1px solid var(--border) !important;
     transition: transform 0.28s cubic-bezier(.4,0,.2,1);
   }
-  /* Pages */
-  .page { display:none; }
-  .page.active { display:flex; flex-direction:column; }
-
-  /* Sidebar nav items */
   .nav-item {
-    display:flex; align-items:center; gap:9px;
-    padding:10px 12px; border-radius:6px; cursor:pointer;
-    font-size:13px; color:#374151; margin:1px 6px;
-    transition:background .13s, color .13s; text-decoration:none;
-    user-select:none; -webkit-tap-highlight-color:transparent;
+    display: flex; align-items: center; gap: 9px;
+    padding: 10px 12px; border-radius: 5px; cursor: pointer;
+    font-size: 13px; color: var(--text-2); margin: 1px 6px;
+    transition: background .13s, color .13s; text-decoration: none;
+    user-select: none; -webkit-tap-highlight-color: transparent;
+    font-family: 'Instrument Sans', sans-serif;
   }
-  .nav-item:hover { background:#F0F4FF; color:#1565C0; }
-  .nav-item.active { background:#EEF2FF; color:#002147; font-weight:600; }
-  .nav-item .chevron { margin-left:auto; transition:transform .2s; }
-  .nav-item.open .chevron { transform:rotate(90deg); }
+  .nav-item:hover { background: var(--amber-dim); color: var(--text-ink); }
+  .nav-item.active {
+    background: var(--amber-dim);
+    color: var(--amber);
+    border-left: 2px solid var(--amber);
+    padding-left: 10px;
+  }
+  .nav-item .chevron { margin-left: auto; transition: transform .2s; }
+  .nav-item.open .chevron { transform: rotate(90deg); }
   .sub-item {
-    display:block; padding:8px 12px 8px 38px; font-size:12px;
-    color:#4B5563; cursor:pointer; border-radius:4px; margin:0 6px;
-    transition:background .12s, color .12s; text-decoration:none;
-    -webkit-tap-highlight-color:transparent;
+    display: block; padding: 8px 12px 8px 38px; font-size: 12px;
+    color: var(--text-3); cursor: pointer; border-radius: 4px; margin: 0 6px;
+    transition: background .12s, color .12s; text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
   }
-  .sub-item:hover { background:#F3F4F6; color:#1565C0; }
+  .sub-item:hover { background: var(--amber-dim); color: var(--amber); }
+  .sub-menu { overflow: hidden; max-height: 0; transition: max-height .25s ease; }
+  .sub-menu.open { max-height: 300px; }
 
-  /* Hero gradient */
+  /* ── Top bar ── */
+  header.top-bar {
+    background: var(--card) !important;
+    border-bottom: 1px solid var(--border) !important;
+  }
+
+  /* ── Hero ── */
   .hero-bg {
-    background: linear-gradient(135deg, #EEF2FF 0%, #DBEAFE 40%, #E0F2FE 100%);
+    background: linear-gradient(160deg, #070A18 0%, #0A0E1E 60%, #060810 100%);
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
   }
+  .hero-bg::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle at 20% 50%, rgba(200,146,10,.06) 0%, transparent 50%),
+                      radial-gradient(circle at 80% 20%, rgba(200,146,10,.04) 0%, transparent 40%);
+    pointer-events: none;
+  }
+  .hero-bg::after {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent 0%, var(--amber) 40%, var(--amber-hi) 60%, transparent 100%);
+  }
+  .hero-eyebrow {
+    font-family: 'Fira Mono', monospace;
+    font-size: 10px; font-weight: 400;
+    letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--amber) !important;
+  }
+  .hero-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(36px, 5.5vw, 72px);
+    font-weight: 900;
+    color: var(--text-ink) !important;
+    line-height: 1;
+    letter-spacing: -2px;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--amber);
+    font-weight: 300;
+  }
+  .hero-subtitle { color: var(--text-2) !important; }
 
-  /* Report card */
+  /* ── Report card ── */
   .report-card {
-    background:#fff; border:1px solid #E5E7EB; border-radius:12px;
-    transition:box-shadow .2s, transform .2s; cursor:pointer;
-    overflow:hidden;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    transition: box-shadow .2s, border-color .2s, transform .2s;
+    cursor: pointer; overflow: hidden;
   }
-  .report-card:hover { box-shadow:0 8px 24px rgba(0,33,71,.12); transform:translateY(-2px); }
+  .report-card:hover {
+    box-shadow: 0 8px 32px rgba(200,146,10,.15);
+    border-color: rgba(200,146,10,.35);
+    transform: translateY(-2px);
+  }
   @media (hover: none) {
     .report-card:hover { transform: none; box-shadow: none; }
-    .report-card:active { box-shadow:0 4px 12px rgba(0,33,71,.1); }
+    .report-card:active { box-shadow: 0 4px 16px rgba(200,146,10,.1); }
   }
 
-  /* Tag badges */
-  .tag { font-size:10px; font-weight:600; letter-spacing:.04em;
-         padding:2px 8px; border-radius:99px; text-transform:uppercase; }
+  /* ── Tags ── */
+  .tag {
+    font-size: 10px; font-weight: 600; letter-spacing: .04em;
+    padding: 2px 8px; border-radius: 99px; text-transform: uppercase;
+    font-family: 'Fira Mono', monospace;
+  }
 
-  /* Industry table */
-  .industry-row { border-top:1px solid #F3F4F6; }
-  .industry-row:first-child { border-top:none; }
+  /* ── Search input ── */
+  .search-input {
+    border: 1.5px solid var(--border);
+    border-radius: 7px;
+    background: var(--surface) !important;
+    color: var(--text-1) !important;
+  }
+  .search-input::placeholder { color: var(--text-3); }
+  .search-input:focus {
+    outline: none;
+    border-color: var(--amber);
+    box-shadow: 0 0 0 3px rgba(200,146,10,.12);
+  }
 
-  /* Company table */
-  .tbl-row { border-bottom:1px solid #F3F4F6; }
-  .tbl-row:hover { background:#F9FAFB; }
-  .status-active { color:#059669; font-weight:600; font-size:12px; }
-
-  /* Scrollable */
-  .scroll-y { overflow-y:auto; }
-
-  /* Collapsible sub-menu */
-  .sub-menu { overflow:hidden; max-height:0; transition:max-height .25s ease; }
-  .sub-menu.open { max-height:300px; }
-
-  input:focus { outline:none; }
-
+  /* ── Buttons ── */
   .btn-primary {
-    background:#002147; color:#fff; border-radius:8px;
-    padding:10px 24px; font-size:14px; font-weight:600;
-    cursor:pointer; transition:background .15s; border:none;
-    -webkit-tap-highlight-color:transparent;
+    background: var(--amber); color: #060810;
+    border-radius: 7px; padding: 10px 24px;
+    font-size: 14px; font-weight: 600;
+    cursor: pointer; transition: background .15s; border: none;
+    font-family: 'Instrument Sans', sans-serif;
+    -webkit-tap-highlight-color: transparent;
   }
-  .btn-primary:hover { background:#1565C0; }
+  .btn-primary:hover { background: var(--amber-hi); }
   .btn-outline {
-    background:transparent; color:#002147; border:1.5px solid #002147;
-    border-radius:8px; padding:9px 22px; font-size:14px; font-weight:600;
-    cursor:pointer; transition:all .15s;
-    -webkit-tap-highlight-color:transparent;
+    background: transparent; color: var(--amber);
+    border: 1.5px solid var(--amber);
+    border-radius: 7px; padding: 9px 22px;
+    font-size: 14px; font-weight: 600;
+    cursor: pointer; transition: all .15s;
+    font-family: 'Instrument Sans', sans-serif;
+    -webkit-tap-highlight-color: transparent;
   }
-  .btn-outline:hover { background:#EEF2FF; }
+  .btn-outline:hover { background: var(--amber-dim); }
 
-  .search-input { border:1.5px solid #D1D5DB; border-radius:8px; }
-  .search-input:focus { border-color:#1565C0; box-shadow:0 0 0 3px rgba(21,101,192,.12); }
+  /* ── Tables ── */
+  .tbl-row { border-bottom: 1px solid var(--border); }
+  .tbl-row:hover { background: rgba(200,146,10,.04) !important; }
+  .status-active { color: var(--teal); font-weight: 600; font-size: 12px; }
+  .industry-row { border-top: 1px solid var(--border); }
+  .industry-row:first-child { border-top: none; }
 
-  /* Mobile filter grid */
+  /* ── Scrollable ── */
+  .scroll-y { overflow-y: auto; }
+  .scroll-y::-webkit-scrollbar { width: 5px; }
+  .scroll-y::-webkit-scrollbar-track { background: var(--obsidian); }
+  .scroll-y::-webkit-scrollbar-thumb { background: var(--border-hi); border-radius: 3px; }
+
+  /* ── Industries page ── */
+  .industry-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+
+  /* ── Stats ── */
+  .stat-card {
+    background: var(--card) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 12px !important;
+    box-shadow: none !important;
+  }
+
+  /* ── Survey mockup ── */
+  .survey-mockup {
+    background: var(--card) !important;
+    border: 1px solid var(--border) !important;
+  }
+  .survey-mockup-bar {
+    background: var(--surface) !important;
+    border-bottom: 1px solid var(--border) !important;
+  }
+
+  /* ── Toast ── */
+  #toast {
+    background: var(--amber) !important;
+    color: #060810 !important;
+    font-family: 'Instrument Sans', sans-serif;
+    font-weight: 600;
+  }
+
+  /* ── Breadcrumb ── */
+  .report-breadcrumb { color: var(--text-1) !important; }
+
+  /* ── Section heads on content pages ── */
+  .content-page-head {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 700;
+    color: var(--text-ink) !important;
+  }
+
+  /* ── Mobile filter ── */
   @media (max-width: 639px) {
-    .co-filter-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .co-filter-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     .co-filter-full { grid-column: span 2; }
-    .co-filter-btns { display:flex; gap:8px; grid-column: span 2; }
+    .co-filter-btns { display: flex; gap: 8px; grid-column: span 2; }
   }
+
+  input:focus { outline: none; }
+
+  /* Grain overlay */
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    pointer-events: none; z-index: 9999;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.018;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .animate-in { animation: fadeUp .45s cubic-bezier(.22,1,.36,1) both; }
 </style>
 </head>
 
-<!-- overlay — shown behind the mobile sidebar -->
-<body class="bg-gray-50 overflow-x-hidden">
-<div id="portal-overlay" class="fixed inset-0 bg-black/50 z-40 hidden" onclick="closePortalSidebar()"></div>
+<body>
+<div id="portal-overlay" class="fixed inset-0 bg-black/60 z-40 hidden" onclick="closePortalSidebar()"></div>
 
 <div class="flex h-screen overflow-hidden">
 
@@ -117,19 +291,19 @@
      SIDEBAR
 ═══════════════════════════════════════════════════════ -->
 <aside id="portal-sidebar"
-  class="fixed md:static inset-y-0 left-0 z-50 w-64 md:w-48 bg-white border-r border-gray-200 flex flex-col h-screen shrink-0 -translate-x-full md:translate-x-0">
+  class="fixed md:static inset-y-0 left-0 z-50 w-64 md:w-48 flex flex-col h-screen shrink-0 -translate-x-full md:translate-x-0">
 
   <!-- Logo -->
-  <div class="flex items-center gap-2 h-14 px-4 border-b border-gray-100">
-    <div class="w-7 h-7 rounded-md flex items-center justify-center shrink-0" style="background:#002147">
-      <span class="text-white font-bold text-xs">AI</span>
+  <div class="flex items-center gap-2 h-14 px-4" style="border-bottom:1px solid var(--border)">
+    <div class="w-7 h-7 rounded-md flex items-center justify-center shrink-0"
+         style="background:linear-gradient(135deg,#C8920A,#A07008);box-shadow:0 0 10px rgba(200,146,10,.3)">
+      <span style="color:#060810;font-weight:900;font-size:10px;font-family:'Fira Mono',monospace">AI</span>
     </div>
     <div class="leading-tight">
-      <div class="font-bold text-xs" style="color:#002147">Intelligent AI</div>
-      <div class="text-gray-400 text-xs">Markets</div>
+      <div style="font-family:'Fraunces',serif;font-weight:700;font-size:13px;color:var(--amber)">Intelligence</div>
+      <div style="font-size:10px;color:var(--text-3);font-family:'Fira Mono',monospace;letter-spacing:.5px">MARKETS</div>
     </div>
-    <!-- Close button — mobile only -->
-    <button class="md:hidden ml-auto p-1 text-gray-400 hover:text-gray-600" onclick="closePortalSidebar()">
+    <button class="md:hidden ml-auto p-1" style="color:var(--text-3)" onclick="closePortalSidebar()">
       <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
     </button>
   </div>
@@ -186,11 +360,6 @@
       Insights
     </a>
 
-    <a class="nav-item" id="nav-pricing" onclick="showComingSoon('Pricing')">
-      <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z"/><path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6z"/></svg>
-      Pricing
-    </a>
-
     <a class="nav-item" id="nav-survey" onclick="showPage('survey')">
       <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z"/></svg>
       Survey
@@ -202,8 +371,8 @@
     </a>
   </nav>
 
-  <div class="px-4 py-3 border-t border-gray-100 text-xs text-gray-400">
-    Intelligent AI Markets v1.0
+  <div class="px-4 py-3" style="border-top:1px solid var(--border);font-size:10px;color:var(--text-3);font-family:'Fira Mono',monospace">
+    v1.0 · Apr 2026
   </div>
 </aside>
 
@@ -213,33 +382,37 @@
 <div class="flex-1 flex flex-col overflow-hidden min-w-0">
 
   <!-- TOP BAR -->
-  <header class="h-14 bg-white border-b border-gray-200 flex items-center px-3 md:px-5 gap-2 md:gap-4 shrink-0">
-    <!-- Hamburger (mobile only) -->
-    <button class="md:hidden p-2 rounded-lg text-gray-500 hover:bg-gray-100 shrink-0" onclick="openPortalSidebar()">
+  <header class="top-bar h-14 flex items-center px-3 md:px-5 gap-2 md:gap-4 shrink-0"
+          style="background:var(--card);border-bottom:1px solid var(--border)">
+    <button class="md:hidden p-2 rounded-lg shrink-0" style="color:var(--text-2)"
+            onclick="openPortalSidebar()">
       <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
     </button>
 
-    <!-- Search -->
     <div class="flex-1 max-w-xs md:max-w-md relative">
-      <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 15.803 7.5 7.5 0 0015.803 15.803z"/></svg>
+      <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4" style="color:var(--text-3)"
+           fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 15.803 7.5 7.5 0 0015.803 15.803z"/>
+      </svg>
       <input id="header-search" type="text" placeholder="Search reports…"
-        class="w-full pl-9 pr-3 py-2 text-sm bg-gray-50 search-input"
+        class="w-full pl-9 pr-3 py-2 text-sm search-input"
         onkeydown="if(event.key==='Enter') doHeaderSearch(this.value)">
     </div>
 
-    <!-- Right actions -->
     <div class="flex items-center gap-2 ml-auto shrink-0">
-      <span class="text-sm text-gray-500 hidden lg:block">Statistics</span>
-      <span class="text-gray-300 hidden lg:block">|</span>
-      <span class="text-sm text-gray-500 hidden lg:block">Reports</span>
-      <span class="text-gray-300 hidden lg:block">|</span>
-      <button class="hidden sm:block border border-gray-300 text-gray-600 text-xs font-semibold py-1.5 px-3 rounded-lg hover:bg-gray-50" onclick="showComingSoon('Login')">Log in</button>
+      <span class="text-sm hidden lg:block" style="color:var(--text-3)">Statistics</span>
+      <span class="hidden lg:block" style="color:var(--border-hi)">|</span>
+      <span class="text-sm hidden lg:block" style="color:var(--text-3)">Reports</span>
+      <span class="hidden lg:block" style="color:var(--border-hi)">|</span>
+      <button class="hidden sm:block text-xs font-semibold py-1.5 px-3 rounded-lg"
+              style="border:1px solid var(--border-hi);color:var(--text-2)"
+              onclick="showComingSoon('Login')">Log in</button>
       <button class="btn-primary text-xs py-1.5 px-3 md:px-4">Sign up</button>
     </div>
   </header>
 
   <!-- CONTENT AREA -->
-  <div class="flex-1 overflow-y-auto">
+  <div class="flex-1 overflow-y-auto scroll-y">
 
     <!-- ─────────────────────────────────────────────────
          PAGE: HOME
@@ -247,143 +420,189 @@
     <div id="page-home" class="page active">
 
       <!-- Hero -->
-      <div class="hero-bg px-4 md:px-6 py-10 md:py-16 text-center">
-        <p class="text-xs font-semibold tracking-widest uppercase mb-2" style="color:#1565C0">Intelligent AI Markets</p>
-        <h1 class="text-2xl md:text-3xl font-bold mb-2" style="color:#002147">Demand Intelligence Portal</h1>
-        <p class="text-gray-500 text-sm mb-6 max-w-md mx-auto">Bottom-up market forecasts &amp; demand estimation models for consumer products worldwide</p>
+      <div class="hero-bg px-4 md:px-8 py-12 md:py-20 text-center relative z-10">
+        <p class="hero-eyebrow mb-4">Intelligent AI Markets</p>
+        <h1 class="hero-title mb-4">
+          Demand<br><em>Intelligence</em>
+        </h1>
+        <p class="hero-subtitle text-sm mb-8 max-w-md mx-auto">
+          Bottom-up market forecasts &amp; demand estimation models for consumer products worldwide
+        </p>
 
         <!-- Search tabs -->
-        <div class="inline-flex bg-white rounded-lg border border-gray-200 p-1 mb-4 shadow-sm">
-          <button class="px-4 py-1.5 rounded-md text-sm font-medium" style="background:#002147;color:#fff">Search</button>
-          <button class="px-4 py-1.5 rounded-md text-sm text-gray-400" onclick="showComingSoon('AI Analysis')">AI Analysis</button>
+        <div class="inline-flex rounded-lg p-1 mb-5"
+             style="background:rgba(255,255,255,.04);border:1px solid var(--border)">
+          <button class="px-4 py-1.5 rounded-md text-sm font-semibold"
+                  style="background:var(--amber);color:#060810">Search</button>
+          <button class="px-4 py-1.5 rounded-md text-sm"
+                  style="color:var(--text-3)"
+                  onclick="showComingSoon('AI Analysis')">AI Analysis</button>
         </div>
 
         <!-- Search bar -->
-        <div class="max-w-2xl mx-auto flex gap-0 shadow-md rounded-xl overflow-hidden border border-gray-200 bg-white">
+        <div class="max-w-2xl mx-auto flex gap-0 rounded-xl overflow-hidden"
+             style="border:1px solid var(--border-hi);background:var(--surface);box-shadow:0 4px 24px rgba(0,0,0,.5)">
           <div class="flex items-center pl-3 md:pl-4">
-            <svg class="w-4 h-4 md:w-5 md:h-5 text-gray-400" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 15.803 7.5 7.5 0 0015.803 15.803z"/></svg>
+            <svg class="w-4 h-4 md:w-5 md:h-5" style="color:var(--text-3)"
+                 fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 15.803 7.5 7.5 0 0015.803 15.803z"/>
+            </svg>
           </div>
           <input id="hero-search" type="text" placeholder="Find market statistics &amp; reports…"
-            class="flex-1 px-3 md:px-4 py-3 md:py-3.5 text-sm text-gray-700 bg-transparent outline-none min-w-0"
+            class="flex-1 px-3 md:px-4 py-3 md:py-3.5 text-sm bg-transparent outline-none min-w-0"
+            style="color:var(--text-1)"
             oninput="filterReports(this.value)"
             onkeydown="if(event.key==='Enter') filterReports(this.value)">
-          <button class="px-4 md:px-6 py-3 text-sm font-semibold text-white shrink-0" style="background:#1565C0" onclick="filterReports(document.getElementById('hero-search').value)">Search</button>
+          <button class="px-4 md:px-6 py-3 text-sm font-semibold shrink-0"
+                  style="background:var(--amber);color:#060810"
+                  onclick="filterReports(document.getElementById('hero-search').value)">Search</button>
         </div>
 
         <!-- Popular tags -->
-        <div class="mt-4 flex flex-wrap justify-center gap-2">
-          <span class="text-sm text-gray-500 font-medium">Popular:</span>
-          <span class="tag cursor-pointer border border-gray-300 bg-white text-gray-600 hover:bg-blue-50 py-1" onclick="filterReports('Consumer Goods')">Consumer Goods</span>
-          <span class="tag cursor-pointer border border-gray-300 bg-white text-gray-600 hover:bg-blue-50 py-1" onclick="filterReports('Food')">Food &amp; Beverages</span>
-          <span class="tag cursor-pointer border border-gray-300 bg-white text-gray-600 hover:bg-blue-50 py-1" onclick="filterReports('GCC')">GCC Markets</span>
-          <span class="tag cursor-pointer border border-gray-300 bg-white text-gray-600 hover:bg-blue-50 py-1" onclick="filterReports('Honey')">Honey</span>
-          <span class="tag cursor-pointer border border-gray-300 bg-white text-gray-600 hover:bg-blue-50 py-1" onclick="filterReports('MENA')">MENA Region</span>
+        <div class="mt-5 flex flex-wrap justify-center gap-2">
+          <span class="text-sm font-medium" style="color:var(--text-3)">Popular:</span>
+          <span class="tag cursor-pointer py-1 px-3"
+                style="border:1px solid var(--border-hi);color:var(--text-2);background:rgba(255,255,255,.03)"
+                onclick="filterReports('Consumer Goods')">Consumer Goods</span>
+          <span class="tag cursor-pointer py-1 px-3"
+                style="border:1px solid var(--border-hi);color:var(--text-2);background:rgba(255,255,255,.03)"
+                onclick="filterReports('Food')">Food &amp; Beverages</span>
+          <span class="tag cursor-pointer py-1 px-3"
+                style="border:1px solid var(--border-hi);color:var(--text-2);background:rgba(255,255,255,.03)"
+                onclick="filterReports('GCC')">GCC Markets</span>
+          <span class="tag cursor-pointer py-1 px-3"
+                style="border:1px solid rgba(200,146,10,.4);color:var(--amber);background:rgba(200,146,10,.08)"
+                onclick="filterReports('Honey')">Honey</span>
+          <span class="tag cursor-pointer py-1 px-3"
+                style="border:1px solid var(--border-hi);color:var(--text-2);background:rgba(255,255,255,.03)"
+                onclick="filterReports('MENA')">MENA Region</span>
         </div>
       </div>
 
       <!-- Featured Reports -->
-      <div class="px-4 md:px-8 py-6 md:py-10">
-        <div class="flex items-center justify-between mb-5">
+      <div class="px-4 md:px-8 py-8 md:py-10">
+        <div class="flex items-center justify-between mb-6">
           <div>
-            <h2 class="text-base md:text-lg font-bold text-gray-800">Featured Reports</h2>
-            <p class="text-xs md:text-sm text-gray-400 mt-0.5">Live demand estimation models — updated from Supabase</p>
+            <h2 class="text-base md:text-lg font-bold" style="font-family:'Fraunces',serif;color:var(--text-ink)">
+              Featured Reports
+            </h2>
+            <p class="text-xs md:text-sm mt-0.5" style="color:var(--text-3)">
+              Live demand estimation models — updated from Supabase
+            </p>
           </div>
-          <a class="text-xs md:text-sm font-medium shrink-0 ml-2" style="color:#1565C0" onclick="showPage('industries')">Browse all →</a>
+          <a class="text-xs md:text-sm font-medium shrink-0 ml-2 cursor-pointer"
+             style="color:var(--amber)"
+             onclick="showPage('industries')">Browse all →</a>
         </div>
 
-        <!-- Cards grid -->
         <div id="reports-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-5">
 
           <!-- GCC Honey — LIVE -->
-          <div class="report-card" data-tags="honey gcc food consumer" onclick="openReport('GCC_Honey_Dashboard.html','GCC Honey Markets 2024–2030')">
-            <div class="h-24 md:h-28 flex items-center justify-center text-4xl md:text-5xl" style="background:linear-gradient(135deg,#FEF3C7,#FDE68A)">🍯</div>
+          <div class="report-card animate-in" data-tags="honey gcc food consumer"
+               onclick="openReport('GCC_Honey_Dashboard.html','GCC Honey Markets 2024–2030')"
+               style="animation-delay:.05s">
+            <div class="h-24 md:h-28 flex items-center justify-center text-4xl md:text-5xl relative overflow-hidden"
+                 style="background:linear-gradient(135deg,#1A0E00 0%,#2A1800 60%,#1A0A00 100%)">
+              <span style="filter:drop-shadow(0 0 12px rgba(232,146,10,.6))">🍯</span>
+              <div class="absolute inset-0" style="background:radial-gradient(circle at 30% 50%,rgba(232,146,10,.08),transparent 60%)"></div>
+            </div>
             <div class="p-4">
               <div class="flex gap-1.5 mb-2 flex-wrap">
-                <span class="tag" style="background:#DCFCE7;color:#166534">Live</span>
-                <span class="tag" style="background:#EEF2FF;color:#3730A3">Consumer Goods</span>
+                <span class="tag" style="background:rgba(72,191,160,.1);color:#48BFA0;border:1px solid rgba(72,191,160,.2)">Live</span>
+                <span class="tag" style="background:rgba(200,146,10,.08);color:var(--amber);border:1px solid rgba(200,146,10,.2)">Consumer Goods</span>
               </div>
-              <h3 class="font-bold text-sm text-gray-900 mb-1">GCC Honey Markets 2024–2030</h3>
-              <p class="text-xs text-gray-500 leading-relaxed mb-3">Bottom-up demand forecast across 6 GCC countries — retail, HoReCa, food mfg &amp; gifting channels.</p>
+              <h3 class="font-bold text-sm mb-1" style="color:var(--text-ink)">GCC Honey Markets 2024–2030</h3>
+              <p class="text-xs leading-relaxed mb-3" style="color:var(--text-3)">Bottom-up demand forecast across 6 GCC countries — retail, HoReCa, food mfg &amp; gifting channels.</p>
               <div class="flex flex-wrap gap-1 mb-4">
-                <span class="tag border border-gray-200 text-gray-500">KSA</span>
-                <span class="tag border border-gray-200 text-gray-500">UAE</span>
-                <span class="tag border border-gray-200 text-gray-500">KWT</span>
-                <span class="tag border border-gray-200 text-gray-500">QAT</span>
-                <span class="tag border border-gray-200 text-gray-500">BHR</span>
-                <span class="tag border border-gray-200 text-gray-500">OMN</span>
+                <span class="tag" style="border:1px solid var(--border-hi);color:var(--text-3)">KSA</span>
+                <span class="tag" style="border:1px solid var(--border-hi);color:var(--text-3)">UAE</span>
+                <span class="tag" style="border:1px solid var(--border-hi);color:var(--text-3)">KWT</span>
+                <span class="tag" style="border:1px solid var(--border-hi);color:var(--text-3)">QAT</span>
+                <span class="tag" style="border:1px solid var(--border-hi);color:var(--text-3)">BHR</span>
+                <span class="tag" style="border:1px solid var(--border-hi);color:var(--text-3)">OMN</span>
               </div>
-              <button class="w-full py-2.5 rounded-lg text-xs font-semibold text-white" style="background:#002147">
+              <button class="w-full py-2.5 rounded-lg text-xs font-semibold"
+                      style="background:var(--amber);color:#060810">
                 View Dashboard →
               </button>
             </div>
           </div>
 
-          <!-- Placeholder cards -->
-          <div class="report-card opacity-60" data-tags="" onclick="showComingSoon('Olive Oil GCC')">
-            <div class="h-24 md:h-28 flex items-center justify-center text-4xl md:text-5xl bg-gray-50">🫒</div>
+          <!-- Placeholders -->
+          <div class="report-card animate-in" style="opacity:.55;animation-delay:.1s"
+               data-tags="" onclick="showComingSoon('Olive Oil GCC')">
+            <div class="h-24 md:h-28 flex items-center justify-center text-4xl md:text-5xl"
+                 style="background:linear-gradient(135deg,#0A1200,#141E08)">🫒</div>
             <div class="p-4">
               <div class="flex gap-1.5 mb-2">
-                <span class="tag" style="background:#F3F4F6;color:#6B7280">Coming Soon</span>
-                <span class="tag" style="background:#EEF2FF;color:#3730A3">Consumer Goods</span>
+                <span class="tag" style="background:rgba(255,255,255,.05);color:var(--text-3);border:1px solid var(--border)">Coming Soon</span>
+                <span class="tag" style="background:rgba(200,146,10,.06);color:var(--amber);border:1px solid rgba(200,146,10,.15)">Consumer Goods</span>
               </div>
-              <h3 class="font-bold text-sm text-gray-900 mb-1">GCC Olive Oil Markets</h3>
-              <p class="text-xs text-gray-500 leading-relaxed mb-3">Demand estimation for premium olive oil across GCC retail and food service channels.</p>
-              <button class="w-full py-2.5 rounded-lg text-xs font-semibold text-gray-400 bg-gray-100" disabled>Coming Soon</button>
+              <h3 class="font-bold text-sm mb-1" style="color:var(--text-1)">GCC Olive Oil Markets</h3>
+              <p class="text-xs leading-relaxed mb-3" style="color:var(--text-3)">Demand estimation for premium olive oil across GCC retail and food service channels.</p>
+              <button class="w-full py-2.5 rounded-lg text-xs font-semibold"
+                      style="background:rgba(255,255,255,.05);color:var(--text-3);cursor:not-allowed" disabled>Coming Soon</button>
             </div>
           </div>
 
-          <div class="report-card opacity-60" data-tags="" onclick="showComingSoon('Dairy GCC')">
-            <div class="h-24 md:h-28 flex items-center justify-center text-4xl md:text-5xl bg-gray-50">🥛</div>
+          <div class="report-card animate-in" style="opacity:.55;animation-delay:.15s"
+               data-tags="" onclick="showComingSoon('Dairy GCC')">
+            <div class="h-24 md:h-28 flex items-center justify-center text-4xl md:text-5xl"
+                 style="background:linear-gradient(135deg,#0A1018,#141822)">🥛</div>
             <div class="p-4">
               <div class="flex gap-1.5 mb-2">
-                <span class="tag" style="background:#F3F4F6;color:#6B7280">Coming Soon</span>
-                <span class="tag" style="background:#EEF2FF;color:#3730A3">Consumer Goods</span>
+                <span class="tag" style="background:rgba(255,255,255,.05);color:var(--text-3);border:1px solid var(--border)">Coming Soon</span>
+                <span class="tag" style="background:rgba(200,146,10,.06);color:var(--amber);border:1px solid rgba(200,146,10,.15)">Consumer Goods</span>
               </div>
-              <h3 class="font-bold text-sm text-gray-900 mb-1">GCC Dairy Markets</h3>
-              <p class="text-xs text-gray-500 leading-relaxed mb-3">Milk, cheese, labneh and halloumi demand across GCC with expat–national segmentation.</p>
-              <button class="w-full py-2.5 rounded-lg text-xs font-semibold text-gray-400 bg-gray-100" disabled>Coming Soon</button>
+              <h3 class="font-bold text-sm mb-1" style="color:var(--text-1)">GCC Dairy Markets</h3>
+              <p class="text-xs leading-relaxed mb-3" style="color:var(--text-3)">Milk, cheese, labneh and halloumi demand across GCC with expat–national segmentation.</p>
+              <button class="w-full py-2.5 rounded-lg text-xs font-semibold"
+                      style="background:rgba(255,255,255,.05);color:var(--text-3);cursor:not-allowed" disabled>Coming Soon</button>
             </div>
           </div>
 
-          <div class="report-card opacity-60" data-tags="" onclick="showComingSoon('Dates MENA')">
-            <div class="h-24 md:h-28 flex items-center justify-center text-4xl md:text-5xl bg-gray-50">🌴</div>
+          <div class="report-card animate-in" style="opacity:.55;animation-delay:.2s"
+               data-tags="" onclick="showComingSoon('Dates MENA')">
+            <div class="h-24 md:h-28 flex items-center justify-center text-4xl md:text-5xl"
+                 style="background:linear-gradient(135deg,#10080A,#1E1008)">🌴</div>
             <div class="p-4">
               <div class="flex gap-1.5 mb-2">
-                <span class="tag" style="background:#F3F4F6;color:#6B7280">Coming Soon</span>
-                <span class="tag" style="background:#EEF2FF;color:#3730A3">Consumer Goods</span>
+                <span class="tag" style="background:rgba(255,255,255,.05);color:var(--text-3);border:1px solid var(--border)">Coming Soon</span>
+                <span class="tag" style="background:rgba(200,146,10,.06);color:var(--amber);border:1px solid rgba(200,146,10,.15)">Consumer Goods</span>
               </div>
-              <h3 class="font-bold text-sm text-gray-900 mb-1">GCC Dates &amp; Dried Fruit</h3>
-              <p class="text-xs text-gray-500 leading-relaxed mb-3">Premium dates and dried fruit demand including Ramadan seasonal surge modelling.</p>
-              <button class="w-full py-2.5 rounded-lg text-xs font-semibold text-gray-400 bg-gray-100" disabled>Coming Soon</button>
+              <h3 class="font-bold text-sm mb-1" style="color:var(--text-1)">GCC Dates &amp; Dried Fruit</h3>
+              <p class="text-xs leading-relaxed mb-3" style="color:var(--text-3)">Premium dates and dried fruit demand including Ramadan seasonal surge modelling.</p>
+              <button class="w-full py-2.5 rounded-lg text-xs font-semibold"
+                      style="background:rgba(255,255,255,.05);color:var(--text-3);cursor:not-allowed" disabled>Coming Soon</button>
             </div>
           </div>
 
         </div>
 
-        <!-- No results message -->
-        <div id="no-results" class="hidden text-center py-16 text-gray-400">
-          <svg class="w-12 h-12 mx-auto mb-3 opacity-40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 15.803 7.5 7.5 0 0015.803 15.803z"/></svg>
+        <!-- No results -->
+        <div id="no-results" class="hidden text-center py-16" style="color:var(--text-3)">
+          <svg class="w-12 h-12 mx-auto mb-3 opacity-30" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 15.803 7.5 7.5 0 0015.803 15.803z"/></svg>
           <p class="text-sm font-medium">No reports match "<span id="no-results-query"></span>"</p>
-          <p class="text-xs mt-1">More reports are in development. <a class="underline cursor-pointer" onclick="clearSearch()">Clear search</a></p>
+          <p class="text-xs mt-1">More reports in development. <a class="underline cursor-pointer" style="color:var(--amber)" onclick="clearSearch()">Clear search</a></p>
         </div>
 
         <!-- Stats row -->
-        <div class="mt-8 md:mt-12 grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-          <div class="bg-white rounded-xl border border-gray-100 p-4 md:p-5 text-center shadow-sm">
-            <div class="text-2xl font-bold" style="color:#002147">6</div>
-            <div class="text-xs text-gray-500 mt-1">GCC Countries</div>
+        <div class="mt-10 md:mt-14 grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+          <div class="stat-card p-4 md:p-5 text-center">
+            <div class="text-2xl font-bold" style="font-family:'Fira Mono',monospace;color:var(--amber)">6</div>
+            <div class="text-xs mt-1" style="color:var(--text-3)">GCC Countries</div>
           </div>
-          <div class="bg-white rounded-xl border border-gray-100 p-4 md:p-5 text-center shadow-sm">
-            <div class="text-2xl font-bold" style="color:#1565C0">720</div>
-            <div class="text-xs text-gray-500 mt-1">Data Points</div>
+          <div class="stat-card p-4 md:p-5 text-center">
+            <div class="text-2xl font-bold" style="font-family:'Fira Mono',monospace;color:#48BFA0">720</div>
+            <div class="text-xs mt-1" style="color:var(--text-3)">Data Points</div>
           </div>
-          <div class="bg-white rounded-xl border border-gray-100 p-4 md:p-5 text-center shadow-sm">
-            <div class="text-2xl font-bold" style="color:#00796B">7yr</div>
-            <div class="text-xs text-gray-500 mt-1">Forecast Horizon</div>
+          <div class="stat-card p-4 md:p-5 text-center">
+            <div class="text-2xl font-bold" style="font-family:'Fira Mono',monospace;color:#F4BC18">7yr</div>
+            <div class="text-xs mt-1" style="color:var(--text-3)">Forecast Horizon</div>
           </div>
-          <div class="bg-white rounded-xl border border-gray-100 p-4 md:p-5 text-center shadow-sm">
-            <div class="text-2xl font-bold" style="color:#B45309">4</div>
-            <div class="text-xs text-gray-500 mt-1">Demand Channels</div>
+          <div class="stat-card p-4 md:p-5 text-center">
+            <div class="text-2xl font-bold" style="font-family:'Fira Mono',monospace;color:#A878E8">4</div>
+            <div class="text-xs mt-1" style="color:var(--text-3)">Demand Channels</div>
           </div>
         </div>
       </div>
@@ -395,52 +614,51 @@
     ───────────────────────────────────────────────── -->
     <div id="page-industries" class="page">
       <div class="px-4 md:px-8 py-6 md:py-8">
-        <h2 class="text-lg md:text-xl font-bold text-gray-800 mb-1">Industries</h2>
-        <p class="text-sm text-gray-400 mb-5">Browse market reports by industry. Tap any sub-category to view available reports.</p>
+        <h2 class="text-lg md:text-xl font-bold mb-1 content-page-head">Industries</h2>
+        <p class="text-sm mb-5" style="color:var(--text-3)">Browse market reports by industry. Tap any sub-category to view available reports.</p>
 
-        <div class="bg-white rounded-xl border border-gray-200 divide-y divide-gray-100">
+        <div class="industry-card divide-y" style="border-color:var(--border)">
 
-          <!-- Consumer Products — ACTIVE -->
           <div class="p-4 md:p-6 industry-row">
             <div class="flex flex-col md:flex-row md:gap-8 gap-3">
               <div class="md:w-44 shrink-0">
-                <span class="font-bold text-sm" style="color:#002147">Consumer Products</span>
-                <div class="mt-1"><span class="tag" style="background:#DCFCE7;color:#166534">Live Reports</span></div>
+                <span class="font-bold text-sm" style="color:var(--amber);font-family:'Fraunces',serif">Consumer Products</span>
+                <div class="mt-1"><span class="tag" style="background:rgba(72,191,160,.1);color:#48BFA0;border:1px solid rgba(72,191,160,.2)">Live Reports</span></div>
               </div>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2 flex-1">
-                <a class="text-sm flex items-center gap-1.5 cursor-pointer py-1" style="color:#1565C0" onclick="openReport('GCC_Honey_Dashboard.html','GCC Honey Markets 2024–2030')">
+                <a class="text-sm flex items-center gap-1.5 cursor-pointer py-1" style="color:var(--amber)"
+                   onclick="openReport('GCC_Honey_Dashboard.html','GCC Honey Markets 2024–2030')">
                   <svg class="w-3.5 h-3.5 shrink-0 opacity-60" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
                   Honey — GCC Markets
                 </a>
-                <a class="text-sm flex items-center gap-1.5 text-gray-400 cursor-not-allowed py-1">
-                  <svg class="w-3.5 h-3.5 shrink-0 opacity-40" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
-                  Olive Oil — GCC <span class="text-xs text-gray-300 ml-1">(soon)</span>
+                <a class="text-sm flex items-center gap-1.5 py-1" style="color:var(--text-3);cursor:not-allowed">
+                  <svg class="w-3.5 h-3.5 shrink-0 opacity-30" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+                  Olive Oil — GCC <span class="text-xs ml-1" style="color:var(--text-3)">(soon)</span>
                 </a>
-                <a class="text-sm flex items-center gap-1.5 text-gray-400 cursor-not-allowed py-1">
-                  <svg class="w-3.5 h-3.5 shrink-0 opacity-40" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
-                  Dairy — GCC <span class="text-xs text-gray-300 ml-1">(soon)</span>
+                <a class="text-sm flex items-center gap-1.5 py-1" style="color:var(--text-3);cursor:not-allowed">
+                  <svg class="w-3.5 h-3.5 shrink-0 opacity-30" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+                  Dairy — GCC <span class="text-xs ml-1" style="color:var(--text-3)">(soon)</span>
                 </a>
-                <a class="text-sm flex items-center gap-1.5 text-gray-400 cursor-not-allowed py-1">
-                  <svg class="w-3.5 h-3.5 shrink-0 opacity-40" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
-                  Dates &amp; Dried Fruit — GCC <span class="text-xs text-gray-300 ml-1">(soon)</span>
+                <a class="text-sm flex items-center gap-1.5 py-1" style="color:var(--text-3);cursor:not-allowed">
+                  <svg class="w-3.5 h-3.5 shrink-0 opacity-30" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+                  Dates &amp; Dried Fruit — GCC <span class="text-xs ml-1">(soon)</span>
                 </a>
-                <a class="text-sm flex items-center gap-1.5 text-gray-400 cursor-not-allowed py-1">
-                  <svg class="w-3.5 h-3.5 shrink-0 opacity-40" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
-                  Personal Care — GCC <span class="text-xs text-gray-300 ml-1">(soon)</span>
+                <a class="text-sm flex items-center gap-1.5 py-1" style="color:var(--text-3);cursor:not-allowed">
+                  <svg class="w-3.5 h-3.5 shrink-0 opacity-30" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+                  Personal Care — GCC <span class="text-xs ml-1">(soon)</span>
                 </a>
-                <a class="text-sm flex items-center gap-1.5 text-gray-400 cursor-not-allowed py-1">
-                  <svg class="w-3.5 h-3.5 shrink-0 opacity-40" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
-                  Beverages — MENA <span class="text-xs text-gray-300 ml-1">(soon)</span>
+                <a class="text-sm flex items-center gap-1.5 py-1" style="color:var(--text-3);cursor:not-allowed">
+                  <svg class="w-3.5 h-3.5 shrink-0 opacity-30" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+                  Beverages — MENA <span class="text-xs ml-1">(soon)</span>
                 </a>
               </div>
             </div>
           </div>
 
-          <!-- Other industries — placeholders -->
           <div class="p-4 md:p-6 industry-row">
             <div class="flex flex-col md:flex-row md:gap-8 gap-2">
-              <div class="md:w-44 shrink-0 font-bold text-sm text-gray-800">Consumer Services</div>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1 flex-1 text-sm text-gray-300">
+              <div class="md:w-44 shrink-0 font-bold text-sm" style="color:var(--text-1)">Consumer Services</div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1 flex-1 text-sm" style="color:var(--text-3)">
                 <span>Food Services &amp; Delivery <em class="text-xs">(soon)</em></span>
                 <span>Education Services <em class="text-xs">(soon)</em></span>
                 <span>Leisure &amp; Hospitality <em class="text-xs">(soon)</em></span>
@@ -451,8 +669,8 @@
 
           <div class="p-4 md:p-6 industry-row">
             <div class="flex flex-col md:flex-row md:gap-8 gap-2">
-              <div class="md:w-44 shrink-0 font-bold text-sm text-gray-800">Financial Services</div>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1 flex-1 text-sm text-gray-300">
+              <div class="md:w-44 shrink-0 font-bold text-sm" style="color:var(--text-1)">Financial Services</div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1 flex-1 text-sm" style="color:var(--text-3)">
                 <span>Retail Banking <em class="text-xs">(soon)</em></span>
                 <span>Insurance <em class="text-xs">(soon)</em></span>
                 <span>Payments &amp; Transfers <em class="text-xs">(soon)</em></span>
@@ -463,8 +681,8 @@
 
           <div class="p-4 md:p-6 industry-row">
             <div class="flex flex-col md:flex-row md:gap-8 gap-2">
-              <div class="md:w-44 shrink-0 font-bold text-sm text-gray-800">Technology</div>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1 flex-1 text-sm text-gray-300">
+              <div class="md:w-44 shrink-0 font-bold text-sm" style="color:var(--text-1)">Technology</div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1 flex-1 text-sm" style="color:var(--text-3)">
                 <span>Smartphones &amp; Devices <em class="text-xs">(soon)</em></span>
                 <span>Consumer Electronics <em class="text-xs">(soon)</em></span>
                 <span>Software &amp; Apps <em class="text-xs">(soon)</em></span>
@@ -475,8 +693,8 @@
 
           <div class="p-4 md:p-6 industry-row">
             <div class="flex flex-col md:flex-row md:gap-8 gap-2">
-              <div class="md:w-44 shrink-0 font-bold text-sm text-gray-800">Healthcare &amp; Pharma</div>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1 flex-1 text-sm text-gray-300">
+              <div class="md:w-44 shrink-0 font-bold text-sm" style="color:var(--text-1)">Healthcare &amp; Pharma</div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1 flex-1 text-sm" style="color:var(--text-3)">
                 <span>Pharmaceuticals <em class="text-xs">(soon)</em></span>
                 <span>Medical Devices <em class="text-xs">(soon)</em></span>
                 <span>Diagnostics <em class="text-xs">(soon)</em></span>
@@ -487,8 +705,8 @@
 
           <div class="p-4 md:p-6 industry-row">
             <div class="flex flex-col md:flex-row md:gap-8 gap-2">
-              <div class="md:w-44 shrink-0 font-bold text-sm text-gray-800">Energy &amp; Power</div>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1 flex-1 text-sm text-gray-300">
+              <div class="md:w-44 shrink-0 font-bold text-sm" style="color:var(--text-1)">Energy &amp; Power</div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1 flex-1 text-sm" style="color:var(--text-3)">
                 <span>Renewable Energy <em class="text-xs">(soon)</em></span>
                 <span>Oil &amp; Gas <em class="text-xs">(soon)</em></span>
                 <span>Energy Storage <em class="text-xs">(soon)</em></span>
@@ -507,20 +725,21 @@
     ───────────────────────────────────────────────── -->
     <div id="page-companies" class="page">
       <div class="px-4 md:px-8 py-6 md:py-8">
-        <h2 class="text-lg md:text-xl font-bold text-gray-800 mb-1">Companies</h2>
-        <p class="text-sm text-gray-400 mb-5">Search and explore consumer goods companies active in the GCC &amp; MENA region.</p>
+        <h2 class="text-lg md:text-xl font-bold mb-1 content-page-head">Companies</h2>
+        <p class="text-sm mb-5" style="color:var(--text-3)">Search and explore consumer goods companies active in the GCC &amp; MENA region.</p>
 
-        <!-- Filters — responsive grid on mobile -->
-        <div class="bg-white rounded-xl border border-gray-200 p-4 mb-4">
+        <div class="rounded-xl p-4 mb-4" style="background:var(--card);border:1px solid var(--border)">
           <div class="co-filter-grid flex flex-wrap gap-3 items-end">
             <div class="flex flex-col gap-1 co-filter-item" style="min-width:140px">
-              <label class="text-xs text-gray-400 uppercase font-semibold tracking-wide">Search</label>
+              <label class="text-xs uppercase font-semibold tracking-wide" style="color:var(--text-3)">Search</label>
               <input id="co-search" type="text" placeholder="Company Search…" oninput="filterCompanies()"
                 class="px-3 py-2 text-sm search-input w-full">
             </div>
             <div class="flex flex-col gap-1 co-filter-item" style="min-width:130px">
-              <label class="text-xs text-gray-400 uppercase font-semibold tracking-wide">Sector</label>
-              <select id="co-sector" onchange="filterCompanies()" class="px-3 py-2 text-sm search-input bg-white w-full">
+              <label class="text-xs uppercase font-semibold tracking-wide" style="color:var(--text-3)">Sector</label>
+              <select id="co-sector" onchange="filterCompanies()"
+                      class="px-3 py-2 text-sm search-input w-full"
+                      style="background:var(--surface);color:var(--text-1)">
                 <option value="">Select Sector</option>
                 <option>Consumer Goods</option>
                 <option>Food &amp; Beverages</option>
@@ -529,8 +748,10 @@
               </select>
             </div>
             <div class="flex flex-col gap-1 co-filter-item" style="min-width:150px">
-              <label class="text-xs text-gray-400 uppercase font-semibold tracking-wide">Industry</label>
-              <select id="co-industry" onchange="filterCompanies()" class="px-3 py-2 text-sm search-input bg-white w-full">
+              <label class="text-xs uppercase font-semibold tracking-wide" style="color:var(--text-3)">Industry</label>
+              <select id="co-industry" onchange="filterCompanies()"
+                      class="px-3 py-2 text-sm search-input w-full"
+                      style="background:var(--surface);color:var(--text-1)">
                 <option value="">Select Industry</option>
                 <option>Specialty Food</option>
                 <option>Packaged Food</option>
@@ -539,8 +760,10 @@
               </select>
             </div>
             <div class="flex flex-col gap-1 co-filter-item" style="min-width:110px">
-              <label class="text-xs text-gray-400 uppercase font-semibold tracking-wide">Sort By</label>
-              <select id="co-sort" onchange="filterCompanies()" class="px-3 py-2 text-sm search-input bg-white w-full">
+              <label class="text-xs uppercase font-semibold tracking-wide" style="color:var(--text-3)">Sort By</label>
+              <select id="co-sort" onchange="filterCompanies()"
+                      class="px-3 py-2 text-sm search-input w-full"
+                      style="background:var(--surface);color:var(--text-1)">
                 <option>Latest</option>
                 <option>Revenue ↓</option>
                 <option>Name A–Z</option>
@@ -553,12 +776,11 @@
           </div>
         </div>
 
-        <!-- Table — horizontally scrollable on mobile -->
-        <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+        <div class="rounded-xl overflow-hidden" style="background:var(--card);border:1px solid var(--border)">
           <div class="overflow-x-auto">
             <table class="w-full text-sm min-w-max md:min-w-0">
               <thead>
-                <tr class="text-xs text-gray-400 uppercase tracking-wide" style="border-bottom:1px solid #F3F4F6">
+                <tr class="text-xs uppercase tracking-wide" style="border-bottom:1px solid var(--border);color:var(--text-3)">
                   <th class="text-left px-4 md:px-5 py-3 font-semibold">Company</th>
                   <th class="text-left px-4 py-3 font-semibold">HQ</th>
                   <th class="text-left px-4 py-3 font-semibold hidden md:table-cell">Sector</th>
@@ -572,11 +794,16 @@
             </table>
           </div>
 
-          <!-- Pagination -->
-          <div class="flex items-center justify-between px-4 md:px-5 py-3 border-t border-gray-100">
-            <button id="co-prev" class="text-sm px-3 md:px-4 py-1.5 rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-50 disabled:opacity-40" onclick="coPage(-1)">← Prev</button>
-            <span id="co-page-info" class="text-xs text-gray-400"></span>
-            <button id="co-next" class="text-sm px-3 md:px-4 py-1.5 rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-50 disabled:opacity-40" onclick="coPage(1)">Next →</button>
+          <div class="flex items-center justify-between px-4 md:px-5 py-3" style="border-top:1px solid var(--border)">
+            <button id="co-prev"
+                    class="text-sm px-3 md:px-4 py-1.5 rounded-lg disabled:opacity-30"
+                    style="border:1px solid var(--border-hi);color:var(--text-2)"
+                    onclick="coPage(-1)">← Prev</button>
+            <span id="co-page-info" class="text-xs" style="color:var(--text-3)"></span>
+            <button id="co-next"
+                    class="text-sm px-3 md:px-4 py-1.5 rounded-lg disabled:opacity-30"
+                    style="border:1px solid var(--border-hi);color:var(--text-2)"
+                    onclick="coPage(1)">Next →</button>
           </div>
         </div>
       </div>
@@ -588,72 +815,96 @@
     ───────────────────────────────────────────────── -->
     <div id="page-survey" class="page">
       <div class="flex flex-col">
-        <!-- Hero split -->
         <div class="flex flex-col lg:flex-row">
           <!-- Left: copy -->
-          <div class="flex-1 flex flex-col justify-center px-6 md:px-12 py-10 md:py-16" style="background:linear-gradient(135deg,#002147 0%,#1565C0 100%)">
-            <p class="text-blue-200 text-xs font-semibold tracking-widest uppercase mb-3">Survey Intelligence</p>
-            <h2 class="text-white text-2xl md:text-3xl font-bold leading-snug mb-4">All your survey data in one<br class="hidden sm:block">unified Intelligent AI portal</h2>
-            <p class="text-blue-100 text-sm leading-relaxed max-w-md mb-8">
+          <div class="flex-1 flex flex-col justify-center px-6 md:px-12 py-10 md:py-16"
+               style="background:linear-gradient(135deg,#07090F 0%,#0D1020 100%);border-bottom:1px solid var(--border)">
+            <p class="text-xs font-semibold tracking-widest uppercase mb-3"
+               style="color:var(--amber);font-family:'Fira Mono',monospace">Survey Intelligence</p>
+            <h2 class="text-white text-2xl md:text-3xl font-bold leading-snug mb-4"
+                style="font-family:'Fraunces',serif;color:var(--text-ink) !important">
+              All your survey data in one<br class="hidden sm:block">unified Intelligence portal
+            </h2>
+            <p class="text-sm leading-relaxed max-w-md mb-8" style="color:var(--text-2)">
               Streamline your workflow with access to consumer survey data, multimedia research content, and related documents — all in one place.
             </p>
             <div class="flex flex-wrap gap-3">
-              <button class="bg-white font-semibold text-sm px-6 py-2.5 rounded-lg" style="color:#002147" onclick="showComingSoon('Talk to Expert')">Talk to a Consumer Expert</button>
-              <button class="border border-blue-300 text-blue-100 font-semibold text-sm px-5 py-2.5 rounded-lg hover:bg-blue-900" onclick="showComingSoon('Learn More')">Learn More</button>
+              <button class="font-semibold text-sm px-6 py-2.5 rounded-lg"
+                      style="background:var(--amber);color:#060810"
+                      onclick="showComingSoon('Talk to Expert')">Talk to a Consumer Expert</button>
+              <button class="font-semibold text-sm px-5 py-2.5 rounded-lg"
+                      style="border:1px solid var(--border-hi);color:var(--text-2)"
+                      onclick="showComingSoon('Learn More')">Learn More</button>
             </div>
           </div>
 
-          <!-- Right: placeholder mockup -->
-          <div class="flex-1 flex items-center justify-center bg-gray-50 p-6 md:p-10 min-h-64">
-            <div class="w-full max-w-sm bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
-              <div class="bg-gray-100 px-4 py-2 flex gap-1.5 items-center">
-                <span class="w-3 h-3 rounded-full bg-red-300"></span>
-                <span class="w-3 h-3 rounded-full bg-yellow-300"></span>
-                <span class="w-3 h-3 rounded-full bg-green-300"></span>
-                <span class="ml-3 text-xs text-gray-400">Consumer Survey — GCC Markets</span>
+          <!-- Right: mockup -->
+          <div class="flex-1 flex items-center justify-center p-6 md:p-10 min-h-64"
+               style="background:var(--obsidian)">
+            <div class="w-full max-w-sm survey-mockup rounded-xl overflow-hidden shadow-lg">
+              <div class="survey-mockup-bar px-4 py-2 flex gap-1.5 items-center">
+                <span class="w-3 h-3 rounded-full" style="background:#B84022"></span>
+                <span class="w-3 h-3 rounded-full" style="background:#C8920A"></span>
+                <span class="w-3 h-3 rounded-full" style="background:#48BFA0"></span>
+                <span class="ml-3 text-xs" style="color:var(--text-3)">Consumer Survey — GCC Markets</span>
               </div>
               <div class="p-5">
-                <p class="text-xs font-semibold text-gray-600 mb-3">When you think of honey, which of the following associations come to mind?</p>
+                <p class="text-xs font-semibold mb-3" style="color:var(--text-1)">When you think of honey, which of the following associations come to mind?</p>
                 <div class="space-y-2.5">
                   <div class="flex items-center gap-2">
-                    <div class="flex-1 bg-amber-100 rounded h-5 overflow-hidden"><div class="h-full rounded" style="width:72%;background:#B45309"></div></div>
-                    <span class="text-xs text-gray-500 w-20">Natural (72%)</span>
+                    <div class="flex-1 rounded h-5 overflow-hidden" style="background:rgba(200,146,10,.1)">
+                      <div class="h-full rounded" style="width:72%;background:var(--amber)"></div>
+                    </div>
+                    <span class="text-xs w-20" style="color:var(--text-2)">Natural (72%)</span>
                   </div>
                   <div class="flex items-center gap-2">
-                    <div class="flex-1 bg-amber-100 rounded h-5 overflow-hidden"><div class="h-full rounded" style="width:58%;background:#D97706"></div></div>
-                    <span class="text-xs text-gray-500 w-20">Healthy (58%)</span>
+                    <div class="flex-1 rounded h-5 overflow-hidden" style="background:rgba(200,146,10,.1)">
+                      <div class="h-full rounded" style="width:58%;background:#D46A1C"></div>
+                    </div>
+                    <span class="text-xs w-20" style="color:var(--text-2)">Healthy (58%)</span>
                   </div>
                   <div class="flex items-center gap-2">
-                    <div class="flex-1 bg-amber-100 rounded h-5 overflow-hidden"><div class="h-full rounded" style="width:45%;background:#F59E0B"></div></div>
-                    <span class="text-xs text-gray-500 w-20">Premium (45%)</span>
+                    <div class="flex-1 rounded h-5 overflow-hidden" style="background:rgba(200,146,10,.1)">
+                      <div class="h-full rounded" style="width:45%;background:#F4BC18"></div>
+                    </div>
+                    <span class="text-xs w-20" style="color:var(--text-2)">Premium (45%)</span>
                   </div>
                   <div class="flex items-center gap-2">
-                    <div class="flex-1 bg-amber-100 rounded h-5 overflow-hidden"><div class="h-full rounded" style="width:38%;background:#FCD34D"></div></div>
-                    <span class="text-xs text-gray-500 w-20">Gift (38%)</span>
+                    <div class="flex-1 rounded h-5 overflow-hidden" style="background:rgba(200,146,10,.1)">
+                      <div class="h-full rounded" style="width:38%;background:#A07808"></div>
+                    </div>
+                    <span class="text-xs w-20" style="color:var(--text-2)">Gift (38%)</span>
                   </div>
                 </div>
-                <div class="mt-4 grid grid-cols-2 gap-2 text-xs text-gray-400 border-t pt-3">
-                  <div><span class="font-medium text-gray-600">Gender:</span> Select ▾</div>
-                  <div><span class="font-medium text-gray-600">Age:</span> Select ▾</div>
-                  <div><span class="font-medium text-gray-600">Income:</span> Select ▾</div>
-                  <div><span class="font-medium text-gray-600">Country:</span> Select ▾</div>
+                <div class="mt-4 grid grid-cols-2 gap-2 text-xs pt-3" style="border-top:1px solid var(--border);color:var(--text-3)">
+                  <div><span class="font-medium" style="color:var(--text-2)">Gender:</span> Select ▾</div>
+                  <div><span class="font-medium" style="color:var(--text-2)">Age:</span> Select ▾</div>
+                  <div><span class="font-medium" style="color:var(--text-2)">Income:</span> Select ▾</div>
+                  <div><span class="font-medium" style="color:var(--text-2)">Country:</span> Select ▾</div>
                 </div>
-                <button class="mt-3 w-full py-2 rounded-lg text-xs font-semibold text-white" style="background:#1565C0" onclick="showComingSoon('Apply Filter')">Apply Filter</button>
+                <button class="mt-3 w-full py-2 rounded-lg text-xs font-semibold"
+                        style="background:var(--amber);color:#060810"
+                        onclick="showComingSoon('Apply Filter')">Apply Filter</button>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Industry focus -->
-        <div class="px-6 md:px-12 py-8 bg-white border-t border-gray-100">
-          <h3 class="text-base font-bold text-gray-700 mb-4 text-center">Industries we focus on</h3>
+        <div class="px-6 md:px-12 py-8" style="background:var(--card);border-top:1px solid var(--border)">
+          <h3 class="text-base font-bold mb-4 text-center" style="font-family:'Fraunces',serif;color:var(--text-ink)">Industries we focus on</h3>
           <div class="flex flex-wrap justify-center gap-2 md:gap-3">
-            <span class="px-3 md:px-4 py-2 bg-gray-50 rounded-lg text-sm font-medium text-gray-600 border">Consumer Goods</span>
-            <span class="px-3 md:px-4 py-2 bg-gray-50 rounded-lg text-sm font-medium text-gray-600 border">Food &amp; Beverages</span>
-            <span class="px-3 md:px-4 py-2 bg-gray-50 rounded-lg text-sm font-medium text-gray-600 border">Personal Care</span>
-            <span class="px-3 md:px-4 py-2 bg-gray-50 rounded-lg text-sm font-medium text-gray-600 border">Retail &amp; E-Commerce</span>
-            <span class="px-3 md:px-4 py-2 bg-gray-50 rounded-lg text-sm font-medium text-gray-600 border">Healthcare</span>
-            <span class="px-3 md:px-4 py-2 bg-gray-50 rounded-lg text-sm font-medium text-gray-600 border">Financial Services</span>
+            <span class="px-3 md:px-4 py-2 rounded-lg text-sm font-medium"
+                  style="background:var(--surface);color:var(--text-2);border:1px solid var(--border)">Consumer Goods</span>
+            <span class="px-3 md:px-4 py-2 rounded-lg text-sm font-medium"
+                  style="background:var(--surface);color:var(--text-2);border:1px solid var(--border)">Food &amp; Beverages</span>
+            <span class="px-3 md:px-4 py-2 rounded-lg text-sm font-medium"
+                  style="background:var(--surface);color:var(--text-2);border:1px solid var(--border)">Personal Care</span>
+            <span class="px-3 md:px-4 py-2 rounded-lg text-sm font-medium"
+                  style="background:var(--surface);color:var(--text-2);border:1px solid var(--border)">Retail &amp; E-Commerce</span>
+            <span class="px-3 md:px-4 py-2 rounded-lg text-sm font-medium"
+                  style="background:var(--surface);color:var(--text-2);border:1px solid var(--border)">Healthcare</span>
+            <span class="px-3 md:px-4 py-2 rounded-lg text-sm font-medium"
+                  style="background:var(--surface);color:var(--text-2);border:1px solid var(--border)">Financial Services</span>
           </div>
         </div>
       </div>
@@ -664,13 +915,14 @@
          PAGE: REPORT VIEWER (iframe)
     ───────────────────────────────────────────────── -->
     <div id="page-report" class="page" style="height:calc(100vh - 56px)">
-      <div class="bg-white border-b border-gray-200 px-4 md:px-5 py-2 flex items-center gap-2 text-sm shrink-0">
-        <button onclick="showPage('home')" class="flex items-center gap-1 text-blue-600 hover:underline">
+      <div class="px-4 md:px-5 py-2 flex items-center gap-2 text-sm shrink-0"
+           style="background:var(--card);border-bottom:1px solid var(--border)">
+        <button onclick="showPage('home')" class="flex items-center gap-1 hover:underline" style="color:var(--amber)">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/></svg>
           Home
         </button>
-        <span class="text-gray-300">/</span>
-        <span class="text-gray-700 font-medium truncate" id="report-breadcrumb">Report</span>
+        <span style="color:var(--text-3)">/</span>
+        <span class="font-medium truncate report-breadcrumb" id="report-breadcrumb">Report</span>
       </div>
       <iframe id="report-iframe" src="" class="w-full border-0 flex-1" style="height:calc(100vh - 56px - 40px)"></iframe>
     </div><!-- /page-report -->
@@ -680,7 +932,8 @@
 </div><!-- /flex root -->
 
 <!-- Toast -->
-<div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-gray-800 text-white text-sm px-5 py-2.5 rounded-lg shadow-lg hidden">
+<div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 text-sm px-5 py-2.5 rounded-lg shadow-lg hidden"
+     style="background:var(--amber);color:#060810;font-weight:600">
   <span id="toast-msg"></span>
 </div>
 
@@ -711,12 +964,12 @@ function renderCoTable() {
   const rows = _coFiltered.slice(start, start + CO_PAGE_SIZE);
   body.innerHTML = rows.map(c => `
     <tr class="tbl-row">
-      <td class="px-4 md:px-5 py-3 font-medium text-blue-700 text-sm">${c.name}</td>
-      <td class="px-4 py-3 text-gray-500 text-xs">${c.hq}</td>
-      <td class="px-4 py-3 text-gray-500 text-xs hidden md:table-cell">${c.sector}</td>
-      <td class="px-4 py-3 text-gray-500 text-xs hidden md:table-cell">${c.industry}</td>
-      <td class="px-4 py-3 text-gray-500 text-xs hidden lg:table-cell">${c.rev}</td>
-      <td class="px-4 py-3 text-gray-500 text-xs hidden lg:table-cell">${c.emp}</td>
+      <td class="px-4 md:px-5 py-3 font-medium text-sm" style="color:#7ABAE8">${c.name}</td>
+      <td class="px-4 py-3 text-xs" style="color:var(--text-3)">${c.hq}</td>
+      <td class="px-4 py-3 text-xs hidden md:table-cell" style="color:var(--text-3)">${c.sector}</td>
+      <td class="px-4 py-3 text-xs hidden md:table-cell" style="color:var(--text-3)">${c.industry}</td>
+      <td class="px-4 py-3 text-xs hidden lg:table-cell" style="color:var(--text-3)">${c.rev}</td>
+      <td class="px-4 py-3 text-xs hidden lg:table-cell" style="color:var(--text-3)">${c.emp}</td>
       <td class="px-4 py-3"><span class="status-active">${c.status}</span></td>
     </tr>`).join('');
   const total = _coFiltered.length;
@@ -806,7 +1059,7 @@ function showPage(name) {
     if (el) el.classList.toggle('active', p === name);
   });
   if (name === 'companies') renderCoTable();
-  closePortalSidebar(); // always close on mobile when navigating
+  closePortalSidebar();
 }
 
 function openReport(url, title) {
