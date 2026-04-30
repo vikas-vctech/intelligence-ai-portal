@@ -436,18 +436,10 @@
   class="fixed md:static inset-y-0 left-0 z-50 w-64 md:w-48 flex flex-col h-screen shrink-0 -translate-x-full md:translate-x-0">
 
   <!-- Logo -->
-  <div class="flex items-center gap-2 h-14 px-4" style="border-bottom:1px solid var(--border)">
-    <div class="w-7 h-7 flex items-center justify-center shrink-0"
-         style="border:1px solid rgba(184,146,74,.35);border-radius:4px">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-        <path d="M7 1L13 4.5V9.5L7 13L1 9.5V4.5L7 1Z" stroke="#B8924A" stroke-width="1.2" fill="none"/>
-        <path d="M7 4L10 5.75V9.25L7 11L4 9.25V5.75L7 4Z" fill="#B8924A" opacity=".35"/>
-      </svg>
-    </div>
-    <div class="leading-tight">
-      <div style="font-family:var(--font-display);font-weight:400;font-size:14px;color:var(--amber);letter-spacing:.04em">Atlas</div>
-      <div style="font-size:8.5px;color:var(--text-3);font-family:var(--font-mono);letter-spacing:.12em;text-transform:uppercase">Market Intelligence</div>
-    </div>
+  <div class="flex items-center gap-3 h-14 px-4" style="border-bottom:1px solid var(--border)">
+    <img src="Atlas%20Design%20System/assets/atlas_logo_gold_on_midnight.png"
+         alt="Atlas Market Intelligence"
+         style="height:34px;width:auto;display:block;flex-shrink:0">
     <button class="md:hidden ml-auto p-1" style="color:var(--text-3)" onclick="closePortalSidebar()">
       <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
     </button>
@@ -584,7 +576,11 @@
 
       <!-- Hero -->
       <div class="hero-bg px-4 md:px-8 py-12 md:py-20 text-center relative z-10">
-        <p class="hero-eyebrow mb-4">Atlas · Market Intelligence</p>
+        <div class="flex justify-center mb-5">
+          <img src="Atlas%20Design%20System/assets/atlas_logo_gold_on_midnight.png"
+               alt="Atlas Market Intelligence"
+               style="height:52px;width:auto;display:block">
+        </div>
         <h1 class="hero-title mb-4">
           Demand<br><em>Intelligence</em>
         </h1>
