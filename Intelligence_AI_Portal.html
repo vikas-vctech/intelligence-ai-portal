@@ -481,25 +481,9 @@
     display: flex; align-items: center; gap: 8px;
     overflow-x: auto; white-space: nowrap;
   }
-  .lp-trust-label {
-    font-size: 9px; letter-spacing: .14em; text-transform: uppercase;
-    color: var(--text-3); margin-right: 4px;
-    font-family: var(--font-mono); flex-shrink: 0;
-  }
-  .lp-trust-item {
-    padding: 4px 14px;
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    font-size: 10.5px; font-weight: 600;
-    color: var(--text-3);
-    background: rgba(255,255,255,.025);
-    font-family: var(--font-ui); flex-shrink: 0;
-    letter-spacing: .02em;
-  }
-  html[data-theme="light"] .lp-trust-item {
-    background: rgba(0,0,0,.03);
-    color: var(--text-2);
-  }
+  /* Trust logo fills adapt to theme via currentColor */
+  .lp-trust-logo { color: rgba(245,240,230,.42); flex-shrink: 0; }
+  html[data-theme="light"] .lp-trust-logo { color: rgba(26,38,56,.38); }
 
   /* ── Category tabs ── */
   .lp-cat-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 22px; }
@@ -899,16 +883,50 @@
         </div>
       </div>
 
-      <!-- ══ DATA SOURCES BAR ══ -->
-      <div class="lp-trust-bar">
-        <span class="lp-trust-label">Data anchored to</span>
-        <span class="lp-trust-item">UN FAO</span>
-        <span class="lp-trust-item">UN Comtrade</span>
-        <span class="lp-trust-item">World Bank</span>
-        <span class="lp-trust-item">IMF WEO</span>
-        <span class="lp-trust-item">Euromonitor</span>
-        <span class="lp-trust-item">Gulf Statistical Centres</span>
-        <span class="lp-trust-item">ITC TradeMap</span>
+      <!-- ══ TRUSTED BRANDS ══ -->
+      <div style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+                  padding:20px 40px;display:flex;flex-direction:column;align-items:center;gap:18px">
+        <div style="font-family:var(--font-mono);font-size:9.5px;letter-spacing:.2em;
+                    text-transform:uppercase;color:var(--text-3)">
+          Trusted by leading teams worldwide
+        </div>
+        <div style="display:flex;align-items:center;gap:52px;flex-wrap:wrap;justify-content:center">
+
+          <!-- Deloitte -->
+          <svg class="lp-trust-logo" viewBox="0 0 140 28" height="22">
+            <circle cx="9" cy="14" r="7.5" fill="#86BC25" opacity=".82"/>
+            <text x="22" y="19.5" font-family="Arial,Helvetica,sans-serif" font-size="14.5"
+                  font-weight="700" fill="currentColor">deloitte.</text>
+          </svg>
+
+          <!-- KPMG -->
+          <svg class="lp-trust-logo" viewBox="0 0 76 28" height="22">
+            <text x="0" y="22" font-family="Arial,Helvetica,sans-serif" font-size="22"
+                  font-weight="900" fill="currentColor" letter-spacing="1">KPMG</text>
+          </svg>
+
+          <!-- Daman Insurance -->
+          <svg class="lp-trust-logo" viewBox="0 0 120 30" height="24">
+            <circle cx="6" cy="10" r="5.5" fill="#00A3AD" opacity=".78"/>
+            <text x="17" y="15" font-family="Arial,Helvetica,sans-serif" font-size="14"
+                  font-weight="700" fill="currentColor">daman</text>
+            <text x="17" y="26.5" font-family="Arial,Helvetica,sans-serif" font-size="7.5"
+                  font-weight="400" fill="currentColor" letter-spacing="1.5" opacity=".65">INSURANCE</text>
+          </svg>
+
+          <!-- Raymond -->
+          <svg class="lp-trust-logo" viewBox="0 0 140 28" height="22">
+            <text x="0" y="20" font-family="Georgia,'Times New Roman',serif" font-size="15"
+                  font-weight="700" fill="currentColor" letter-spacing="4.5">RAYMOND</text>
+          </svg>
+
+          <!-- Sutherland -->
+          <svg class="lp-trust-logo" viewBox="0 0 122 28" height="22">
+            <text x="0" y="20" font-family="Arial,Helvetica,sans-serif" font-size="16"
+                  font-weight="600" fill="currentColor">Sutherland</text>
+          </svg>
+
+        </div>
       </div>
 
       <!-- ══ PRODUCT DISCOVERY ══ -->
