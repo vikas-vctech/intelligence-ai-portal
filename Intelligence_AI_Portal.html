@@ -484,6 +484,16 @@
   /* Trust logo fills adapt to theme via currentColor */
   .lp-trust-logo { color: rgba(245,240,230,.42); flex-shrink: 0; }
   html[data-theme="light"] .lp-trust-logo { color: rgba(26,38,56,.38); }
+  .lp-trust-img {
+    max-height: 72px; width: auto; display: block; flex-shrink: 0;
+    filter: grayscale(1) invert(1) brightness(.75) opacity(.5);
+    transition: filter .25s, opacity .25s;
+  }
+  .lp-trust-img:hover { filter: grayscale(0) invert(0) brightness(1) opacity(1); }
+  html[data-theme="light"] .lp-trust-img {
+    filter: grayscale(1) opacity(.45) sepia(.15) hue-rotate(185deg);
+  }
+  html[data-theme="light"] .lp-trust-img:hover { filter: grayscale(0) opacity(1); }
 
   /* ── Category tabs ── */
   .lp-cat-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 22px; }
@@ -885,46 +895,17 @@
 
       <!-- ══ TRUSTED BRANDS ══ -->
       <div style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);
-                  padding:20px 40px;display:flex;flex-direction:column;align-items:center;gap:18px">
+                  padding:22px 40px;display:flex;flex-direction:column;align-items:center;gap:20px">
         <div style="font-family:var(--font-mono);font-size:9.5px;letter-spacing:.2em;
                     text-transform:uppercase;color:var(--text-3)">
-          Trusted by leading teams worldwide
+          Trusted by Leading Brands Worldwide
         </div>
-        <div style="display:flex;align-items:center;gap:52px;flex-wrap:wrap;justify-content:center">
+        <div style="display:flex;align-items:center;gap:64px;flex-wrap:wrap;justify-content:center">
 
-          <!-- Deloitte -->
-          <svg class="lp-trust-logo" viewBox="0 0 140 28" height="22">
-            <circle cx="9" cy="14" r="7.5" fill="#86BC25" opacity=".82"/>
-            <text x="22" y="19.5" font-family="Arial,Helvetica,sans-serif" font-size="14.5"
-                  font-weight="700" fill="currentColor">deloitte.</text>
-          </svg>
-
-          <!-- KPMG -->
-          <svg class="lp-trust-logo" viewBox="0 0 76 28" height="22">
-            <text x="0" y="22" font-family="Arial,Helvetica,sans-serif" font-size="22"
-                  font-weight="900" fill="currentColor" letter-spacing="1">KPMG</text>
-          </svg>
-
-          <!-- Daman Insurance -->
-          <svg class="lp-trust-logo" viewBox="0 0 120 30" height="24">
-            <circle cx="6" cy="10" r="5.5" fill="#00A3AD" opacity=".78"/>
-            <text x="17" y="15" font-family="Arial,Helvetica,sans-serif" font-size="14"
-                  font-weight="700" fill="currentColor">daman</text>
-            <text x="17" y="26.5" font-family="Arial,Helvetica,sans-serif" font-size="7.5"
-                  font-weight="400" fill="currentColor" letter-spacing="1.5" opacity=".65">INSURANCE</text>
-          </svg>
-
-          <!-- Raymond -->
-          <svg class="lp-trust-logo" viewBox="0 0 140 28" height="22">
-            <text x="0" y="20" font-family="Georgia,'Times New Roman',serif" font-size="15"
-                  font-weight="700" fill="currentColor" letter-spacing="4.5">RAYMOND</text>
-          </svg>
-
-          <!-- Sutherland -->
-          <svg class="lp-trust-logo" viewBox="0 0 122 28" height="22">
-            <text x="0" y="20" font-family="Arial,Helvetica,sans-serif" font-size="16"
-                  font-weight="600" fill="currentColor">Sutherland</text>
-          </svg>
+          <img src="client/Deloitte.png"           alt="Deloitte" class="lp-trust-img" style="max-height:110px">
+          <img src="client/KPMG_blue_logo.svg.png" alt="KPMG"     class="lp-trust-img">
+          <img src="client/Daman_logo.png"          alt="Daman"    class="lp-trust-img">
+          <img src="client/Raymond_logo.svg.png"    alt="Raymond"  class="lp-trust-img">
 
         </div>
       </div>
