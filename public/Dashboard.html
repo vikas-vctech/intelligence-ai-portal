@@ -1,0 +1,2060 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atlas · Market Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1" integrity="sha384-jb8JQMbMoBUzgWatfe6COACi2ljcDdZQ2OxczGA3bGNeWe+6DChMTBJemed7ZnvJ" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0" integrity="sha384-cVMg8E3QFwTvGCDuK+ET4PD341jF3W8nO1auiXfuZNQkzbUUiBGLsIQUE+b1mxws" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+<style>
+/* ── ATLAS DESIGN SYSTEM · MIDNIGHT DASHBOARD ─────────────── */
+:root {
+  /* Atlas raw palette */
+  --atlas-midnight:    #0E1A2B;
+  --atlas-parchment:   #F5F0E6;
+  --atlas-gold:        #B8924A;
+  --atlas-old-gold:    #8B6F2F;
+  --atlas-stone:       #A89F8E;
+  --atlas-burgundy:    #6B1F2E;
+  --atlas-ocean:       #1F3A5F;
+  --atlas-slate:       #3D4754;
+  --atlas-graphite:    #6B7280;
+  --atlas-linen:       #EBE5D7;
+  --atlas-compass:     #3D6B5C;
+  --atlas-signal:      #A8331E;
+  --atlas-midnight-90: #1A2638;
+  --atlas-midnight-80: #28344A;
+  /* Semantic tokens — midnight default */
+  --bg-primary:     #0E1A2B;
+  --bg-card:        #1A2638;
+  --bg-nav:         #0E1A2B;
+  --bg-nav-deep:    #0A1220;
+  --text-primary:   #F5F0E6;
+  --text-secondary: #9AA3B0;
+  --text-muted:     #6E7785;
+  --text-on-dark:   #F5F0E6;
+  --color-1: #B8924A;
+  --color-2: #8B6F2F;
+  --color-3: #3D6B5C;
+  --color-4: #1F3A5F;
+  --color-5: #A89F8E;
+  --color-6: #A8331E;
+  --positive: #3D6B5C;
+  --negative:  #A8331E;
+  --border:        rgba(245,240,230,.10);
+  --border-strong: rgba(245,240,230,.20);
+  --grid:          rgba(245,240,230,.05);
+  --gap:    12px;
+  --radius: 4px;
+  /* Fonts */
+  --font-display:   'DM Serif Display', Georgia, serif;
+  --font-editorial: 'Source Serif 4', Georgia, serif;
+  --font-ui:        'IBM Plex Sans', -apple-system, sans-serif;
+  --font-mono:      'JetBrains Mono', ui-monospace, monospace;
+  /* Motion */
+  --ease-atlas: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 180ms;
+  --dur-base: 320ms;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{
+  display:flex;flex-direction:column;
+  background:var(--bg-primary);
+  color:var(--text-primary);
+  font-family:var(--font-ui);
+  font-size:13px;
+}
+
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* ══ TOP NAV ════════════════════════════════════════════════ */
+.top-nav{
+  background:var(--bg-nav);
+  flex-shrink:0;
+  display:flex;align-items:center;
+  padding:0 20px;
+  min-height:96px;
+  border-bottom:1px solid var(--border);
+  position:sticky;top:0;z-index:50;
+  flex-wrap:wrap;
+}
+
+.nav-brand{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 20px 10px 0;
+  border-right:1px solid var(--border);
+  flex-shrink:0;
+}
+.nav-brand-icon{
+  width:26px;height:26px;
+  border:1px solid rgba(184,146,74,.45);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.nav-brand-name{
+  font-size:14px;font-weight:400;color:var(--atlas-gold);
+  letter-spacing:.04em;line-height:1;
+  font-family:var(--font-display);
+}
+.nav-brand-sub{
+  font-size:9px;color:var(--text-muted);margin-top:2px;
+  font-family:var(--font-mono);letter-spacing:.08em;text-transform:uppercase;
+}
+
+.nav-sep{width:1px;height:28px;background:var(--border);margin:0 4px;flex-shrink:0}
+
+.nav-links{display:flex;align-items:center;gap:2px;padding:10px 12px;flex-shrink:0}
+.nav-btn{
+  display:flex;align-items:center;gap:6px;
+  padding:6px 14px;border:none;background:transparent;
+  color:var(--text-muted);font-size:12px;font-weight:400;
+  font-family:var(--font-ui);
+  cursor:pointer;border-radius:4px;white-space:nowrap;
+  transition:color var(--dur-fast) var(--ease-atlas);
+}
+.nav-btn:hover{color:var(--text-primary)}
+.nav-btn.active{
+  color:var(--atlas-gold);font-weight:500;
+  box-shadow:inset 0 -1px 0 var(--atlas-gold);
+}
+.nav-btn-icon{font-size:13px;opacity:.5}
+
+.nav-filters{display:flex;align-items:center;gap:10px;padding:10px 12px;flex-shrink:0}
+.nav-filter-group{display:flex;align-items:center;gap:5px}
+.nav-filter-label{
+  font-size:9px;font-weight:500;color:var(--text-muted);
+  letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;
+  font-family:var(--font-ui);
+}
+.nav-select{
+  background:transparent;color:var(--text-secondary);
+  border:1px solid var(--border-strong);
+  border-radius:4px;padding:5px 22px 5px 8px;
+  font-size:11.5px;appearance:none;-webkit-appearance:none;-moz-appearance:none;
+  cursor:pointer;font-family:var(--font-ui);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5'%3E%3Cpath d='M0 0l4 5 4-5z' fill='%236E7785'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 6px center;
+  transition:border-color var(--dur-fast);
+}
+.nav-select:focus{outline:none;border-color:var(--atlas-gold);}
+.nav-select option{background:#1A2638}
+.nav-select-country{color:var(--text-primary);border-color:var(--border-strong);font-weight:500}
+.nav-select:disabled{opacity:.3;cursor:not-allowed}
+
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:10px;padding:10px 0 10px 12px}
+.nav-meta{font-size:9.5px;color:var(--text-muted);white-space:nowrap;font-family:var(--font-ui)}
+.loading-spinner{
+  width:16px;height:16px;
+  border:1.5px solid var(--border);
+  border-top-color:var(--atlas-gold);border-radius:50%;
+  animation:spin .75s linear infinite;display:none;flex-shrink:0;
+}
+
+/* ══ CONTENT AREA ═══════════════════════════════════════════ */
+.content-area{flex:1;overflow-y:auto}
+.content-area::-webkit-scrollbar{width:5px}
+.content-area::-webkit-scrollbar-track{background:#040A14}
+.content-area::-webkit-scrollbar-thumb{background:#162030;border-radius:3px}
+
+.panel-wrap{padding:24px 28px 52px;max-width:1500px;margin:0 auto}
+
+/* ══ PANELS ═════════════════════════════════════════════════ */
+.sec-panel{display:none}
+.sec-panel.active{display:block}
+
+/* KPIs */
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap);margin-bottom:20px}
+.kpi{
+  background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);
+  padding:18px 20px 16px;
+  border-left:3px solid var(--color-1);
+  position:relative;overflow:hidden;
+  animation:fadeUp .45s cubic-bezier(.22,1,.36,1) both;
+}
+.kpi::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(184,146,74,.04) 0%,transparent 55%);
+  pointer-events:none;
+}
+.kpi.teal{border-left-color:var(--color-4)}
+.kpi.amber{border-left-color:var(--color-3)}
+.kpi.coral{border-left-color:var(--color-6)}
+.kpi:nth-child(1){animation-delay:.04s}
+.kpi:nth-child(2){animation-delay:.09s}
+.kpi:nth-child(3){animation-delay:.14s}
+.kpi:nth-child(4){animation-delay:.19s}
+.kpi-lbl{font-size:8.5px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:1.1px}
+.kpi-val{
+  font-size:24px;font-weight:500;color:var(--color-1);
+  margin:6px 0 4px;line-height:1;
+  font-family:var(--font-mono);letter-spacing:-1px;
+}
+.kpi.teal .kpi-val{color:var(--color-4)}
+.kpi.amber .kpi-val{color:var(--color-3)}
+.kpi.coral .kpi-val{color:var(--color-6)}
+.kpi-sub{font-size:10px;color:var(--text-muted)}
+
+/* Section heads */
+.section-head{
+  display:flex;align-items:baseline;gap:10px;
+  margin:24px 0 14px;padding-bottom:9px;
+  border-bottom:1px solid var(--border);
+  position:relative;
+}
+.section-head::after{
+  content:'';position:absolute;bottom:-1px;left:0;
+  width:32px;height:1px;
+  background:var(--atlas-gold);
+}
+.section-head h2{
+  font-size:10px;font-weight:500;color:var(--atlas-gold);
+  text-transform:uppercase;letter-spacing:.14em;
+  font-family:var(--font-ui);
+}
+.section-head span{font-size:10px;color:var(--text-muted)}
+
+/* Grids & Cards */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);margin-bottom:var(--gap)}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--gap);margin-bottom:var(--gap)}
+.card{
+  background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);
+  padding:16px 18px;
+  transition:border-color .18s,box-shadow .18s;
+  animation:fadeUp .45s cubic-bezier(.22,1,.36,1) both;
+}
+.card:hover{border-color:rgba(184,146,74,.25);box-shadow:0 4px 20px rgba(0,0,0,.3)}
+.grid3 .card:nth-child(1){animation-delay:.08s}
+.grid3 .card:nth-child(2){animation-delay:.13s}
+.grid3 .card:nth-child(3){animation-delay:.18s}
+.grid2 .card:nth-child(1){animation-delay:.08s}
+.grid2 .card:nth-child(2){animation-delay:.13s}
+.card-title{
+  font-size:14px;font-weight:400;color:var(--text-primary);
+  margin-bottom:2px;
+  font-family:var(--font-display);
+  line-height:1.3;
+  letter-spacing:.01em;
+}
+.card-sub{font-size:9.5px;color:var(--text-muted);margin-bottom:13px;line-height:1.4}
+.chart-wrap{position:relative}
+
+/* Error banner */
+.err-banner{
+  background:rgba(184,64,34,.1);border:1px solid rgba(184,64,34,.25);
+  border-radius:4px;padding:12px 16px;color:#C05030;
+  font-size:12px;margin-bottom:16px;display:none;
+}
+
+/* ── Data Table ─────────────────────────────────────────── */
+.table-section{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:var(--radius);padding:15px 17px;overflow-x:auto;margin-bottom:var(--gap);
+}
+.data-table{width:100%;border-collapse:collapse;font-size:12px}
+.data-table thead th{
+  text-align:right;padding:9px 12px;
+  border-bottom:1px solid var(--border);
+  color:var(--text-muted);font-weight:500;font-size:9px;
+  text-transform:uppercase;letter-spacing:.12em;white-space:nowrap;
+  user-select:none;cursor:pointer;font-family:var(--font-ui);
+}
+.data-table thead th:first-child{text-align:left}
+.data-table thead th:hover{color:var(--atlas-gold);background:rgba(184,146,74,.04)}
+.data-table tbody td{
+  padding:9px 12px;border-bottom:1px solid var(--border);
+  text-align:right;color:var(--text-primary);
+  font-family:var(--font-mono);font-size:11.5px;
+}
+.data-table tbody td:first-child{
+  text-align:left;font-weight:500;
+  font-family:var(--font-ui);color:var(--text-on-dark);
+}
+.data-table tbody tr:hover{background:rgba(184,146,74,.04)}
+.data-table tbody tr:last-child td{border-bottom:none}
+.data-table .positive{color:var(--positive);font-weight:600}
+.data-table .negative{color:var(--negative);font-weight:600}
+.data-table .neutral{color:var(--text-muted)}
+.sort-indicator{opacity:.35;font-size:9px}
+.sort-indicator.active{opacity:1;color:var(--color-1)}
+
+/* Footnote */
+.footnote{
+  font-size:9.5px;color:var(--text-muted);margin-top:28px;
+  text-align:center;padding-top:12px;
+  border-top:1px solid var(--border);line-height:1.9;
+}
+
+/* ── RESPONSIVE ─────────────────────────────────────────── */
+@media (max-width:767px){
+  .nav-sep{display:none}
+  .nav-links{padding:6px 0;order:2}
+  .dash-tab-bar .nav-filters{flex-wrap:wrap;gap:6px}
+  .nav-right{order:1;padding-left:0}
+  .nav-meta{display:none}
+  .panel-wrap{padding:14px 14px 48px}
+  .kpi-row{grid-template-columns:repeat(2,1fr);gap:8px}
+  .grid3{grid-template-columns:1fr}
+  .grid2{grid-template-columns:1fr}
+}
+@media (min-width:768px) and (max-width:1199px){
+  .grid3{grid-template-columns:repeat(2,1fr)}
+  .kpi-row{grid-template-columns:repeat(2,1fr)}
+  .panel-wrap{padding:20px 22px 48px}
+}
+@media print{
+  body{background:white;color:black}
+  .top-nav{display:none}
+  .content-area{overflow:visible}
+  .panel-wrap{padding:0;max-width:none}
+}
+
+/* ══ LIGHT MODE ════════════════════════════════════════════ */
+html[data-theme="light"] {
+  --bg-primary:  #FAF7F0;
+  --bg-card:     #FFFFFF;
+  --bg-nav:      #F5F0E8;
+  --bg-nav-deep: #EDE8DC;
+  --text-primary:   #2A1800;
+  --text-secondary: #5A4E3E;
+  --text-muted:     #9A8E7E;
+  --text-on-dark:   #1A0E00;
+  --border: #E5DDD0;
+  --grid:   #F0EBE0;
+}
+html[data-theme="light"] body::after{opacity:.010}
+html[data-theme="light"] .content-area::-webkit-scrollbar-track{background:#F5F0E8}
+html[data-theme="light"] .content-area::-webkit-scrollbar-thumb{background:#D8D0C0}
+html[data-theme="light"] .top-nav{
+  border-bottom-color:#E0D8C8;
+  background-image:
+    radial-gradient(circle at 1px 1px,rgba(180,110,8,.12) 1px,transparent 0),
+    radial-gradient(circle at 15px 15px,rgba(180,110,8,.06) 1px,transparent 0);
+}
+html[data-theme="light"] .nav-brand{border-right-color:#E0D8C8}
+html[data-theme="light"] .nav-brand-sub{color:#9A8E7E}
+html[data-theme="light"] .nav-sep{background:#E0D8C8}
+html[data-theme="light"] .nav-btn{color:#7A6A5A}
+html[data-theme="light"] .nav-filter-label{color:#9A8E7E}
+html[data-theme="light"] .nav-meta{color:#9A8E7E}
+html[data-theme="light"] .nav-select{
+  background:#EDE8DF;color:#3A2E20;border-color:#C0B4A0;
+  appearance:none;-webkit-appearance:none;-moz-appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5'%3E%3Cpath d='M0 0l4 5 4-5z' fill='%23705A3E'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 6px center;
+}
+html[data-theme="light"] .nav-select option{background:#FAF7F0}
+html[data-theme="light"] .nav-select-country{color:#2A1800;border-color:#C8B8A0}
+html[data-theme="light"] .nav-filters{border-top-color:#E0D8C8}
+html[data-theme="light"] .loading-spinner{border-color:#E0D8C8}
+html[data-theme="light"] .card:hover{border-color:#D8D0C0;box-shadow:0 4px 20px rgba(0,0,0,.08)}
+html[data-theme="light"] .data-table tbody td{border-bottom-color:#F0EBE0}
+html[data-theme="light"] #theme-toggle{
+  background:rgba(180,110,8,.08);border-color:rgba(180,110,8,.22)
+}
+
+/* ══ INTEGRATED SIDEBAR ════════════════════════════════════ */
+body{display:block} /* layout handled by inner flex wrapper */
+.dash-sidebar{
+  width:200px;flex-shrink:0;
+  background:var(--bg-nav);
+  border-right:1px solid var(--border);
+  display:flex;flex-direction:column;
+  transition:transform .28s cubic-bezier(.4,0,.2,1);
+}
+@media(max-width:767px){
+  .dash-sidebar{position:fixed;inset-y:0;left:0;z-index:50;width:224px;transform:translateX(-100%)}
+  .dash-sidebar.sb-open{transform:translateX(0)}
+  .sb-hamburger{display:flex !important}
+}
+.sb-hamburger{
+  display:none;align-items:center;justify-content:center;
+  background:none;border:none;cursor:pointer;
+  color:var(--text-secondary);padding:5px;border-radius:4px;margin-right:2px;flex-shrink:0;
+}
+.sb-logo{
+  width:200px;height:96px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  border-bottom:1px solid var(--border);
+  position:relative;
+  background:#0E1A2B;
+}
+.sb-logo img{max-height:72px;width:auto}
+.sb-logo-img-dark{display:block}
+.sb-logo-img-light{display:none}
+html[data-theme="light"] .sb-logo{background:#FFFFFF}
+html[data-theme="light"] .sb-logo-img-dark{display:none}
+html[data-theme="light"] .sb-logo-img-light{display:block}
+.sb-logo-icon{display:none}
+.sb-logo-close{
+  position:absolute;top:8px;right:8px;
+  display:none;background:none;border:none;
+  cursor:pointer;color:var(--text-muted);font-size:16px;padding:4px;line-height:1;
+}
+@media(max-width:767px){.sb-logo-close{display:block}}
+.sb-nav{flex:1;overflow-y:auto;padding:12px 0}
+.sb-nav::-webkit-scrollbar{width:3px}
+.sb-nav::-webkit-scrollbar-thumb{background:var(--border)}
+.sb-item{
+  display:flex;align-items:center;gap:9px;
+  padding:9px 12px;border-radius:4px;cursor:pointer;
+  font-size:13px;color:var(--text-secondary);margin:1px 6px;
+  transition:background .13s,color .13s;text-decoration:none;user-select:none;
+  font-family:var(--font-ui);
+}
+.sb-item:hover{background:rgba(184,146,74,.07);color:var(--text-primary)}
+.sb-item.sb-open{color:var(--atlas-gold);background:rgba(184,146,74,.05)}
+.sb-icon{width:16px;height:16px;flex-shrink:0}
+.sb-chevron{margin-left:auto;transition:transform .2s;flex-shrink:0;width:12px;height:12px}
+.sb-chevron.rotated{transform:rotate(90deg)}
+.sb-submenu{overflow:hidden;max-height:0;transition:max-height .25s ease}
+.sb-submenu.open{max-height:240px}
+.sb-sub{
+  display:block;padding:7px 12px 7px 37px;font-size:12px;
+  color:var(--text-muted);cursor:pointer;border-radius:4px;
+  margin:0 6px;transition:background .12s,color .12s;text-decoration:none;
+  font-family:var(--font-ui);
+}
+.sb-sub:hover{background:rgba(184,146,74,.07);color:var(--atlas-gold)}
+.sb-sub.sb-active{
+  color:var(--atlas-gold);font-weight:500;
+  background:rgba(184,146,74,.08);
+  border-left:2px solid var(--atlas-gold);padding-left:35px;
+}
+.sb-footer{padding:12px 16px;border-top:1px solid var(--border);flex-shrink:0}
+.sb-theme-btn{
+  width:100%;display:flex;align-items:center;gap:7px;
+  background:rgba(184,146,74,.07);border:1px solid rgba(184,146,74,.2);
+  border-radius:4px;padding:7px 12px;cursor:pointer;
+  color:var(--atlas-gold);font-family:var(--font-mono);
+  font-size:11px;transition:background .15s;text-align:left;
+}
+.sb-theme-btn:hover{background:rgba(184,146,74,.13)}
+html[data-theme="light"] .sb-theme-btn{background:rgba(184,146,74,.08);border-color:rgba(184,146,74,.22)}
+html[data-theme="light"] .dash-sidebar{border-right-color:#E0D8C8}
+html[data-theme="light"] .sb-logo{border-bottom-color:#E0D8C8}
+html[data-theme="light"] .sb-footer{border-top-color:#E0D8C8}
+html[data-theme="light"] .sb-nav::-webkit-scrollbar-thumb{background:#D8D0C0}
+/* Sub-header now has no brand — sidebar carries it */
+.top-nav{min-height:96px}
+
+/* ── PAGE HEADER ─────────────────────────────────────────── */
+.page-header{
+  display:flex;align-items:flex-start;justify-content:space-between;
+  margin-bottom:18px;padding-bottom:16px;
+  border-bottom:1px solid var(--border);flex-wrap:wrap;gap:8px;
+}
+.page-header h1{
+  font-family:var(--font-display);font-size:26px;font-weight:400;
+  color:var(--text-primary);line-height:1.1;letter-spacing:-.01em;
+}
+.page-header-sub{
+  font-size:10.5px;color:var(--text-muted);margin-top:5px;font-family:var(--font-ui);
+}
+.page-header-meta{
+  font-size:9.5px;color:var(--text-muted);font-family:var(--font-mono);
+  text-align:right;white-space:nowrap;padding-top:4px;
+}
+
+/* ── SECTION DIVIDERS ────────────────────────────────────── */
+.sec-divider{
+  display:flex;align-items:center;gap:12px;
+  margin:24px 0 14px;padding:10px 14px;
+  background:var(--bg-card);border:1px solid var(--border);
+  border-left:3px solid var(--atlas-gold);border-radius:var(--radius);
+}
+.sec-divider-icon{color:var(--atlas-gold);display:flex;align-items:center;flex-shrink:0}
+.sec-divider-text h2{
+  font-size:10px;font-weight:600;color:var(--atlas-gold);
+  text-transform:uppercase;letter-spacing:.14em;font-family:var(--font-ui);
+}
+.sec-divider-text span{font-size:9.5px;color:var(--text-muted)}
+
+/* ── SUMMARY TABLE ───────────────────────────────────────── */
+.smry-table{width:100%;border-collapse:collapse;font-size:11px;margin-top:4px}
+.smry-table thead tr:first-child th{
+  padding:4px 8px;text-align:center;font-size:8.5px;font-weight:600;
+  color:var(--atlas-gold);letter-spacing:.1em;text-transform:uppercase;
+  font-family:var(--font-ui);border-bottom:1px solid var(--border);
+}
+.smry-table thead tr:first-child th:first-child{text-align:left;color:transparent}
+.smry-table thead tr:last-child th{
+  padding:5px 8px;text-align:right;font-size:8.5px;font-weight:500;
+  color:var(--text-muted);letter-spacing:.1em;text-transform:uppercase;
+  font-family:var(--font-ui);border-bottom:1px solid var(--border-strong);
+}
+.smry-table thead tr:last-child th:first-child{text-align:left}
+.smry-table tbody td{
+  padding:6px 8px;border-bottom:1px solid var(--border);
+  text-align:right;font-family:var(--font-mono);font-size:11px;color:var(--text-primary);
+}
+.smry-table tbody td:first-child{
+  text-align:left;font-family:var(--font-ui);font-size:11.5px;color:var(--text-primary);
+}
+.smry-dot{
+  display:inline-block;width:7px;height:7px;border-radius:50%;
+  margin-right:7px;vertical-align:middle;flex-shrink:0;
+}
+.smry-table tbody tr:last-child td{
+  font-weight:600;color:var(--atlas-gold);border-bottom:none;
+  border-top:1px solid var(--border-strong);
+}
+.smry-table tbody tr:hover{background:rgba(184,146,74,.04)}
+.smry-cagr{color:var(--positive)!important;font-weight:600}
+
+/* ── REPORT TAB BAR ──────────────────────────────────────── */
+.dash-tab-bar{
+  flex-shrink:0;
+  display:flex;align-items:center;
+  padding:0 28px;
+  background:var(--bg-nav);
+  border-bottom:1px solid var(--border);
+}
+.dash-tab{
+  display:flex;align-items:center;
+  height:44px;padding:0 20px 0 0;
+  font-size:13px;font-weight:400;
+  color:var(--text-muted);font-family:var(--font-ui);
+  cursor:pointer;background:none;border:none;
+  border-bottom:2px solid transparent;
+  white-space:nowrap;position:relative;top:1px;
+  transition:color var(--dur-fast),border-color var(--dur-fast);
+}
+.dash-tab:hover{color:var(--text-primary)}
+.dash-tab.active{color:var(--text-primary);font-weight:500;border-bottom-color:var(--atlas-gold)}
+html[data-theme="light"] .dash-tab.active{color:#2A1800}
+
+/* placeholder panels */
+.tab-placeholder{display:none;padding:80px 0;text-align:center}
+.tab-placeholder.active{display:block}
+.tab-ph-icon{
+  width:52px;height:52px;border-radius:50%;
+  background:rgba(184,146,74,.07);border:1px solid rgba(184,146,74,.18);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 18px;color:var(--atlas-gold);
+}
+.tab-placeholder h3{
+  font-family:var(--font-display);font-size:22px;font-weight:400;
+  color:var(--text-primary);margin-bottom:8px;
+}
+.tab-placeholder p{
+  font-size:12.5px;color:var(--text-muted);max-width:360px;
+  margin:0 auto;line-height:1.7;
+}
+.tab-placeholder .coming-pill{
+  display:inline-block;margin-top:18px;
+  padding:5px 14px;border-radius:20px;font-size:10px;font-weight:500;
+  font-family:var(--font-mono);letter-spacing:.1em;text-transform:uppercase;
+  background:rgba(184,146,74,.08);border:1px solid rgba(184,146,74,.2);
+  color:var(--atlas-gold);
+}
+
+/* ── EXPERT PANEL ─────────────────────────────────────────── */
+.ep-wrap{padding:4px 0 0}
+.ep-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;flex-wrap:wrap;gap:10px}
+.ep-breadcrumb{display:flex;align-items:center;gap:5px}
+.ep-bc{font-size:13px;color:var(--text-muted);font-family:var(--font-ui);cursor:pointer;transition:color .15s}
+.ep-bc:hover{color:var(--text-primary)}
+.ep-bc.active{color:var(--text-primary);font-weight:500;cursor:default}
+.ep-bc-sep{color:var(--text-muted);opacity:.4;font-size:11px}
+.ep-hnav{display:flex;align-items:center;gap:4px}
+.ep-hnav-btn{
+  display:flex;align-items:center;gap:6px;padding:6px 13px;
+  background:none;border:none;border-bottom:2px solid transparent;
+  font-size:12.5px;color:var(--text-muted);font-family:var(--font-ui);
+  cursor:pointer;position:relative;top:1px;
+  transition:color var(--dur-fast),border-color var(--dur-fast);
+}
+.ep-hnav-btn:hover{color:var(--text-primary)}
+.ep-hnav-btn.active{color:var(--atlas-gold);border-bottom-color:var(--atlas-gold);font-weight:500}
+.ep-icon-btn{
+  width:30px;height:30px;border-radius:50%;
+  background:var(--bg-card);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;color:var(--text-muted);margin-left:4px;
+  transition:border-color .15s,color .15s;
+}
+.ep-icon-btn:hover{border-color:var(--atlas-gold);color:var(--text-primary)}
+.ep-avatar-hdr{
+  width:30px;height:30px;border-radius:50%;margin-left:4px;
+  background:rgba(184,146,74,.15);border:1px solid rgba(184,146,74,.3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:600;color:var(--atlas-gold);
+  font-family:var(--font-ui);cursor:pointer;
+}
+/* KPIs */
+.ep-kpi-row{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border:1px solid var(--border);border-radius:var(--radius);
+  overflow:hidden;margin-bottom:22px;
+}
+.ep-kpi{
+  display:flex;align-items:center;gap:14px;padding:18px 22px;
+  background:var(--bg-card);border-right:1px solid var(--border);
+}
+.ep-kpi:last-child{border-right:none}
+.ep-kpi-icon{
+  width:38px;height:38px;border-radius:50%;flex-shrink:0;
+  background:rgba(184,146,74,.07);border:1px solid rgba(184,146,74,.14);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--atlas-gold);
+}
+.ep-kpi-num{
+  font-family:var(--font-display);font-size:26px;font-weight:400;
+  color:var(--text-primary);line-height:1;letter-spacing:-.02em;display:block;
+}
+.ep-kpi-lbl{font-size:10.5px;color:var(--text-muted);display:block;margin-top:3px;font-family:var(--font-ui)}
+/* toolbar */
+.ep-toolbar{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  border-bottom:1px solid var(--border);margin-bottom:14px;flex-wrap:wrap;gap:8px;
+}
+.ep-ftabs{display:flex;align-items:center}
+.ep-ftab{
+  display:flex;align-items:center;gap:6px;padding:10px 15px;
+  background:none;border:none;border-bottom:2px solid transparent;
+  font-size:13px;color:var(--text-muted);font-family:var(--font-ui);
+  cursor:pointer;white-space:nowrap;position:relative;top:1px;
+  transition:color var(--dur-fast),border-color var(--dur-fast);
+}
+.ep-ftab:hover{color:var(--text-primary)}
+.ep-ftab.active{color:var(--atlas-gold);border-bottom-color:var(--atlas-gold);font-weight:500}
+.ep-ftab-badge{
+  font-size:10px;padding:1px 6px;border-radius:10px;
+  background:rgba(245,240,230,.06);color:var(--text-muted);
+}
+.ep-ftab.active .ep-ftab-badge{background:rgba(184,146,74,.12);color:var(--atlas-gold)}
+.ep-search-wrap{position:relative;margin-bottom:2px}
+.ep-search-icon{position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--text-muted);pointer-events:none}
+.ep-search{
+  background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);
+  padding:7px 10px 7px 30px;font-size:12px;color:var(--text-primary);
+  font-family:var(--font-ui);width:200px;outline:none;
+  transition:border-color var(--dur-fast);
+}
+.ep-search:focus{border-color:var(--atlas-gold)}
+.ep-search::placeholder{color:var(--text-muted)}
+/* actions bar */
+.ep-actions{display:flex;align-items:center;gap:6px;justify-content:flex-end;margin-bottom:12px}
+.ep-filter-btn{
+  display:flex;align-items:center;gap:6px;padding:6px 13px;
+  border:1px solid var(--border);border-radius:var(--radius);
+  background:var(--bg-card);font-size:12px;color:var(--text-secondary);
+  font-family:var(--font-ui);cursor:pointer;
+  transition:border-color .15s,color .15s;
+}
+.ep-filter-btn:hover{border-color:var(--atlas-gold);color:var(--text-primary)}
+.ep-view-toggle{
+  width:30px;height:30px;border:1px solid var(--border);border-radius:var(--radius);
+  background:var(--bg-card);display:flex;align-items:center;justify-content:center;
+  cursor:pointer;color:var(--text-muted);
+  transition:border-color .15s,color .15s;
+}
+.ep-view-toggle:hover{border-color:var(--atlas-gold);color:var(--text-primary)}
+/* table */
+.ep-tbl-wrap{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);overflow-x:auto}
+.ep-tbl{width:100%;border-collapse:collapse;font-size:12px}
+.ep-tbl thead th{
+  padding:10px 14px;text-align:left;
+  font-size:9.5px;font-weight:500;color:var(--text-muted);
+  text-transform:uppercase;letter-spacing:.1em;
+  border-bottom:1px solid var(--border);white-space:nowrap;
+  font-family:var(--font-ui);
+}
+.ep-tbl thead th.has-filter{cursor:pointer}
+.ep-tbl thead th.has-filter:hover{color:var(--atlas-gold)}
+.ep-tbl tbody tr{border-bottom:1px solid var(--border);transition:background .12s}
+.ep-tbl tbody tr:last-child{border-bottom:none}
+.ep-tbl tbody tr:hover{background:rgba(184,146,74,.03)}
+.ep-tbl tbody td{padding:13px 14px;vertical-align:middle}
+/* avatar cell */
+.ep-adv-cell{display:flex;align-items:center;gap:10px;min-width:140px}
+.ep-av{
+  width:34px;height:34px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:600;font-family:var(--font-ui);
+}
+.ep-av-gold{background:rgba(184,146,74,.15);border:1px solid rgba(184,146,74,.25);color:var(--atlas-gold)}
+.ep-av-teal{background:rgba(61,107,92,.18);border:1px solid rgba(61,107,92,.28);color:#5BAF8C}
+.ep-av-ocean{background:rgba(31,58,95,.3);border:1px solid rgba(31,58,95,.4);color:#6B9FD4}
+.ep-av-burg{background:rgba(107,31,46,.2);border:1px solid rgba(107,31,46,.3);color:#C47080}
+.ep-av-stone{background:rgba(168,159,142,.12);border:1px solid rgba(168,159,142,.2);color:var(--atlas-stone)}
+.ep-av-signal{background:rgba(168,51,30,.15);border:1px solid rgba(168,51,30,.25);color:#D07060}
+.ep-adv-name{font-size:12.5px;font-weight:500;color:var(--text-primary);font-family:var(--font-ui);display:block;white-space:nowrap}
+.ep-adv-tag{
+  display:inline-block;margin-top:3px;padding:2px 6px;border-radius:3px;
+  font-size:8.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;
+  font-family:var(--font-mono);
+  background:rgba(61,107,92,.12);color:#5BAF8C;border:1px solid rgba(61,107,92,.2);
+}
+.ep-role{font-size:12px;color:var(--text-primary);white-space:nowrap;display:block;min-width:140px}
+.ep-role-date{font-size:10.5px;color:var(--text-muted);display:block;margin-top:2px}
+.ep-angle{font-size:12px;color:var(--text-secondary);min-width:130px;display:block}
+.ep-call-line{font-size:11.5px;color:var(--text-primary);display:block}
+.ep-call-time{font-size:10.5px;color:var(--text-muted);display:block;margin-top:2px}
+.ep-call-cu{font-size:10.5px;color:var(--text-muted);display:block;margin-top:1px}
+.ep-done{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:4px 9px;border-radius:3px;white-space:nowrap;
+  font-size:10.5px;font-weight:500;
+  background:rgba(61,107,92,.12);color:#5BAF8C;border:1px solid rgba(61,107,92,.22);
+}
+.ep-transcript-btn{
+  padding:6px 11px;border:1px solid var(--border);border-radius:var(--radius);
+  background:var(--bg-card);font-size:11.5px;color:var(--text-secondary);
+  font-family:var(--font-ui);cursor:pointer;white-space:nowrap;
+  transition:border-color .15s,color .15s;
+}
+.ep-transcript-btn:hover{border-color:var(--atlas-gold);color:var(--text-primary)}
+.ep-more{
+  width:26px;height:26px;border:1px solid var(--border);border-radius:var(--radius);
+  background:none;display:inline-flex;align-items:center;justify-content:center;
+  cursor:pointer;color:var(--text-muted);font-size:13px;margin-left:4px;
+  transition:border-color .15s,color .15s;
+}
+.ep-more:hover{border-color:var(--border-strong);color:var(--text-primary)}
+.ep-th-filter{
+  display:inline-flex;align-items:center;gap:4px;
+}
+@media(max-width:1100px){.ep-kpi-row{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:767px){.ep-kpi-row{grid-template-columns:1fr 1fr};.ep-ftabs{flex-wrap:wrap}}
+</style>
+</head>
+<body>
+
+<div id="sb-overlay" onclick="closeSidebar()"
+     style="position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:40;display:none"></div>
+
+<div style="display:flex;height:100vh;overflow:hidden">
+
+<!-- ═══════════════════ SIDEBAR ═══════════════════════════ -->
+<aside class="dash-sidebar" id="dash-sidebar">
+
+  <div class="sb-logo">
+    <img class="sb-logo-img-dark"
+         src="Atlas%20Design%20System/assets/atlas_logo_gold_on_midnight.png"
+         alt="Atlas Market Intelligence">
+    <img class="sb-logo-img-light"
+         src="Atlas%20Design%20System/assets/atlas_logo_wordmark.png"
+         alt="Atlas Market Intelligence">
+    <button class="sb-logo-close" onclick="closeSidebar()">✕</button>
+  </div>
+
+  <nav class="sb-nav">
+
+    <a class="sb-item" onclick="window.location.href='Intelligence_AI_Portal.html'">
+      <svg class="sb-icon" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75"/></svg>
+      Home
+    </a>
+
+    <a class="sb-item" onclick="showSbToast('Statistics')">
+      <svg class="sb-icon" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z"/></svg>
+      Statistics
+    </a>
+
+    <div>
+      <a class="sb-item sb-open" id="sb-industries" onclick="toggleSbMenu('industries')">
+        <svg class="sb-icon" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg>
+        Industries
+        <svg class="sb-chevron rotated" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+      </a>
+      <div class="sb-submenu open" id="sbmenu-industries">
+        <a class="sb-sub sb-active" onclick="window.location.href='Intelligence_AI_Portal.html'">
+          <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#22c55e;margin-right:6px;vertical-align:middle;box-shadow:0 0 5px #22c55e"></span>Consumer Products
+        </a>
+        <a class="sb-sub" onclick="showSbToast('Defense &amp; Industrial')">Defense &amp; Industrial</a>
+        <a class="sb-sub" onclick="showSbToast('Pharmaceuticals')">Pharmaceuticals</a>
+        <a class="sb-sub" onclick="showSbToast('Technology')">Technology</a>
+        <a class="sb-sub" onclick="showSbToast('Financial Services')">Financial Services</a>
+        <a class="sb-sub" style="color:var(--text-muted)" onclick="window.location.href='Intelligence_AI_Portal.html'">All Industries →</a>
+      </div>
+    </div>
+
+    <a class="sb-item" onclick="showSbToast('Recent Visited')">
+      <svg class="sb-icon" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      Recent Visited
+    </a>
+
+    <a class="sb-item" onclick="showSbToast('My Reports')">
+      <svg class="sb-icon" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
+      My Reports
+    </a>
+
+    <div>
+      <a class="sb-item" id="sb-companies" onclick="toggleSbMenu('companies')">
+        <svg class="sb-icon" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"/></svg>
+        Companies
+        <svg class="sb-chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+      </a>
+      <div class="sb-submenu" id="sbmenu-companies">
+        <a class="sb-sub" onclick="window.location.href='Intelligence_AI_Portal.html'">All Companies</a>
+        <a class="sb-sub" onclick="window.location.href='Intelligence_AI_Portal.html'">Consumer Goods</a>
+      </div>
+    </div>
+
+    <a class="sb-item" onclick="showSbToast('Services')">
+      <svg class="sb-icon" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+      Services
+    </a>
+
+    <a class="sb-item" onclick="showSbToast('Insights')">
+      <svg class="sb-icon" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg>
+      Insights
+    </a>
+
+    <a class="sb-item" onclick="showSbToast('Survey')">
+      <svg class="sb-icon" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z"/></svg>
+      Survey
+    </a>
+
+    <a class="sb-item" onclick="showSbToast('Contact Us')">
+      <svg class="sb-icon" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+      Contact Us
+    </a>
+
+  </nav>
+
+  <div class="sb-footer">
+    <button id="theme-toggle" class="sb-theme-btn" onclick="toggleTheme()" title="Toggle light / dark mode">
+      <span id="theme-icon">☀</span><span id="theme-lbl">Parchment</span>
+    </button>
+    <div style="font-size:9px;color:var(--text-muted);font-family:var(--font-mono);margin-top:8px;text-align:center">v1.0 · Apr 2026</div>
+  </div>
+
+</aside>
+
+<!-- ═══════════════════ MAIN AREA ══════════════════════════ -->
+<div style="flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0">
+
+<header class="top-nav">
+  <button class="sb-hamburger" onclick="openSidebar()">
+    <svg style="width:18px;height:18px" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
+  </button>
+
+  <div class="nav-right">
+    <div class="loading-spinner" id="spinner"></div>
+  </div>
+</header>
+
+<!-- ═══ REPORT TABS ═════════════════════════════════════════ -->
+<div class="dash-tab-bar">
+  <button class="dash-tab active" id="dtab-mktoverview"  onclick="switchDashTab('mktoverview')">Market Overview</button>
+  <button class="dash-tab"        id="dtab-competition"  onclick="switchDashTab('competition')">Competition</button>
+  <button class="dash-tab"        id="dtab-value-chain"  onclick="switchDashTab('value-chain')">Value Chain</button>
+  <button class="dash-tab"        id="dtab-experts"      onclick="switchDashTab('experts')">Experts</button>
+  <button class="dash-tab"        id="dtab-news"         onclick="switchDashTab('news')">News</button>
+
+  <div class="nav-filters" style="margin-left:auto;padding:0;border-top:none">
+    <div class="nav-filter-group">
+      <span class="nav-filter-label">Country</span>
+      <select class="nav-select nav-select-country" id="countrySelect" onchange="onCountryChange(this.value)">
+        <option value="gcc">GCC</option>
+        <option value="mena">MENA</option>
+        <option disabled>──────────</option>
+        <option value="United Arab Emirates">UAE</option>
+        <option value="Saudi Arabia">Saudi Arabia</option>
+        <option value="Kuwait">Kuwait</option>
+        <option value="Qatar">Qatar</option>
+        <option value="Bahrain">Bahrain</option>
+        <option value="Oman">Oman</option>
+      </select>
+    </div>
+    <div class="nav-filter-group">
+      <span class="nav-filter-label">Product</span>
+      <select class="nav-select" id="productSelect" onchange="onProductChange(this.value)"><option>Honey</option></select>
+    </div>
+    <div class="nav-filter-group">
+      <span class="nav-filter-label">Year</span>
+      <select class="nav-select" id="yearSelect" onchange="onYearChange(this.value)">
+        <option value="all">2025–2030</option>
+        <option value="2025">2025</option>
+        <option value="2026">2026</option>
+        <option value="2027">2027</option>
+        <option value="2028">2028</option>
+        <option value="2029">2029</option>
+        <option value="2030">2030</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<div class="content-area">
+<div class="panel-wrap">
+
+<!-- ═══ MARKET OVERVIEW PANELS (sec-dashboard + sec-compare) ═══ -->
+<div id="mkt-overview-panels">
+
+  <!-- ═══ DASHBOARD PANEL ═══ -->
+  <div class="sec-panel active" id="sec-dashboard">
+
+    <div id="err-dashboard" class="err-banner"></div>
+
+    <!-- Page header -->
+    <div class="page-header">
+      <div>
+        <h1>Market Overview</h1>
+        <div class="page-header-sub">Trade-anchored supply-side model · All channels · 2025–2030</div>
+      </div>
+      <div class="page-header-meta" id="ph-meta">All values in millions and volumes in tonnes</div>
+    </div>
+
+    <!-- KPI row -->
+    <div class="kpi-row">
+      <div class="kpi">
+        <div class="kpi-lbl">Total Market 2025</div>
+        <div class="kpi-val" id="kv1">—</div>
+        <div class="kpi-sub" id="ks1">local currency · all channels</div>
+      </div>
+      <div class="kpi teal">
+        <div class="kpi-lbl">Total Market 2030</div>
+        <div class="kpi-val" id="kv2">—</div>
+        <div class="kpi-sub" id="ks2">local currency · all channels</div>
+      </div>
+      <div class="kpi amber">
+        <div class="kpi-lbl">Volume CAGR 2025–30</div>
+        <div class="kpi-val" id="kv3">—</div>
+        <div class="kpi-sub">Retail household channel</div>
+      </div>
+      <div class="kpi coral">
+        <div class="kpi-lbl">Value CAGR 2025–30</div>
+        <div class="kpi-val" id="kv4">—</div>
+        <div class="kpi-sub">Full market · all channels</div>
+      </div>
+    </div>
+
+    <!-- GCC-only: country breakdown charts (hidden for individual countries) -->
+    <div class="grid2" id="gcc-country-row" style="display:none">
+      <div class="card">
+        <div class="card-title">Volume by country — all GCC markets growing through 2030</div>
+        <div class="card-sub" id="sub-vol-country">Total volume (tonnes) · all channels · per country</div>
+        <div class="chart-wrap" style="height:240px"><canvas id="ch-vol-country"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Value by country — GCC combined market size</div>
+        <div class="card-sub" id="sub-val-country">USD million · all channels · per country</div>
+        <div class="chart-wrap" style="height:240px"><canvas id="ch-val-country"></canvas></div>
+      </div>
+    </div>
+
+    <!-- Two stacked bar charts side by side -->
+    <div class="grid2">
+      <div class="card">
+        <div class="card-title">Volume (tonnes) grows steadily through 2030</div>
+        <div class="card-sub" id="sub-mktvol">Total volume (tonnes) · all channels stacked</div>
+        <div class="chart-wrap" style="height:240px"><canvas id="ch-mktvol"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Value growth outpaces volume — premiumisation at work</div>
+        <div class="card-sub" id="sub-mktval">Local currency million · all channels</div>
+        <div class="chart-wrap" style="height:240px"><canvas id="ch-mktval"></canvas></div>
+      </div>
+    </div>
+
+    <!-- Summary table + Growth comparison -->
+    <div class="grid2">
+      <div class="card">
+        <div class="card-title">Summary (2025–2030)</div>
+        <div class="card-sub">Channel-level volume and value with CAGR</div>
+        <div id="summary-table-container"></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Growth comparison (CAGR 2025–2030)</div>
+        <div class="card-sub">Volume CAGR vs Value CAGR by distribution channel</div>
+        <div class="chart-wrap" style="height:224px"><canvas id="ch-growth-cmp"></canvas></div>
+      </div>
+    </div>
+
+    <!-- BY PRODUCT TYPE -->
+    <div class="sec-divider">
+      <div class="sec-divider-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007z"/></svg></div>
+      <div class="sec-divider-text"><h2>By Product Type</h2><span>Retail household channel · Penetration model · 2025–2030</span></div>
+    </div>
+    <div class="grid3">
+      <div class="card">
+        <div class="card-title">Leading sub-category accounts for the largest share of retail value</div>
+        <div class="card-sub" id="sub-scval">2025 value by sub-category · retail household</div>
+        <div class="chart-wrap" style="height:240px"><canvas id="ch-scval"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Sub-category composition in 2025</div>
+        <div class="card-sub" id="sub-scshare">% of retail channel value</div>
+        <div class="chart-wrap" style="height:240px"><canvas id="ch-scshare"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="card-title">All sub-categories grow; premium mix shifts upward</div>
+        <div class="card-sub">Retail channel value stacked by product type</div>
+        <div class="chart-wrap" style="height:240px"><canvas id="ch-sctrend"></canvas></div>
+      </div>
+    </div>
+
+    <!-- DISTRIBUTION CHANNELS -->
+    <div class="sec-divider">
+      <div class="sec-divider-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"/></svg></div>
+      <div class="sec-divider-text"><h2>Distribution Channels</h2><span>Trade-anchored channel decomposition · 2025–2030</span></div>
+    </div>
+    <div class="grid3">
+      <div class="card">
+        <div class="card-title">Retail household is the dominant demand channel</div>
+        <div class="card-sub" id="sub-chval">2025 market value by channel</div>
+        <div class="chart-wrap" style="height:240px"><canvas id="ch-chval"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Channel mix in 2025</div>
+        <div class="card-sub">% of total market value</div>
+        <div class="chart-wrap" style="height:240px"><canvas id="ch-chshare"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Channel value grows across all segments 2025–2030</div>
+        <div class="card-sub">All channels stacked · local currency million</div>
+        <div class="chart-wrap" style="height:240px"><canvas id="ch-chtrend"></canvas></div>
+      </div>
+    </div>
+
+    <div class="section-head"><h2>Annual Forecast Detail</h2><span id="table-insight">Year-by-year model output · click column headers to sort</span></div>
+    <div class="table-section">
+      <div id="forecast-table-container">
+        <div style="color:var(--text-muted);font-size:12px;padding:20px;text-align:center">Loading forecast data…</div>
+      </div>
+    </div>
+
+    <div class="footnote">
+      Data sourced from demand estimation model · Supabase live data · Bottom-up 4-step waterfall methodology<br>
+      FAO FAOSTAT · Euromonitor · ITC Trademap · UN Comtrade · Central bank FX rates · Apr 2026
+    </div>
+  </div>
+
+  <!-- ═══ GCC COMPARE PANEL ═══ -->
+  <div class="sec-panel" id="sec-compare">
+
+    <div id="err-compare" class="err-banner"></div>
+
+    <div class="kpi-row">
+      <div class="kpi">
+        <div class="kpi-lbl">GCC Total Market 2025</div>
+        <div class="kpi-val" id="gcc-kv1">—</div>
+        <div class="kpi-sub">USD million · all channels</div>
+      </div>
+      <div class="kpi teal">
+        <div class="kpi-lbl">GCC Total Market 2030</div>
+        <div class="kpi-val" id="gcc-kv2">—</div>
+        <div class="kpi-sub">USD million · all channels</div>
+      </div>
+      <div class="kpi amber">
+        <div class="kpi-lbl">GCC Volume CAGR 2025–30</div>
+        <div class="kpi-val" id="gcc-kv3">—</div>
+        <div class="kpi-sub">Retail channel aggregate</div>
+      </div>
+      <div class="kpi coral">
+        <div class="kpi-lbl">GCC Value CAGR 2025–30</div>
+        <div class="kpi-val" id="gcc-kv4">—</div>
+        <div class="kpi-sub">All channels · USD</div>
+      </div>
+    </div>
+
+    <div class="section-head"><h2>GCC Market Overview</h2><span>All 6 countries · USD · 2025–2030</span></div>
+    <div class="grid2">
+      <div class="card">
+        <div class="card-title" id="gcc-bar-title">GCC market leaders ranked by 2025 value</div>
+        <div class="card-sub" id="gcc-sub-bar">2025 market size ranked by value · all channels (USD M)</div>
+        <div class="chart-wrap" style="height:270px"><canvas id="ch-gcc-bar"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="card-title">GCC market concentration in 2025</div>
+        <div class="card-sub">% of total GCC honey market · USD</div>
+        <div class="chart-wrap" style="height:270px"><canvas id="ch-gcc-donut"></canvas></div>
+      </div>
+    </div>
+    <div style="margin-bottom:var(--gap)">
+      <div class="card">
+        <div class="card-title">All GCC markets on a growth trajectory through 2030</div>
+        <div class="card-sub" id="gcc-sub-line">Total market value per country · USD million · 2025–2030 (shapes differ for accessibility)</div>
+        <div class="chart-wrap" style="height:280px"><canvas id="ch-gcc-line"></canvas></div>
+      </div>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <div class="card-title">Oman and Qatar post the fastest value growth rates</div>
+        <div class="card-sub" id="gcc-sub-cagr">Value CAGR 2025–30 ranked · total market USD</div>
+        <div class="chart-wrap" style="height:230px"><canvas id="ch-gcc-cagr"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Market doubles in value across the GCC 2025–2030</div>
+        <div class="card-sub">Base year vs forecast end · all channels (USD M)</div>
+        <div class="chart-wrap" style="height:230px"><canvas id="ch-gcc-2530"></canvas></div>
+      </div>
+    </div>
+
+    <div class="footnote">
+      GCC-wide comparison · Supabase live data · All values in USD at fixed 2026 exchange rates<br>
+      FAO FAOSTAT · Euromonitor · ITC Trademap · UN Comtrade · Apr 2026
+    </div>
+  </div>
+
+</div><!-- /mkt-overview-panels -->
+
+<!-- ═══ COMPETITION TAB ═══ -->
+<div class="tab-placeholder" id="tab-competition">
+  <div class="tab-ph-icon">
+    <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg>
+  </div>
+  <h3>Competition Analysis</h3>
+  <p>Competitive landscape, player market shares, brand positioning, and pricing strategy analysis across GCC markets.</p>
+  <span class="coming-pill">Coming Soon</span>
+</div>
+
+<!-- ═══ VALUE CHAIN TAB ═══ -->
+<div class="tab-placeholder" id="tab-value-chain">
+  <div class="tab-ph-icon">
+    <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"/></svg>
+  </div>
+  <h3>Value Chain</h3>
+  <p>End-to-end value chain mapping from production and sourcing through distribution, retail, and end consumer across the GCC.</p>
+  <span class="coming-pill">Coming Soon</span>
+</div>
+
+<!-- ═══ EXPERTS TAB ═══ -->
+<div class="tab-placeholder" id="tab-experts" style="padding:0;text-align:left">
+<div class="ep-wrap">
+
+  <!-- Header: breadcrumb + right nav -->
+  <div class="ep-header">
+    <nav class="ep-breadcrumb">
+      <span class="ep-bc">Expert Panel</span>
+      <span class="ep-bc-sep">›</span>
+      <span class="ep-bc">IT Services</span>
+      <span class="ep-bc-sep">›</span>
+      <span class="ep-bc active">MSPs</span>
+    </nav>
+    <div class="ep-hnav">
+      <button class="ep-hnav-btn active">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/></svg>
+        Advisors
+      </button>
+      <button class="ep-hnav-btn">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/></svg>
+        Project Calendar
+      </button>
+      <button class="ep-icon-btn" title="Notifications">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"/></svg>
+      </button>
+      <div class="ep-avatar-hdr">AM</div>
+    </div>
+  </div>
+
+  <!-- KPI row -->
+  <div class="ep-kpi-row">
+    <div class="ep-kpi">
+      <div class="ep-kpi-icon">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
+      </div>
+      <div><span class="ep-kpi-num">24</span><span class="ep-kpi-lbl">Profiles Received</span></div>
+    </div>
+    <div class="ep-kpi">
+      <div class="ep-kpi-icon">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
+      </div>
+      <div><span class="ep-kpi-num">12</span><span class="ep-kpi-lbl">Requested Calls</span></div>
+    </div>
+    <div class="ep-kpi">
+      <div class="ep-kpi-icon">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-6h.008v.008H12v-.008zM12 15h.008v.008H12V15zm0 2.25h.008v.008H12v-.008zM9.75 15h.008v.008H9.75V15zm0 2.25h.008v.008H9.75v-.008zM7.5 15h.008v.008H7.5V15zm0 2.25h.008v.008H7.5v-.008zm6.75-4.5h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V15zm0 2.25h.008v.008h-.008v-.008zm2.25-4.5h.008v.008H16.5v-.008zm0 2.25h.008v.008H16.5V15z"/></svg>
+      </div>
+      <div><span class="ep-kpi-num">18</span><span class="ep-kpi-lbl">Scheduled Calls</span></div>
+    </div>
+    <div class="ep-kpi">
+      <div class="ep-kpi-icon">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      </div>
+      <div><span class="ep-kpi-num">36</span><span class="ep-kpi-lbl">Completed Calls</span></div>
+    </div>
+  </div>
+
+  <!-- Filter tabs + search -->
+  <div class="ep-toolbar">
+    <div class="ep-ftabs">
+      <button class="ep-ftab" onclick="switchEpTab(this)">Not Scheduled <span class="ep-ftab-badge">8</span></button>
+      <button class="ep-ftab" onclick="switchEpTab(this)">Scheduled <span class="ep-ftab-badge">12</span></button>
+      <button class="ep-ftab active" onclick="switchEpTab(this)">Completed <span class="ep-ftab-badge">36</span></button>
+      <button class="ep-ftab" onclick="switchEpTab(this)">Declined <span class="ep-ftab-badge">4</span></button>
+    </div>
+    <div class="ep-search-wrap">
+      <svg class="ep-search-icon" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/></svg>
+      <input class="ep-search" type="text" placeholder="Search advisors…">
+    </div>
+  </div>
+
+  <!-- Actions bar -->
+  <div class="ep-actions">
+    <button class="ep-filter-btn">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z"/></svg>
+      Filters
+    </button>
+    <button class="ep-view-toggle" title="Toggle view">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z"/></svg>
+    </button>
+  </div>
+
+  <!-- Table -->
+  <div class="ep-tbl-wrap">
+    <table class="ep-tbl">
+      <thead>
+        <tr>
+          <th class="has-filter"><span class="ep-th-filter">Advisor <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"/></svg></span></th>
+          <th class="has-filter"><span class="ep-th-filter">Relevant Role <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"/></svg></span></th>
+          <th class="has-filter"><span class="ep-th-filter">Relevant Company <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"/></svg></span></th>
+          <th class="has-filter"><span class="ep-th-filter">Angle <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"/></svg></span></th>
+          <th class="has-filter"><span class="ep-th-filter">Call Details <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"/></svg></span></th>
+          <th class="has-filter"><span class="ep-th-filter">Transcription Status <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"/></svg></span></th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Row 1 -->
+        <tr>
+          <td><div class="ep-adv-cell"><div class="ep-av ep-av-gold">RB</div><div><span class="ep-adv-name">Robert Brown</span><span class="ep-adv-tag">IT CU</span></div></div></td>
+          <td><span class="ep-role">Head of IT</span><span class="ep-role-date">Mar 2016 – Present</span></td>
+          <td><span style="font-size:12px;color:var(--text-secondary)">Vault Pressure Control LLC</span></td>
+          <td><span class="ep-angle">Customers – NewsTek</span></td>
+          <td><span class="ep-call-line">Call #1 completed on 9th Jul</span><span class="ep-call-time">01:00 PM – 02:00 PM EDT</span><span class="ep-call-cu">1 CU used</span></td>
+          <td><span class="ep-done"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Order Completed</span></td>
+          <td style="white-space:nowrap"><button class="ep-transcript-btn">View Transcript</button><button class="ep-more">•••</button></td>
+        </tr>
+        <!-- Row 2 -->
+        <tr>
+          <td><div class="ep-adv-cell"><div class="ep-av ep-av-teal">MV</div><div><span class="ep-adv-name">Michael Van Halen</span><span class="ep-adv-tag">IT CU</span></div></div></td>
+          <td><span class="ep-role">VP</span><span class="ep-role-date">Jun 2018 – Present</span></td>
+          <td><span style="font-size:12px;color:var(--text-secondary)">Aspen Surgical Products Holdings, Inc.</span></td>
+          <td><span class="ep-angle">Customers – other MSPs</span></td>
+          <td><span class="ep-call-line">Call #1 completed on 9th Jul</span><span class="ep-call-time">05:30 PM – 06:30 PM EDT</span><span class="ep-call-cu">1 CU used</span></td>
+          <td><span class="ep-done"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Order Completed</span></td>
+          <td style="white-space:nowrap"><button class="ep-transcript-btn">View Transcript</button><button class="ep-more">•••</button></td>
+        </tr>
+        <!-- Row 3 -->
+        <tr>
+          <td><div class="ep-adv-cell"><div class="ep-av ep-av-burg">SM</div><div><span class="ep-adv-name">Sarah Mitchell</span><span class="ep-adv-tag">IT CU</span></div></div></td>
+          <td><span class="ep-role">VP</span><span class="ep-role-date">Mar 2014 – Jan 2025</span></td>
+          <td><span style="font-size:12px;color:var(--text-secondary)">Guidepoint Global, LLC</span></td>
+          <td><span class="ep-angle">Customers – other MSPs</span></td>
+          <td><span class="ep-call-line">Call #1 completed on 8th Jul</span><span class="ep-call-time">04:30 PM – 05:30 PM EDT</span><span class="ep-call-cu">1 CU used</span></td>
+          <td><span class="ep-done"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Order Completed</span></td>
+          <td style="white-space:nowrap"><button class="ep-transcript-btn">View Transcript</button><button class="ep-more">•••</button></td>
+        </tr>
+        <!-- Row 4 -->
+        <tr>
+          <td><div class="ep-adv-cell"><div class="ep-av ep-av-ocean">DP</div><div><span class="ep-adv-name">David Park</span><span class="ep-adv-tag">IT CU</span></div></div></td>
+          <td><span class="ep-role">EVP of Technology</span><span class="ep-role-date">Apr 2015 – Present</span></td>
+          <td><span style="font-size:12px;color:var(--text-secondary)">Mainpower Group Inc.</span></td>
+          <td><span class="ep-angle">Customers – NewsTek</span></td>
+          <td><span class="ep-call-line">Call #1 completed on 8th Jul</span><span class="ep-call-time">03:30 PM – 04:30 PM EDT</span><span class="ep-call-cu">1 CU used</span></td>
+          <td><span class="ep-done"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Order Completed</span></td>
+          <td style="white-space:nowrap"><button class="ep-transcript-btn">View Transcript</button><button class="ep-more">•••</button></td>
+        </tr>
+        <!-- Row 5 -->
+        <tr>
+          <td><div class="ep-adv-cell"><div class="ep-av ep-av-stone">JL</div><div><span class="ep-adv-name">James Lee</span><span class="ep-adv-tag">IT CU</span></div></div></td>
+          <td><span class="ep-role">VP</span><span class="ep-role-date">Apr 2014 – Dec 2024</span></td>
+          <td><span style="font-size:12px;color:var(--text-secondary)">NexusTek</span></td>
+          <td><span class="ep-angle">Partners – NewsTek</span></td>
+          <td><span class="ep-call-line">Call #1 completed on 8th Jul</span><span class="ep-call-time">02:30 PM – 03:30 PM EDT</span><span class="ep-call-cu">1 CU used</span></td>
+          <td><span class="ep-done"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Order Completed</span></td>
+          <td style="white-space:nowrap"><button class="ep-transcript-btn">View Transcript</button><button class="ep-more">•••</button></td>
+        </tr>
+        <!-- Row 6 -->
+        <tr>
+          <td><div class="ep-adv-cell"><div class="ep-av ep-av-signal">EC</div><div><span class="ep-adv-name">Emily Carter</span><span class="ep-adv-tag">IT CU</span></div></div></td>
+          <td><span class="ep-role">CTO</span><span class="ep-role-date">Feb 2016 – Present</span></td>
+          <td><span style="font-size:12px;color:var(--text-secondary)">Encon United Company</span></td>
+          <td><span class="ep-angle">Customers – NewsTek</span></td>
+          <td><span class="ep-call-line">Call #1 completed on 8th Jul</span><span class="ep-call-time">01:30 PM – 02:30 PM EDT</span><span class="ep-call-cu">1 CU used</span></td>
+          <td><span class="ep-done"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Order Completed</span></td>
+          <td style="white-space:nowrap"><button class="ep-transcript-btn">View Transcript</button><button class="ep-more">•••</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══ NEWS TAB ═══ -->
+<div class="tab-placeholder" id="tab-news">
+  <div class="tab-ph-icon">
+    <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z"/></svg>
+  </div>
+  <h3>News &amp; Intelligence</h3>
+  <p>Curated market news, regulatory updates, new product launches, and analyst commentary relevant to the GCC consumer markets.</p>
+  <span class="coming-pill">Coming Soon</span>
+</div>
+
+</div>
+</div>
+</div><!-- /main -->
+</div><!-- /flex root -->
+
+<div id="sb-toast"
+  style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:9999;
+         font-size:12px;padding:8px 18px;border-radius:4px;background:var(--atlas-gold);
+         color:#0E1A2B;font-weight:500;font-family:var(--font-ui);display:none;
+         white-space:nowrap;box-shadow:0 4px 24px rgba(0,0,0,.4)">
+  <span id="sb-toast-msg"></span>
+</div>
+
+<script>
+// ── CONSTANTS ──────────────────────────────────────────────
+const SB_URL = 'https://rxewwqkivkqoqpanfyku.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ4ZXd3cWtpdmtxb3FwYW5meWt1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY2MjQ2MTYsImV4cCI6MjA5MjIwMDYxNn0.7o59IVoJeiVIjnxdJqThSksEf0hWcp8Pv4QE6idQy5E';
+
+const COUNTRY_CFG = {
+  'United Arab Emirates': { label:'UAE',          currency:'AED', fx:3.6725 },
+  'Saudi Arabia':         { label:'Saudi Arabia', currency:'SAR', fx:3.75   },
+  'Kuwait':               { label:'Kuwait',       currency:'KWD', fx:0.307  },
+  'Qatar':                { label:'Qatar',        currency:'QAR', fx:3.64   },
+  'Bahrain':              { label:'Bahrain',      currency:'BHD', fx:0.377  },
+  'Oman':                 { label:'Oman',         currency:'OMR', fx:0.385  },
+};
+const GCC_ORDER = [
+  {id:'Saudi Arabia',         label:'KSA', color:'#B8924A'},
+  {id:'United Arab Emirates', label:'UAE', color:'#3D6B5C'},
+  {id:'Kuwait',               label:'KWT', color:'#1F3A5F'},
+  {id:'Oman',                 label:'OMN', color:'#3D4754'},
+  {id:'Qatar',                label:'QAT', color:'#6B1F2E'},
+  {id:'Bahrain',              label:'BHR', color:'#A89F8E'},
+];
+const GCC_DASH  = [[],[6,2],[2,2],[8,2,2,2],[4,4],[1,4]];
+const GCC_POINT = ['circle','triangle','rect','rectRot','star','cross'];
+
+const FCST_YEARS = [2025,2026,2027,2028,2029,2030];
+const CH_ORDER   = ['Retail Household','HoReCa','Food Manufacturing','Gifting / Seasonal'];
+const C_CH       = ['#B8924A','#3D6B5C','#1F3A5F','#6B1F2E'];
+const C_SC       = ['#B8924A','#8B6F2F','#3D6B5C','#3D4754','#6B1F2E'];
+
+// ── VALUE FORMATTER ──────────────────────────────────────
+function formatValue(value, format) {
+  switch (format) {
+    case 'currency':
+      if (Math.abs(value) >= 1e9) return `$${(value/1e9).toFixed(1)}B`;
+      if (Math.abs(value) >= 1e6) return `$${(value/1e6).toFixed(1)}M`;
+      if (Math.abs(value) >= 1e3) return `$${(value/1e3).toFixed(1)}K`;
+      return `$${value.toFixed(0)}`;
+    case 'percent': return `${value.toFixed(1)}%`;
+    case 'number':
+      if (Math.abs(value) >= 1e6) return `${(value/1e6).toFixed(1)}M`;
+      if (Math.abs(value) >= 1e3) return `${(value/1e3).toFixed(1)}K`;
+      return value.toLocaleString();
+    default: return String(value);
+  }
+}
+
+// ── THEME ─────────────────────────────────────────────────
+function _getChartColors() {
+  const light = document.documentElement.dataset.theme === 'light';
+  return {
+    G:       light ? 'rgba(14,26,43,.08)'  : 'rgba(245,240,230,.06)',
+    TXT:     light ? '#6B7280' : '#6E7785',
+    LBL:     light ? '#6B7280' : '#A89F8E',
+    LEG:     light ? '#6B7280' : '#9AA3B0',
+    CARD_BG: light ? '#FFFFFF' : '#1A2638',
+  };
+}
+function toggleTheme() {
+  const html = document.documentElement;
+  const toLight = html.dataset.theme !== 'light';
+  html.dataset.theme = toLight ? 'light' : '';
+  localStorage.setItem('iai-theme', toLight ? 'light' : 'dark');
+  Chart.defaults.color = toLight ? '#6B7280' : '#6E7785';
+  _updateThemeBtn(toLight);
+  dashboard.loadSection(dashboard.activeSection, dashboard.activeCountry, dashboard.activeProduct);
+}
+function _updateThemeBtn(isLight) {
+  const icon = document.getElementById('theme-icon');
+  const lbl  = document.getElementById('theme-lbl');
+  if (icon) icon.textContent = isLight ? '🌙' : '☀';
+  if (lbl)  lbl.textContent  = isLight ? 'Midnight' : 'Parchment';
+}
+(function() {
+  const saved = localStorage.getItem('iai-theme');
+  if (saved === 'light') document.documentElement.dataset.theme = 'light';
+})();
+
+// ── AGGREGATION HELPERS ──────────────────────────────────
+const _sum  = (arr, f) => arr.reduce((s,r) => s + parseFloat(r[f] || 0), 0);
+const _cagr = (a, b, n) => a > 0 && b > 0 ? (Math.pow(b/a, 1/n) - 1) * 100 : 0;
+
+// ── DATA FETCH ────────────────────────────────────────────
+const _cache = {};
+
+async function fetchProducts() {
+  if (_cache['__products']) return _cache['__products'];
+  const url = `${SB_URL}/rest/v1/demand_estimates?select=product_category&order=product_category.asc&limit=5000`;
+  const r = await fetch(url, { headers:{ apikey:SB_KEY, Authorization:`Bearer ${SB_KEY}` } });
+  if (!r.ok) return ['Honey'];
+  const data = await r.json();
+  if (!Array.isArray(data) || data.length === 0) return ['Honey'];
+  const products = [...new Set(data.map(r => r.product_category))].sort();
+  _cache['__products'] = products;
+  return products;
+}
+
+async function fetchRows(country, product) {
+  const prod = product || 'Honey';
+  const key  = (country || '__all') + '__' + prod;
+  if (_cache[key]) return _cache[key];
+  let url = `${SB_URL}/rest/v1/demand_estimates?select=country,sub_category,channel,year,volume,volume_unit,value_local,value_usd,currency&product_category=eq.${encodeURIComponent(prod)}&order=country.asc,year.asc,channel.asc,sub_category.asc`;
+  if (country) url += `&country=eq.${encodeURIComponent(country)}`;
+  const r = await fetch(url, { headers:{ apikey:SB_KEY, Authorization:`Bearer ${SB_KEY}` } });
+  if (!r.ok) throw new Error(`HTTP ${r.status}: ${r.statusText}`);
+  const data = await r.json();
+  if (!Array.isArray(data)) throw new Error('Unexpected response from Supabase');
+  _cache[key] = data;
+  return data;
+}
+
+// ══════════════════════════════════════════════════════════
+// DASHBOARD CLASS
+// ══════════════════════════════════════════════════════════
+class MarketDashboard {
+  constructor() {
+    this.charts        = {};
+    this.activeCountry = 'United Arab Emirates';
+    this.activeSection = 'dashboard';
+    this.activeProduct = 'Honey';
+    this.activeYear    = 'all';
+    this._sortCol      = 'year';
+    this._sortDir      = 'asc';
+    this._tableData    = [];
+    this._tableCur     = 'AED';
+    this._volUnit      = 'tonnes';
+    this.init();
+  }
+
+  async init() {
+    await this.loadProducts();
+    await this.loadSection('dashboard', this.activeCountry, this.activeProduct);
+  }
+
+  async loadProducts() {
+    try {
+      const products = await fetchProducts();
+      const sel = document.getElementById('productSelect');
+      if (sel) {
+        sel.innerHTML = products.map(p =>
+          `<option value="${p}"${p === this.activeProduct ? ' selected' : ''}>${p}</option>`
+        ).join('');
+      }
+    } catch(e) { /* keep default Honey */ }
+  }
+
+  mc(id, cfg) {
+    if (this.charts[id]) { try { this.charts[id].destroy(); } catch(e){} delete this.charts[id]; }
+    const el = document.getElementById(id);
+    if (!el) return;
+    this.charts[id] = new Chart(el, cfg);
+  }
+
+  setLoading(on) {
+    document.getElementById('spinner').style.display = on ? 'block' : 'none';
+  }
+  showErr(panelId, msg) {
+    const el = document.getElementById(`err-${panelId}`);
+    if (el) { el.textContent = `⚠ ${msg}`; el.style.display = 'block'; }
+  }
+  hideErr(panelId) {
+    const el = document.getElementById(`err-${panelId}`);
+    if (el) el.style.display = 'none';
+  }
+
+  async loadSection(sec, country, product) {
+    this.setLoading(true);
+    this.hideErr(sec);
+    try {
+      if (sec === 'compare') {
+        const rows = await fetchRows(null, product);
+        this.renderGCC(rows, product);
+      } else {
+        const rows = country === 'gcc' ? await fetchRows(null, product) : await fetchRows(country, product);
+        this.renderCountry(rows, country, product);
+      }
+    } catch(e) {
+      this.showErr(sec, `Failed to load data: ${e.message}. Check that the Supabase anon key has read access.`);
+    }
+    this.setLoading(false);
+  }
+
+  renderCountry(rows, countryKey, product) {
+    const isGCC    = countryKey === 'gcc';
+    const cur      = isGCC ? 'USD' : COUNTRY_CFG[countryKey].currency;
+    const valField = isGCC ? 'value_usd' : 'value_local';
+    const volUnit  = rows.length > 0 && rows[0].volume_unit ? rows[0].volume_unit : 'tonnes';
+    this._volUnit  = volUnit;
+
+    const retRows = rows.filter(r => r.channel === 'Retail Household');
+    const subcats = [...new Set(rows.map(r => r.sub_category))];
+    subcats.sort((a, b) => {
+      const av = _sum(retRows.filter(r => r.sub_category===a && r.year===2025), valField);
+      const bv = _sum(retRows.filter(r => r.sub_category===b && r.year===2025), valField);
+      return bv - av;
+    });
+
+    const chVal = CH_ORDER.map(ch => FCST_YEARS.map(y => _sum(rows.filter(r => r.channel===ch && r.year===y), valField)));
+    const chVol = CH_ORDER.map(ch => FCST_YEARS.map(y => _sum(rows.filter(r => r.channel===ch && r.year===y), 'volume')));
+    const totVal = FCST_YEARS.map((_, i) => CH_ORDER.reduce((s,_,ci) => s + chVal[ci][i], 0));
+    const totVol = FCST_YEARS.map((_, i) => CH_ORDER.reduce((s,_,ci) => s + chVol[ci][i], 0));
+
+    const scVal    = subcats.map(sc => FCST_YEARS.map(y => _sum(retRows.filter(r => r.sub_category===sc && r.year===y), valField)));
+    const scVol    = subcats.map(sc => FCST_YEARS.map(y => _sum(retRows.filter(r => r.sub_category===sc && r.year===y), 'volume')));
+    const totRetVal = FCST_YEARS.map((_, i) => subcats.reduce((s,_,si) => s + scVal[si][i], 0));
+    const totRetVol = FCST_YEARS.map((_, i) => subcats.reduce((s,_,si) => s + scVol[si][i], 0));
+
+    const totUSD = isGCC ? totVal : FCST_YEARS.map(y => _sum(rows.filter(r => r.year===y), 'value_usd'));
+
+    this.renderKPIs(totVal, totRetVol, cur, this.activeYear);
+    this.renderCharts(rows, subcats, chVal, chVol, scVal, scVol, totVal, totVol, totRetVal, totRetVol, cur, volUnit, this.activeYear);
+    this.renderTable(totVal, totVol, totRetVol, totUSD, cur, volUnit);
+    const gccRow = document.getElementById('gcc-country-row');
+    if (gccRow) gccRow.style.display = isGCC ? '' : 'none';
+    if (isGCC) this.renderCountryCharts(rows, volUnit);
+    document.title = isGCC
+      ? `GCC ${product} · Atlas Market Intelligence`
+      : `${COUNTRY_CFG[countryKey].label} ${product} · Atlas Market Intelligence`;
+  }
+
+  renderCountryCharts(rows, volUnit) {
+    const {G, TXT, LBL, LEG} = _getChartColors();
+    const _el = (id, txt) => { const e = document.getElementById(id); if(e) e.textContent = txt; };
+
+    const ccVol = GCC_ORDER.map(cc => FCST_YEARS.map(y => _sum(rows.filter(r => r.country===cc.id && r.year===y), 'volume')));
+    const ccVal = GCC_ORDER.map(cc => FCST_YEARS.map(y => _sum(rows.filter(r => r.country===cc.id && r.year===y), 'value_usd')));
+    const totVol = FCST_YEARS.map((_,yi) => GCC_ORDER.reduce((t,_,ci) => t + ccVol[ci][yi], 0));
+    const totVal = FCST_YEARS.map((_,yi) => GCC_ORDER.reduce((t,_,ci) => t + ccVal[ci][yi], 0));
+
+    _el('sub-vol-country', `Total volume (${volUnit}) · all channels · grows ${_cagr(totVol[0],totVol[5],5).toFixed(1)}% CAGR 2025–2030`);
+    _el('sub-val-country', `USD million · all channels · grows ${_cagr(totVal[0],totVal[5],5).toFixed(1)}% CAGR 2025–2030`);
+
+    const annot = (data, fmt) => ({
+      type:'line', label:'__total__', data,
+      borderColor:'transparent', backgroundColor:'transparent',
+      pointRadius:0, pointHoverRadius:0, fill:false,
+      datalabels:{display:true,anchor:'end',align:'top',offset:3,
+        color:LBL,font:{size:9.5,weight:'700'},
+        formatter:fmt==='v'?v=>`${Math.round(v).toLocaleString()} ${volUnit}`:v=>`$${v.toFixed(0)}M`}
+    });
+    const sOpts = (yFmt, tipLbl) => ({
+      responsive:true,maintainAspectRatio:false,
+      scales:{
+        x:{stacked:true,grid:{color:'transparent'},border:{color:G},ticks:{maxRotation:0,color:TXT}},
+        y:{stacked:true,grid:{color:G},border:{color:'transparent'},beginAtZero:true,grace:'18%',ticks:{callback:yFmt,color:TXT}}
+      },
+      plugins:{
+        legend:{position:'bottom',labels:{boxWidth:10,padding:10,font:{size:10},color:LEG,filter:i=>i.text!=='__total__'}},
+        tooltip:{mode:'index',callbacks:{label:tipLbl}}
+      }
+    });
+
+    this.mc('ch-vol-country',{type:'bar',data:{
+      labels:FCST_YEARS,
+      datasets:[...GCC_ORDER.map((cc,i)=>({label:cc.label,data:ccVol[i],backgroundColor:cc.color,stack:'s'})),annot(totVol,'v')]
+    },options:sOpts(v=>`${v.toFixed(0)} ${volUnit}`,c=>`${c.dataset.label}: ${c.parsed.y.toFixed(0)} ${volUnit}`)});
+
+    this.mc('ch-val-country',{type:'bar',data:{
+      labels:FCST_YEARS,
+      datasets:[...GCC_ORDER.map((cc,i)=>({label:cc.label,data:ccVal[i],backgroundColor:cc.color,stack:'s'})),annot(totVal,'M')]
+    },options:sOpts(v=>`$${v.toFixed(0)}M`,c=>`${c.dataset.label}: $${c.parsed.y.toFixed(1)}M`)});
+  }
+
+  renderKPIs(totVal, totRetVol, cur, year) {
+    const isAll = year === 'all';
+    const yIdx  = isAll ? 5 : Math.max(0, FCST_YEARS.indexOf(year));
+    const nYrs  = isAll ? 5 : yIdx;
+    document.getElementById('kv1').textContent = `${cur} ${totVal[0].toFixed(0)}M`;
+    document.getElementById('kv2').textContent = `${cur} ${totVal[yIdx].toFixed(0)}M`;
+    document.getElementById('kv3').textContent = nYrs > 0
+      ? `${_cagr(totRetVol[0], totRetVol[yIdx], nYrs).toFixed(1)}%`
+      : '—';
+    document.getElementById('kv4').textContent = nYrs > 0
+      ? `${_cagr(totVal[0], totVal[yIdx], nYrs).toFixed(1)}%`
+      : '—';
+    document.getElementById('ks1').textContent = `${cur} million · all channels`;
+    document.getElementById('ks2').textContent = `${cur} million · all channels`;
+    const endYear = isAll ? 2030 : year;
+    const endYY   = String(endYear).slice(2);
+    document.querySelector('#sec-dashboard .kpi:nth-child(1) .kpi-lbl').textContent = 'Total Market 2025';
+    document.querySelector('#sec-dashboard .kpi:nth-child(2) .kpi-lbl').textContent = `Total Market ${endYear}`;
+    document.querySelector('#sec-dashboard .kpi:nth-child(3) .kpi-lbl').textContent = `Volume CAGR 2025–${endYY}`;
+    document.querySelector('#sec-dashboard .kpi:nth-child(4) .kpi-lbl').textContent = `Value CAGR 2025–${endYY}`;
+  }
+
+  renderCharts(rows, subcats, chVal, chVol, scVal, scVol, totVal, totVol, totRetVal, totRetVol, cur, volUnit, activeYear) {
+    const {G, TXT, LBL, LEG, CARD_BG} = _getChartColors();
+    const isAll = activeYear === 'all';
+    const yIdx  = isAll ? 0 : Math.max(0, FCST_YEARS.indexOf(activeYear));
+    const mask  = arr => isAll ? arr : arr.map((v, i) => i === yIdx ? v : 0);
+    const refYr = isAll ? 2025 : activeYear;
+
+    const topCh      = CH_ORDER[chVal.map(arr => arr[yIdx]).reduce((bi, v, i, a) => v > a[bi] ? i : bi, 0)];
+    const topChShare = totVal[yIdx] > 0 ? (Math.max(...chVal.map(arr => arr[yIdx])) / totVal[yIdx] * 100) : 0;
+    const topSC      = subcats[0];
+    const topSCShare = totRetVal[yIdx] > 0 ? (scVal[0][yIdx] / totRetVal[yIdx] * 100) : 0;
+
+    const _el = (id, txt) => { const e = document.getElementById(id); if(e) e.textContent = txt; };
+    _el('sub-mktvol',  isAll
+      ? `Total volume (${volUnit}) · all channels stacked · grows ${_cagr(totVol[0],totVol[5],5).toFixed(1)}% CAGR`
+      : `Total volume (${volUnit}) · all channels · ${activeYear} selected`);
+    _el('sub-mktval',  isAll
+      ? `${cur} million · all channels · value CAGR ${_cagr(totVal[0],totVal[5],5).toFixed(1)}%`
+      : `${cur} million · all channels · ${activeYear} selected`);
+    _el('sub-scval',   `${topSC} leads at ${topSCShare.toFixed(0)}% of ${refYr} retail value (${cur} M)`);
+    _el('sub-chval',   `${cur} million · ${topCh} at ${topChShare.toFixed(0)}% of market`);
+
+    const annotLine = (data, fmt) => ({
+      type:'line', label:'__total__', data,
+      borderColor:'transparent', backgroundColor:'transparent',
+      pointRadius:0, pointHoverRadius:0, fill:false,
+      datalabels:{display:true, anchor:'end', align:'top', offset:3,
+        color:LBL, font:{size:9.5,weight:'700'},
+        formatter: fmt === 'v'
+          ? v => `${Math.round(v).toLocaleString()} ${volUnit}`
+          : v => `${v.toFixed(0)}M`}
+    });
+
+    const stkOpts = (yFmt, tipLabel) => ({
+      responsive:true, maintainAspectRatio:false,
+      scales:{
+        x:{stacked:true, grid:{color:'transparent'}, border:{color:G}, ticks:{maxRotation:0,color:TXT}},
+        y:{stacked:true, grid:{color:G}, border:{color:'transparent'}, beginAtZero:true, grace:'18%',
+           ticks:{callback:yFmt, color:TXT}}
+      },
+      plugins:{
+        legend:{position:'bottom', labels:{boxWidth:10,padding:10,font:{size:10},color:LEG,
+          filter: i => i.text !== '__total__'}},
+        tooltip:{mode:'index', callbacks:{label: tipLabel}}
+      }
+    });
+
+    const dntOpts = (pos='right') => ({
+      responsive:true, maintainAspectRatio:false,
+      plugins:{
+        datalabels:{display:true, color:'#fff', font:{size:10,weight:'700'},
+          formatter:(v,ctx) => {
+            const t = ctx.dataset.data.reduce((a,b)=>a+b,0);
+            const p = v/t*100;
+            return p < 6 ? '' : `${p.toFixed(0)}%`;
+          }},
+        legend:{position:pos, labels:{boxWidth:10,padding:8,font:{size:10},color:LEG}},
+        tooltip:{callbacks:{label:c=>{
+          const t=c.dataset.data.reduce((a,b)=>a+b,0);
+          return `${c.label}: ${c.parsed.toFixed(1)} (${(c.parsed/t*100).toFixed(1)}%)`;
+        }}}
+      }
+    });
+
+    const barOpts = (tickCb, tipCb) => ({
+      responsive:true, maintainAspectRatio:false,
+      scales:{
+        x:{grid:{color:'transparent'},border:{color:G},ticks:{maxRotation:18,font:{size:9.5},color:TXT}},
+        y:{grid:{color:G},border:{color:'transparent'},beginAtZero:true,grace:'18%',ticks:{callback:tickCb,color:TXT}}
+      },
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:tipCb}}}
+    });
+
+    // Market overview
+    this.mc('ch-mktvol', {type:'bar', data:{
+      labels:FCST_YEARS,
+      datasets:[...CH_ORDER.map((ch,i)=>({label:ch,data:mask(chVol[i]),backgroundColor:C_CH[i],stack:'s'})),annotLine(mask(totVol),'v')]
+    }, options:stkOpts(v=>`${v.toFixed(0)} ${volUnit}`, c=>`${c.dataset.label}: ${c.parsed.y.toFixed(0)} ${volUnit}`)});
+
+    this.mc('ch-mktval', {type:'bar', data:{
+      labels:FCST_YEARS,
+      datasets:[...CH_ORDER.map((ch,i)=>({label:ch,data:mask(chVal[i]),backgroundColor:C_CH[i],stack:'s'})),annotLine(mask(totVal),'M')]
+    }, options:stkOpts(v=>`${v.toFixed(0)}M`, c=>`${c.dataset.label}: ${cur} ${c.parsed.y.toFixed(1)}M`)});
+
+    // Summary table
+    _el('ph-meta', `All values in millions (${cur}) and volumes in ${volUnit}`);
+    const fmtV = v => Math.round(v).toLocaleString();
+    const fmtM = v => `${v.toFixed(0)}M`;
+    const fmtCg = v => `${v.toFixed(1)}%`;
+    let smryHtml = `<table class="smry-table"><thead>
+      <tr>
+        <th>Channel</th>
+        <th colspan="3" style="border-left:1px solid var(--border)">Volume (${volUnit})</th>
+        <th colspan="3" style="border-left:1px solid var(--border)">Value (${cur} M)</th>
+      </tr>
+      <tr>
+        <th></th>
+        <th style="border-left:1px solid var(--border)">2025</th><th>2030</th><th>CAGR</th>
+        <th style="border-left:1px solid var(--border)">2025</th><th>2030</th><th>CAGR</th>
+      </tr>
+    </thead><tbody>`;
+    CH_ORDER.forEach((ch, i) => {
+      const vc = _cagr(chVol[i][0], chVol[i][5], 5);
+      const ac = _cagr(chVal[i][0], chVal[i][5], 5);
+      smryHtml += `<tr>
+        <td><span class="smry-dot" style="background:${C_CH[i]}"></span>${ch}</td>
+        <td style="border-left:1px solid var(--border)">${fmtV(chVol[i][0])}</td>
+        <td>${fmtV(chVol[i][5])}</td>
+        <td class="smry-cagr">${fmtCg(vc)}</td>
+        <td style="border-left:1px solid var(--border)">${fmtM(chVal[i][0])}</td>
+        <td>${fmtM(chVal[i][5])}</td>
+        <td class="smry-cagr">${fmtCg(ac)}</td>
+      </tr>`;
+    });
+    smryHtml += `<tr>
+      <td>Total</td>
+      <td style="border-left:1px solid var(--border)">${fmtV(totVol[0])}</td>
+      <td>${fmtV(totVol[5])}</td>
+      <td class="smry-cagr">${fmtCg(_cagr(totVol[0],totVol[5],5))}</td>
+      <td style="border-left:1px solid var(--border)">${fmtM(totVal[0])}</td>
+      <td>${fmtM(totVal[5])}</td>
+      <td class="smry-cagr">${fmtCg(_cagr(totVal[0],totVal[5],5))}</td>
+    </tr></tbody></table>`;
+    const smryEl = document.getElementById('summary-table-container');
+    if (smryEl) smryEl.innerHTML = smryHtml;
+
+    // Growth comparison chart
+    const gcLabels  = [...CH_ORDER, 'Total Market'];
+    const gcVolCagr = [...CH_ORDER.map((_,i) => _cagr(chVol[i][0],chVol[i][5],5)), _cagr(totVol[0],totVol[5],5)];
+    const gcValCagr = [...CH_ORDER.map((_,i) => _cagr(chVal[i][0],chVal[i][5],5)), _cagr(totVal[0],totVal[5],5)];
+    this.mc('ch-growth-cmp', {type:'bar', data:{
+      labels: gcLabels,
+      datasets:[
+        {label:'Volume CAGR', data:gcVolCagr, backgroundColor:'#3D6B5C', borderRadius:2,
+          datalabels:{display:true,anchor:'end',align:'right',offset:4,color:LBL,font:{size:9.5,weight:'600'},formatter:v=>`${v.toFixed(1)}%`}},
+        {label:'Value CAGR',  data:gcValCagr, backgroundColor:'#6B1F2E', borderRadius:2,
+          datalabels:{display:true,anchor:'end',align:'right',offset:4,color:LBL,font:{size:9.5,weight:'600'},formatter:v=>`${v.toFixed(1)}%`}},
+      ]
+    }, options:{
+      responsive:true, maintainAspectRatio:false, indexAxis:'y',
+      scales:{
+        x:{grid:{color:G},border:{color:'transparent'},beginAtZero:true,grace:'22%',ticks:{callback:v=>`${v.toFixed(0)}%`,color:TXT}},
+        y:{grid:{color:'transparent'},border:{color:G},ticks:{font:{size:10},color:LEG}}
+      },
+      plugins:{
+        legend:{position:'bottom',labels:{boxWidth:10,padding:10,font:{size:10},color:LEG}},
+        tooltip:{mode:'index',callbacks:{label:c=>`${c.dataset.label}: ${c.parsed.x.toFixed(1)}%`}}
+      }
+    }});
+
+    // Sub-categories
+    this.mc('ch-scval', {type:'bar', data:{
+      labels:subcats,
+      datasets:[{data:subcats.map((_,i)=>scVal[i][yIdx]),backgroundColor:C_SC.slice(0,subcats.length),borderRadius:2,
+        datalabels:{display:true,anchor:'end',align:'top',offset:2,color:LBL,font:{size:9.5,weight:'600'},formatter:v=>`${v.toFixed(0)}M`}}]
+    }, options:barOpts(v=>`${v.toFixed(0)}M`, c=>`${cur} ${c.parsed.y.toFixed(1)}M`)});
+
+    this.mc('ch-scshare', {type:'doughnut', data:{
+      labels:subcats,
+      datasets:[{data:subcats.map((_,i)=>scVal[i][yIdx]),backgroundColor:C_SC.slice(0,subcats.length),borderWidth:2,borderColor:CARD_BG}]
+    }, options:dntOpts()});
+
+    this.mc('ch-sctrend', {type:'bar', data:{
+      labels:FCST_YEARS,
+      datasets:[...subcats.map((sc,i)=>({label:sc,data:mask(scVal[i]),backgroundColor:C_SC[i]||'#607D8B',stack:'s'})),annotLine(mask(totRetVal),'M')]
+    }, options:stkOpts(v=>`${v.toFixed(0)}M`, c=>`${c.dataset.label}: ${cur} ${c.parsed.y.toFixed(1)}M`)});
+
+    // Channels
+    this.mc('ch-chval', {type:'bar', data:{
+      labels:CH_ORDER,
+      datasets:[{data:CH_ORDER.map((_,i)=>chVal[i][yIdx]),backgroundColor:C_CH,borderRadius:2,
+        datalabels:{display:true,anchor:'end',align:'top',offset:2,color:LBL,font:{size:9.5,weight:'600'},formatter:v=>`${v.toFixed(0)}M`}}]
+    }, options:barOpts(v=>`${v.toFixed(0)}M`, c=>`${cur} ${c.parsed.y.toFixed(1)}M`)});
+
+    this.mc('ch-chshare', {type:'doughnut', data:{
+      labels:CH_ORDER,
+      datasets:[{data:CH_ORDER.map((_,i)=>chVal[i][yIdx]),backgroundColor:C_CH,borderWidth:2,borderColor:CARD_BG}]
+    }, options:dntOpts()});
+
+    this.mc('ch-chtrend', {type:'bar', data:{
+      labels:FCST_YEARS,
+      datasets:[...CH_ORDER.map((ch,i)=>({label:ch,data:mask(chVal[i]),backgroundColor:C_CH[i],stack:'s'})),annotLine(mask(totVal),'M')]
+    }, options:stkOpts(v=>`${v.toFixed(0)}M`, c=>`${c.dataset.label}: ${cur} ${c.parsed.y.toFixed(1)}M`)});
+  }
+
+  renderTable(totVal, totVol, totRetVol, totUSD, cur, volUnit) {
+    this._tableCur  = cur;
+    this._volUnit   = volUnit;
+    this._tableData = FCST_YEARS.map((year, i) => ({
+      year, totalVol:totVol[i], retailVol:totRetVol[i], totalVal:totVal[i], usdVal:totUSD[i],
+    }));
+    const t25 = totVal[0], t30 = totVal[5];
+    const el = document.getElementById('table-insight');
+    if (el) el.textContent = `Market grows from ${cur} ${t25.toFixed(0)}M to ${cur} ${t30.toFixed(0)}M at ${_cagr(t25,t30,5).toFixed(1)}% CAGR · click headers to sort`;
+    this._renderTableDOM();
+  }
+
+  _renderTableDOM() {
+    const data = [...this._tableData];
+    const col = this._sortCol, dir = this._sortDir, cur = this._tableCur, vu = this._volUnit;
+    data.sort((a, b) => {
+      const cmp = a[col] < b[col] ? -1 : a[col] > b[col] ? 1 : 0;
+      return dir === 'asc' ? cmp : -cmp;
+    });
+    const arrow = c => col !== c
+      ? '<span class="sort-indicator">⇅</span>'
+      : `<span class="sort-indicator active">${dir==='asc'?'▲':'▼'}</span>`;
+    const byYear = [...this._tableData].sort((a,b) => a.year - b.year);
+
+    let html = `<table class="data-table"><thead><tr>
+      <th onclick="dashboard.sortTable('year')">Year ${arrow('year')}</th>
+      <th onclick="dashboard.sortTable('totalVol')">Total Volume (${vu}) ${arrow('totalVol')}</th>
+      <th onclick="dashboard.sortTable('retailVol')">Retail Volume (${vu}) ${arrow('retailVol')}</th>
+      <th onclick="dashboard.sortTable('totalVal')">Market Value (${cur} M) ${arrow('totalVal')}</th>
+      <th onclick="dashboard.sortTable('usdVal')">Market Value (USD M) ${arrow('usdVal')}</th>
+      <th>YoY Vol Growth</th>
+      <th>YoY Val Growth</th>
+    </tr></thead><tbody>`;
+
+    data.forEach(row => {
+      const prev = byYear.find(r => r.year === row.year - 1);
+      const vg = prev ? ((row.totalVol / prev.totalVol - 1) * 100) : null;
+      const ag = prev ? ((row.totalVal / prev.totalVal - 1) * 100) : null;
+      html += `<tr>
+        <td>${row.year}</td>
+        <td>${Math.round(row.totalVol).toLocaleString()}</td>
+        <td>${Math.round(row.retailVol).toLocaleString()}</td>
+        <td>${row.totalVal.toFixed(0)}M</td>
+        <td>$${row.usdVal.toFixed(0)}M</td>
+        <td class="${vg===null?'neutral':vg>=0?'positive':'negative'}">${vg===null?'—':(vg>=0?'+':'')+vg.toFixed(1)+'%'}</td>
+        <td class="${ag===null?'neutral':ag>=0?'positive':'negative'}">${ag===null?'—':(ag>=0?'+':'')+ag.toFixed(1)+'%'}</td>
+      </tr>`;
+    });
+    html += '</tbody></table>';
+    document.getElementById('forecast-table-container').innerHTML = html;
+  }
+
+  sortTable(col) {
+    if (this._sortCol === col) {
+      this._sortDir = this._sortDir === 'asc' ? 'desc' : 'asc';
+    } else {
+      this._sortCol = col;
+      this._sortDir = col === 'year' ? 'asc' : 'desc';
+    }
+    this._renderTableDOM();
+  }
+
+  renderGCC(rows, product) {
+    const {G, TXT, LBL, LEG, CARD_BG} = _getChartColors();
+
+    const ccVal    = GCC_ORDER.map(cc => FCST_YEARS.map(y => _sum(rows.filter(r=>r.country===cc.id&&r.year===y), 'value_usd')));
+    const gccTot   = FCST_YEARS.map((_,yi) => GCC_ORDER.reduce((t,_,ci) => t + ccVal[ci][yi], 0));
+    const retRows  = rows.filter(r => r.channel === 'Retail Household');
+    const ccRetVol = GCC_ORDER.map(cc => FCST_YEARS.map(y => _sum(retRows.filter(r=>r.country===cc.id&&r.year===y), 'volume')));
+    const gccRetVol = FCST_YEARS.map((_,yi) => GCC_ORDER.reduce((t,_,ci) => t + ccRetVol[ci][yi], 0));
+
+    document.getElementById('gcc-kv1').textContent = `USD ${gccTot[0].toFixed(0)}M`;
+    document.getElementById('gcc-kv2').textContent = `USD ${gccTot[5].toFixed(0)}M`;
+    document.getElementById('gcc-kv3').textContent = `${_cagr(gccRetVol[0],gccRetVol[5],5).toFixed(1)}%`;
+    document.getElementById('gcc-kv4').textContent = `${_cagr(gccTot[0],gccTot[5],5).toFixed(1)}%`;
+
+    const v25arr  = GCC_ORDER.map((_,i) => ccVal[i][0]);
+    const v30arr  = GCC_ORDER.map((_,i) => ccVal[i][5]);
+    const cagrArr = GCC_ORDER.map((_,i) => _cagr(ccVal[i][0], ccVal[i][5], 5));
+    const idx     = GCC_ORDER.map((_,i) => i).sort((a,b) => v25arr[b] - v25arr[a]);
+    const rLabels = idx.map(i => GCC_ORDER[i].label);
+    const rColors = idx.map(i => GCC_ORDER[i].color);
+    const rV25    = idx.map(i => v25arr[i]);
+    const rV30    = idx.map(i => v30arr[i]);
+    const rCagr   = idx.map(i => cagrArr[i]);
+
+    const leader  = GCC_ORDER[idx[0]];
+    const topCagr = GCC_ORDER[cagrArr.indexOf(Math.max(...cagrArr))];
+    const _el     = (id, txt) => { const e = document.getElementById(id); if(e) e.textContent = txt; };
+    _el('gcc-bar-title', `${leader.label} leads the GCC ${product} market by a wide margin`);
+    _el('gcc-sub-bar',   `${leader.label} leads at $${rV25[0].toFixed(0)}M · all 6 countries ranked by 2025 value`);
+    _el('gcc-sub-line',  `GCC total grows to $${gccTot[5].toFixed(0)}M by 2030 · ${_cagr(gccTot[0],gccTot[5],5).toFixed(1)}% CAGR · shapes differ for colour-blind accessibility`);
+    _el('gcc-sub-cagr',  `${topCagr.label} posts highest growth at ${Math.max(...cagrArr).toFixed(1)}% CAGR`);
+
+    this.mc('ch-gcc-bar', {type:'bar', data:{
+      labels:rLabels,
+      datasets:[{label:'2025 (USD M)',data:rV25,backgroundColor:rColors,borderRadius:2,
+        datalabels:{display:true,anchor:'end',align:'right',offset:4,color:LBL,font:{size:9.5,weight:'600'},formatter:v=>`$${v.toFixed(0)}M`}}]
+    }, options:{
+      responsive:true,maintainAspectRatio:false,indexAxis:'y',
+      scales:{
+        x:{grid:{color:G},border:{color:'transparent'},beginAtZero:true,grace:'22%',ticks:{callback:v=>`$${v.toFixed(0)}M`,color:TXT}},
+        y:{grid:{color:'transparent'},border:{color:G},ticks:{font:{size:11},color:LEG}}
+      },
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`$${c.parsed.x.toFixed(1)}M`}}}
+    }});
+
+    this.mc('ch-gcc-donut', {type:'doughnut', data:{
+      labels:GCC_ORDER.map(c=>c.label),
+      datasets:[{data:v25arr,backgroundColor:GCC_ORDER.map(c=>c.color),borderWidth:2,borderColor:CARD_BG}]
+    }, options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{
+        datalabels:{display:true,color:'#fff',font:{size:10,weight:'700'},
+          formatter:(v,ctx)=>{const t=ctx.dataset.data.reduce((a,b)=>a+b,0);const p=v/t*100;return p<5?'':p.toFixed(0)+'%';}},
+        legend:{position:'right',labels:{boxWidth:10,padding:8,font:{size:10},color:LEG}},
+        tooltip:{callbacks:{label:c=>{const t=c.dataset.data.reduce((a,b)=>a+b,0);return`${c.label}: $${c.parsed.toFixed(1)}M (${(c.parsed/t*100).toFixed(1)}%)`;}}}
+      }
+    }});
+
+    this.mc('ch-gcc-line', {type:'line', data:{
+      labels:FCST_YEARS,
+      datasets:GCC_ORDER.map((cc,i)=>({
+        label:cc.label,data:ccVal[i],
+        borderColor:cc.color,backgroundColor:cc.color+'22',
+        borderDash:GCC_DASH[i],pointStyle:GCC_POINT[i],
+        pointRadius:4,pointHoverRadius:6,tension:0.3,fill:false,
+        datalabels:{display:false}
+      }))
+    }, options:{
+      responsive:true,maintainAspectRatio:false,
+      scales:{
+        x:{grid:{color:'transparent'},border:{color:G},ticks:{color:TXT}},
+        y:{grid:{color:G},border:{color:'transparent'},beginAtZero:true,grace:'10%',ticks:{callback:v=>`$${v.toFixed(0)}M`,color:TXT}}
+      },
+      plugins:{
+        legend:{position:'bottom',labels:{boxWidth:10,padding:10,font:{size:10},color:LEG,
+          generateLabels:chart=>chart.data.datasets.map((ds,i)=>({
+            text:ds.label,fillStyle:ds.borderColor,strokeStyle:ds.borderColor,
+            pointStyle:GCC_POINT[i],datasetIndex:i,hidden:false
+          }))}},
+        tooltip:{mode:'index',callbacks:{label:c=>`${c.dataset.label}: $${c.parsed.y.toFixed(1)}M`}}
+      }
+    }});
+
+    this.mc('ch-gcc-cagr', {type:'bar', data:{
+      labels:rLabels,
+      datasets:[{label:'CAGR 2025–30 (%)',data:rCagr,backgroundColor:rColors,borderRadius:2,
+        datalabels:{display:true,anchor:'end',align:'right',offset:4,color:LBL,font:{size:9.5,weight:'600'},formatter:v=>`${v.toFixed(1)}%`}}]
+    }, options:{
+      responsive:true,maintainAspectRatio:false,indexAxis:'y',
+      scales:{
+        x:{grid:{color:G},border:{color:'transparent'},beginAtZero:true,grace:'22%',ticks:{callback:v=>`${v.toFixed(1)}%`,color:TXT}},
+        y:{grid:{color:'transparent'},border:{color:G},ticks:{font:{size:11},color:LEG}}
+      },
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`CAGR: ${c.parsed.x.toFixed(1)}%`}}}
+    }});
+
+    this.mc('ch-gcc-2530', {type:'bar', data:{
+      labels:rLabels,
+      datasets:[
+        {label:'2025',data:rV25,backgroundColor:rColors.map(c=>c+'55'),borderRadius:2,datalabels:{display:false}},
+        {label:'2030',data:rV30,backgroundColor:rColors,                borderRadius:2,datalabels:{display:false}},
+      ]
+    }, options:{
+      responsive:true,maintainAspectRatio:false,
+      scales:{
+        x:{grid:{color:'transparent'},border:{color:G},ticks:{color:TXT}},
+        y:{grid:{color:G},border:{color:'transparent'},beginAtZero:true,grace:'15%',ticks:{callback:v=>`$${v.toFixed(0)}M`,color:TXT}}
+      },
+      plugins:{
+        legend:{position:'bottom',labels:{boxWidth:10,padding:10,font:{size:10},color:LEG}},
+        tooltip:{callbacks:{label:c=>`$${c.parsed.y.toFixed(1)}M`}}
+      }
+    }});
+  }
+
+  async onCountryChange(val) {
+    if (val === 'mena') {
+      showSbToast('MENA coverage');
+      document.getElementById('countrySelect').value = this.activeCountry;
+      return;
+    }
+    this.activeCountry = val;
+    if (this.activeSection !== 'dashboard') {
+      this.switchSec('dashboard');
+    } else {
+      await this.loadSection('dashboard', val, this.activeProduct);
+    }
+  }
+
+  async onProductChange(val) {
+    this.activeProduct = val;
+    await this.loadSection(this.activeSection, this.activeCountry, this.activeProduct);
+  }
+
+  async onYearChange(val) {
+    this.activeYear = val === 'all' ? 'all' : parseInt(val, 10);
+    if (this.activeSection === 'dashboard') {
+      await this.loadSection('dashboard', this.activeCountry, this.activeProduct);
+    }
+  }
+
+  switchSec(name) {
+    ['dashboard','compare'].forEach(p => {
+      document.getElementById(`sec-${p}`)?.classList.toggle('active', p===name);
+      document.getElementById(`nav-${p}`)?.classList.toggle('active', p===name);
+    });
+    this.activeSection = name;
+    this.loadSection(name, this.activeCountry, this.activeProduct);
+  }
+}
+
+// ── GLOBAL WRAPPERS ───────────────────────────────────────
+function onCountryChange(val)  { dashboard.onCountryChange(val); }
+function onProductChange(val)  { dashboard.onProductChange(val); }
+function onYearChange(val)     { dashboard.onYearChange(val); }
+function switchSec(name)       { dashboard.switchSec(name); }
+
+// ── REPORT TABS ───────────────────────────────────────────
+const DTAB_IDS = ['mktoverview','competition','value-chain','experts','news'];
+function switchDashTab(tab) {
+  DTAB_IDS.forEach(t => document.getElementById(`dtab-${t}`)?.classList.toggle('active', t===tab));
+  const isOverview = tab === 'mktoverview';
+  document.getElementById('mkt-overview-panels').style.display = isOverview ? '' : 'none';
+  ['competition','value-chain','experts','news'].forEach(t => {
+    const el = document.getElementById(`tab-${t}`);
+    if (el) el.classList.toggle('active', t===tab);
+  });
+}
+
+// ── EXPERT PANEL FILTER TABS ──────────────────────────────
+function switchEpTab(btn) {
+  btn.closest('.ep-ftabs').querySelectorAll('.ep-ftab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// ── SIDEBAR ───────────────────────────────────────────────
+function openSidebar() {
+  document.getElementById('dash-sidebar').classList.add('sb-open');
+  document.getElementById('sb-overlay').style.display = 'block';
+}
+function closeSidebar() {
+  document.getElementById('dash-sidebar').classList.remove('sb-open');
+  document.getElementById('sb-overlay').style.display = 'none';
+}
+function toggleSbMenu(id) {
+  const menu    = document.getElementById('sbmenu-' + id);
+  const item    = document.getElementById('sb-' + id);
+  const chevron = item && item.querySelector('.sb-chevron');
+  const isOpen  = menu.classList.contains('open');
+  if (!isOpen) {
+    menu.classList.add('open');
+    if (chevron) chevron.classList.add('rotated');
+    if (item)    item.classList.add('sb-open');
+  } else {
+    menu.classList.remove('open');
+    if (chevron) chevron.classList.remove('rotated');
+    if (item)    item.classList.remove('sb-open');
+  }
+}
+let _sbToastTimer;
+function showSbToast(feature) {
+  const toast = document.getElementById('sb-toast');
+  document.getElementById('sb-toast-msg').textContent = `${feature} — coming soon!`;
+  toast.style.display = 'block';
+  clearTimeout(_sbToastTimer);
+  _sbToastTimer = setTimeout(() => { toast.style.display = 'none'; }, 2500);
+}
+
+// ── CHART.JS INIT ─────────────────────────────────────────
+Chart.register(ChartDataLabels);
+Chart.defaults.plugins.datalabels.display = false;
+Chart.defaults.font.family = "'IBM Plex Sans', -apple-system, sans-serif";
+Chart.defaults.font.size   = 11;
+Chart.defaults.color       = document.documentElement.dataset.theme === 'light' ? '#6B7280' : '#6E7785';
+
+// ── BOOT ──────────────────────────────────────────────────
+_updateThemeBtn(document.documentElement.dataset.theme === 'light');
+const dashboard = new MarketDashboard();
+</script>
+</body>
+</html>

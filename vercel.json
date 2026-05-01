@@ -4,6 +4,7 @@
   "outputDirectory": ".next",
   "installCommand": "npm install",
   "rewrites": [
-    { "source": "/portal-legacy", "destination": "/Intelligence_AI_Portal.html" }
+    { "source": "/portal", "destination": "/Intelligence_AI_Portal.html" },
+    { "source": "/dashboard", "destination": "/Dashboard.html" }
   ]
 }

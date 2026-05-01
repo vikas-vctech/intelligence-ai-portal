@@ -1,0 +1,2343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atlas · Market Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root {
+    --obsidian: #0E1A2B;
+    --card:     #1A2638;
+    --surface:  #162032;
+    --sidebar:  #0E1A2B;
+    --border:   rgba(245,240,230,.10);
+    --border-hi:rgba(245,240,230,.20);
+    --amber:    #B8924A;
+    --amber-hi: #CBA45C;
+    --amber-dim:rgba(184,146,74,.10);
+    --text-1:   #C4B89A;
+    --text-2:   #6E7785;
+    --text-3:   #4A5568;
+    --text-ink: #F0EDE4;
+    --teal:     #3D6B5C;
+    --rust:     #6B1F2E;
+    --font-display:   'DM Serif Display', Georgia, serif;
+    --font-editorial: 'Source Serif 4', Georgia, serif;
+    --font-ui:        'IBM Plex Sans', -apple-system, sans-serif;
+    --font-mono:      'JetBrains Mono', ui-monospace, monospace;
+    --radius: 4px;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    font-family: var(--font-ui);
+    background: var(--obsidian);
+    color: var(--text-1);
+  }
+
+  /* ── Tailwind dark overrides ── */
+  .bg-white   { background-color: var(--card) !important; }
+  .bg-gray-50 { background-color: var(--obsidian) !important; }
+  .bg-gray-100{ background-color: var(--surface) !important; }
+  .border-gray-200 { border-color: var(--border) !important; }
+  .border-gray-100 { border-color: var(--border) !important; }
+  .divide-gray-100 > * + * { border-color: var(--border) !important; }
+  .text-gray-800 { color: var(--text-ink) !important; }
+  .text-gray-700 { color: var(--text-1) !important; }
+  .text-gray-600 { color: var(--text-2) !important; }
+  .text-gray-500 { color: var(--text-2) !important; }
+  .text-gray-400 { color: var(--text-3) !important; }
+  .text-gray-300 { color: var(--text-3) !important; }
+  .hover\:bg-gray-100:hover { background-color: var(--surface) !important; }
+  .hover\:bg-gray-50:hover  { background-color: #0A1018 !important; }
+  .shadow-sm  { box-shadow: 0 1px 4px rgba(0,0,0,.5) !important; }
+  .shadow-lg  { box-shadow: 0 10px 40px rgba(0,0,0,.7) !important; }
+  .shadow-md  { box-shadow: 0 4px 20px rgba(0,0,0,.6) !important; }
+  .text-blue-700 { color: #7ABAE8 !important; }
+  .text-blue-600 { color: var(--amber) !important; }
+  .text-blue-200 { color: var(--amber) !important; }
+  .text-blue-100 { color: #C8A870 !important; }
+  .border-b     { border-color: var(--border) !important; }
+
+  /* Pages */
+  .page { display: none; }
+  .page.active { display: flex; flex-direction: column; }
+
+  /* ── Sidebar ── */
+  #portal-sidebar {
+    background: var(--sidebar) !important;
+    border-right: 1px solid var(--border) !important;
+    transition: transform 0.28s cubic-bezier(.4,0,.2,1);
+    width: 200px !important;
+  }
+  @media (max-width: 767px) {
+    #portal-sidebar { width: 224px !important; }
+  }
+  .nav-item {
+    display: flex; align-items: center; gap: 9px;
+    padding: 10px 12px; border-radius: 4px; cursor: pointer;
+    font-size: 13px; color: var(--text-2); margin: 1px 6px;
+    transition: background .13s, color .13s; text-decoration: none;
+    user-select: none; -webkit-tap-highlight-color: transparent;
+    font-family: var(--font-ui);
+  }
+  .nav-item:hover { background: var(--amber-dim); color: var(--text-ink); }
+  .nav-item.active {
+    background: var(--amber-dim);
+    color: var(--amber);
+    border-left: 2px solid var(--amber);
+    padding-left: 10px;
+  }
+  .nav-item .chevron { margin-left: auto; transition: transform .2s; }
+  .nav-item.open .chevron { transform: rotate(90deg); }
+  .sub-item {
+    display: block; padding: 8px 12px 8px 38px; font-size: 12px;
+    color: var(--text-3); cursor: pointer; border-radius: 4px; margin: 0 6px;
+    transition: background .12s, color .12s; text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .sub-item:hover { background: var(--amber-dim); color: var(--amber); }
+  .sub-menu { overflow: hidden; max-height: 0; transition: max-height .25s ease; }
+  .sub-menu.open { max-height: 300px; }
+
+  /* ── Top bar ── */
+  header.top-bar {
+    background: var(--card) !important;
+    border-bottom: 1px solid var(--border) !important;
+    min-height: 96px !important;
+  }
+
+  /* ── Hero ── */
+  .hero-bg {
+    background: linear-gradient(160deg, #0A1422 0%, #0E1A2B 60%, #091220 100%);
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle at 20% 50%, rgba(184,146,74,.05) 0%, transparent 50%),
+                      radial-gradient(circle at 80% 20%, rgba(184,146,74,.03) 0%, transparent 40%);
+    pointer-events: none;
+  }
+  .hero-bg::after {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent 0%, var(--amber) 40%, var(--amber-hi) 60%, transparent 100%);
+  }
+  .hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 10px; font-weight: 400;
+    letter-spacing: .18em; text-transform: uppercase;
+    color: var(--amber) !important;
+  }
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 5.5vw, 72px);
+    font-weight: 400;
+    color: var(--text-ink) !important;
+    line-height: 1;
+    letter-spacing: -.02em;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--amber);
+    font-weight: 400;
+  }
+  .hero-subtitle { color: var(--text-2) !important; }
+
+  /* ── Report card ── */
+  .report-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    transition: box-shadow .2s, border-color .2s, transform .2s;
+    cursor: pointer; overflow: hidden;
+  }
+  .report-card:hover {
+    box-shadow: 0 8px 32px rgba(184,146,74,.15);
+    border-color: rgba(184,146,74,.35);
+    transform: translateY(-2px);
+  }
+  @media (hover: none) {
+    .report-card:hover { transform: none; box-shadow: none; }
+    .report-card:active { box-shadow: 0 4px 16px rgba(184,146,74,.1); }
+  }
+
+  /* ── Tags ── */
+  .tag {
+    font-size: 10px; font-weight: 600; letter-spacing: .04em;
+    padding: 2px 8px; border-radius: 99px; text-transform: uppercase;
+    font-family: var(--font-mono);
+  }
+
+  /* ── Search input ── */
+  .search-input {
+    border: 1px solid var(--border-hi);
+    border-radius: 4px;
+    background: var(--surface) !important;
+    color: var(--text-1) !important;
+  }
+  .search-input::placeholder { color: var(--text-3); }
+  .search-input:focus {
+    outline: none;
+    border-color: var(--amber);
+    box-shadow: 0 0 0 3px rgba(184,146,74,.12);
+  }
+
+  /* ── Buttons ── */
+  .btn-primary {
+    background: var(--amber); color: #0E1A2B;
+    border-radius: 4px; padding: 10px 24px;
+    font-size: 14px; font-weight: 600;
+    cursor: pointer; transition: background .15s; border: none;
+    font-family: var(--font-ui);
+    -webkit-tap-highlight-color: transparent;
+  }
+  .btn-primary:hover { background: var(--amber-hi); }
+  .btn-outline {
+    background: transparent; color: var(--amber);
+    border: 1px solid var(--amber);
+    border-radius: 4px; padding: 9px 22px;
+    font-size: 14px; font-weight: 600;
+    cursor: pointer; transition: all .15s;
+    font-family: var(--font-ui);
+    -webkit-tap-highlight-color: transparent;
+  }
+  .btn-outline:hover { background: var(--amber-dim); }
+
+  /* ── Tables ── */
+  .tbl-row { border-bottom: 1px solid var(--border); }
+  .tbl-row:hover { background: rgba(184,146,74,.04) !important; }
+  .status-active { color: var(--teal); font-weight: 600; font-size: 12px; }
+  .industry-row { border-top: 1px solid var(--border); }
+  .industry-row:first-child { border-top: none; }
+
+  /* ── Scrollable ── */
+  .scroll-y { overflow-y: auto; }
+  .scroll-y::-webkit-scrollbar { width: 5px; }
+  .scroll-y::-webkit-scrollbar-track { background: var(--obsidian); }
+  .scroll-y::-webkit-scrollbar-thumb { background: var(--border-hi); border-radius: 3px; }
+
+  /* ── Industries page ── */
+  .industry-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+  }
+
+  /* ── Sidebar live indicator ── */
+  .sub-item-live { color: var(--amber) !important; font-weight: 600 !important; }
+  .live-dot {
+    display:inline-block;width:6px;height:6px;border-radius:50%;
+    background:#48BFA0;margin-right:6px;flex-shrink:0;
+    box-shadow:0 0 5px rgba(72,191,160,.6);
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+  @keyframes pulse-dot {
+    0%,100%{opacity:1} 50%{opacity:.4}
+  }
+  .nav-group-label {
+    font-size:9px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;
+    color:var(--text-3);padding:10px 16px 4px;pointer-events:none;
+  }
+
+  /* ── Consumer Products drill-down page ── */
+  .cp-section {
+    border:1px solid var(--border);border-radius:10px;
+    background:var(--card);margin-bottom:16px;overflow:hidden;
+  }
+  .cp-section-head {
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 20px;border-bottom:1px solid var(--border);
+  }
+  .cp-section-title {
+    font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--text-1);
+  }
+  .cp-badge-live {
+    font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;
+    background:rgba(72,191,160,.12);color:#48BFA0;border:1px solid rgba(72,191,160,.25);
+  }
+  .cp-badge-soon {
+    font-size:10px;font-weight:500;padding:2px 8px;border-radius:20px;
+    background:rgba(255,255,255,.04);color:var(--text-3);border:1px solid var(--border);
+  }
+  .cp-sub { padding:12px 20px 16px; }
+  .cp-sub + .cp-sub { border-top:1px solid var(--border); }
+  .cp-sub-label {
+    font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+    color:var(--text-3);margin-bottom:8px;
+  }
+  .cp-report-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:6px; }
+  .cp-report-item {
+    display:flex;align-items:center;gap:8px;padding:8px 12px;
+    border-radius:6px;border:1px solid var(--border);cursor:pointer;
+    text-decoration:none;font-size:12px;color:var(--text-2);
+    transition:background .12s,border-color .12s;
+  }
+  .cp-report-item:hover { background:rgba(184,146,74,.06);border-color:rgba(184,146,74,.3);color:var(--amber); }
+  .cp-report-item.live { border-color:rgba(72,191,160,.2);color:var(--text-1); }
+  .cp-report-item.live:hover { background:rgba(72,191,160,.07);border-color:rgba(72,191,160,.4);color:#48BFA0; }
+  .cp-report-item.soon { opacity:.5;cursor:not-allowed; }
+  .cp-report-item.soon:hover { background:transparent;border-color:var(--border);color:var(--text-2); }
+  .cp-report-emoji { font-size:16px;flex-shrink:0; }
+  .cp-report-text { flex:1;min-width:0; }
+  .cp-report-name { font-weight:600;line-height:1.2; }
+  .cp-report-geo  { font-size:10px;color:var(--text-3);margin-top:1px; }
+  .cp-report-badge {
+    font-size:9px;font-weight:600;padding:1px 6px;border-radius:10px;flex-shrink:0;
+    background:rgba(72,191,160,.15);color:#48BFA0;border:1px solid rgba(72,191,160,.3);
+  }
+  .cp-report-soon-lbl {
+    font-size:9px;color:var(--text-3);flex-shrink:0;
+  }
+  .cp-soon-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:6px; }
+  .cp-soon-item {
+    padding:8px 12px;border-radius:6px;border:1px dashed var(--border);
+    font-size:11px;color:var(--text-3);
+  }
+  .breadcrumb-nav {
+    display:flex;align-items:center;gap:6px;font-size:11px;
+    color:var(--text-3);margin-bottom:16px;
+  }
+  .breadcrumb-nav a { cursor:pointer;text-decoration:none; }
+  .breadcrumb-nav a:hover { color:var(--amber); }
+  .breadcrumb-sep { opacity:.4; }
+
+  /* ── Stats ── */
+  .stat-card {
+    background: var(--card) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 4px !important;
+    box-shadow: none !important;
+  }
+
+  /* ── Survey mockup ── */
+  .survey-mockup {
+    background: var(--card) !important;
+    border: 1px solid var(--border) !important;
+  }
+  .survey-mockup-bar {
+    background: var(--surface) !important;
+    border-bottom: 1px solid var(--border) !important;
+  }
+
+  /* ── Toast ── */
+  #toast {
+    background: var(--amber) !important;
+    color: #0E1A2B !important;
+    font-family: var(--font-ui);
+    font-weight: 500;
+  }
+
+  /* ── Breadcrumb ── */
+  .report-breadcrumb { color: var(--text-1) !important; }
+
+  /* ── Section heads on content pages ── */
+  .content-page-head {
+    font-family: var(--font-display);
+    font-weight: 400;
+    color: var(--text-ink) !important;
+  }
+
+  /* ── Mobile filter ── */
+  @media (max-width: 639px) {
+    .co-filter-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .co-filter-full { grid-column: span 2; }
+    .co-filter-btns { display: flex; gap: 8px; grid-column: span 2; }
+  }
+
+  input:focus { outline: none; }
+
+  /* ══ TOP NAV ════════════════════════════════════════════════ */
+  .portal-topnav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .portal-nav-inner {
+    display: flex; align-items: center;
+    max-width: 1280px; margin: 0 auto;
+    padding: 0 32px; height: 64px;
+    gap: 0;
+  }
+  @media (max-width: 768px) { .portal-nav-inner { padding: 0 16px; } }
+  .portal-nav-logo {
+    display: flex; align-items: center; margin-right: 36px; flex-shrink: 0; cursor: pointer;
+  }
+  .portal-nav-logo .logo-dark  { display: block; height: 42px; width: auto; }
+  .portal-nav-logo .logo-light { display: none;  height: 42px; width: auto; }
+  html[data-theme="light"] .portal-nav-logo .logo-dark  { display: none; }
+  html[data-theme="light"] .portal-nav-logo .logo-light { display: block; }
+
+  .portal-nav-links {
+    display: flex; align-items: center; gap: 0; flex: 1;
+  }
+  @media (max-width: 768px) { .portal-nav-links { display: none; } }
+  .portal-nav-item { position: relative; }
+  .portal-nav-btn {
+    display: flex; align-items: center; gap: 4px;
+    height: 64px; padding: 0 14px;
+    font-size: 13.5px; font-weight: 400;
+    color: var(--text-2); background: none; border: none;
+    cursor: pointer; white-space: nowrap;
+    font-family: var(--font-ui);
+    transition: color .13s;
+  }
+  .portal-nav-btn:hover { color: var(--text-ink); }
+  .portal-chev { font-size: 10px; opacity: .55; transition: transform .18s; }
+  .portal-nav-item.dd-open .portal-chev { transform: rotate(180deg); }
+
+  .portal-dd {
+    position: absolute; top: calc(100% + 4px); left: 0;
+    min-width: 208px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    box-shadow: 0 8px 32px rgba(0,0,0,.3);
+    padding: 5px 0;
+    opacity: 0; pointer-events: none;
+    transform: translateY(-8px);
+    transition: opacity .14s, transform .14s;
+    z-index: 200;
+  }
+  .portal-dd.open { opacity: 1; pointer-events: auto; transform: translateY(0); }
+  .portal-dd a {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 16px; font-size: 12.5px;
+    color: var(--text-2); text-decoration: none; cursor: pointer;
+    transition: background .1s, color .1s;
+  }
+  .portal-dd a:hover { background: var(--amber-dim); color: var(--text-ink); }
+  .portal-dd-live {
+    font-size: 9px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+    background: rgba(72,191,160,.14); color: #48BFA0;
+    border: 1px solid rgba(72,191,160,.3);
+    padding: 1px 5px; border-radius: 10px; flex-shrink: 0; margin-left: auto;
+  }
+  .portal-dd-sep { height: 1px; background: var(--border); margin: 5px 0; }
+
+  .portal-nav-actions {
+    display: flex; align-items: center; gap: 8px; margin-left: auto; flex-shrink: 0;
+  }
+  .portal-theme-btn {
+    display: flex; align-items: center; gap: 5px;
+    padding: 6px 10px; border: 1px solid var(--border-hi);
+    border-radius: 4px; background: transparent;
+    color: var(--text-2); font-size: 11px; font-family: var(--font-mono);
+    cursor: pointer; transition: all .13s; white-space: nowrap;
+  }
+  .portal-theme-btn:hover { color: var(--text-ink); border-color: var(--amber); }
+  .portal-login-btn {
+    padding: 6px 16px;
+    background: transparent; border: 1px solid var(--border-hi);
+    border-radius: 4px; color: var(--text-2);
+    font-size: 13px; font-weight: 500; font-family: var(--font-ui);
+    cursor: pointer; transition: all .13s;
+  }
+  .portal-login-btn:hover { color: var(--text-ink); border-color: var(--amber); }
+  .portal-cta-btn { padding: 7px 18px !important; font-size: 13px !important; }
+
+  /* ── Hero Aurora ── */
+  .hero-aurora {
+    position: absolute; inset: -10px; pointer-events: none; z-index: 0;
+    background-image:
+      repeating-linear-gradient(100deg,#fff 0%,#fff 7%,transparent 10%,transparent 12%,#fff 16%),
+      repeating-linear-gradient(100deg,#3b82f6 10%,#a5b4fc 15%,#93c5fd 20%,#ddd6fe 25%,#60a5fa 30%);
+    background-size: 300%, 200%;
+    background-position: 50% 50%, 50% 50%;
+    filter: blur(10px) invert(1);
+    animation: hero-aurora 60s linear infinite;
+    opacity: 0.5; will-change: transform;
+    mask-image: radial-gradient(ellipse at 100% 0%, black 10%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse at 100% 0%, black 10%, transparent 70%);
+  }
+  .hero-aurora::after {
+    content: ''; position: absolute; inset: 0;
+    background-image:
+      repeating-linear-gradient(100deg,#fff 0%,#fff 7%,transparent 10%,transparent 12%,#fff 16%),
+      repeating-linear-gradient(100deg,#3b82f6 10%,#a5b4fc 15%,#93c5fd 20%,#ddd6fe 25%,#60a5fa 30%);
+    background-size: 200%, 100%;
+    background-attachment: fixed;
+    mix-blend-mode: difference;
+    animation: hero-aurora 60s linear infinite;
+  }
+  html:not([data-theme="light"]) .hero-aurora {
+    background-image:
+      repeating-linear-gradient(100deg,#000 0%,#000 7%,transparent 10%,transparent 12%,#000 16%),
+      repeating-linear-gradient(100deg,#3b82f6 10%,#a5b4fc 15%,#93c5fd 20%,#ddd6fe 25%,#60a5fa 30%);
+    filter: blur(10px);
+  }
+  html:not([data-theme="light"]) .hero-aurora::after {
+    background-image:
+      repeating-linear-gradient(100deg,#000 0%,#000 7%,transparent 10%,transparent 12%,#000 16%),
+      repeating-linear-gradient(100deg,#3b82f6 10%,#a5b4fc 15%,#93c5fd 20%,#ddd6fe 25%,#60a5fa 30%);
+  }
+  @keyframes hero-aurora {
+    from { background-position: 50% 50%, 50% 50%; }
+    to   { background-position: 350% 50%, 350% 50%; }
+  }
+  .lp-hero-grid { position: relative; z-index: 1; }
+
+  /* Grain overlay */
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    pointer-events: none; z-index: 9999;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.018;
+  }
+
+  /* ── Logo swap: dark / light mode ── */
+  .portal-logo-wrap { background: #0E1A2B; }
+  html[data-theme="light"] .portal-logo-wrap { background: #FFFFFF; }
+  .logo-dark  { display: block; }
+  .logo-light { display: none; }
+  html[data-theme="light"] .logo-dark  { display: none; }
+  html[data-theme="light"] .logo-light { display: block; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .animate-in { animation: fadeUp .45s cubic-bezier(.22,1,.36,1) both; }
+
+  /* ══ LIGHT MODE ════════════════════════════════════════════ */
+  html[data-theme="light"] {
+    --obsidian: #F5F0E6;
+    --card:     #FFFFFF;
+    --surface:  #EDE8DC;
+    --sidebar:  #FDFBF7;
+    --border:   #E0D8C8;
+    --border-hi:#C8BEA8;
+    --amber:    #8B6F2F;
+    --amber-hi: #A08040;
+    --amber-dim:rgba(139,111,47,.1);
+    --text-1:   #2A1800;
+    --text-2:   #5A4E3E;
+    --text-3:   #9A8E7E;
+    --text-ink: #1A0E00;
+    --teal:     #2A5A4A;
+    --rust:     #6B1F2E;
+  }
+  /* Restore Tailwind natural values (override dark !important rules) */
+  html[data-theme="light"] .bg-white   { background-color: #ffffff !important; }
+  html[data-theme="light"] .bg-gray-50 { background-color: #f9fafb !important; }
+  html[data-theme="light"] .bg-gray-100{ background-color: #f3f4f6 !important; }
+  html[data-theme="light"] .border-gray-200 { border-color: #e5e7eb !important; }
+  html[data-theme="light"] .border-gray-100 { border-color: #f3f4f6 !important; }
+  html[data-theme="light"] .divide-gray-100 > * + * { border-color: #f3f4f6 !important; }
+  html[data-theme="light"] .text-gray-800 { color: #1f2937 !important; }
+  html[data-theme="light"] .text-gray-700 { color: #374151 !important; }
+  html[data-theme="light"] .text-gray-600 { color: #4b5563 !important; }
+  html[data-theme="light"] .text-gray-500 { color: #6b7280 !important; }
+  html[data-theme="light"] .text-gray-400 { color: #9ca3af !important; }
+  html[data-theme="light"] .text-gray-300 { color: #d1d5db !important; }
+  html[data-theme="light"] .hover\:bg-gray-100:hover { background-color: #f3f4f6 !important; }
+  html[data-theme="light"] .hover\:bg-gray-50:hover  { background-color: #f9fafb !important; }
+  html[data-theme="light"] .shadow-sm { box-shadow: 0 1px 2px rgba(0,0,0,.05) !important; }
+  html[data-theme="light"] .shadow-lg { box-shadow: 0 10px 15px rgba(0,0,0,.10) !important; }
+  html[data-theme="light"] .shadow-md { box-shadow: 0 4px 6px rgba(0,0,0,.07) !important; }
+  html[data-theme="light"] .text-blue-700 { color: #1d4ed8 !important; }
+  html[data-theme="light"] .text-blue-600 { color: #2563eb !important; }
+  html[data-theme="light"] .text-blue-200 { color: #93c5fd !important; }
+  html[data-theme="light"] .text-blue-100 { color: #dbeafe !important; }
+  html[data-theme="light"] .border-b { border-color: #e5e7eb !important; }
+  /* Hero */
+  html[data-theme="light"] .hero-bg {
+    background: linear-gradient(160deg, #F8F5EE 0%, #F5F0E8 60%, #FAF7F2 100%);
+  }
+  html[data-theme="light"] .hero-bg::before {
+    background-image: radial-gradient(circle at 20% 50%, rgba(176,120,8,.05) 0%, transparent 50%),
+                      radial-gradient(circle at 80% 20%, rgba(176,120,8,.03) 0%, transparent 40%);
+  }
+  /* Scrollbar */
+  html[data-theme="light"] .scroll-y::-webkit-scrollbar-track { background: var(--surface); }
+  html[data-theme="light"] .scroll-y::-webkit-scrollbar-thumb { background: var(--border-hi); }
+  /* Grain */
+  html[data-theme="light"] body::after { opacity: 0.008; }
+  /* Search tab background */
+  html[data-theme="light"] .inline-flex[style*="rgba(255,255,255,.04)"] {
+    background: rgba(0,0,0,.04) !important;
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     LANDING PAGE SECTIONS
+  ═══════════════════════════════════════════════════════════ */
+  .lp-section { padding: 60px 40px; }
+  .lp-section-narrow { padding: 40px 40px; }
+  @media (max-width: 768px) {
+    .lp-section { padding: 40px 20px; }
+    .lp-section-narrow { padding: 28px 20px; }
+  }
+  .lp-mono-label {
+    font-family: var(--font-mono);
+    font-size: 9.5px; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--amber); margin-bottom: 14px; display: block;
+  }
+  .lp-heading {
+    font-family: var(--font-display);
+    font-size: clamp(22px, 2.8vw, 30px);
+    font-weight: 400; color: var(--text-ink);
+    line-height: 1.15; letter-spacing: -.015em;
+  }
+  .lp-subtext {
+    font-size: 13.5px; color: var(--text-2);
+    line-height: 1.65; max-width: 520px;
+  }
+
+  /* ── Hero two-column ── */
+  .lp-hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 48px; align-items: center;
+    max-width: 1200px; margin: 0 auto;
+  }
+  @media (max-width: 900px) {
+    .lp-hero-grid { grid-template-columns: 1fr; }
+    .lp-hero-visual { display: none; }
+  }
+
+  /* ── Trust bar ── */
+  .lp-trust-bar {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 13px 40px;
+    display: flex; align-items: center; gap: 8px;
+    overflow-x: auto; white-space: nowrap;
+  }
+  /* Trust logo fills adapt to theme via currentColor */
+  .lp-trust-logo { color: rgba(245,240,230,.42); flex-shrink: 0; }
+  html[data-theme="light"] .lp-trust-logo { color: rgba(26,38,56,.38); }
+  .lp-trust-img {
+    max-height: 72px; width: auto; display: block; flex-shrink: 0;
+    filter: grayscale(1) invert(1) brightness(.75) opacity(.5);
+    transition: filter .25s, opacity .25s;
+  }
+  .lp-trust-img:hover { filter: grayscale(0) invert(0) brightness(1) opacity(1); }
+  html[data-theme="light"] .lp-trust-img {
+    filter: grayscale(1) opacity(.45) sepia(.15) hue-rotate(185deg);
+  }
+  html[data-theme="light"] .lp-trust-img:hover { filter: grayscale(0) opacity(1); }
+
+  /* ── Category tabs ── */
+  .lp-cat-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 22px; }
+  .lp-cat-tab {
+    padding: 6px 16px; border-radius: 99px;
+    font-size: 11.5px; font-weight: 500;
+    border: 1px solid var(--border);
+    color: var(--text-2); cursor: pointer;
+    transition: all .15s; background: transparent;
+    font-family: var(--font-ui);
+  }
+  .lp-cat-tab:hover { border-color: var(--amber); color: var(--amber); }
+  .lp-cat-tab.active { background: var(--amber); color: #0E1A2B; border-color: var(--amber); }
+  html[data-theme="light"] .lp-cat-tab.active { color: #FFF5E6; }
+
+  /* ── Product discovery grid ── */
+  .lp-prod-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 14px;
+  }
+  .lp-prod-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px; overflow: hidden; cursor: pointer;
+    transition: border-color .18s, transform .18s, box-shadow .18s;
+  }
+  .lp-prod-card:hover {
+    border-color: rgba(184,146,74,.4);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,.35);
+  }
+  .lp-prod-card.soon { opacity: .55; cursor: default; }
+  .lp-prod-card.soon:hover { transform: none; box-shadow: none; border-color: var(--border); }
+  .lp-prod-thumb {
+    height: 108px; position: relative;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 42px; overflow: hidden;
+  }
+  .lp-prod-info { padding: 12px 14px 14px; }
+  .lp-prod-name { font-size: 13px; font-weight: 600; color: var(--text-ink); margin-bottom: 3px; }
+  .lp-prod-geo  { font-size: 10.5px; color: var(--text-3); }
+  .lp-prod-badge {
+    display: inline-block; font-size: 8.5px; font-weight: 700;
+    letter-spacing: .06em; text-transform: uppercase;
+    padding: 2px 7px; border-radius: 99px; margin-top: 8px;
+    font-family: var(--font-mono);
+  }
+  .lp-prod-badge.live  { background: rgba(72,191,160,.12); color: #48BFA0; border: 1px solid rgba(72,191,160,.25); }
+  .lp-prod-badge.soon-b{ background: rgba(255,255,255,.04); color: var(--text-3); border: 1px solid var(--border); }
+
+  /* ── Stats bar ── */
+  .lp-stats-bar {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    background: var(--surface);
+    border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  }
+  @media (max-width: 640px) { .lp-stats-bar { grid-template-columns: repeat(2, 1fr); } }
+  .lp-stat-cell {
+    padding: 36px 20px; text-align: center;
+    border-right: 1px solid var(--border);
+  }
+  .lp-stat-cell:last-child { border-right: none; }
+  .lp-stat-num {
+    font-family: var(--font-display); font-size: clamp(36px,4vw,54px); font-weight: 400;
+    line-height: 1; margin-bottom: 9px; letter-spacing: -.02em;
+  }
+  .lp-stat-desc { font-size: 11.5px; color: var(--text-3); line-height: 1.45; }
+
+  /* ── Coverage section ── */
+  .lp-coverage-bg { background: var(--surface); }
+  .lp-coverage-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 48px; align-items: center; max-width: 1200px; margin: 0 auto;
+  }
+  @media (max-width: 768px) { .lp-coverage-grid { grid-template-columns: 1fr; } }
+  .lp-country-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 9px; }
+  .lp-country-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 4px; padding: 12px 14px;
+  }
+  .lp-country-name { font-size: 11px; font-weight: 700; color: var(--text-1); margin-bottom: 3px; }
+  .lp-country-val  { font-family: var(--font-mono); font-size: 13px; color: var(--amber); font-weight: 500; }
+  .lp-country-unit { font-size: 9.5px; color: var(--text-3); margin-top: 2px; }
+
+  /* ── Methodology + table ── */
+  .lp-method-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 48px; align-items: start; max-width: 1200px; margin: 0 auto;
+  }
+  @media (max-width: 768px) { .lp-method-grid { grid-template-columns: 1fr; } }
+  .lp-method-step {
+    display: flex; gap: 16px; padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .lp-method-step:last-child { border-bottom: none; }
+  .lp-method-num { font-family: var(--font-mono); font-size: 11px; color: var(--amber); min-width: 26px; flex-shrink: 0; padding-top: 2px; }
+  .lp-method-title { font-size: 13px; font-weight: 600; color: var(--text-ink); margin-bottom: 3px; }
+  .lp-method-desc  { font-size: 11.5px; color: var(--text-3); line-height: 1.55; }
+
+  /* ── Data preview table ── */
+  .lp-preview-wrap { background: var(--card); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+  .lp-preview-table { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+  .lp-preview-table th {
+    text-align: left; padding: 10px 14px;
+    font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--text-3); background: var(--surface); border-bottom: 1px solid var(--border);
+  }
+  .lp-preview-table td { padding: 9px 14px; color: var(--text-1); border-bottom: 1px solid rgba(245,240,230,.05); }
+  .lp-preview-table tr:hover td { background: rgba(184,146,74,.03); }
+  .lp-preview-val  { color: var(--amber); font-family: var(--font-mono); font-weight: 500; }
+  .lp-preview-cagr { color: #48BFA0; font-family: var(--font-mono); }
+
+  /* ── Feature grid ── */
+  .lp-features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  @media (max-width: 900px) { .lp-features-grid { grid-template-columns: repeat(2, 1fr); } }
+  .lp-feature-card { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 22px 18px; }
+  .lp-feature-icon {
+    width: 34px; height: 34px; background: rgba(184,146,74,.1); border-radius: 4px;
+    display: flex; align-items: center; justify-content: center; margin-bottom: 14px; color: var(--amber);
+  }
+  .lp-feature-title { font-size: 13.5px; font-weight: 600; color: var(--text-ink); margin-bottom: 6px; }
+  .lp-feature-desc  { font-size: 11.5px; color: var(--text-3); line-height: 1.6; }
+
+  /* ── CTA section ── */
+  .lp-cta-section { background: var(--card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+  /* ── Footer ── */
+  .lp-footer { background: #060C18; border-top: 1px solid var(--border); padding: 44px 40px 28px; }
+  html[data-theme="light"] .lp-footer { background: #1A2638; }
+  .lp-footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 32px; margin-bottom: 32px; max-width: 1200px; margin-left: auto; margin-right: auto; }
+  @media (max-width: 768px) { .lp-footer-grid { grid-template-columns: 1fr 1fr; } }
+  .lp-footer-col-title { font-size: 9.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #6E7785; margin-bottom: 12px; font-family: var(--font-mono); }
+  .lp-footer-link { display: block; font-size: 12px; color: #6E7785; text-decoration: none; margin-bottom: 8px; cursor: pointer; transition: color .12s; }
+  .lp-footer-link:hover { color: var(--amber); }
+  .lp-footer-bottom { border-top: 1px solid rgba(245,240,230,.08); padding-top: 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; max-width: 1200px; margin: 0 auto; }
+  .lp-footer-copy { font-size: 10px; color: #4A5568; font-family: var(--font-mono); }
+
+  /* Mini chart SVG animation */
+  @keyframes barRise { from { transform: scaleY(0); transform-origin: bottom; } to { transform: scaleY(1); transform-origin: bottom; } }
+  .lp-bar { animation: barRise .6s cubic-bezier(.22,1,.36,1) both; }
+
+  /* ── Editorial product card thumbnails ── */
+  .lp-prod-thumb {
+    height: 148px !important; /* taller than old 108px */
+    font-size: unset !important; /* remove emoji sizing */
+  }
+  .lp-prod-thumb-inner {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    width: 100%; height: 100%; position: relative; gap: 0;
+  }
+  .lp-prod-card-accent {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+  }
+  .lp-prod-card-dot {
+    position: absolute; top: 10px; right: 10px;
+    width: 7px; height: 7px; border-radius: 50%;
+  }
+  .lp-prod-eyebrow {
+    font-family: var(--font-mono); font-size: 8.5px; letter-spacing: .18em;
+    text-transform: uppercase; color: var(--text-3); margin-bottom: 4px;
+  }
+
+  /* ── Discover section (2-col) ── */
+  .lp-discover-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 56px;
+    align-items: center; max-width: 1200px; margin: 0 auto;
+  }
+  @media (max-width: 860px) { .lp-discover-grid { grid-template-columns: 1fr; } }
+  .lp-check-item {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 10px 0; border-bottom: 1px solid var(--border);
+  }
+  .lp-check-item:last-child { border-bottom: none; }
+  .lp-check-icon {
+    width: 20px; height: 20px; border-radius: 50%;
+    background: rgba(184,146,74,.1); border: 1px solid rgba(184,146,74,.2);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 1px; color: var(--amber);
+  }
+</style>
+</head>
+
+<body>
+
+<div class="flex flex-col min-h-screen">
+
+<!-- ═══════════════════════════════════════════════════════
+     TOP NAV
+═══════════════════════════════════════════════════════ -->
+<header class="portal-topnav" id="portal-topnav">
+  <div class="portal-nav-inner">
+
+    <!-- Logo -->
+    <div class="portal-nav-logo" onclick="showPage('home')">
+      <img class="logo-dark" src="Atlas%20Design%20System/assets/atlas_logo_gold_on_midnight.png" alt="Atlas Market Intelligence">
+      <img class="logo-light" src="Atlas%20Design%20System/assets/atlas_logo_wordmark.png" alt="Atlas Market Intelligence">
+    </div>
+
+    <!-- Nav links -->
+    <nav class="portal-nav-links">
+
+      <!-- Products -->
+      <div class="portal-nav-item" id="pni-products">
+        <button class="portal-nav-btn" onclick="togglePortalDD('products')">
+          Products <span class="portal-chev">▾</span>
+        </button>
+        <div class="portal-dd" id="dd-products">
+          <a onclick="showPage('consumer-products');closeAllPortalDDs()">
+            Consumer Products <span class="portal-dd-live">Live</span>
+          </a>
+          <a onclick="showComingSoon('Defense &amp; Industrial');closeAllPortalDDs()">Defense &amp; Industrial</a>
+          <a onclick="showComingSoon('Pharmaceuticals');closeAllPortalDDs()">Pharmaceuticals</a>
+          <a onclick="showComingSoon('Technology');closeAllPortalDDs()">Technology</a>
+          <a onclick="showComingSoon('Financial Services');closeAllPortalDDs()">Financial Services</a>
+          <div class="portal-dd-sep"></div>
+          <a onclick="showPage('industries');closeAllPortalDDs()" style="color:var(--amber)">All Industries →</a>
+        </div>
+      </div>
+
+      <!-- Solutions -->
+      <div class="portal-nav-item" id="pni-solutions">
+        <button class="portal-nav-btn" onclick="togglePortalDD('solutions')">
+          Solutions <span class="portal-chev">▾</span>
+        </button>
+        <div class="portal-dd" id="dd-solutions">
+          <a onclick="showPage('statistics');closeAllPortalDDs()">Statistics</a>
+          <a onclick="showPage('survey');closeAllPortalDDs()">Survey</a>
+          <a onclick="showComingSoon('My Reports');closeAllPortalDDs()">My Reports</a>
+        </div>
+      </div>
+
+      <!-- Resources -->
+      <div class="portal-nav-item" id="pni-resources">
+        <button class="portal-nav-btn" onclick="togglePortalDD('resources')">
+          Resources <span class="portal-chev">▾</span>
+        </button>
+        <div class="portal-dd" id="dd-resources">
+          <a onclick="showComingSoon('Insights');closeAllPortalDDs()">Insights</a>
+          <a onclick="showPage('companies');closeAllPortalDDs()">Companies</a>
+          <a onclick="showComingSoon('Recent Visited');closeAllPortalDDs()">Recent Visited</a>
+          <div class="portal-dd-sep"></div>
+          <a onclick="showComingSoon('Contact Us');closeAllPortalDDs()">Contact Us</a>
+        </div>
+      </div>
+
+      <button class="portal-nav-btn" onclick="showComingSoon('Pricing')">Pricing</button>
+      <button class="portal-nav-btn" onclick="showComingSoon('About')">About</button>
+
+    </nav>
+
+    <!-- Right actions -->
+    <div class="portal-nav-actions">
+      <button id="portal-theme-toggle" class="portal-theme-btn" onclick="toggleTheme()" title="Toggle light / dark mode">
+        <span id="portal-theme-icon">☀</span>
+        <span id="portal-theme-lbl">Parchment</span>
+      </button>
+      <button class="portal-login-btn" onclick="showComingSoon('Login')">Log in</button>
+      <button class="btn-primary portal-cta-btn">Get started</button>
+    </div>
+
+  </div>
+</header>
+
+<!-- CONTENT AREA -->
+<div class="flex-1 overflow-y-auto scroll-y" id="portal-content">
+
+    <!-- ─────────────────────────────────────────────────
+         PAGE: HOME
+    ───────────────────────────────────────────────── -->
+    <div id="page-home" class="page active">
+
+      <!-- ══════════════════════════════════════════════
+           HERO
+      ══════════════════════════════════════════════ -->
+      <div class="hero-bg lp-section" style="padding-top:64px;padding-bottom:64px">
+        <div class="lp-hero-grid">
+
+          <!-- Left: Text + search -->
+          <div>
+            <span class="lp-mono-label">Atlas Market Intelligence · GCC &amp; MENA</span>
+            <h1 class="hero-title" style="font-size:clamp(40px,5.5vw,72px);text-align:left;margin-bottom:20px;line-height:.92">
+              Demand<br><em>Intelligence</em>
+            </h1>
+            <p class="lp-subtext" style="margin-bottom:28px">
+              Bottom-up demand estimation models for consumer products across GCC markets — built from population architecture, supply validation, and channel decomposition.
+            </p>
+
+            <!-- Search bar -->
+            <div style="display:flex;max-width:500px;border:1px solid var(--border-hi);background:var(--surface);
+                        border-radius:4px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.4);margin-bottom:20px">
+              <div style="display:flex;align-items:center;padding-left:14px">
+                <svg style="width:16px;height:16px;color:var(--text-3)" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 15.803 7.5 7.5 0 0015.803 15.803z"/>
+                </svg>
+              </div>
+              <input id="hero-search" type="text" placeholder="Find a market or product…"
+                style="flex:1;padding:12px 12px;font-size:13px;background:transparent;border:none;
+                       outline:none;color:var(--text-1);font-family:var(--font-ui);min-width:0"
+                oninput="lpFilterCards(this.value)"
+                onkeydown="if(event.key==='Enter') lpFilterCards(this.value)">
+              <button onclick="lpFilterCards(document.getElementById('hero-search').value)"
+                style="padding:0 20px;background:var(--amber);color:#0E1A2B;font-size:13px;font-weight:600;
+                       border:none;cursor:pointer;font-family:var(--font-ui);white-space:nowrap;flex-shrink:0">
+                Search
+              </button>
+            </div>
+
+            <!-- Quick tags -->
+            <div style="display:flex;flex-wrap:wrap;gap:7px;align-items:center">
+              <span style="font-size:11px;color:var(--text-3)">Popular:</span>
+              <span class="lp-cat-tab" style="padding:4px 12px;font-size:11px" onclick="lpSetCat('food',this,'lp-hero-tabs')">Food &amp; Bev</span>
+              <span class="lp-cat-tab" style="padding:4px 12px;font-size:11px" onclick="lpSetCat('dairy',this,'lp-hero-tabs')">Dairy</span>
+              <span class="lp-cat-tab" style="padding:4px 12px;font-size:11px" onclick="lpSetCat('all',this,'lp-hero-tabs')">GCC Markets</span>
+            </div>
+          </div>
+
+          <!-- Right: Decorative mini bar chart -->
+          <div class="lp-hero-visual">
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:4px;
+                        padding:18px 20px 16px;overflow:hidden;position:relative">
+              <!-- Amber top accent line -->
+              <div style="position:absolute;top:0;left:0;right:0;height:2px;
+                          background:linear-gradient(90deg,transparent 0%,var(--amber) 30%,#F4BC18 60%,transparent 100%)"></div>
+              <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:.14em;
+                          text-transform:uppercase;color:var(--text-3);margin-bottom:14px">
+                GCC Honey · Market Value (USD M) · 2025–2030
+              </div>
+              <!-- SVG bar chart -->
+              <svg viewBox="0 0 300 128" width="100%" style="display:block;overflow:visible">
+                <!-- Grid lines -->
+                <line x1="0" y1="20"  x2="300" y2="20"  stroke="rgba(245,240,230,.06)" stroke-width="1"/>
+                <line x1="0" y1="50"  x2="300" y2="50"  stroke="rgba(245,240,230,.06)" stroke-width="1"/>
+                <line x1="0" y1="80"  x2="300" y2="80"  stroke="rgba(245,240,230,.06)" stroke-width="1"/>
+                <line x1="0" y1="110" x2="300" y2="110" stroke="rgba(245,240,230,.06)" stroke-width="1"/>
+                <!-- Bars: heights map to values $265M→$374M over 6yrs -->
+                <rect class="lp-bar" x="6"   y="82"  width="32" height="28" rx="2" fill="#B8924A" opacity=".85" style="animation-delay:.1s"/>
+                <rect class="lp-bar" x="54"  y="72"  width="32" height="38" rx="2" fill="#B8924A" opacity=".88" style="animation-delay:.18s"/>
+                <rect class="lp-bar" x="102" y="59"  width="32" height="51" rx="2" fill="#C9A55A" opacity=".9"  style="animation-delay:.26s"/>
+                <rect class="lp-bar" x="150" y="45"  width="32" height="65" rx="2" fill="#D4AF62" opacity=".92" style="animation-delay:.34s"/>
+                <rect class="lp-bar" x="198" y="29"  width="32" height="81" rx="2" fill="#E2BC6A" opacity=".95" style="animation-delay:.42s"/>
+                <rect class="lp-bar" x="246" y="12"  width="32" height="98" rx="2" fill="#F4BC18" opacity=".98" style="animation-delay:.5s"/>
+                <!-- Value labels on top bars -->
+                <text x="22"  y="78"  text-anchor="middle" fill="rgba(245,240,230,.4)" font-size="8"  font-family="JetBrains Mono,monospace">265</text>
+                <text x="262" y="8"   text-anchor="middle" fill="#F4BC18"               font-size="8.5"font-family="JetBrains Mono,monospace">374</text>
+                <!-- Year labels -->
+                <text x="22"  y="124" text-anchor="middle" fill="rgba(245,240,230,.3)" font-size="8" font-family="JetBrains Mono,monospace">2025</text>
+                <text x="70"  y="124" text-anchor="middle" fill="rgba(245,240,230,.3)" font-size="8" font-family="JetBrains Mono,monospace">2026</text>
+                <text x="118" y="124" text-anchor="middle" fill="rgba(245,240,230,.3)" font-size="8" font-family="JetBrains Mono,monospace">2027</text>
+                <text x="166" y="124" text-anchor="middle" fill="rgba(245,240,230,.3)" font-size="8" font-family="JetBrains Mono,monospace">2028</text>
+                <text x="214" y="124" text-anchor="middle" fill="rgba(245,240,230,.3)" font-size="8" font-family="JetBrains Mono,monospace">2029</text>
+                <text x="262" y="124" text-anchor="middle" fill="rgba(245,240,230,.3)" font-size="8" font-family="JetBrains Mono,monospace">2030</text>
+                <!-- Trend line overlay -->
+                <polyline points="22,82 70,72 118,59 166,45 214,29 262,12"
+                          fill="none" stroke="#48BFA0" stroke-width="1.5" stroke-dasharray="4 3" opacity=".65"/>
+              </svg>
+              <!-- CAGR footer -->
+              <div style="display:flex;align-items:center;justify-content:space-between;
+                          border-top:1px solid var(--border);margin-top:12px;padding-top:10px">
+                <div style="font-size:10px;color:var(--text-3)">Value CAGR 2025–2030</div>
+                <div style="font-family:var(--font-mono);font-size:14px;color:#48BFA0;font-weight:600">+7.1%</div>
+              </div>
+            </div>
+            <!-- Floating badge -->
+            <div style="position:relative;margin-top:10px;display:flex;justify-content:flex-end">
+              <div style="background:var(--card);border:1px solid rgba(184,146,74,.35);border-radius:4px;
+                          padding:9px 16px;box-shadow:0 4px 16px rgba(0,0,0,.4);display:inline-block">
+                <div style="font-size:9px;color:var(--text-3);font-family:var(--font-mono);margin-bottom:3px">GCC TOTAL 2030 EST.</div>
+                <div style="font-family:var(--font-mono);font-size:20px;color:var(--amber);font-weight:500;line-height:1">$374M</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ══ TRUSTED BRANDS ══ -->
+      <div style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+                  padding:22px 40px;display:flex;flex-direction:column;align-items:center;gap:20px">
+        <div style="font-family:var(--font-mono);font-size:9.5px;letter-spacing:.2em;
+                    text-transform:uppercase;color:var(--text-3)">
+          Trusted by Leading Brands Worldwide
+        </div>
+        <div style="display:flex;align-items:center;gap:64px;flex-wrap:wrap;justify-content:center">
+
+          <img src="client/Deloitte.png"           alt="Deloitte" class="lp-trust-img" style="max-height:110px">
+          <img src="client/KPMG_blue_logo.svg.png" alt="KPMG"     class="lp-trust-img">
+          <img src="client/Daman_logo.png"          alt="Daman"    class="lp-trust-img">
+          <img src="client/Raymond_logo.svg.png"    alt="Raymond"  class="lp-trust-img">
+
+        </div>
+      </div>
+
+      <!-- ══ PRODUCT DISCOVERY ══ -->
+      <div class="lp-section">
+        <div style="max-width:1200px;margin:0 auto">
+          <span class="lp-mono-label">Starting point of your research</span>
+          <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:22px">
+            <h2 class="lp-heading">Explore markets &amp; products</h2>
+            <a style="font-size:12px;color:var(--amber);cursor:pointer;font-weight:500;flex-shrink:0"
+               onclick="showPage('industries')">Browse all industries →</a>
+          </div>
+
+          <!-- Category tabs -->
+          <div class="lp-cat-tabs" id="lp-prod-tabs">
+            <button class="lp-cat-tab active" data-cat="all"       onclick="lpSetCat('all',this,'lp-prod-tabs')">All</button>
+            <button class="lp-cat-tab"         data-cat="food"      onclick="lpSetCat('food',this,'lp-prod-tabs')">Food &amp; Beverages</button>
+            <button class="lp-cat-tab"         data-cat="dairy"     onclick="lpSetCat('dairy',this,'lp-prod-tabs')">Dairy &amp; Alternatives</button>
+            <button class="lp-cat-tab"         data-cat="care"      onclick="lpSetCat('care',this,'lp-prod-tabs')">Personal Care</button>
+            <button class="lp-cat-tab"         data-cat="appliances"onclick="lpSetCat('appliances',this,'lp-prod-tabs')">Appliances</button>
+          </div>
+
+          <!-- Product grid -->
+          <div class="lp-prod-grid" id="lp-prod-grid">
+
+            <!-- ── Honey (Live) ── -->
+            <div class="lp-prod-card" data-cat="food" onclick="openReport('Dashboard.html','GCC Honey Markets 2024–2030')">
+              <div class="lp-prod-thumb" style="background:linear-gradient(160deg,#1C0A00,#2E1600,#120800)">
+                <div class="lp-prod-thumb-inner">
+                  <svg viewBox="0 0 60 60" width="52" height="52">
+                    <polygon points="30,4 52,17 52,43 30,56 8,43 8,17" fill="none" stroke="rgba(184,146,74,.55)" stroke-width="1.3"/>
+                    <polygon points="30,14 44,22 44,38 30,46 16,38 16,22" fill="rgba(184,146,74,.1)" stroke="rgba(184,146,74,.3)" stroke-width="1"/>
+                    <circle cx="30" cy="30" r="5.5" fill="rgba(184,146,74,.28)" stroke="rgba(184,146,74,.55)" stroke-width="1"/>
+                  </svg>
+                  <div class="lp-prod-card-accent" style="background:linear-gradient(90deg,transparent,#B8924A,transparent)"></div>
+                  <div class="lp-prod-card-dot" style="background:#48BFA0;box-shadow:0 0 6px rgba(72,191,160,.7)"></div>
+                </div>
+              </div>
+              <div class="lp-prod-info">
+                <div class="lp-prod-eyebrow">Food &amp; Beverages</div>
+                <div class="lp-prod-name">Honey</div>
+                <div class="lp-prod-geo">GCC · 6 countries · 2025–2030</div>
+                <span class="lp-prod-badge live" style="margin-top:8px;display:inline-block">Live</span>
+              </div>
+            </div>
+
+            <!-- ── Olive Oil (Soon) ── -->
+            <div class="lp-prod-card soon" data-cat="food">
+              <div class="lp-prod-thumb" style="background:linear-gradient(160deg,#080F06,#0D1A09,#060C04)">
+                <div class="lp-prod-thumb-inner">
+                  <svg viewBox="0 0 60 60" width="52" height="52">
+                    <path d="M30,6 C30,6 46,19 46,34 C46,44.5 39,52 30,52 C21,52 14,44.5 14,34 C14,19 30,6 30,6z" fill="rgba(61,107,92,.14)" stroke="rgba(61,107,92,.5)" stroke-width="1.3"/>
+                    <line x1="30" y1="18" x2="30" y2="50" stroke="rgba(61,107,92,.3)" stroke-width="1"/>
+                    <path d="M30,30 C26,26 19,28 21,34" fill="none" stroke="rgba(61,107,92,.35)" stroke-width="1"/>
+                    <path d="M30,24 C34,20 41,22 39,28" fill="none" stroke="rgba(61,107,92,.35)" stroke-width="1"/>
+                  </svg>
+                  <div class="lp-prod-card-accent" style="background:linear-gradient(90deg,transparent,#3D6B5C,transparent)"></div>
+                </div>
+              </div>
+              <div class="lp-prod-info">
+                <div class="lp-prod-eyebrow">Food &amp; Beverages</div>
+                <div class="lp-prod-name">Olive Oil</div>
+                <div class="lp-prod-geo">GCC · 6 countries</div>
+                <span class="lp-prod-badge soon-b" style="margin-top:8px;display:inline-block">Coming Soon</span>
+              </div>
+            </div>
+
+            <!-- ── Dates (Soon) ── -->
+            <div class="lp-prod-card soon" data-cat="food">
+              <div class="lp-prod-thumb" style="background:linear-gradient(160deg,#100606,#1C0C08,#0C0404)">
+                <div class="lp-prod-thumb-inner">
+                  <svg viewBox="0 0 60 60" width="52" height="52">
+                    <line x1="30" y1="50" x2="30" y2="24" stroke="rgba(139,90,60,.5)" stroke-width="2"/>
+                    <path d="M30,24 C22,17 12,21 16,30 C20,26 26,26 30,28" fill="rgba(139,90,60,.15)" stroke="rgba(139,90,60,.4)" stroke-width="1"/>
+                    <path d="M30,24 C38,17 48,21 44,30 C40,26 34,26 30,28" fill="rgba(139,90,60,.15)" stroke="rgba(139,90,60,.4)" stroke-width="1"/>
+                    <ellipse cx="30" cy="44" rx="5" ry="7" fill="rgba(139,90,60,.2)" stroke="rgba(139,90,60,.4)" stroke-width="1"/>
+                  </svg>
+                  <div class="lp-prod-card-accent" style="background:linear-gradient(90deg,transparent,#8B5A3C,transparent)"></div>
+                </div>
+              </div>
+              <div class="lp-prod-info">
+                <div class="lp-prod-eyebrow">Food &amp; Beverages</div>
+                <div class="lp-prod-name">Dates &amp; Dried Fruit</div>
+                <div class="lp-prod-geo">GCC · MENA</div>
+                <span class="lp-prod-badge soon-b" style="margin-top:8px;display:inline-block">Coming Soon</span>
+              </div>
+            </div>
+
+            <!-- ── Goat Milk (Live) ── -->
+            <div class="lp-prod-card" data-cat="dairy" onclick="openReport('Dashboard.html','UAE Goat Milk 2024–2030')">
+              <div class="lp-prod-thumb" style="background:linear-gradient(160deg,#060E10,#0A1418,#060C0E)">
+                <div class="lp-prod-thumb-inner">
+                  <svg viewBox="0 0 60 60" width="52" height="52">
+                    <path d="M30,8 L37,22 A15,15 0 1,1 23,22 Z" fill="rgba(72,191,160,.12)" stroke="rgba(72,191,160,.45)" stroke-width="1.3"/>
+                    <circle cx="30" cy="37" r="7" fill="rgba(72,191,160,.15)" stroke="rgba(72,191,160,.4)" stroke-width="1"/>
+                    <circle cx="30" cy="37" r="2.5" fill="rgba(72,191,160,.35)"/>
+                  </svg>
+                  <div class="lp-prod-card-accent" style="background:linear-gradient(90deg,transparent,#48BFA0,transparent)"></div>
+                  <div class="lp-prod-card-dot" style="background:#48BFA0;box-shadow:0 0 6px rgba(72,191,160,.7)"></div>
+                </div>
+              </div>
+              <div class="lp-prod-info">
+                <div class="lp-prod-eyebrow">Dairy &amp; Alternatives</div>
+                <div class="lp-prod-name">Goat Milk</div>
+                <div class="lp-prod-geo">UAE · 2025–2030</div>
+                <span class="lp-prod-badge live" style="margin-top:8px;display:inline-block">Live</span>
+              </div>
+            </div>
+
+            <!-- ── Cow Milk (Soon) ── -->
+            <div class="lp-prod-card soon" data-cat="dairy">
+              <div class="lp-prod-thumb" style="background:linear-gradient(160deg,#080C12,#0C1018,#060A10)">
+                <div class="lp-prod-thumb-inner">
+                  <svg viewBox="0 0 60 60" width="52" height="52">
+                    <path d="M18,16 L20,47 L40,47 L42,16 Z" fill="rgba(100,130,165,.1)" stroke="rgba(100,130,165,.4)" stroke-width="1.3"/>
+                    <ellipse cx="30" cy="15.5" rx="12" ry="3.5" fill="rgba(100,130,165,.15)" stroke="rgba(100,130,165,.35)" stroke-width="1"/>
+                    <line x1="19" y1="26" x2="41" y2="26" stroke="rgba(100,130,165,.18)" stroke-width="1"/>
+                    <line x1="19.5" y1="34" x2="40.5" y2="34" stroke="rgba(100,130,165,.12)" stroke-width="1"/>
+                  </svg>
+                  <div class="lp-prod-card-accent" style="background:linear-gradient(90deg,transparent,#6482A5,transparent)"></div>
+                </div>
+              </div>
+              <div class="lp-prod-info">
+                <div class="lp-prod-eyebrow">Dairy &amp; Alternatives</div>
+                <div class="lp-prod-name">Cow Milk</div>
+                <div class="lp-prod-geo">GCC · 6 countries</div>
+                <span class="lp-prod-badge soon-b" style="margin-top:8px;display:inline-block">Coming Soon</span>
+              </div>
+            </div>
+
+            <!-- ── Personal Care (Soon) ── -->
+            <div class="lp-prod-card soon" data-cat="care">
+              <div class="lp-prod-thumb" style="background:linear-gradient(160deg,#0E0816,#160E20,#0A0610)">
+                <div class="lp-prod-thumb-inner">
+                  <svg viewBox="0 0 60 60" width="52" height="52">
+                    <polygon points="30,6 34,26 54,30 34,34 30,54 26,34 6,30 26,26" fill="rgba(155,100,180,.12)" stroke="rgba(155,100,180,.45)" stroke-width="1.3"/>
+                    <circle cx="30" cy="30" r="6" fill="rgba(155,100,180,.18)" stroke="rgba(155,100,180,.35)" stroke-width="1"/>
+                  </svg>
+                  <div class="lp-prod-card-accent" style="background:linear-gradient(90deg,transparent,#9B64B4,transparent)"></div>
+                </div>
+              </div>
+              <div class="lp-prod-info">
+                <div class="lp-prod-eyebrow">Personal Care</div>
+                <div class="lp-prod-name">Personal Care</div>
+                <div class="lp-prod-geo">GCC · MENA</div>
+                <span class="lp-prod-badge soon-b" style="margin-top:8px;display:inline-block">Coming Soon</span>
+              </div>
+            </div>
+
+            <!-- ── Consumer Appliances (Soon) ── -->
+            <div class="lp-prod-card soon" data-cat="appliances">
+              <div class="lp-prod-thumb" style="background:linear-gradient(160deg,#060A0E,#0A1016,#04080C)">
+                <div class="lp-prod-thumb-inner">
+                  <svg viewBox="0 0 60 60" width="52" height="52">
+                    <circle cx="30" cy="30" r="18" fill="none" stroke="rgba(90,130,180,.4)" stroke-width="1.3"/>
+                    <circle cx="30" cy="30" r="9" fill="rgba(90,130,180,.1)" stroke="rgba(90,130,180,.3)" stroke-width="1"/>
+                    <line x1="30" y1="8"  x2="30" y2="16" stroke="rgba(90,130,180,.45)" stroke-width="1.5"/>
+                    <line x1="30" y1="44" x2="30" y2="52" stroke="rgba(90,130,180,.45)" stroke-width="1.5"/>
+                    <line x1="8"  y1="30" x2="16" y2="30" stroke="rgba(90,130,180,.45)" stroke-width="1.5"/>
+                    <line x1="44" y1="30" x2="52" y2="30" stroke="rgba(90,130,180,.45)" stroke-width="1.5"/>
+                    <line x1="15" y1="15" x2="21" y2="21" stroke="rgba(90,130,180,.3)" stroke-width="1.2"/>
+                    <line x1="39" y1="39" x2="45" y2="45" stroke="rgba(90,130,180,.3)" stroke-width="1.2"/>
+                  </svg>
+                  <div class="lp-prod-card-accent" style="background:linear-gradient(90deg,transparent,#5A82B4,transparent)"></div>
+                </div>
+              </div>
+              <div class="lp-prod-info">
+                <div class="lp-prod-eyebrow">Appliances</div>
+                <div class="lp-prod-name">Consumer Appliances</div>
+                <div class="lp-prod-geo">GCC · MENA</div>
+                <span class="lp-prod-badge soon-b" style="margin-top:8px;display:inline-block">Coming Soon</span>
+              </div>
+            </div>
+
+            <!-- ── Browse more ── -->
+            <div class="lp-prod-card" style="display:flex;align-items:center;justify-content:center;
+                        min-height:200px;border-style:dashed;opacity:.7" onclick="showPage('industries')">
+              <div style="text-align:center">
+                <div style="width:36px;height:36px;border-radius:50%;border:1.5px solid var(--border-hi);
+                            display:flex;align-items:center;justify-content:center;margin:0 auto 10px">
+                  <svg style="width:16px;height:16px;color:var(--text-3)" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/>
+                  </svg>
+                </div>
+                <div style="font-size:12px;font-weight:600;color:var(--text-2)">All industries</div>
+                <div style="font-size:10.5px;color:var(--text-3);margin-top:3px">More models in pipeline</div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- No-results message -->
+          <div id="lp-no-results" style="display:none;text-align:center;padding:48px 0">
+            <div style="font-size:13px;color:var(--text-3)">No products match your search.
+              <a style="color:var(--amber);cursor:pointer;text-decoration:underline"
+                 onclick="lpClearSearch()">Clear</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ PLATFORM STATS ══ -->
+      <div class="lp-stats-bar">
+        <div class="lp-stat-cell">
+          <div class="lp-stat-num" style="color:var(--amber)">720+</div>
+          <div class="lp-stat-desc">Model data points<br>in live database</div>
+        </div>
+        <div class="lp-stat-cell">
+          <div class="lp-stat-num" style="color:#3D6B5C">6</div>
+          <div class="lp-stat-desc">GCC countries<br>fully covered</div>
+        </div>
+        <div class="lp-stat-cell">
+          <div class="lp-stat-num" style="color:#B8924A">7yr</div>
+          <div class="lp-stat-desc">Forecast horizon<br>2024 → 2030</div>
+        </div>
+        <div class="lp-stat-cell">
+          <div class="lp-stat-num" style="color:#1F3A5F">4</div>
+          <div class="lp-stat-desc">Demand channels<br>per model</div>
+        </div>
+      </div>
+
+      <!-- ══ DISCOVER DATA ON YOUR MARKET ══ -->
+      <div class="lp-coverage-bg">
+        <div class="lp-section">
+          <div class="lp-discover-grid">
+
+            <!-- Left: Feature checklist -->
+            <div>
+              <span class="lp-mono-label">Discover data on your market</span>
+              <h2 class="lp-heading" style="margin-bottom:18px">Global trends,<br>locally visualised</h2>
+              <p class="lp-subtext" style="margin-bottom:28px">
+                Every model is calibrated to local consumption patterns, import-dependency ratios, and currency-adjusted values — from Saudi Riyal to Omani Rial.
+              </p>
+
+              <div style="margin-bottom:28px">
+                <div class="lp-check-item">
+                  <div class="lp-check-icon">
+                    <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  <div>
+                    <div style="font-size:13px;font-weight:600;color:var(--text-ink);margin-bottom:2px">Bottom-up population architecture</div>
+                    <div style="font-size:11.5px;color:var(--text-3);line-height:1.5">Segments by nationality, income band, and household size anchored to Gulf Statistical Centre data</div>
+                  </div>
+                </div>
+                <div class="lp-check-item">
+                  <div class="lp-check-icon">
+                    <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  <div>
+                    <div style="font-size:13px;font-weight:600;color:var(--text-ink);margin-bottom:2px">Supply-side calibration via UN Comtrade</div>
+                    <div style="font-size:11.5px;color:var(--text-3);line-height:1.5">FAO production + import flows triangulated against Euromonitor retail estimates</div>
+                  </div>
+                </div>
+                <div class="lp-check-item">
+                  <div class="lp-check-icon">
+                    <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  <div>
+                    <div style="font-size:13px;font-weight:600;color:var(--text-ink);margin-bottom:2px">4-channel demand decomposition</div>
+                    <div style="font-size:11.5px;color:var(--text-3);line-height:1.5">Retail household, HoReCa, food manufacturing, and gifting sized independently per country</div>
+                  </div>
+                </div>
+                <div class="lp-check-item">
+                  <div class="lp-check-icon">
+                    <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  <div>
+                    <div style="font-size:13px;font-weight:600;color:var(--text-ink);margin-bottom:2px">3-scenario forecasts to 2030</div>
+                    <div style="font-size:11.5px;color:var(--text-3);line-height:1.5">Conservative, moderate, and aggressive paths with sub-category premiumisation curves</div>
+                  </div>
+                </div>
+              </div>
+
+              <div style="display:flex;gap:10px;flex-wrap:wrap">
+                <button class="btn-primary" onclick="showPage('consumer-products')">Explore live reports →</button>
+                <button class="btn-outline" onclick="showPage('industries')">All industries</button>
+              </div>
+            </div>
+
+            <!-- Right: GCC map card + country grid -->
+            <div>
+              <div style="background:var(--card);border:1px solid var(--border);border-radius:4px;
+                          padding:22px;overflow:hidden;position:relative">
+                <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+                            width:220px;height:220px;border-radius:50%;
+                            background:radial-gradient(circle,rgba(184,146,74,.05),transparent 70%);
+                            pointer-events:none"></div>
+                <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:.14em;
+                            text-transform:uppercase;color:var(--text-3);margin-bottom:14px">
+                  Arabian Peninsula · Coverage map
+                </div>
+                <svg viewBox="0 0 300 210" width="100%" style="display:block">
+                  <defs>
+                    <pattern id="gcmap-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(245,240,230,.04)" stroke-width=".5"/>
+                    </pattern>
+                  </defs>
+                  <rect width="300" height="210" fill="url(#gcmap-grid)"/>
+                  <polygon points="55,18 195,18 215,55 205,110 185,155 145,175 95,160 65,110 48,60"
+                           fill="rgba(184,146,74,.1)" stroke="rgba(184,146,74,.28)" stroke-width="1.2"/>
+                  <polygon points="45,14 72,12 76,30 58,36 40,26"
+                           fill="rgba(31,58,95,.18)" stroke="rgba(31,58,95,.4)" stroke-width="1"/>
+                  <polygon points="218,58 232,52 236,72 222,78"
+                           fill="rgba(107,31,46,.15)" stroke="rgba(107,31,46,.4)" stroke-width="1"/>
+                  <circle cx="207" cy="52" r="5" fill="rgba(184,146,74,.18)" stroke="rgba(184,146,74,.5)" stroke-width="1"/>
+                  <polygon points="215,70 248,58 258,82 250,106 228,112 215,98"
+                           fill="rgba(61,107,92,.14)" stroke="rgba(61,107,92,.32)" stroke-width="1"/>
+                  <polygon points="242,68 270,48 285,78 278,136 255,150 230,130 228,112 252,96"
+                           fill="rgba(138,111,47,.1)" stroke="rgba(138,111,47,.25)" stroke-width="1"/>
+                  <text x="128" y="92"  text-anchor="middle" fill="rgba(245,240,230,.5)" font-size="9"   font-family="IBM Plex Sans,sans-serif" font-weight="600">Saudi Arabia</text>
+                  <text x="56"  y="24"  text-anchor="middle" fill="rgba(31,58,95,.9)"    font-size="7"   font-family="IBM Plex Sans,sans-serif">Kuwait</text>
+                  <text x="226" y="68"  text-anchor="middle" fill="rgba(245,240,230,.45)"font-size="6"   font-family="IBM Plex Sans,sans-serif">Qatar</text>
+                  <text x="207" y="44"  text-anchor="middle" fill="rgba(184,146,74,.85)" font-size="5.5" font-family="IBM Plex Sans,sans-serif">BHR</text>
+                  <text x="236" y="90"  text-anchor="middle" fill="rgba(61,107,92,.85)"  font-size="7"   font-family="IBM Plex Sans,sans-serif">UAE</text>
+                  <text x="258" y="106" text-anchor="middle" fill="rgba(138,111,47,.8)"  font-size="7"   font-family="IBM Plex Sans,sans-serif">Oman</text>
+                  <circle cx="128" cy="100" r="3.5" fill="#48BFA0" opacity=".85">
+                    <animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite"/>
+                  </circle>
+                  <circle cx="234" cy="86" r="3" fill="#48BFA0" opacity=".7">
+                    <animate attributeName="opacity" values="1;0.3;1" dur="2.4s" repeatCount="indefinite"/>
+                  </circle>
+                </svg>
+                <div style="display:flex;gap:20px;padding-top:14px;border-top:1px solid var(--border);margin-top:4px">
+                  <div>
+                    <div style="font-family:var(--font-mono);font-size:18px;color:var(--amber);font-weight:500">$374M</div>
+                    <div style="font-size:9.5px;color:var(--text-3)">GCC honey 2030</div>
+                  </div>
+                  <div>
+                    <div style="font-family:var(--font-mono);font-size:18px;color:#48BFA0;font-weight:500">7.1%</div>
+                    <div style="font-size:9.5px;color:var(--text-3)">Value CAGR</div>
+                  </div>
+                  <div>
+                    <div style="font-family:var(--font-mono);font-size:18px;color:var(--text-1);font-weight:500">6</div>
+                    <div style="font-size:9.5px;color:var(--text-3)">Countries modelled</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Country mini-grid -->
+              <div class="lp-country-grid" style="margin-top:12px">
+                <div class="lp-country-card"><div class="lp-country-name">🇸🇦 Saudi Arabia</div><div class="lp-country-val">SAR</div><div class="lp-country-unit">Largest GCC market</div></div>
+                <div class="lp-country-card"><div class="lp-country-name">🇦🇪 UAE</div><div class="lp-country-val">AED</div><div class="lp-country-unit">Premium segments</div></div>
+                <div class="lp-country-card"><div class="lp-country-name">🇰🇼 Kuwait</div><div class="lp-country-val">KWD</div><div class="lp-country-unit">High per-capita</div></div>
+                <div class="lp-country-card"><div class="lp-country-name">🇶🇦 Qatar</div><div class="lp-country-val">QAR</div><div class="lp-country-unit">HoReCa driven</div></div>
+                <div class="lp-country-card"><div class="lp-country-name">🇧🇭 Bahrain</div><div class="lp-country-val">BHD</div><div class="lp-country-unit">Compact market</div></div>
+                <div class="lp-country-card"><div class="lp-country-name">🇴🇲 Oman</div><div class="lp-country-val">OMR</div><div class="lp-country-unit">Growing demand</div></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ METHODOLOGY + DATA PREVIEW ══ -->
+      <div class="lp-section">
+        <div class="lp-method-grid">
+          <!-- Left: Methodology steps -->
+          <div>
+            <span class="lp-mono-label">Expert analysis, every time</span>
+            <h2 class="lp-heading" style="margin-bottom:16px">A methodology<br>you can cite</h2>
+            <p class="lp-subtext" style="margin-bottom:26px">
+              Every model runs a four-step waterfall — population architecture to scenario assessment. All assumptions carry named sources.
+            </p>
+            <div>
+              <div class="lp-method-step">
+                <span class="lp-method-num">01</span>
+                <div>
+                  <div class="lp-method-title">Population Architecture</div>
+                  <div class="lp-method-desc">Segments by nationality, income, and household composition — anchored to Gulf Statistical Centre census data.</div>
+                </div>
+              </div>
+              <div class="lp-method-step">
+                <span class="lp-method-num">02</span>
+                <div>
+                  <div class="lp-method-title">Supply-Side Calibration</div>
+                  <div class="lp-method-desc">UN FAO production + UN Comtrade import flows triangulated against Euromonitor retail estimates.</div>
+                </div>
+              </div>
+              <div class="lp-method-step">
+                <span class="lp-method-num">03</span>
+                <div>
+                  <div class="lp-method-title">Channel Decomposition</div>
+                  <div class="lp-method-desc">Retail household, HoReCa, food manufacturing, and gifting channels sized independently per country.</div>
+                </div>
+              </div>
+              <div class="lp-method-step">
+                <span class="lp-method-num">04</span>
+                <div>
+                  <div class="lp-method-title">Scenario Assessment</div>
+                  <div class="lp-method-desc">Conservative, moderate, and aggressive growth paths with sub-category premiumisation curves to 2030.</div>
+                </div>
+              </div>
+            </div>
+            <button class="btn-outline" style="margin-top:24px" onclick="showPage('consumer-products')">
+              Explore reports →
+            </button>
+          </div>
+
+          <!-- Right: Data table preview -->
+          <div>
+            <div class="lp-preview-wrap">
+              <div style="padding:13px 16px;border-bottom:1px solid var(--border);
+                          display:flex;align-items:center;justify-content:space-between">
+                <div style="font-size:11.5px;font-weight:600;color:var(--text-1)">Honey · KSA · Annual Forecast</div>
+                <span class="tag" style="background:rgba(72,191,160,.1);color:#48BFA0;border:1px solid rgba(72,191,160,.22);font-size:8.5px">Live data</span>
+              </div>
+              <table class="lp-preview-table">
+                <thead>
+                  <tr>
+                    <th>Year</th>
+                    <th>Volume (T)</th>
+                    <th>Value (SAR M)</th>
+                    <th>CAGR</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td style="color:var(--text-3);font-family:var(--font-mono)">2025</td><td class="lp-preview-val">22,400</td><td class="lp-preview-val">1,580</td><td class="lp-preview-cagr">—</td></tr>
+                  <tr><td style="color:var(--text-3);font-family:var(--font-mono)">2026</td><td class="lp-preview-val">23,850</td><td class="lp-preview-val">1,695</td><td class="lp-preview-cagr">+7.3%</td></tr>
+                  <tr><td style="color:var(--text-3);font-family:var(--font-mono)">2027</td><td class="lp-preview-val">25,420</td><td class="lp-preview-val">1,820</td><td class="lp-preview-cagr">+7.4%</td></tr>
+                  <tr><td style="color:var(--text-3);font-family:var(--font-mono)">2028</td><td class="lp-preview-val">27,100</td><td class="lp-preview-val">1,955</td><td class="lp-preview-cagr">+7.4%</td></tr>
+                  <tr><td style="color:var(--text-3);font-family:var(--font-mono)">2029</td><td class="lp-preview-val">28,920</td><td class="lp-preview-val">2,100</td><td class="lp-preview-cagr">+7.4%</td></tr>
+                  <tr style="background:rgba(184,146,74,.04)">
+                    <td style="color:var(--amber);font-family:var(--font-mono);font-weight:600">2030</td>
+                    <td class="lp-preview-val" style="font-weight:600">30,900</td>
+                    <td class="lp-preview-val" style="font-weight:600">2,257</td>
+                    <td class="lp-preview-cagr" style="font-weight:600">+7.5%</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div style="padding:9px 16px;background:var(--surface);border-top:1px solid var(--border);
+                          font-size:9.5px;color:var(--text-3);font-family:var(--font-mono)">
+                Source: Atlas model · Moderate growth scenario · All channels
+              </div>
+            </div>
+
+            <!-- Mini channel split -->
+            <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:10px">
+              <div style="background:var(--card);border:1px solid var(--border);border-radius:4px;padding:14px 16px">
+                <div style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);font-family:var(--font-mono);margin-bottom:6px">Retail Household</div>
+                <div style="font-family:var(--font-mono);font-size:15px;color:var(--amber);font-weight:500">62%</div>
+                <div style="font-size:10px;color:var(--text-3);margin-top:2px">of total volume</div>
+              </div>
+              <div style="background:var(--card);border:1px solid var(--border);border-radius:4px;padding:14px 16px">
+                <div style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);font-family:var(--font-mono);margin-bottom:6px">HoReCa Channel</div>
+                <div style="font-family:var(--font-mono);font-size:15px;color:#3D6B5C;font-weight:500">21%</div>
+                <div style="font-size:10px;color:var(--text-3);margin-top:2px">of total volume</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ FEATURE GRID ══ -->
+      <div style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+        <div class="lp-section" style="max-width:1200px;margin:0 auto">
+          <div style="text-align:center;margin-bottom:32px">
+            <span class="lp-mono-label" style="display:block">Platform capabilities</span>
+            <h2 class="lp-heading">Built for decision-makers</h2>
+          </div>
+          <div class="lp-features-grid">
+
+            <div class="lp-feature-card">
+              <div class="lp-feature-icon">
+                <svg style="width:18px;height:18px" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/>
+                </svg>
+              </div>
+              <div class="lp-feature-title">Bottom-up Models</div>
+              <div class="lp-feature-desc">Demand built from first principles — population segments, per-capita consumption, and penetration rates. Not top-down benchmarks.</div>
+            </div>
+
+            <div class="lp-feature-card">
+              <div class="lp-feature-icon">
+                <svg style="width:18px;height:18px" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253"/>
+                </svg>
+              </div>
+              <div class="lp-feature-title">GCC-Native Data</div>
+              <div class="lp-feature-desc">Calibrated to Gulf Statistical Centre surveys, UN Comtrade trade flows, and Euromonitor retail estimates — not generic global proxies.</div>
+            </div>
+
+            <div class="lp-feature-card">
+              <div class="lp-feature-icon">
+                <svg style="width:18px;height:18px" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z"/>
+                </svg>
+              </div>
+              <div class="lp-feature-title">Live Dashboards</div>
+              <div class="lp-feature-desc">Interactive Chart.js dashboards connected to Supabase. Filter by country, year, and product. Data updates with every new model run.</div>
+            </div>
+
+            <div class="lp-feature-card">
+              <div class="lp-feature-icon">
+                <svg style="width:18px;height:18px" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+              <div class="lp-feature-title">Citable Methodology</div>
+              <div class="lp-feature-desc">Every assumption carries a named source. UN FAO, Comtrade, World Bank, IMF WEO — transparent enough to put in a board deck.</div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ CTA ══ -->
+      <div class="lp-cta-section">
+        <div class="lp-section" style="max-width:600px;margin:0 auto;text-align:center">
+          <span class="lp-mono-label" style="display:block;text-align:center">Get in touch</span>
+          <h2 class="lp-heading" style="text-align:center;margin-bottom:14px">Need a custom market model?</h2>
+          <p style="font-size:13.5px;color:var(--text-2);margin-bottom:28px;line-height:1.65">
+            We build bespoke demand estimation models for new products and geographies. Reach out to discuss your category and timeline.
+          </p>
+          <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+            <button class="btn-primary" onclick="showComingSoon('Contact')">Request a model →</button>
+            <button class="btn-outline" onclick="showPage('consumer-products')">Browse live reports</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ FOOTER ══ -->
+      <footer class="lp-footer">
+        <div class="lp-footer-grid">
+          <!-- Brand -->
+          <div>
+            <img class="logo-dark" style="height:38px;width:auto;margin-bottom:14px"
+                 src="Atlas%20Design%20System/assets/atlas_logo_gold_on_midnight.png" alt="Atlas Market Intelligence">
+            <img class="logo-light" style="height:38px;width:auto;margin-bottom:14px"
+                 src="Atlas%20Design%20System/assets/atlas_logo_wordmark.png" alt="Atlas Market Intelligence">
+            <p style="font-size:11.5px;color:#6E7785;line-height:1.6;max-width:220px">
+              Bottom-up demand intelligence for consumer products across GCC &amp; MENA markets.
+            </p>
+            <div style="margin-top:16px;font-size:9.5px;color:#4A5568;font-family:var(--font-mono)">v1.0 · May 2026</div>
+          </div>
+          <!-- Markets -->
+          <div>
+            <div class="lp-footer-col-title">Markets</div>
+            <a class="lp-footer-link" onclick="showPage('consumer-products')">Consumer Products</a>
+            <a class="lp-footer-link" onclick="showComingSoon('Defense &amp; Industrial')">Defense &amp; Industrial</a>
+            <a class="lp-footer-link" onclick="showComingSoon('Pharmaceuticals')">Pharmaceuticals</a>
+            <a class="lp-footer-link" onclick="showComingSoon('Technology')">Technology</a>
+            <a class="lp-footer-link" onclick="showPage('industries')">All Industries →</a>
+          </div>
+          <!-- Products -->
+          <div>
+            <div class="lp-footer-col-title">Products</div>
+            <a class="lp-footer-link" onclick="openReport('Dashboard.html','GCC Honey Markets 2024–2030')">GCC Honey</a>
+            <a class="lp-footer-link" onclick="openReport('Dashboard.html','UAE Goat Milk 2024–2030')">UAE Goat Milk</a>
+            <a class="lp-footer-link" onclick="showComingSoon('GCC Olive Oil')">GCC Olive Oil</a>
+            <a class="lp-footer-link" onclick="showComingSoon('GCC Dates')">GCC Dates</a>
+            <a class="lp-footer-link" onclick="showComingSoon('More coming')">More in pipeline…</a>
+          </div>
+          <!-- Platform -->
+          <div>
+            <div class="lp-footer-col-title">Platform</div>
+            <a class="lp-footer-link" onclick="showPage('statistics')">Statistics</a>
+            <a class="lp-footer-link" onclick="showPage('survey')">Survey</a>
+            <a class="lp-footer-link" onclick="showComingSoon('My Reports')">My Reports</a>
+            <a class="lp-footer-link" onclick="showComingSoon('Contact Us')">Contact Us</a>
+          </div>
+        </div>
+        <div class="lp-footer-bottom">
+          <span class="lp-footer-copy">© 2026 Atlas Market Intelligence. All rights reserved.</span>
+          <div style="display:flex;gap:16px">
+            <a class="lp-footer-link" style="margin-bottom:0" onclick="showComingSoon('Privacy Policy')">Privacy</a>
+            <a class="lp-footer-link" style="margin-bottom:0" onclick="showComingSoon('Terms')">Terms</a>
+          </div>
+        </div>
+      </footer>
+
+    </div><!-- /page-home -->
+
+
+    <!-- ─────────────────────────────────────────────────
+         PAGE: STATISTICS
+    ───────────────────────────────────────────────── -->
+    <div id="page-statistics" class="page">
+      <div class="px-4 md:px-8 py-6 md:py-8">
+        <h2 class="text-lg md:text-xl font-bold mb-1 content-page-head">Statistics</h2>
+        <p class="text-sm mb-8" style="color:var(--text-3)">Key market statistics and data summaries across industries and geographies.</p>
+        <div class="flex flex-col items-center justify-center py-20 gap-4">
+          <div class="text-4xl" style="opacity:.25">📊</div>
+          <p class="text-base font-semibold" style="color:var(--text-2)">Statistics dashboard coming soon</p>
+          <p class="text-sm text-center max-w-xs" style="color:var(--text-3)">
+            Aggregated KPIs, cross-industry comparisons, and live data feeds will appear here.
+          </p>
+        </div>
+      </div>
+    </div><!-- /page-statistics -->
+
+
+    <!-- ─────────────────────────────────────────────────
+         PAGE: CONSUMER PRODUCTS
+    ───────────────────────────────────────────────── -->
+    <div id="page-consumer-products" class="page">
+      <div class="px-4 md:px-8 py-6 md:py-8">
+
+        <nav class="breadcrumb-nav">
+          <a onclick="showPage('industries')">Industries</a>
+          <span class="breadcrumb-sep">›</span>
+          <span style="color:var(--amber)">Consumer Products</span>
+        </nav>
+
+        <div class="flex items-start justify-between mb-1 flex-wrap gap-2">
+          <h2 class="text-lg md:text-xl font-bold content-page-head">Consumer Products</h2>
+          <span class="cp-badge-live">● Live Reports Available</span>
+        </div>
+        <p class="text-sm mb-6" style="color:var(--text-3)">
+          Market demand models covering food &amp; beverages, personal care, consumer goods, and appliances across GCC &amp; MENA.
+        </p>
+
+        <!-- ── Food & Beverages ── -->
+        <div class="cp-section">
+          <div class="cp-section-head">
+            <span class="cp-section-title">🥗 Food &amp; Beverages</span>
+            <span class="cp-badge-live">Live</span>
+          </div>
+
+          <div class="cp-sub">
+            <div class="cp-sub-label">Specialty &amp; Natural Foods</div>
+            <div class="cp-report-grid">
+              <a class="cp-report-item live" onclick="openReport('Dashboard.html','GCC Honey Markets 2024–2030')">
+                <span class="cp-report-emoji">🍯</span>
+                <div class="cp-report-text">
+                  <div class="cp-report-name">Honey</div>
+                </div>
+                <span class="cp-report-badge">Live</span>
+              </a>
+              <a class="cp-report-item soon">
+                <span class="cp-report-emoji">🫒</span>
+                <div class="cp-report-text">
+                  <div class="cp-report-name">Olive Oil</div>
+                </div>
+                <span class="cp-report-soon-lbl">Soon</span>
+              </a>
+              <a class="cp-report-item soon">
+                <span class="cp-report-emoji">🌿</span>
+                <div class="cp-report-text">
+                  <div class="cp-report-name">Dates &amp; Dried Fruit</div>
+                </div>
+                <span class="cp-report-soon-lbl">Soon</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="cp-sub">
+            <div class="cp-sub-label">Dairy &amp; Alternatives</div>
+            <div class="cp-report-grid">
+              <a class="cp-report-item live" onclick="openReport('Dashboard.html','UAE Goat Milk 2024–2030')">
+                <span class="cp-report-emoji">🐐</span>
+                <div class="cp-report-text">
+                  <div class="cp-report-name">Goat Milk</div>
+                </div>
+                <span class="cp-report-badge">Live</span>
+              </a>
+              <a class="cp-report-item soon">
+                <span class="cp-report-emoji">🥛</span>
+                <div class="cp-report-text">
+                  <div class="cp-report-name">Cow Milk</div>
+                </div>
+                <span class="cp-report-soon-lbl">Soon</span>
+              </a>
+              <a class="cp-report-item soon">
+                <span class="cp-report-emoji">🌱</span>
+                <div class="cp-report-text">
+                  <div class="cp-report-name">Plant-Based Alternatives</div>
+                </div>
+                <span class="cp-report-soon-lbl">Soon</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="cp-sub">
+            <div class="cp-sub-label">Packaged Beverages &amp; Other</div>
+            <div class="cp-soon-grid">
+              <div class="cp-soon-item">☕ Coffee &amp; Tea</div>
+              <div class="cp-soon-item">🥤 Soft Drinks</div>
+              <div class="cp-soon-item">🍫 Confectionery</div>
+              <div class="cp-soon-item">🌾 Grains &amp; Cereals</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Personal Care & Beauty ── -->
+        <div class="cp-section">
+          <div class="cp-section-head">
+            <span class="cp-section-title">✨ Personal Care &amp; Beauty</span>
+            <span class="cp-badge-soon">Coming Soon</span>
+          </div>
+          <div class="cp-sub">
+            <div class="cp-soon-grid">
+              <div class="cp-soon-item">🧴 Skincare</div>
+              <div class="cp-soon-item">💄 Cosmetics</div>
+              <div class="cp-soon-item">🧼 Personal Hygiene</div>
+              <div class="cp-soon-item">💇 Hair Care</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Consumer Appliances ── -->
+        <div class="cp-section">
+          <div class="cp-section-head">
+            <span class="cp-section-title">🏠 Consumer Appliances</span>
+            <span class="cp-badge-soon">Coming Soon</span>
+          </div>
+          <div class="cp-sub">
+            <div class="cp-soon-grid">
+              <div class="cp-soon-item">❄️ White Goods</div>
+              <div class="cp-soon-item">📺 Consumer Electronics</div>
+              <div class="cp-soon-item">🍳 Kitchen Appliances</div>
+              <div class="cp-soon-item">🌀 Small Appliances</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Consumer Goods (General) ── -->
+        <div class="cp-section">
+          <div class="cp-section-head">
+            <span class="cp-section-title">🛍️ Consumer Goods</span>
+            <span class="cp-badge-soon">Coming Soon</span>
+          </div>
+          <div class="cp-sub">
+            <div class="cp-soon-grid">
+              <div class="cp-soon-item">👗 Apparel &amp; Footwear</div>
+              <div class="cp-soon-item">🏡 Home &amp; Décor</div>
+              <div class="cp-soon-item">📦 Packaged FMCG</div>
+              <div class="cp-soon-item">🎁 Luxury Goods</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /page-consumer-products -->
+
+
+    <!-- ─────────────────────────────────────────────────
+         PAGE: INDUSTRIES
+    ───────────────────────────────────────────────── -->
+    <div id="page-industries" class="page">
+      <div class="px-4 md:px-8 py-6 md:py-8">
+        <h2 class="text-lg md:text-xl font-bold mb-1 content-page-head">Industries</h2>
+        <p class="text-sm mb-5" style="color:var(--text-3)">Browse market reports by industry. Tap any sub-category to view available reports.</p>
+
+        <div class="industry-card divide-y" style="border-color:var(--border)">
+
+          <div class="p-4 md:p-6 industry-row">
+            <div class="flex flex-col md:flex-row md:gap-8 gap-3">
+              <div class="md:w-44 shrink-0">
+                <a class="font-bold text-sm cursor-pointer hover:underline" style="color:var(--amber);font-family:var(--font-display)" onclick="showPage('consumer-products')">Consumer Products ›</a>
+                <div class="mt-1"><span class="tag" style="background:rgba(72,191,160,.1);color:#48BFA0;border:1px solid rgba(72,191,160,.2)">Live Reports</span></div>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2 flex-1">
+                <a class="text-sm flex items-center gap-1.5 cursor-pointer py-1" style="color:var(--amber)"
+                   onclick="openReport('Dashboard.html','GCC Honey Markets 2024–2030')">
+                  <svg class="w-3.5 h-3.5 shrink-0 opacity-60" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+                  Honey
+                </a>
+                <a class="text-sm flex items-center gap-1.5 py-1" style="color:var(--text-3);cursor:not-allowed">
+                  <svg class="w-3.5 h-3.5 shrink-0 opacity-30" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+                  Olive Oil <em class="text-xs ml-1">(soon)</em>
+                </a>
+                <!-- Dairy — expandable, spans full width -->
+                <div style="grid-column:1/-1">
+                  <a class="text-sm flex items-center gap-1.5 py-1 cursor-pointer" style="color:var(--text-3)"
+                     onclick="toggleEl('dairy-sub','dairy-chev')">
+                    <svg class="w-3.5 h-3.5 shrink-0 opacity-30" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+                    Dairy
+                    <svg id="dairy-chev" class="w-3 h-3 ml-1 opacity-40" style="transition:transform .2s;flex-shrink:0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                  </a>
+                  <div id="dairy-sub" style="display:none" class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1 ml-5 mt-0.5 pb-1">
+                    <a class="text-sm flex items-center gap-1.5 py-0.5 cursor-pointer" style="color:var(--amber)"
+                       onclick="openReport('Dashboard.html','UAE Goat Milk 2024–2030')">
+                      <svg class="w-3.5 h-3.5 shrink-0 opacity-60" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+                      Goat Milk
+                      <span class="text-xs ml-1" style="color:#48BFA0;border:1px solid rgba(72,191,160,.3);padding:0 5px;border-radius:2px">Live</span>
+                    </a>
+                    <a class="text-sm flex items-center gap-1.5 py-0.5" style="color:var(--text-3);cursor:not-allowed">
+                      <svg class="w-3.5 h-3.5 shrink-0 opacity-30" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+                      Cow Milk <em class="text-xs ml-1">(soon)</em>
+                    </a>
+                    <a class="text-sm flex items-center gap-1.5 py-0.5" style="color:var(--text-3);cursor:not-allowed">
+                      <svg class="w-3.5 h-3.5 shrink-0 opacity-30" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+                      Other Dairy Products <em class="text-xs ml-1">(soon)</em>
+                    </a>
+                  </div>
+                </div>
+                <a class="text-sm flex items-center gap-1.5 py-1" style="color:var(--text-3);cursor:not-allowed">
+                  <svg class="w-3.5 h-3.5 shrink-0 opacity-30" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+                  Dates &amp; Dried Fruit <em class="text-xs ml-1">(soon)</em>
+                </a>
+                <a class="text-sm flex items-center gap-1.5 py-1" style="color:var(--text-3);cursor:not-allowed">
+                  <svg class="w-3.5 h-3.5 shrink-0 opacity-30" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+                  Personal Care <em class="text-xs ml-1">(soon)</em>
+                </a>
+                <a class="text-sm flex items-center gap-1.5 py-1" style="color:var(--text-3);cursor:not-allowed">
+                  <svg class="w-3.5 h-3.5 shrink-0 opacity-30" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+                  Beverages <em class="text-xs ml-1">(soon)</em>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-4 md:p-6 industry-row">
+            <div class="flex flex-col md:flex-row md:gap-8 gap-2">
+              <div class="md:w-44 shrink-0 font-bold text-sm" style="color:var(--text-1)">Consumer Services</div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1 flex-1 text-sm" style="color:var(--text-3)">
+                <span>Food Services &amp; Delivery <em class="text-xs">(soon)</em></span>
+                <span>Education Services <em class="text-xs">(soon)</em></span>
+                <span>Leisure &amp; Hospitality <em class="text-xs">(soon)</em></span>
+                <span>Travel &amp; Tourism <em class="text-xs">(soon)</em></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-4 md:p-6 industry-row">
+            <div class="flex flex-col md:flex-row md:gap-8 gap-2">
+              <div class="md:w-44 shrink-0 font-bold text-sm" style="color:var(--text-1)">Financial Services</div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1 flex-1 text-sm" style="color:var(--text-3)">
+                <span>Retail Banking <em class="text-xs">(soon)</em></span>
+                <span>Insurance <em class="text-xs">(soon)</em></span>
+                <span>Payments &amp; Transfers <em class="text-xs">(soon)</em></span>
+                <span>Lending &amp; Financing <em class="text-xs">(soon)</em></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-4 md:p-6 industry-row">
+            <div class="flex flex-col md:flex-row md:gap-8 gap-2">
+              <div class="md:w-44 shrink-0 font-bold text-sm" style="color:var(--text-1)">Technology</div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1 flex-1 text-sm" style="color:var(--text-3)">
+                <span>Smartphones &amp; Devices <em class="text-xs">(soon)</em></span>
+                <span>Consumer Electronics <em class="text-xs">(soon)</em></span>
+                <span>Software &amp; Apps <em class="text-xs">(soon)</em></span>
+                <span>E-Commerce Platforms <em class="text-xs">(soon)</em></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-4 md:p-6 industry-row">
+            <div class="flex flex-col md:flex-row md:gap-8 gap-2">
+              <div class="md:w-44 shrink-0 font-bold text-sm" style="color:var(--text-1)">Healthcare &amp; Pharma</div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1 flex-1 text-sm" style="color:var(--text-3)">
+                <span>Pharmaceuticals <em class="text-xs">(soon)</em></span>
+                <span>Medical Devices <em class="text-xs">(soon)</em></span>
+                <span>Diagnostics <em class="text-xs">(soon)</em></span>
+                <span>Health &amp; Wellness <em class="text-xs">(soon)</em></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-4 md:p-6 industry-row">
+            <div class="flex flex-col md:flex-row md:gap-8 gap-2">
+              <div class="md:w-44 shrink-0 font-bold text-sm" style="color:var(--text-1)">Energy &amp; Power</div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1 flex-1 text-sm" style="color:var(--text-3)">
+                <span>Renewable Energy <em class="text-xs">(soon)</em></span>
+                <span>Oil &amp; Gas <em class="text-xs">(soon)</em></span>
+                <span>Energy Storage <em class="text-xs">(soon)</em></span>
+                <span>Power Generation <em class="text-xs">(soon)</em></span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div><!-- /page-industries -->
+
+
+    <!-- ─────────────────────────────────────────────────
+         PAGE: COMPANIES
+    ───────────────────────────────────────────────── -->
+    <div id="page-companies" class="page">
+      <div class="px-4 md:px-8 py-6 md:py-8">
+        <h2 class="text-lg md:text-xl font-bold mb-1 content-page-head">Companies</h2>
+        <p class="text-sm mb-5" style="color:var(--text-3)">Search and explore consumer goods companies active in the GCC &amp; MENA region.</p>
+
+        <div class="rounded p-4 mb-4" style="background:var(--card);border:1px solid var(--border)">
+          <div class="co-filter-grid flex flex-wrap gap-3 items-end">
+            <div class="flex flex-col gap-1 co-filter-item" style="min-width:140px">
+              <label class="text-xs uppercase font-semibold tracking-wide" style="color:var(--text-3)">Search</label>
+              <input id="co-search" type="text" placeholder="Company Search…" oninput="filterCompanies()"
+                class="px-3 py-2 text-sm search-input w-full">
+            </div>
+            <div class="flex flex-col gap-1 co-filter-item" style="min-width:130px">
+              <label class="text-xs uppercase font-semibold tracking-wide" style="color:var(--text-3)">Sector</label>
+              <select id="co-sector" onchange="filterCompanies()"
+                      class="px-3 py-2 text-sm search-input w-full"
+                      style="background:var(--surface);color:var(--text-1)">
+                <option value="">Select Sector</option>
+                <option>Consumer Goods</option>
+                <option>Food &amp; Beverages</option>
+                <option>Retail</option>
+                <option>Healthcare</option>
+              </select>
+            </div>
+            <div class="flex flex-col gap-1 co-filter-item" style="min-width:150px">
+              <label class="text-xs uppercase font-semibold tracking-wide" style="color:var(--text-3)">Industry</label>
+              <select id="co-industry" onchange="filterCompanies()"
+                      class="px-3 py-2 text-sm search-input w-full"
+                      style="background:var(--surface);color:var(--text-1)">
+                <option value="">Select Industry</option>
+                <option>Specialty Food</option>
+                <option>Packaged Food</option>
+                <option>Personal Care</option>
+                <option>Home &amp; Decor</option>
+              </select>
+            </div>
+            <div class="flex flex-col gap-1 co-filter-item" style="min-width:110px">
+              <label class="text-xs uppercase font-semibold tracking-wide" style="color:var(--text-3)">Sort By</label>
+              <select id="co-sort" onchange="filterCompanies()"
+                      class="px-3 py-2 text-sm search-input w-full"
+                      style="background:var(--surface);color:var(--text-1)">
+                <option>Latest</option>
+                <option>Revenue ↓</option>
+                <option>Name A–Z</option>
+              </select>
+            </div>
+            <div class="flex gap-2 items-end pb-0.5">
+              <button class="btn-primary text-sm py-2 px-4" onclick="filterCompanies()">Search</button>
+              <button class="btn-outline text-sm py-2 px-3" onclick="resetCompanies()">Reset</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="rounded overflow-hidden" style="background:var(--card);border:1px solid var(--border)">
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm min-w-max md:min-w-0">
+              <thead>
+                <tr class="text-xs uppercase tracking-wide" style="border-bottom:1px solid var(--border);color:var(--text-3)">
+                  <th class="text-left px-4 md:px-5 py-3 font-semibold">Company</th>
+                  <th class="text-left px-4 py-3 font-semibold">HQ</th>
+                  <th class="text-left px-4 py-3 font-semibold hidden md:table-cell">Sector</th>
+                  <th class="text-left px-4 py-3 font-semibold hidden md:table-cell">Industry</th>
+                  <th class="text-left px-4 py-3 font-semibold hidden lg:table-cell">Revenue</th>
+                  <th class="text-left px-4 py-3 font-semibold hidden lg:table-cell">Employees</th>
+                  <th class="text-left px-4 py-3 font-semibold">Status</th>
+                </tr>
+              </thead>
+              <tbody id="co-table-body"></tbody>
+            </table>
+          </div>
+
+          <div class="flex items-center justify-between px-4 md:px-5 py-3" style="border-top:1px solid var(--border)">
+            <button id="co-prev"
+                    class="text-sm px-3 md:px-4 py-1.5 rounded disabled:opacity-30"
+                    style="border:1px solid var(--border-hi);color:var(--text-2)"
+                    onclick="coPage(-1)">← Prev</button>
+            <span id="co-page-info" class="text-xs" style="color:var(--text-3)"></span>
+            <button id="co-next"
+                    class="text-sm px-3 md:px-4 py-1.5 rounded disabled:opacity-30"
+                    style="border:1px solid var(--border-hi);color:var(--text-2)"
+                    onclick="coPage(1)">Next →</button>
+          </div>
+        </div>
+      </div>
+    </div><!-- /page-companies -->
+
+
+    <!-- ─────────────────────────────────────────────────
+         PAGE: SURVEY
+    ───────────────────────────────────────────────── -->
+    <div id="page-survey" class="page">
+      <div class="flex flex-col">
+        <div class="flex flex-col lg:flex-row">
+          <!-- Left: copy -->
+          <div class="flex-1 flex flex-col justify-center px-6 md:px-12 py-10 md:py-16"
+               style="background:linear-gradient(135deg,#0A1220 0%,#0E1A2B 100%);border-bottom:1px solid var(--border)">
+            <p class="text-xs font-semibold tracking-widest uppercase mb-3"
+               style="color:var(--amber);font-family:var(--font-mono)">Survey Intelligence</p>
+            <h2 class="text-white text-2xl md:text-3xl font-bold leading-snug mb-4"
+                style="font-family:var(--font-display);color:var(--text-ink) !important">
+              All your survey data in one<br class="hidden sm:block">unified Intelligence portal
+            </h2>
+            <p class="text-sm leading-relaxed max-w-md mb-8" style="color:var(--text-2)">
+              Streamline your workflow with access to consumer survey data, multimedia research content, and related documents — all in one place.
+            </p>
+            <div class="flex flex-wrap gap-3">
+              <button class="font-semibold text-sm px-6 py-2.5 rounded"
+                      style="background:var(--amber);color:#0E1A2B"
+                      onclick="showComingSoon('Talk to Expert')">Talk to a Consumer Expert</button>
+              <button class="font-semibold text-sm px-5 py-2.5 rounded"
+                      style="border:1px solid var(--border-hi);color:var(--text-2)"
+                      onclick="showComingSoon('Learn More')">Learn More</button>
+            </div>
+          </div>
+
+          <!-- Right: mockup -->
+          <div class="flex-1 flex items-center justify-center p-6 md:p-10 min-h-64"
+               style="background:var(--obsidian)">
+            <div class="w-full max-w-sm survey-mockup rounded overflow-hidden shadow-lg">
+              <div class="survey-mockup-bar px-4 py-2 flex gap-1.5 items-center">
+                <span class="w-3 h-3 rounded-full" style="background:#6B1F2E"></span>
+                <span class="w-3 h-3 rounded-full" style="background:#B8924A"></span>
+                <span class="w-3 h-3 rounded-full" style="background:#48BFA0"></span>
+                <span class="ml-3 text-xs" style="color:var(--text-3)">Consumer Survey — GCC Markets</span>
+              </div>
+              <div class="p-5">
+                <p class="text-xs font-semibold mb-3" style="color:var(--text-1)">When you think of honey, which of the following associations come to mind?</p>
+                <div class="space-y-2.5">
+                  <div class="flex items-center gap-2">
+                    <div class="flex-1 rounded h-5 overflow-hidden" style="background:rgba(184,146,74,.1)">
+                      <div class="h-full rounded" style="width:72%;background:var(--amber)"></div>
+                    </div>
+                    <span class="text-xs w-20" style="color:var(--text-2)">Natural (72%)</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <div class="flex-1 rounded h-5 overflow-hidden" style="background:rgba(184,146,74,.1)">
+                      <div class="h-full rounded" style="width:58%;background:#8B6F2F"></div>
+                    </div>
+                    <span class="text-xs w-20" style="color:var(--text-2)">Healthy (58%)</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <div class="flex-1 rounded h-5 overflow-hidden" style="background:rgba(184,146,74,.1)">
+                      <div class="h-full rounded" style="width:45%;background:#B8924A"></div>
+                    </div>
+                    <span class="text-xs w-20" style="color:var(--text-2)">Premium (45%)</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <div class="flex-1 rounded h-5 overflow-hidden" style="background:rgba(184,146,74,.1)">
+                      <div class="h-full rounded" style="width:38%;background:#3D6B5C"></div>
+                    </div>
+                    <span class="text-xs w-20" style="color:var(--text-2)">Gift (38%)</span>
+                  </div>
+                </div>
+                <div class="mt-4 grid grid-cols-2 gap-2 text-xs pt-3" style="border-top:1px solid var(--border);color:var(--text-3)">
+                  <div><span class="font-medium" style="color:var(--text-2)">Gender:</span> Select ▾</div>
+                  <div><span class="font-medium" style="color:var(--text-2)">Age:</span> Select ▾</div>
+                  <div><span class="font-medium" style="color:var(--text-2)">Income:</span> Select ▾</div>
+                  <div><span class="font-medium" style="color:var(--text-2)">Country:</span> Select ▾</div>
+                </div>
+                <button class="mt-3 w-full py-2 rounded text-xs font-semibold"
+                        style="background:var(--amber);color:#0E1A2B"
+                        onclick="showComingSoon('Apply Filter')">Apply Filter</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="px-6 md:px-12 py-8" style="background:var(--card);border-top:1px solid var(--border)">
+          <h3 class="text-base font-bold mb-4 text-center" style="font-family:var(--font-display);color:var(--text-ink)">Industries we focus on</h3>
+          <div class="flex flex-wrap justify-center gap-2 md:gap-3">
+            <span class="px-3 md:px-4 py-2 rounded text-sm font-medium"
+                  style="background:var(--surface);color:var(--text-2);border:1px solid var(--border)">Consumer Goods</span>
+            <span class="px-3 md:px-4 py-2 rounded text-sm font-medium"
+                  style="background:var(--surface);color:var(--text-2);border:1px solid var(--border)">Food &amp; Beverages</span>
+            <span class="px-3 md:px-4 py-2 rounded text-sm font-medium"
+                  style="background:var(--surface);color:var(--text-2);border:1px solid var(--border)">Personal Care</span>
+            <span class="px-3 md:px-4 py-2 rounded text-sm font-medium"
+                  style="background:var(--surface);color:var(--text-2);border:1px solid var(--border)">Retail &amp; E-Commerce</span>
+            <span class="px-3 md:px-4 py-2 rounded text-sm font-medium"
+                  style="background:var(--surface);color:var(--text-2);border:1px solid var(--border)">Healthcare</span>
+            <span class="px-3 md:px-4 py-2 rounded text-sm font-medium"
+                  style="background:var(--surface);color:var(--text-2);border:1px solid var(--border)">Financial Services</span>
+          </div>
+        </div>
+      </div>
+    </div><!-- /page-survey -->
+
+
+    <!-- ─────────────────────────────────────────────────
+         PAGE: REPORT VIEWER (iframe)
+    ───────────────────────────────────────────────── -->
+    <div id="page-report" class="page" style="height:calc(100vh - 56px)">
+      <div class="px-4 md:px-5 py-2 flex items-center gap-2 text-sm shrink-0"
+           style="background:var(--card);border-bottom:1px solid var(--border)">
+        <button onclick="showPage('home')" class="flex items-center gap-1 hover:underline" style="color:var(--amber)">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/></svg>
+          Home
+        </button>
+        <span style="color:var(--text-3)">/</span>
+        <span class="font-medium truncate report-breadcrumb" id="report-breadcrumb">Report</span>
+      </div>
+      <iframe id="report-iframe" src="" class="w-full border-0 flex-1" style="height:calc(100vh - 56px - 40px)"></iframe>
+    </div><!-- /page-report -->
+
+</div><!-- /content area -->
+</div><!-- /flex root -->
+
+<!-- Toast -->
+<div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 text-sm px-5 py-2.5 shadow-lg hidden"
+     style="background:var(--amber);color:#0E1A2B;font-weight:500;border-radius:4px">
+  <span id="toast-msg"></span>
+</div>
+
+<script>
+// ─── Company Data ────────────────────────────────────
+const CO_DATA = [
+  {name:'Al Shifa Natural Honey', hq:'Riyadh, Saudi Arabia', sector:'Consumer Goods', industry:'Specialty Food', rev:'$50M–$100M', emp:'201–500', status:'Active'},
+  {name:'Apis Dorsata Holdings', hq:'Dubai, UAE', sector:'Consumer Goods', industry:'Specialty Food', rev:'$10M–$50M', emp:'51–200', status:'Active'},
+  {name:'Sidr Valley Co.', hq:"Sana'a, Yemen / GCC Ops", sector:'Consumer Goods', industry:'Specialty Food', rev:'$5M–$10M', emp:'11–50', status:'Active'},
+  {name:'GCC Foods & Commodities', hq:'Abu Dhabi, UAE', sector:'Food & Beverages', industry:'Packaged Food', rev:'$100M–$500M', emp:'501–1000', status:'Active'},
+  {name:'Manuka Health MENA', hq:'Dubai, UAE', sector:'Consumer Goods', industry:'Specialty Food', rev:'$10M–$50M', emp:'51–200', status:'Active'},
+  {name:'Al Nahl Group', hq:'Riyadh, Saudi Arabia', sector:'Consumer Goods', industry:'Specialty Food', rev:'$1M–$5M', emp:'11–50', status:'Active'},
+  {name:'Baraka Trading LLC', hq:'Muscat, Oman', sector:'Food & Beverages', industry:'Packaged Food', rev:'$1M–$5M', emp:'1–10', status:'Active'},
+  {name:'Horizon Agri Products', hq:'Kuwait City, Kuwait', sector:'Food & Beverages', industry:'Packaged Food', rev:'$5M–$10M', emp:'11–50', status:'Active'},
+  {name:'NaturePure Exports', hq:'Doha, Qatar', sector:'Consumer Goods', industry:'Specialty Food', rev:'$1M–$5M', emp:'1–10', status:'Active'},
+  {name:'Gulf Commodities FZCO', hq:'Dubai, UAE', sector:'Food & Beverages', industry:'Packaged Food', rev:'$50M–$100M', emp:'101–250', status:'Active'},
+  {name:'Desert Harvest LLC', hq:'Manama, Bahrain', sector:'Consumer Goods', industry:'Specialty Food', rev:'<$1M', emp:'1–10', status:'Active'},
+  {name:'Al Barari Organics', hq:'Riyadh, Saudi Arabia', sector:'Consumer Goods', industry:'Specialty Food', rev:'$1M–$5M', emp:'11–50', status:'Active'},
+];
+
+let _coFiltered = [...CO_DATA];
+let _coPage = 0;
+const CO_PAGE_SIZE = 8;
+
+function renderCoTable() {
+  const body = document.getElementById('co-table-body');
+  const start = _coPage * CO_PAGE_SIZE;
+  const rows = _coFiltered.slice(start, start + CO_PAGE_SIZE);
+  body.innerHTML = rows.map(c => `
+    <tr class="tbl-row">
+      <td class="px-4 md:px-5 py-3 font-medium text-sm" style="color:#7ABAE8">${c.name}</td>
+      <td class="px-4 py-3 text-xs" style="color:var(--text-3)">${c.hq}</td>
+      <td class="px-4 py-3 text-xs hidden md:table-cell" style="color:var(--text-3)">${c.sector}</td>
+      <td class="px-4 py-3 text-xs hidden md:table-cell" style="color:var(--text-3)">${c.industry}</td>
+      <td class="px-4 py-3 text-xs hidden lg:table-cell" style="color:var(--text-3)">${c.rev}</td>
+      <td class="px-4 py-3 text-xs hidden lg:table-cell" style="color:var(--text-3)">${c.emp}</td>
+      <td class="px-4 py-3"><span class="status-active">${c.status}</span></td>
+    </tr>`).join('');
+  const total = _coFiltered.length;
+  const pages = Math.ceil(total / CO_PAGE_SIZE);
+  document.getElementById('co-page-info').textContent = `${_coPage+1}/${Math.max(1,pages)} (${total})`;
+  document.getElementById('co-prev').disabled = _coPage === 0;
+  document.getElementById('co-next').disabled = _coPage >= pages - 1;
+}
+
+function filterCompanies() {
+  const q   = (document.getElementById('co-search').value || '').toLowerCase();
+  const sec = document.getElementById('co-sector').value;
+  const ind = document.getElementById('co-industry').value;
+  _coFiltered = CO_DATA.filter(c =>
+    (!q || c.name.toLowerCase().includes(q) || c.hq.toLowerCase().includes(q)) &&
+    (!sec || c.sector === sec) &&
+    (!ind || c.industry === ind)
+  );
+  _coPage = 0;
+  renderCoTable();
+}
+
+function resetCompanies() {
+  document.getElementById('co-search').value = '';
+  document.getElementById('co-sector').value = '';
+  document.getElementById('co-industry').value = '';
+  _coFiltered = [...CO_DATA];
+  _coPage = 0;
+  renderCoTable();
+}
+
+function coPage(dir) {
+  const pages = Math.ceil(_coFiltered.length / CO_PAGE_SIZE);
+  _coPage = Math.max(0, Math.min(pages - 1, _coPage + dir));
+  renderCoTable();
+}
+
+// ─── Report Search ───────────────────────────────────
+function filterReports(q) {
+  q = (q || '').toLowerCase().trim();
+  const cards = document.querySelectorAll('#reports-grid .report-card');
+  let visible = 0;
+  cards.forEach(c => {
+    const tags  = c.dataset.tags || '';
+    const title = c.querySelector('h3') ? c.querySelector('h3').textContent.toLowerCase() : '';
+    const match = !q || tags.includes(q) || title.includes(q);
+    c.style.display = match ? '' : 'none';
+    if (match) visible++;
+  });
+  const noRes = document.getElementById('no-results');
+  if (q && visible === 0) { noRes.classList.remove('hidden'); document.getElementById('no-results-query').textContent = q; }
+  else noRes.classList.add('hidden');
+}
+
+function clearSearch() {
+  document.getElementById('hero-search').value = '';
+  filterReports('');
+}
+
+function doHeaderSearch(q) {
+  const inp = document.getElementById('hero-search');
+  if (inp) inp.value = q;
+  showPage('home');
+  lpFilterCards(q);
+}
+
+// ─── Top-nav dropdowns ───────────────────────────────
+const PORTAL_DDS = ['products','solutions','resources'];
+function togglePortalDD(id) {
+  const isOpen = document.getElementById('dd-'+id).classList.contains('open');
+  closeAllPortalDDs();
+  if (!isOpen) {
+    document.getElementById('dd-'+id).classList.add('open');
+    document.getElementById('pni-'+id).classList.add('dd-open');
+  }
+}
+function closeAllPortalDDs() {
+  PORTAL_DDS.forEach(id => {
+    document.getElementById('dd-'+id)?.classList.remove('open');
+    document.getElementById('pni-'+id)?.classList.remove('dd-open');
+  });
+}
+document.addEventListener('click', e => {
+  if (!e.target.closest('.portal-nav-item')) closeAllPortalDDs();
+});
+
+// ─── Page Navigation ──────────────────────────────────
+const PAGE_IDS = ['home','statistics','industries','consumer-products','companies','survey','report'];
+
+function showPage(name) {
+  PAGE_IDS.forEach(id => {
+    const el = document.getElementById('page-' + id);
+    if (el) el.classList.toggle('active', id === name);
+  });
+  if (name === 'companies') renderCoTable();
+  closeAllPortalDDs();
+  document.getElementById('portal-content')?.scrollTo(0, 0);
+}
+
+function openReport(url, title) {
+  window.location.href = url;
+}
+
+function toggleEl(id, chevId) {
+  const el = document.getElementById(id);
+  const chev = document.getElementById(chevId);
+  if (!el) return;
+  const isHidden = el.style.display === 'none';
+  el.style.display = isHidden ? '' : 'none';
+  if (chev) chev.style.transform = isHidden ? 'rotate(180deg)' : '';
+}
+
+
+// ─── Toast ───────────────────────────────────────────
+let _toastTimer;
+function showComingSoon(feature) {
+  const toast = document.getElementById('toast');
+  document.getElementById('toast-msg').textContent = `${feature} — coming soon!`;
+  toast.classList.remove('hidden');
+  clearTimeout(_toastTimer);
+  _toastTimer = setTimeout(() => toast.classList.add('hidden'), 2500);
+}
+
+// ─── Theme ────────────────────────────────────────────
+function toggleTheme() {
+  const html = document.documentElement;
+  const toLight = html.dataset.theme !== 'light';
+  html.dataset.theme = toLight ? 'light' : '';
+  localStorage.setItem('iai-theme', toLight ? 'light' : 'dark');
+  _updatePortalThemeBtn(toLight);
+}
+function _updatePortalThemeBtn(isLight) {
+  const icon = document.getElementById('portal-theme-icon');
+  const lbl  = document.getElementById('portal-theme-lbl');
+  if (icon) icon.textContent = isLight ? '🌙' : '☀';
+  if (lbl)  lbl.textContent  = isLight ? 'Midnight' : 'Parchment';
+}
+(function() {
+  const saved = localStorage.getItem('iai-theme');
+  if (saved === 'light') document.documentElement.dataset.theme = 'light';
+})();
+
+// ─── Landing page product grid filter ────────────────
+function lpSetCat(cat, el, tabGroupId) {
+  // Update active state on the tab group that was clicked
+  if (tabGroupId) {
+    document.querySelectorAll('#' + tabGroupId + ' .lp-cat-tab').forEach(t => t.classList.remove('active'));
+  }
+  if (el) el.classList.add('active');
+
+  const grid = document.getElementById('lp-prod-grid');
+  if (!grid) return;
+  const cards = grid.querySelectorAll('.lp-prod-card[data-cat]');
+  let visible = 0;
+  cards.forEach(c => {
+    const show = cat === 'all' || c.dataset.cat === cat;
+    c.style.display = show ? '' : 'none';
+    if (show) visible++;
+  });
+  const noRes = document.getElementById('lp-no-results');
+  if (noRes) noRes.style.display = visible === 0 ? '' : 'none';
+}
+
+function lpFilterCards(q) {
+  q = (q || '').toLowerCase().trim();
+  const grid = document.getElementById('lp-prod-grid');
+  if (!grid) return;
+  // Reset category tab to All
+  const allTab = document.querySelector('#lp-prod-tabs .lp-cat-tab[data-cat="all"]');
+  document.querySelectorAll('#lp-prod-tabs .lp-cat-tab').forEach(t => t.classList.remove('active'));
+  if (allTab) allTab.classList.add('active');
+
+  const cards = grid.querySelectorAll('.lp-prod-card[data-cat]');
+  let visible = 0;
+  cards.forEach(c => {
+    const name = c.querySelector('.lp-prod-name') ? c.querySelector('.lp-prod-name').textContent.toLowerCase() : '';
+    const geo  = c.querySelector('.lp-prod-geo')  ? c.querySelector('.lp-prod-geo').textContent.toLowerCase()  : '';
+    const show = !q || name.includes(q) || geo.includes(q);
+    c.style.display = show ? '' : 'none';
+    if (show) visible++;
+  });
+  const noRes = document.getElementById('lp-no-results');
+  if (noRes) noRes.style.display = (q && visible === 0) ? '' : 'none';
+}
+
+function lpClearSearch() {
+  const inp = document.getElementById('hero-search');
+  if (inp) inp.value = '';
+  lpFilterCards('');
+}
+
+function filterReports() { /* no-op — legacy function, grid removed */ }
+function clearSearch() { lpClearSearch(); }
+
+// ─── Init ─────────────────────────────────────────────
+renderCoTable();
+_updatePortalThemeBtn(document.documentElement.dataset.theme === 'light');
+
+// ─── Hero aurora (vanilla port of AuroraBackground) ──────────────────
+function initHeroAurora() {
+  const hero = document.querySelector('.hero-bg');
+  if (!hero || hero.querySelector('.hero-aurora')) return;
+  const el = document.createElement('div');
+  el.className = 'hero-aurora';
+  hero.insertBefore(el, hero.firstChild);
+}
+initHeroAurora();
+</script>
+</body>
+</html>
