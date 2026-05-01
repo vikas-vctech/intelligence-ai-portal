@@ -434,6 +434,212 @@
   html[data-theme="light"] .inline-flex[style*="rgba(255,255,255,.04)"] {
     background: rgba(0,0,0,.04) !important;
   }
+
+  /* ═══════════════════════════════════════════════════════════
+     LANDING PAGE SECTIONS
+  ═══════════════════════════════════════════════════════════ */
+  .lp-section { padding: 60px 40px; }
+  .lp-section-narrow { padding: 40px 40px; }
+  @media (max-width: 768px) {
+    .lp-section { padding: 40px 20px; }
+    .lp-section-narrow { padding: 28px 20px; }
+  }
+  .lp-mono-label {
+    font-family: var(--font-mono);
+    font-size: 9.5px; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--amber); margin-bottom: 14px; display: block;
+  }
+  .lp-heading {
+    font-family: var(--font-display);
+    font-size: clamp(22px, 2.8vw, 30px);
+    font-weight: 400; color: var(--text-ink);
+    line-height: 1.15; letter-spacing: -.015em;
+  }
+  .lp-subtext {
+    font-size: 13.5px; color: var(--text-2);
+    line-height: 1.65; max-width: 520px;
+  }
+
+  /* ── Hero two-column ── */
+  .lp-hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 48px; align-items: center;
+    max-width: 1200px; margin: 0 auto;
+  }
+  @media (max-width: 900px) {
+    .lp-hero-grid { grid-template-columns: 1fr; }
+    .lp-hero-visual { display: none; }
+  }
+
+  /* ── Trust bar ── */
+  .lp-trust-bar {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 13px 40px;
+    display: flex; align-items: center; gap: 8px;
+    overflow-x: auto; white-space: nowrap;
+  }
+  .lp-trust-label {
+    font-size: 9px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--text-3); margin-right: 4px;
+    font-family: var(--font-mono); flex-shrink: 0;
+  }
+  .lp-trust-item {
+    padding: 4px 14px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-size: 10.5px; font-weight: 600;
+    color: var(--text-3);
+    background: rgba(255,255,255,.025);
+    font-family: var(--font-ui); flex-shrink: 0;
+    letter-spacing: .02em;
+  }
+  html[data-theme="light"] .lp-trust-item {
+    background: rgba(0,0,0,.03);
+    color: var(--text-2);
+  }
+
+  /* ── Category tabs ── */
+  .lp-cat-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 22px; }
+  .lp-cat-tab {
+    padding: 6px 16px; border-radius: 99px;
+    font-size: 11.5px; font-weight: 500;
+    border: 1px solid var(--border);
+    color: var(--text-2); cursor: pointer;
+    transition: all .15s; background: transparent;
+    font-family: var(--font-ui);
+  }
+  .lp-cat-tab:hover { border-color: var(--amber); color: var(--amber); }
+  .lp-cat-tab.active { background: var(--amber); color: #0E1A2B; border-color: var(--amber); }
+  html[data-theme="light"] .lp-cat-tab.active { color: #FFF5E6; }
+
+  /* ── Product discovery grid ── */
+  .lp-prod-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 14px;
+  }
+  .lp-prod-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px; overflow: hidden; cursor: pointer;
+    transition: border-color .18s, transform .18s, box-shadow .18s;
+  }
+  .lp-prod-card:hover {
+    border-color: rgba(184,146,74,.4);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,.35);
+  }
+  .lp-prod-card.soon { opacity: .55; cursor: default; }
+  .lp-prod-card.soon:hover { transform: none; box-shadow: none; border-color: var(--border); }
+  .lp-prod-thumb {
+    height: 108px; position: relative;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 42px; overflow: hidden;
+  }
+  .lp-prod-info { padding: 12px 14px 14px; }
+  .lp-prod-name { font-size: 13px; font-weight: 600; color: var(--text-ink); margin-bottom: 3px; }
+  .lp-prod-geo  { font-size: 10.5px; color: var(--text-3); }
+  .lp-prod-badge {
+    display: inline-block; font-size: 8.5px; font-weight: 700;
+    letter-spacing: .06em; text-transform: uppercase;
+    padding: 2px 7px; border-radius: 99px; margin-top: 8px;
+    font-family: var(--font-mono);
+  }
+  .lp-prod-badge.live  { background: rgba(72,191,160,.12); color: #48BFA0; border: 1px solid rgba(72,191,160,.25); }
+  .lp-prod-badge.soon-b{ background: rgba(255,255,255,.04); color: var(--text-3); border: 1px solid var(--border); }
+
+  /* ── Stats bar ── */
+  .lp-stats-bar {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    background: var(--surface);
+    border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  }
+  @media (max-width: 640px) { .lp-stats-bar { grid-template-columns: repeat(2, 1fr); } }
+  .lp-stat-cell {
+    padding: 30px 20px; text-align: center;
+    border-right: 1px solid var(--border);
+  }
+  .lp-stat-cell:last-child { border-right: none; }
+  .lp-stat-num {
+    font-family: var(--font-mono); font-size: 30px; font-weight: 500; line-height: 1; margin-bottom: 7px;
+  }
+  .lp-stat-desc { font-size: 11px; color: var(--text-3); line-height: 1.45; }
+
+  /* ── Coverage section ── */
+  .lp-coverage-bg { background: var(--surface); }
+  .lp-coverage-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 48px; align-items: center; max-width: 1200px; margin: 0 auto;
+  }
+  @media (max-width: 768px) { .lp-coverage-grid { grid-template-columns: 1fr; } }
+  .lp-country-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 9px; }
+  .lp-country-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 4px; padding: 12px 14px;
+  }
+  .lp-country-name { font-size: 11px; font-weight: 700; color: var(--text-1); margin-bottom: 3px; }
+  .lp-country-val  { font-family: var(--font-mono); font-size: 13px; color: var(--amber); font-weight: 500; }
+  .lp-country-unit { font-size: 9.5px; color: var(--text-3); margin-top: 2px; }
+
+  /* ── Methodology + table ── */
+  .lp-method-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 48px; align-items: start; max-width: 1200px; margin: 0 auto;
+  }
+  @media (max-width: 768px) { .lp-method-grid { grid-template-columns: 1fr; } }
+  .lp-method-step {
+    display: flex; gap: 16px; padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .lp-method-step:last-child { border-bottom: none; }
+  .lp-method-num { font-family: var(--font-mono); font-size: 11px; color: var(--amber); min-width: 26px; flex-shrink: 0; padding-top: 2px; }
+  .lp-method-title { font-size: 13px; font-weight: 600; color: var(--text-ink); margin-bottom: 3px; }
+  .lp-method-desc  { font-size: 11.5px; color: var(--text-3); line-height: 1.55; }
+
+  /* ── Data preview table ── */
+  .lp-preview-wrap { background: var(--card); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+  .lp-preview-table { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+  .lp-preview-table th {
+    text-align: left; padding: 10px 14px;
+    font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--text-3); background: var(--surface); border-bottom: 1px solid var(--border);
+  }
+  .lp-preview-table td { padding: 9px 14px; color: var(--text-1); border-bottom: 1px solid rgba(245,240,230,.05); }
+  .lp-preview-table tr:hover td { background: rgba(184,146,74,.03); }
+  .lp-preview-val  { color: var(--amber); font-family: var(--font-mono); font-weight: 500; }
+  .lp-preview-cagr { color: #48BFA0; font-family: var(--font-mono); }
+
+  /* ── Feature grid ── */
+  .lp-features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  @media (max-width: 900px) { .lp-features-grid { grid-template-columns: repeat(2, 1fr); } }
+  .lp-feature-card { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 22px 18px; }
+  .lp-feature-icon {
+    width: 34px; height: 34px; background: rgba(184,146,74,.1); border-radius: 4px;
+    display: flex; align-items: center; justify-content: center; margin-bottom: 14px; color: var(--amber);
+  }
+  .lp-feature-title { font-size: 13.5px; font-weight: 600; color: var(--text-ink); margin-bottom: 6px; }
+  .lp-feature-desc  { font-size: 11.5px; color: var(--text-3); line-height: 1.6; }
+
+  /* ── CTA section ── */
+  .lp-cta-section { background: var(--card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+  /* ── Footer ── */
+  .lp-footer { background: #060C18; border-top: 1px solid var(--border); padding: 44px 40px 28px; }
+  html[data-theme="light"] .lp-footer { background: #1A2638; }
+  .lp-footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 32px; margin-bottom: 32px; max-width: 1200px; margin-left: auto; margin-right: auto; }
+  @media (max-width: 768px) { .lp-footer-grid { grid-template-columns: 1fr 1fr; } }
+  .lp-footer-col-title { font-size: 9.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #6E7785; margin-bottom: 12px; font-family: var(--font-mono); }
+  .lp-footer-link { display: block; font-size: 12px; color: #6E7785; text-decoration: none; margin-bottom: 8px; cursor: pointer; transition: color .12s; }
+  .lp-footer-link:hover { color: var(--amber); }
+  .lp-footer-bottom { border-top: 1px solid rgba(245,240,230,.08); padding-top: 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; max-width: 1200px; margin: 0 auto; }
+  .lp-footer-copy { font-size: 10px; color: #4A5568; font-family: var(--font-mono); }
+
+  /* Mini chart SVG animation */
+  @keyframes barRise { from { transform: scaleY(0); transform-origin: bottom; } to { transform: scaleY(1); transform-origin: bottom; } }
+  .lp-bar { animation: barRise .6s cubic-bezier(.22,1,.36,1) both; }
 </style>
 </head>
 
@@ -591,198 +797,596 @@
     ───────────────────────────────────────────────── -->
     <div id="page-home" class="page active">
 
-      <!-- Hero -->
-      <div class="hero-bg px-4 md:px-8 py-12 md:py-20 text-center relative z-10">
-        <div class="flex justify-center mb-5">
-          <img class="logo-dark" src="Atlas%20Design%20System/assets/atlas_logo_gold_on_midnight.png"
-               alt="Atlas Market Intelligence" style="height:52px;width:auto">
-          <img class="logo-light" src="Atlas%20Design%20System/assets/atlas_logo_wordmark.png"
-               alt="Atlas Market Intelligence" style="height:52px;width:auto">
-        </div>
-        <h1 class="hero-title mb-4">
-          Demand<br><em>Intelligence</em>
-        </h1>
-        <p class="hero-subtitle text-sm mb-8 max-w-md mx-auto">
-          Bottom-up market forecasts &amp; demand estimation models for consumer products worldwide
-        </p>
+      <!-- ══ HERO ══ -->
+      <div class="hero-bg lp-section" style="padding-top:52px;padding-bottom:52px">
+        <div class="lp-hero-grid">
 
-        <!-- Search tabs -->
-        <div class="inline-flex rounded p-1 mb-5"
-             style="background:rgba(255,255,255,.04);border:1px solid var(--border)">
-          <button class="px-4 py-1.5 rounded-md text-sm font-semibold"
-                  style="background:var(--amber);color:#0E1A2B">Search</button>
-          <button class="px-4 py-1.5 rounded-md text-sm"
-                  style="color:var(--text-3)"
-                  onclick="showComingSoon('AI Analysis')">AI Analysis</button>
-        </div>
-
-        <!-- Search bar -->
-        <div class="max-w-2xl mx-auto flex gap-0 rounded overflow-hidden"
-             style="border:1px solid var(--border-hi);background:var(--surface);box-shadow:0 4px 24px rgba(0,0,0,.5)">
-          <div class="flex items-center pl-3 md:pl-4">
-            <svg class="w-4 h-4 md:w-5 md:h-5" style="color:var(--text-3)"
-                 fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 15.803 7.5 7.5 0 0015.803 15.803z"/>
-            </svg>
-          </div>
-          <input id="hero-search" type="text" placeholder="Find market statistics &amp; reports…"
-            class="flex-1 px-3 md:px-4 py-3 md:py-3.5 text-sm bg-transparent outline-none min-w-0"
-            style="color:var(--text-1)"
-            oninput="filterReports(this.value)"
-            onkeydown="if(event.key==='Enter') filterReports(this.value)">
-          <button class="px-4 md:px-6 py-3 text-sm font-semibold shrink-0"
-                  style="background:var(--amber);color:#0E1A2B"
-                  onclick="filterReports(document.getElementById('hero-search').value)">Search</button>
-        </div>
-
-        <!-- Popular tags -->
-        <div class="mt-5 flex flex-wrap justify-center gap-2">
-          <span class="text-sm font-medium" style="color:var(--text-3)">Popular:</span>
-          <span class="tag cursor-pointer py-1 px-3"
-                style="border:1px solid var(--border-hi);color:var(--text-2);background:rgba(255,255,255,.03)"
-                onclick="filterReports('Consumer Goods')">Consumer Goods</span>
-          <span class="tag cursor-pointer py-1 px-3"
-                style="border:1px solid var(--border-hi);color:var(--text-2);background:rgba(255,255,255,.03)"
-                onclick="filterReports('Food')">Food &amp; Beverages</span>
-          <span class="tag cursor-pointer py-1 px-3"
-                style="border:1px solid var(--border-hi);color:var(--text-2);background:rgba(255,255,255,.03)"
-                onclick="filterReports('GCC')">GCC Markets</span>
-          <span class="tag cursor-pointer py-1 px-3"
-                style="border:1px solid rgba(184,146,74,.4);color:var(--amber);background:rgba(184,146,74,.08)"
-                onclick="filterReports('Honey')">Honey</span>
-          <span class="tag cursor-pointer py-1 px-3"
-                style="border:1px solid var(--border-hi);color:var(--text-2);background:rgba(255,255,255,.03)"
-                onclick="filterReports('MENA')">MENA Region</span>
-        </div>
-      </div>
-
-      <!-- Featured Reports -->
-      <div class="px-4 md:px-8 py-8 md:py-10">
-        <div class="flex items-center justify-between mb-6">
+          <!-- Left: Text + search -->
           <div>
-            <h2 class="text-base md:text-lg font-bold" style="font-family:var(--font-display);color:var(--text-ink)">
-              Featured Reports
-            </h2>
-            <p class="text-xs md:text-sm mt-0.5" style="color:var(--text-3)">
-              Live demand estimation models — updated from Supabase
+            <span class="lp-mono-label">Atlas Market Intelligence · GCC &amp; MENA</span>
+            <h1 class="hero-title" style="font-size:clamp(36px,5vw,66px);text-align:left;margin-bottom:18px;line-height:.95">
+              Demand<br><em>Intelligence</em>
+            </h1>
+            <p class="lp-subtext" style="margin-bottom:28px">
+              Bottom-up demand estimation models for consumer products across GCC markets — built from population architecture, supply validation, and channel decomposition.
             </p>
-          </div>
-          <a class="text-xs md:text-sm font-medium shrink-0 ml-2 cursor-pointer"
-             style="color:var(--amber)"
-             onclick="showPage('industries')">Browse all →</a>
-        </div>
 
-        <div id="reports-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-5">
-
-          <!-- GCC Honey — LIVE -->
-          <div class="report-card animate-in" data-tags="honey gcc food consumer"
-               onclick="openReport('Dashboard.html','GCC Honey Markets 2024–2030')"
-               style="animation-delay:.05s">
-            <div class="h-24 md:h-28 flex items-center justify-center text-4xl md:text-5xl relative overflow-hidden"
-                 style="background:linear-gradient(135deg,#1A0E00 0%,#2A1800 60%,#1A0A00 100%)">
-              <span style="filter:drop-shadow(0 0 12px rgba(232,146,10,.6))">🍯</span>
-              <div class="absolute inset-0" style="background:radial-gradient(circle at 30% 50%,rgba(232,146,10,.08),transparent 60%)"></div>
-            </div>
-            <div class="p-4">
-              <div class="flex gap-1.5 mb-2 flex-wrap">
-                <span class="tag" style="background:rgba(72,191,160,.1);color:#48BFA0;border:1px solid rgba(72,191,160,.2)">Live</span>
-                <span class="tag" style="background:rgba(184,146,74,.08);color:var(--amber);border:1px solid rgba(184,146,74,.2)">Consumer Goods</span>
+            <!-- Search bar -->
+            <div style="display:flex;max-width:500px;border:1px solid var(--border-hi);background:var(--surface);
+                        border-radius:4px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.4);margin-bottom:20px">
+              <div style="display:flex;align-items:center;padding-left:14px">
+                <svg style="width:16px;height:16px;color:var(--text-3)" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 15.803 7.5 7.5 0 0015.803 15.803z"/>
+                </svg>
               </div>
-              <h3 class="font-bold text-sm mb-1" style="color:var(--text-ink)">GCC Honey Markets 2024–2030</h3>
-              <p class="text-xs leading-relaxed mb-3" style="color:var(--text-3)">Bottom-up demand forecast across 6 GCC countries — retail, HoReCa, food mfg &amp; gifting channels.</p>
-              <div class="flex flex-wrap gap-1 mb-4">
-                <span class="tag" style="border:1px solid var(--border-hi);color:var(--text-3)">KSA</span>
-                <span class="tag" style="border:1px solid var(--border-hi);color:var(--text-3)">UAE</span>
-                <span class="tag" style="border:1px solid var(--border-hi);color:var(--text-3)">KWT</span>
-                <span class="tag" style="border:1px solid var(--border-hi);color:var(--text-3)">QAT</span>
-                <span class="tag" style="border:1px solid var(--border-hi);color:var(--text-3)">BHR</span>
-                <span class="tag" style="border:1px solid var(--border-hi);color:var(--text-3)">OMN</span>
-              </div>
-              <button class="w-full py-2.5 rounded text-xs font-semibold"
-                      style="background:var(--amber);color:#0E1A2B">
-                View Dashboard →
+              <input id="hero-search" type="text" placeholder="Find a market or product…"
+                style="flex:1;padding:12px 12px;font-size:13px;background:transparent;border:none;
+                       outline:none;color:var(--text-1);font-family:var(--font-ui);min-width:0"
+                oninput="lpFilterCards(this.value)"
+                onkeydown="if(event.key==='Enter') lpFilterCards(this.value)">
+              <button onclick="lpFilterCards(document.getElementById('hero-search').value)"
+                style="padding:0 20px;background:var(--amber);color:#0E1A2B;font-size:13px;font-weight:600;
+                       border:none;cursor:pointer;font-family:var(--font-ui);white-space:nowrap;flex-shrink:0">
+                Search
               </button>
             </div>
-          </div>
 
-          <!-- Placeholders -->
-          <div class="report-card animate-in" style="opacity:.55;animation-delay:.1s"
-               data-tags="" onclick="showComingSoon('Olive Oil GCC')">
-            <div class="h-24 md:h-28 flex items-center justify-center text-4xl md:text-5xl"
-                 style="background:linear-gradient(135deg,#0A1200,#141E08)">🫒</div>
-            <div class="p-4">
-              <div class="flex gap-1.5 mb-2">
-                <span class="tag" style="background:rgba(255,255,255,.05);color:var(--text-3);border:1px solid var(--border)">Coming Soon</span>
-                <span class="tag" style="background:rgba(184,146,74,.06);color:var(--amber);border:1px solid rgba(184,146,74,.15)">Consumer Goods</span>
-              </div>
-              <h3 class="font-bold text-sm mb-1" style="color:var(--text-1)">GCC Olive Oil Markets</h3>
-              <p class="text-xs leading-relaxed mb-3" style="color:var(--text-3)">Demand estimation for premium olive oil across GCC retail and food service channels.</p>
-              <button class="w-full py-2.5 rounded text-xs font-semibold"
-                      style="background:rgba(255,255,255,.05);color:var(--text-3);cursor:not-allowed" disabled>Coming Soon</button>
+            <!-- Quick tags -->
+            <div style="display:flex;flex-wrap:wrap;gap:7px;align-items:center">
+              <span style="font-size:11px;color:var(--text-3)">Popular:</span>
+              <span class="lp-cat-tab" style="padding:4px 12px;font-size:11px" onclick="lpSetCat('food',this,'lp-hero-tabs')">Food &amp; Bev</span>
+              <span class="lp-cat-tab" style="padding:4px 12px;font-size:11px" onclick="lpSetCat('dairy',this,'lp-hero-tabs')">Dairy</span>
+              <span class="lp-cat-tab" style="padding:4px 12px;font-size:11px" onclick="lpSetCat('all',this,'lp-hero-tabs')">GCC Markets</span>
             </div>
           </div>
 
-          <div class="report-card animate-in" style="opacity:.55;animation-delay:.15s"
-               data-tags="" onclick="showComingSoon('Dairy GCC')">
-            <div class="h-24 md:h-28 flex items-center justify-center text-4xl md:text-5xl"
-                 style="background:linear-gradient(135deg,#0A1018,#141822)">🥛</div>
-            <div class="p-4">
-              <div class="flex gap-1.5 mb-2">
-                <span class="tag" style="background:rgba(255,255,255,.05);color:var(--text-3);border:1px solid var(--border)">Coming Soon</span>
-                <span class="tag" style="background:rgba(184,146,74,.06);color:var(--amber);border:1px solid rgba(184,146,74,.15)">Consumer Goods</span>
+          <!-- Right: Decorative mini bar chart -->
+          <div class="lp-hero-visual">
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:4px;
+                        padding:18px 20px 16px;overflow:hidden;position:relative">
+              <!-- Amber top accent line -->
+              <div style="position:absolute;top:0;left:0;right:0;height:2px;
+                          background:linear-gradient(90deg,transparent 0%,var(--amber) 30%,#F4BC18 60%,transparent 100%)"></div>
+              <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:.14em;
+                          text-transform:uppercase;color:var(--text-3);margin-bottom:14px">
+                GCC Honey · Market Value (USD M) · 2025–2030
               </div>
-              <h3 class="font-bold text-sm mb-1" style="color:var(--text-1)">GCC Dairy Markets</h3>
-              <p class="text-xs leading-relaxed mb-3" style="color:var(--text-3)">Milk, cheese, labneh and halloumi demand across GCC with expat–national segmentation.</p>
-              <button class="w-full py-2.5 rounded text-xs font-semibold"
-                      style="background:rgba(255,255,255,.05);color:var(--text-3);cursor:not-allowed" disabled>Coming Soon</button>
+              <!-- SVG bar chart -->
+              <svg viewBox="0 0 300 128" width="100%" style="display:block;overflow:visible">
+                <!-- Grid lines -->
+                <line x1="0" y1="20"  x2="300" y2="20"  stroke="rgba(245,240,230,.06)" stroke-width="1"/>
+                <line x1="0" y1="50"  x2="300" y2="50"  stroke="rgba(245,240,230,.06)" stroke-width="1"/>
+                <line x1="0" y1="80"  x2="300" y2="80"  stroke="rgba(245,240,230,.06)" stroke-width="1"/>
+                <line x1="0" y1="110" x2="300" y2="110" stroke="rgba(245,240,230,.06)" stroke-width="1"/>
+                <!-- Bars: heights map to values $265M→$374M over 6yrs -->
+                <rect class="lp-bar" x="6"   y="82"  width="32" height="28" rx="2" fill="#B8924A" opacity=".85" style="animation-delay:.1s"/>
+                <rect class="lp-bar" x="54"  y="72"  width="32" height="38" rx="2" fill="#B8924A" opacity=".88" style="animation-delay:.18s"/>
+                <rect class="lp-bar" x="102" y="59"  width="32" height="51" rx="2" fill="#C9A55A" opacity=".9"  style="animation-delay:.26s"/>
+                <rect class="lp-bar" x="150" y="45"  width="32" height="65" rx="2" fill="#D4AF62" opacity=".92" style="animation-delay:.34s"/>
+                <rect class="lp-bar" x="198" y="29"  width="32" height="81" rx="2" fill="#E2BC6A" opacity=".95" style="animation-delay:.42s"/>
+                <rect class="lp-bar" x="246" y="12"  width="32" height="98" rx="2" fill="#F4BC18" opacity=".98" style="animation-delay:.5s"/>
+                <!-- Value labels on top bars -->
+                <text x="22"  y="78"  text-anchor="middle" fill="rgba(245,240,230,.4)" font-size="8"  font-family="JetBrains Mono,monospace">265</text>
+                <text x="262" y="8"   text-anchor="middle" fill="#F4BC18"               font-size="8.5"font-family="JetBrains Mono,monospace">374</text>
+                <!-- Year labels -->
+                <text x="22"  y="124" text-anchor="middle" fill="rgba(245,240,230,.3)" font-size="8" font-family="JetBrains Mono,monospace">2025</text>
+                <text x="70"  y="124" text-anchor="middle" fill="rgba(245,240,230,.3)" font-size="8" font-family="JetBrains Mono,monospace">2026</text>
+                <text x="118" y="124" text-anchor="middle" fill="rgba(245,240,230,.3)" font-size="8" font-family="JetBrains Mono,monospace">2027</text>
+                <text x="166" y="124" text-anchor="middle" fill="rgba(245,240,230,.3)" font-size="8" font-family="JetBrains Mono,monospace">2028</text>
+                <text x="214" y="124" text-anchor="middle" fill="rgba(245,240,230,.3)" font-size="8" font-family="JetBrains Mono,monospace">2029</text>
+                <text x="262" y="124" text-anchor="middle" fill="rgba(245,240,230,.3)" font-size="8" font-family="JetBrains Mono,monospace">2030</text>
+                <!-- Trend line overlay -->
+                <polyline points="22,82 70,72 118,59 166,45 214,29 262,12"
+                          fill="none" stroke="#48BFA0" stroke-width="1.5" stroke-dasharray="4 3" opacity=".65"/>
+              </svg>
+              <!-- CAGR footer -->
+              <div style="display:flex;align-items:center;justify-content:space-between;
+                          border-top:1px solid var(--border);margin-top:12px;padding-top:10px">
+                <div style="font-size:10px;color:var(--text-3)">Value CAGR 2025–2030</div>
+                <div style="font-family:var(--font-mono);font-size:14px;color:#48BFA0;font-weight:600">+7.1%</div>
+              </div>
             </div>
-          </div>
-
-          <div class="report-card animate-in" style="opacity:.55;animation-delay:.2s"
-               data-tags="" onclick="showComingSoon('Dates MENA')">
-            <div class="h-24 md:h-28 flex items-center justify-center text-4xl md:text-5xl"
-                 style="background:linear-gradient(135deg,#10080A,#1E1008)">🌴</div>
-            <div class="p-4">
-              <div class="flex gap-1.5 mb-2">
-                <span class="tag" style="background:rgba(255,255,255,.05);color:var(--text-3);border:1px solid var(--border)">Coming Soon</span>
-                <span class="tag" style="background:rgba(184,146,74,.06);color:var(--amber);border:1px solid rgba(184,146,74,.15)">Consumer Goods</span>
+            <!-- Floating badge -->
+            <div style="position:relative;margin-top:10px;display:flex;justify-content:flex-end">
+              <div style="background:var(--card);border:1px solid rgba(184,146,74,.35);border-radius:4px;
+                          padding:9px 16px;box-shadow:0 4px 16px rgba(0,0,0,.4);display:inline-block">
+                <div style="font-size:9px;color:var(--text-3);font-family:var(--font-mono);margin-bottom:3px">GCC TOTAL 2030 EST.</div>
+                <div style="font-family:var(--font-mono);font-size:20px;color:var(--amber);font-weight:500;line-height:1">$374M</div>
               </div>
-              <h3 class="font-bold text-sm mb-1" style="color:var(--text-1)">GCC Dates &amp; Dried Fruit</h3>
-              <p class="text-xs leading-relaxed mb-3" style="color:var(--text-3)">Premium dates and dried fruit demand including Ramadan seasonal surge modelling.</p>
-              <button class="w-full py-2.5 rounded text-xs font-semibold"
-                      style="background:rgba(255,255,255,.05);color:var(--text-3);cursor:not-allowed" disabled>Coming Soon</button>
             </div>
           </div>
 
         </div>
+      </div>
 
-        <!-- No results -->
-        <div id="no-results" class="hidden text-center py-16" style="color:var(--text-3)">
-          <svg class="w-12 h-12 mx-auto mb-3 opacity-30" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 15.803 7.5 7.5 0 0015.803 15.803z"/></svg>
-          <p class="text-sm font-medium">No reports match "<span id="no-results-query"></span>"</p>
-          <p class="text-xs mt-1">More reports in development. <a class="underline cursor-pointer" style="color:var(--amber)" onclick="clearSearch()">Clear search</a></p>
-        </div>
+      <!-- ══ DATA SOURCES BAR ══ -->
+      <div class="lp-trust-bar">
+        <span class="lp-trust-label">Data anchored to</span>
+        <span class="lp-trust-item">UN FAO</span>
+        <span class="lp-trust-item">UN Comtrade</span>
+        <span class="lp-trust-item">World Bank</span>
+        <span class="lp-trust-item">IMF WEO</span>
+        <span class="lp-trust-item">Euromonitor</span>
+        <span class="lp-trust-item">Gulf Statistical Centres</span>
+        <span class="lp-trust-item">ITC TradeMap</span>
+      </div>
 
-        <!-- Stats row -->
-        <div class="mt-10 md:mt-14 grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-          <div class="stat-card p-4 md:p-5 text-center">
-            <div class="text-2xl font-bold" style="font-family:var(--font-mono);color:var(--amber)">6</div>
-            <div class="text-xs mt-1" style="color:var(--text-3)">GCC Countries</div>
+      <!-- ══ PRODUCT DISCOVERY ══ -->
+      <div class="lp-section">
+        <div style="max-width:1200px;margin:0 auto">
+          <span class="lp-mono-label">Starting point of your research</span>
+          <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:22px">
+            <h2 class="lp-heading">Explore markets &amp; products</h2>
+            <a style="font-size:12px;color:var(--amber);cursor:pointer;font-weight:500;flex-shrink:0"
+               onclick="showPage('industries')">Browse all industries →</a>
           </div>
-          <div class="stat-card p-4 md:p-5 text-center">
-            <div class="text-2xl font-bold" style="font-family:var(--font-mono);color:#3D6B5C">720</div>
-            <div class="text-xs mt-1" style="color:var(--text-3)">Data Points</div>
+
+          <!-- Category tabs -->
+          <div class="lp-cat-tabs" id="lp-prod-tabs">
+            <button class="lp-cat-tab active" data-cat="all"       onclick="lpSetCat('all',this,'lp-prod-tabs')">All</button>
+            <button class="lp-cat-tab"         data-cat="food"      onclick="lpSetCat('food',this,'lp-prod-tabs')">Food &amp; Beverages</button>
+            <button class="lp-cat-tab"         data-cat="dairy"     onclick="lpSetCat('dairy',this,'lp-prod-tabs')">Dairy &amp; Alternatives</button>
+            <button class="lp-cat-tab"         data-cat="care"      onclick="lpSetCat('care',this,'lp-prod-tabs')">Personal Care</button>
+            <button class="lp-cat-tab"         data-cat="appliances"onclick="lpSetCat('appliances',this,'lp-prod-tabs')">Appliances</button>
           </div>
-          <div class="stat-card p-4 md:p-5 text-center">
-            <div class="text-2xl font-bold" style="font-family:var(--font-mono);color:#8B6F2F">7yr</div>
-            <div class="text-xs mt-1" style="color:var(--text-3)">Forecast Horizon</div>
+
+          <!-- Product grid -->
+          <div class="lp-prod-grid" id="lp-prod-grid">
+
+            <div class="lp-prod-card" data-cat="food" onclick="openReport('Dashboard.html','GCC Honey Markets 2024–2030')">
+              <div class="lp-prod-thumb" style="background:linear-gradient(135deg,#1A0E00,#2A1800)">
+                <span style="filter:drop-shadow(0 0 14px rgba(232,146,10,.7))">🍯</span>
+                <div style="position:absolute;inset:0;background:radial-gradient(circle at 40% 50%,rgba(184,146,74,.08),transparent 65%)"></div>
+              </div>
+              <div class="lp-prod-info">
+                <div class="lp-prod-name">Honey</div>
+                <div class="lp-prod-geo">GCC · 6 countries · 2025–2030</div>
+                <span class="lp-prod-badge live">Live</span>
+              </div>
+            </div>
+
+            <div class="lp-prod-card soon" data-cat="food">
+              <div class="lp-prod-thumb" style="background:linear-gradient(135deg,#0A1200,#141E08)">
+                <span style="opacity:.75">🫒</span>
+              </div>
+              <div class="lp-prod-info">
+                <div class="lp-prod-name">Olive Oil</div>
+                <div class="lp-prod-geo">GCC · 6 countries</div>
+                <span class="lp-prod-badge soon-b">Coming Soon</span>
+              </div>
+            </div>
+
+            <div class="lp-prod-card soon" data-cat="food">
+              <div class="lp-prod-thumb" style="background:linear-gradient(135deg,#10080A,#1E1008)">
+                <span style="opacity:.75">🌴</span>
+              </div>
+              <div class="lp-prod-info">
+                <div class="lp-prod-name">Dates &amp; Dried Fruit</div>
+                <div class="lp-prod-geo">GCC · MENA</div>
+                <span class="lp-prod-badge soon-b">Coming Soon</span>
+              </div>
+            </div>
+
+            <div class="lp-prod-card" data-cat="dairy" onclick="openReport('Dashboard.html','UAE Goat Milk 2024–2030')">
+              <div class="lp-prod-thumb" style="background:linear-gradient(135deg,#0A1018,#141822)">
+                <span style="filter:drop-shadow(0 0 10px rgba(72,191,160,.5))">🐐</span>
+                <div style="position:absolute;inset:0;background:radial-gradient(circle at 40% 50%,rgba(72,191,160,.07),transparent 65%)"></div>
+              </div>
+              <div class="lp-prod-info">
+                <div class="lp-prod-name">Goat Milk</div>
+                <div class="lp-prod-geo">UAE · 2025–2030</div>
+                <span class="lp-prod-badge live">Live</span>
+              </div>
+            </div>
+
+            <div class="lp-prod-card soon" data-cat="dairy">
+              <div class="lp-prod-thumb" style="background:linear-gradient(135deg,#0C1018,#141825)">
+                <span style="opacity:.75">🥛</span>
+              </div>
+              <div class="lp-prod-info">
+                <div class="lp-prod-name">Cow Milk</div>
+                <div class="lp-prod-geo">GCC · 6 countries</div>
+                <span class="lp-prod-badge soon-b">Coming Soon</span>
+              </div>
+            </div>
+
+            <div class="lp-prod-card soon" data-cat="care">
+              <div class="lp-prod-thumb" style="background:linear-gradient(135deg,#12091A,#1E1030)">
+                <span style="opacity:.75">✨</span>
+              </div>
+              <div class="lp-prod-info">
+                <div class="lp-prod-name">Personal Care</div>
+                <div class="lp-prod-geo">GCC · MENA</div>
+                <span class="lp-prod-badge soon-b">Coming Soon</span>
+              </div>
+            </div>
+
+            <div class="lp-prod-card soon" data-cat="appliances">
+              <div class="lp-prod-thumb" style="background:linear-gradient(135deg,#0A100A,#101A10)">
+                <span style="opacity:.75">🏠</span>
+              </div>
+              <div class="lp-prod-info">
+                <div class="lp-prod-name">Consumer Appliances</div>
+                <div class="lp-prod-geo">GCC · MENA</div>
+                <span class="lp-prod-badge soon-b">Coming Soon</span>
+              </div>
+            </div>
+
+            <!-- Browse more card -->
+            <div class="lp-prod-card" style="display:flex;align-items:center;justify-content:center;
+                        min-height:170px;border-style:dashed" onclick="showPage('industries')">
+              <div style="text-align:center">
+                <div style="font-size:22px;color:var(--text-3);margin-bottom:8px">+</div>
+                <div style="font-size:12px;font-weight:600;color:var(--text-2)">All industries</div>
+                <div style="font-size:10.5px;color:var(--text-3);margin-top:3px">More models in pipeline</div>
+              </div>
+            </div>
+
           </div>
-          <div class="stat-card p-4 md:p-5 text-center">
-            <div class="text-2xl font-bold" style="font-family:var(--font-mono);color:#1F3A5F">4</div>
-            <div class="text-xs mt-1" style="color:var(--text-3)">Demand Channels</div>
+
+          <!-- No-results message -->
+          <div id="lp-no-results" style="display:none;text-align:center;padding:48px 0">
+            <div style="font-size:13px;color:var(--text-3)">No products match your search.
+              <a style="color:var(--amber);cursor:pointer;text-decoration:underline"
+                 onclick="lpClearSearch()">Clear</a>
+            </div>
           </div>
         </div>
       </div>
+
+      <!-- ══ PLATFORM STATS ══ -->
+      <div class="lp-stats-bar">
+        <div class="lp-stat-cell">
+          <div class="lp-stat-num" style="color:var(--amber)">720+</div>
+          <div class="lp-stat-desc">Model data points<br>in live database</div>
+        </div>
+        <div class="lp-stat-cell">
+          <div class="lp-stat-num" style="color:#3D6B5C">6</div>
+          <div class="lp-stat-desc">GCC countries<br>fully covered</div>
+        </div>
+        <div class="lp-stat-cell">
+          <div class="lp-stat-num" style="color:#B8924A">7yr</div>
+          <div class="lp-stat-desc">Forecast horizon<br>2024 → 2030</div>
+        </div>
+        <div class="lp-stat-cell">
+          <div class="lp-stat-num" style="color:#1F3A5F">4</div>
+          <div class="lp-stat-desc">Demand channels<br>per model</div>
+        </div>
+      </div>
+
+      <!-- ══ GCC COVERAGE ══ -->
+      <div class="lp-coverage-bg">
+        <div class="lp-section">
+          <div class="lp-coverage-grid">
+            <!-- Left: Text + country cards -->
+            <div>
+              <span class="lp-mono-label">Geographic coverage</span>
+              <h2 class="lp-heading" style="margin-bottom:14px">Across all six<br>GCC markets</h2>
+              <p class="lp-subtext" style="margin-bottom:26px;max-width:400px">
+                Each model is calibrated to local consumption patterns, import-dependency ratios, and currency-adjusted market values — Saudi Riyal to Omani Rial.
+              </p>
+              <div class="lp-country-grid">
+                <div class="lp-country-card">
+                  <div class="lp-country-name">🇸🇦 Saudi Arabia</div>
+                  <div class="lp-country-val">SAR</div>
+                  <div class="lp-country-unit">Largest GCC market</div>
+                </div>
+                <div class="lp-country-card">
+                  <div class="lp-country-name">🇦🇪 UAE</div>
+                  <div class="lp-country-val">AED</div>
+                  <div class="lp-country-unit">Premium segments</div>
+                </div>
+                <div class="lp-country-card">
+                  <div class="lp-country-name">🇰🇼 Kuwait</div>
+                  <div class="lp-country-val">KWD</div>
+                  <div class="lp-country-unit">High per-capita</div>
+                </div>
+                <div class="lp-country-card">
+                  <div class="lp-country-name">🇶🇦 Qatar</div>
+                  <div class="lp-country-val">QAR</div>
+                  <div class="lp-country-unit">HoReCa driven</div>
+                </div>
+                <div class="lp-country-card">
+                  <div class="lp-country-name">🇧🇭 Bahrain</div>
+                  <div class="lp-country-val">BHD</div>
+                  <div class="lp-country-unit">Compact market</div>
+                </div>
+                <div class="lp-country-card">
+                  <div class="lp-country-name">🇴🇲 Oman</div>
+                  <div class="lp-country-val">OMR</div>
+                  <div class="lp-country-unit">Growing demand</div>
+                </div>
+              </div>
+            </div>
+            <!-- Right: Stylized GCC map -->
+            <div>
+              <div style="background:var(--card);border:1px solid var(--border);border-radius:4px;
+                          padding:22px;overflow:hidden;position:relative">
+                <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+                            width:220px;height:220px;border-radius:50%;
+                            background:radial-gradient(circle,rgba(184,146,74,.05),transparent 70%);
+                            pointer-events:none"></div>
+                <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:.14em;
+                            text-transform:uppercase;color:var(--text-3);margin-bottom:14px">
+                  Arabian Peninsula · Coverage map
+                </div>
+                <svg viewBox="0 0 300 210" width="100%" style="display:block">
+                  <defs>
+                    <pattern id="gcmap-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(245,240,230,.04)" stroke-width=".5"/>
+                    </pattern>
+                  </defs>
+                  <rect width="300" height="210" fill="url(#gcmap-grid)"/>
+                  <!-- Saudi Arabia (large central polygon) -->
+                  <polygon points="55,18 195,18 215,55 205,110 185,155 145,175 95,160 65,110 48,60"
+                           fill="rgba(184,146,74,.1)" stroke="rgba(184,146,74,.28)" stroke-width="1.2"/>
+                  <!-- Kuwait (small top polygon) -->
+                  <polygon points="45,14 72,12 76,30 58,36 40,26"
+                           fill="rgba(31,58,95,.18)" stroke="rgba(31,58,95,.4)" stroke-width="1"/>
+                  <!-- Qatar (narrow peninsula) -->
+                  <polygon points="218,58 232,52 236,72 222,78"
+                           fill="rgba(107,31,46,.15)" stroke="rgba(107,31,46,.4)" stroke-width="1"/>
+                  <!-- Bahrain (small island) -->
+                  <circle cx="207" cy="52" r="5" fill="rgba(184,146,74,.18)" stroke="rgba(184,146,74,.5)" stroke-width="1"/>
+                  <!-- UAE -->
+                  <polygon points="215,70 248,58 258,82 250,106 228,112 215,98"
+                           fill="rgba(61,107,92,.14)" stroke="rgba(61,107,92,.32)" stroke-width="1"/>
+                  <!-- Oman -->
+                  <polygon points="242,68 270,48 285,78 278,136 255,150 230,130 228,112 252,96"
+                           fill="rgba(138,111,47,.1)" stroke="rgba(138,111,47,.25)" stroke-width="1"/>
+                  <!-- Country labels -->
+                  <text x="128" y="92"  text-anchor="middle" fill="rgba(245,240,230,.5)" font-size="9"   font-family="IBM Plex Sans,sans-serif" font-weight="600">Saudi Arabia</text>
+                  <text x="56"  y="24"  text-anchor="middle" fill="rgba(31,58,95,.9)"    font-size="7"   font-family="IBM Plex Sans,sans-serif">Kuwait</text>
+                  <text x="226" y="68"  text-anchor="middle" fill="rgba(245,240,230,.45)"font-size="6"   font-family="IBM Plex Sans,sans-serif">Qatar</text>
+                  <text x="207" y="44"  text-anchor="middle" fill="rgba(184,146,74,.85)" font-size="5.5" font-family="IBM Plex Sans,sans-serif">BHR</text>
+                  <text x="236" y="90"  text-anchor="middle" fill="rgba(61,107,92,.85)"  font-size="7"   font-family="IBM Plex Sans,sans-serif">UAE</text>
+                  <text x="258" y="106" text-anchor="middle" fill="rgba(138,111,47,.8)"  font-size="7"   font-family="IBM Plex Sans,sans-serif">Oman</text>
+                  <!-- Pulsing live dots -->
+                  <circle cx="128" cy="100" r="3.5" fill="#48BFA0" opacity=".85">
+                    <animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite"/>
+                  </circle>
+                  <circle cx="234" cy="86" r="3" fill="#48BFA0" opacity=".7">
+                    <animate attributeName="opacity" values="1;0.3;1" dur="2.4s" repeatCount="indefinite"/>
+                  </circle>
+                </svg>
+                <!-- Stats row -->
+                <div style="display:flex;gap:20px;padding-top:14px;border-top:1px solid var(--border);margin-top:4px">
+                  <div>
+                    <div style="font-family:var(--font-mono);font-size:17px;color:var(--amber);font-weight:500">$374M</div>
+                    <div style="font-size:9.5px;color:var(--text-3)">GCC honey 2030</div>
+                  </div>
+                  <div>
+                    <div style="font-family:var(--font-mono);font-size:17px;color:#48BFA0;font-weight:500">7.1%</div>
+                    <div style="font-size:9.5px;color:var(--text-3)">Value CAGR</div>
+                  </div>
+                  <div>
+                    <div style="font-family:var(--font-mono);font-size:17px;color:var(--text-1);font-weight:500">6</div>
+                    <div style="font-size:9.5px;color:var(--text-3)">Countries modelled</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ METHODOLOGY + DATA PREVIEW ══ -->
+      <div class="lp-section">
+        <div class="lp-method-grid">
+          <!-- Left: Methodology steps -->
+          <div>
+            <span class="lp-mono-label">Expert analysis, every time</span>
+            <h2 class="lp-heading" style="margin-bottom:16px">A methodology<br>you can cite</h2>
+            <p class="lp-subtext" style="margin-bottom:26px">
+              Every model runs a four-step waterfall — population architecture to scenario assessment. All assumptions carry named sources.
+            </p>
+            <div>
+              <div class="lp-method-step">
+                <span class="lp-method-num">01</span>
+                <div>
+                  <div class="lp-method-title">Population Architecture</div>
+                  <div class="lp-method-desc">Segments by nationality, income, and household composition — anchored to Gulf Statistical Centre census data.</div>
+                </div>
+              </div>
+              <div class="lp-method-step">
+                <span class="lp-method-num">02</span>
+                <div>
+                  <div class="lp-method-title">Supply-Side Calibration</div>
+                  <div class="lp-method-desc">UN FAO production + UN Comtrade import flows triangulated against Euromonitor retail estimates.</div>
+                </div>
+              </div>
+              <div class="lp-method-step">
+                <span class="lp-method-num">03</span>
+                <div>
+                  <div class="lp-method-title">Channel Decomposition</div>
+                  <div class="lp-method-desc">Retail household, HoReCa, food manufacturing, and gifting channels sized independently per country.</div>
+                </div>
+              </div>
+              <div class="lp-method-step">
+                <span class="lp-method-num">04</span>
+                <div>
+                  <div class="lp-method-title">Scenario Assessment</div>
+                  <div class="lp-method-desc">Conservative, moderate, and aggressive growth paths with sub-category premiumisation curves to 2030.</div>
+                </div>
+              </div>
+            </div>
+            <button class="btn-outline" style="margin-top:24px" onclick="showPage('consumer-products')">
+              Explore reports →
+            </button>
+          </div>
+
+          <!-- Right: Data table preview -->
+          <div>
+            <div class="lp-preview-wrap">
+              <div style="padding:13px 16px;border-bottom:1px solid var(--border);
+                          display:flex;align-items:center;justify-content:space-between">
+                <div style="font-size:11.5px;font-weight:600;color:var(--text-1)">Honey · KSA · Annual Forecast</div>
+                <span class="tag" style="background:rgba(72,191,160,.1);color:#48BFA0;border:1px solid rgba(72,191,160,.22);font-size:8.5px">Live data</span>
+              </div>
+              <table class="lp-preview-table">
+                <thead>
+                  <tr>
+                    <th>Year</th>
+                    <th>Volume (T)</th>
+                    <th>Value (SAR M)</th>
+                    <th>CAGR</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td style="color:var(--text-3);font-family:var(--font-mono)">2025</td><td class="lp-preview-val">22,400</td><td class="lp-preview-val">1,580</td><td class="lp-preview-cagr">—</td></tr>
+                  <tr><td style="color:var(--text-3);font-family:var(--font-mono)">2026</td><td class="lp-preview-val">23,850</td><td class="lp-preview-val">1,695</td><td class="lp-preview-cagr">+7.3%</td></tr>
+                  <tr><td style="color:var(--text-3);font-family:var(--font-mono)">2027</td><td class="lp-preview-val">25,420</td><td class="lp-preview-val">1,820</td><td class="lp-preview-cagr">+7.4%</td></tr>
+                  <tr><td style="color:var(--text-3);font-family:var(--font-mono)">2028</td><td class="lp-preview-val">27,100</td><td class="lp-preview-val">1,955</td><td class="lp-preview-cagr">+7.4%</td></tr>
+                  <tr><td style="color:var(--text-3);font-family:var(--font-mono)">2029</td><td class="lp-preview-val">28,920</td><td class="lp-preview-val">2,100</td><td class="lp-preview-cagr">+7.4%</td></tr>
+                  <tr style="background:rgba(184,146,74,.04)">
+                    <td style="color:var(--amber);font-family:var(--font-mono);font-weight:600">2030</td>
+                    <td class="lp-preview-val" style="font-weight:600">30,900</td>
+                    <td class="lp-preview-val" style="font-weight:600">2,257</td>
+                    <td class="lp-preview-cagr" style="font-weight:600">+7.5%</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div style="padding:9px 16px;background:var(--surface);border-top:1px solid var(--border);
+                          font-size:9.5px;color:var(--text-3);font-family:var(--font-mono)">
+                Source: Atlas model · Moderate growth scenario · All channels
+              </div>
+            </div>
+
+            <!-- Mini channel split -->
+            <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:10px">
+              <div style="background:var(--card);border:1px solid var(--border);border-radius:4px;padding:14px 16px">
+                <div style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);font-family:var(--font-mono);margin-bottom:6px">Retail Household</div>
+                <div style="font-family:var(--font-mono);font-size:15px;color:var(--amber);font-weight:500">62%</div>
+                <div style="font-size:10px;color:var(--text-3);margin-top:2px">of total volume</div>
+              </div>
+              <div style="background:var(--card);border:1px solid var(--border);border-radius:4px;padding:14px 16px">
+                <div style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);font-family:var(--font-mono);margin-bottom:6px">HoReCa Channel</div>
+                <div style="font-family:var(--font-mono);font-size:15px;color:#3D6B5C;font-weight:500">21%</div>
+                <div style="font-size:10px;color:var(--text-3);margin-top:2px">of total volume</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ FEATURE GRID ══ -->
+      <div style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+        <div class="lp-section" style="max-width:1200px;margin:0 auto">
+          <div style="text-align:center;margin-bottom:32px">
+            <span class="lp-mono-label" style="display:block">Platform capabilities</span>
+            <h2 class="lp-heading">Built for decision-makers</h2>
+          </div>
+          <div class="lp-features-grid">
+
+            <div class="lp-feature-card">
+              <div class="lp-feature-icon">
+                <svg style="width:18px;height:18px" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/>
+                </svg>
+              </div>
+              <div class="lp-feature-title">Bottom-up Models</div>
+              <div class="lp-feature-desc">Demand built from first principles — population segments, per-capita consumption, and penetration rates. Not top-down benchmarks.</div>
+            </div>
+
+            <div class="lp-feature-card">
+              <div class="lp-feature-icon">
+                <svg style="width:18px;height:18px" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253"/>
+                </svg>
+              </div>
+              <div class="lp-feature-title">GCC-Native Data</div>
+              <div class="lp-feature-desc">Calibrated to Gulf Statistical Centre surveys, UN Comtrade trade flows, and Euromonitor retail estimates — not generic global proxies.</div>
+            </div>
+
+            <div class="lp-feature-card">
+              <div class="lp-feature-icon">
+                <svg style="width:18px;height:18px" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z"/>
+                </svg>
+              </div>
+              <div class="lp-feature-title">Live Dashboards</div>
+              <div class="lp-feature-desc">Interactive Chart.js dashboards connected to Supabase. Filter by country, year, and product. Data updates with every new model run.</div>
+            </div>
+
+            <div class="lp-feature-card">
+              <div class="lp-feature-icon">
+                <svg style="width:18px;height:18px" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+              <div class="lp-feature-title">Citable Methodology</div>
+              <div class="lp-feature-desc">Every assumption carries a named source. UN FAO, Comtrade, World Bank, IMF WEO — transparent enough to put in a board deck.</div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ CTA ══ -->
+      <div class="lp-cta-section">
+        <div class="lp-section" style="max-width:600px;margin:0 auto;text-align:center">
+          <span class="lp-mono-label" style="display:block;text-align:center">Get in touch</span>
+          <h2 class="lp-heading" style="text-align:center;margin-bottom:14px">Need a custom market model?</h2>
+          <p style="font-size:13.5px;color:var(--text-2);margin-bottom:28px;line-height:1.65">
+            We build bespoke demand estimation models for new products and geographies. Reach out to discuss your category and timeline.
+          </p>
+          <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+            <button class="btn-primary" onclick="showComingSoon('Contact')">Request a model →</button>
+            <button class="btn-outline" onclick="showPage('consumer-products')">Browse live reports</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ FOOTER ══ -->
+      <footer class="lp-footer">
+        <div class="lp-footer-grid">
+          <!-- Brand -->
+          <div>
+            <img class="logo-dark" style="height:38px;width:auto;margin-bottom:14px"
+                 src="Atlas%20Design%20System/assets/atlas_logo_gold_on_midnight.png" alt="Atlas Market Intelligence">
+            <img class="logo-light" style="height:38px;width:auto;margin-bottom:14px"
+                 src="Atlas%20Design%20System/assets/atlas_logo_wordmark.png" alt="Atlas Market Intelligence">
+            <p style="font-size:11.5px;color:#6E7785;line-height:1.6;max-width:220px">
+              Bottom-up demand intelligence for consumer products across GCC &amp; MENA markets.
+            </p>
+            <div style="margin-top:16px;font-size:9.5px;color:#4A5568;font-family:var(--font-mono)">v1.0 · May 2026</div>
+          </div>
+          <!-- Markets -->
+          <div>
+            <div class="lp-footer-col-title">Markets</div>
+            <a class="lp-footer-link" onclick="showPage('consumer-products')">Consumer Products</a>
+            <a class="lp-footer-link" onclick="showComingSoon('Defense &amp; Industrial')">Defense &amp; Industrial</a>
+            <a class="lp-footer-link" onclick="showComingSoon('Pharmaceuticals')">Pharmaceuticals</a>
+            <a class="lp-footer-link" onclick="showComingSoon('Technology')">Technology</a>
+            <a class="lp-footer-link" onclick="showPage('industries')">All Industries →</a>
+          </div>
+          <!-- Products -->
+          <div>
+            <div class="lp-footer-col-title">Products</div>
+            <a class="lp-footer-link" onclick="openReport('Dashboard.html','GCC Honey Markets 2024–2030')">GCC Honey</a>
+            <a class="lp-footer-link" onclick="openReport('Dashboard.html','UAE Goat Milk 2024–2030')">UAE Goat Milk</a>
+            <a class="lp-footer-link" onclick="showComingSoon('GCC Olive Oil')">GCC Olive Oil</a>
+            <a class="lp-footer-link" onclick="showComingSoon('GCC Dates')">GCC Dates</a>
+            <a class="lp-footer-link" onclick="showComingSoon('More coming')">More in pipeline…</a>
+          </div>
+          <!-- Platform -->
+          <div>
+            <div class="lp-footer-col-title">Platform</div>
+            <a class="lp-footer-link" onclick="showPage('statistics')">Statistics</a>
+            <a class="lp-footer-link" onclick="showPage('survey')">Survey</a>
+            <a class="lp-footer-link" onclick="showComingSoon('My Reports')">My Reports</a>
+            <a class="lp-footer-link" onclick="showComingSoon('Contact Us')">Contact Us</a>
+          </div>
+        </div>
+        <div class="lp-footer-bottom">
+          <span class="lp-footer-copy">© 2026 Atlas Market Intelligence. All rights reserved.</span>
+          <div style="display:flex;gap:16px">
+            <a class="lp-footer-link" style="margin-bottom:0" onclick="showComingSoon('Privacy Policy')">Privacy</a>
+            <a class="lp-footer-link" style="margin-bottom:0" onclick="showComingSoon('Terms')">Terms</a>
+          </div>
+        </div>
+      </footer>
+
     </div><!-- /page-home -->
 
 
@@ -1390,9 +1994,10 @@ function clearSearch() {
 }
 
 function doHeaderSearch(q) {
-  document.getElementById('hero-search').value = q;
+  const inp = document.getElementById('hero-search');
+  if (inp) inp.value = q;
   showPage('home');
-  filterReports(q);
+  lpFilterCards(q);
 }
 
 // ─── Mobile sidebar ───────────────────────────────────
@@ -1478,6 +2083,58 @@ function _updatePortalThemeBtn(isLight) {
   const saved = localStorage.getItem('iai-theme');
   if (saved === 'light') document.documentElement.dataset.theme = 'light';
 })();
+
+// ─── Landing page product grid filter ────────────────
+function lpSetCat(cat, el, tabGroupId) {
+  // Update active state on the tab group that was clicked
+  if (tabGroupId) {
+    document.querySelectorAll('#' + tabGroupId + ' .lp-cat-tab').forEach(t => t.classList.remove('active'));
+  }
+  if (el) el.classList.add('active');
+
+  const grid = document.getElementById('lp-prod-grid');
+  if (!grid) return;
+  const cards = grid.querySelectorAll('.lp-prod-card[data-cat]');
+  let visible = 0;
+  cards.forEach(c => {
+    const show = cat === 'all' || c.dataset.cat === cat;
+    c.style.display = show ? '' : 'none';
+    if (show) visible++;
+  });
+  const noRes = document.getElementById('lp-no-results');
+  if (noRes) noRes.style.display = visible === 0 ? '' : 'none';
+}
+
+function lpFilterCards(q) {
+  q = (q || '').toLowerCase().trim();
+  const grid = document.getElementById('lp-prod-grid');
+  if (!grid) return;
+  // Reset category tab to All
+  const allTab = document.querySelector('#lp-prod-tabs .lp-cat-tab[data-cat="all"]');
+  document.querySelectorAll('#lp-prod-tabs .lp-cat-tab').forEach(t => t.classList.remove('active'));
+  if (allTab) allTab.classList.add('active');
+
+  const cards = grid.querySelectorAll('.lp-prod-card[data-cat]');
+  let visible = 0;
+  cards.forEach(c => {
+    const name = c.querySelector('.lp-prod-name') ? c.querySelector('.lp-prod-name').textContent.toLowerCase() : '';
+    const geo  = c.querySelector('.lp-prod-geo')  ? c.querySelector('.lp-prod-geo').textContent.toLowerCase()  : '';
+    const show = !q || name.includes(q) || geo.includes(q);
+    c.style.display = show ? '' : 'none';
+    if (show) visible++;
+  });
+  const noRes = document.getElementById('lp-no-results');
+  if (noRes) noRes.style.display = (q && visible === 0) ? '' : 'none';
+}
+
+function lpClearSearch() {
+  const inp = document.getElementById('hero-search');
+  if (inp) inp.value = '';
+  lpFilterCards('');
+}
+
+function filterReports() { /* no-op — legacy function, grid removed */ }
+function clearSearch() { lpClearSearch(); }
 
 // ─── Init ─────────────────────────────────────────────
 renderCoTable();
