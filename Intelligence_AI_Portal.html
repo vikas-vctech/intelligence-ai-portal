@@ -553,14 +553,15 @@
   }
   @media (max-width: 640px) { .lp-stats-bar { grid-template-columns: repeat(2, 1fr); } }
   .lp-stat-cell {
-    padding: 30px 20px; text-align: center;
+    padding: 36px 20px; text-align: center;
     border-right: 1px solid var(--border);
   }
   .lp-stat-cell:last-child { border-right: none; }
   .lp-stat-num {
-    font-family: var(--font-mono); font-size: 30px; font-weight: 500; line-height: 1; margin-bottom: 7px;
+    font-family: var(--font-display); font-size: clamp(36px,4vw,54px); font-weight: 400;
+    line-height: 1; margin-bottom: 9px; letter-spacing: -.02em;
   }
-  .lp-stat-desc { font-size: 11px; color: var(--text-3); line-height: 1.45; }
+  .lp-stat-desc { font-size: 11.5px; color: var(--text-3); line-height: 1.45; }
 
   /* ── Coverage section ── */
   .lp-coverage-bg { background: var(--surface); }
@@ -634,6 +635,45 @@
   /* Mini chart SVG animation */
   @keyframes barRise { from { transform: scaleY(0); transform-origin: bottom; } to { transform: scaleY(1); transform-origin: bottom; } }
   .lp-bar { animation: barRise .6s cubic-bezier(.22,1,.36,1) both; }
+
+  /* ── Editorial product card thumbnails ── */
+  .lp-prod-thumb {
+    height: 148px !important; /* taller than old 108px */
+    font-size: unset !important; /* remove emoji sizing */
+  }
+  .lp-prod-thumb-inner {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    width: 100%; height: 100%; position: relative; gap: 0;
+  }
+  .lp-prod-card-accent {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+  }
+  .lp-prod-card-dot {
+    position: absolute; top: 10px; right: 10px;
+    width: 7px; height: 7px; border-radius: 50%;
+  }
+  .lp-prod-eyebrow {
+    font-family: var(--font-mono); font-size: 8.5px; letter-spacing: .18em;
+    text-transform: uppercase; color: var(--text-3); margin-bottom: 4px;
+  }
+
+  /* ── Discover section (2-col) ── */
+  .lp-discover-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 56px;
+    align-items: center; max-width: 1200px; margin: 0 auto;
+  }
+  @media (max-width: 860px) { .lp-discover-grid { grid-template-columns: 1fr; } }
+  .lp-check-item {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 10px 0; border-bottom: 1px solid var(--border);
+  }
+  .lp-check-item:last-child { border-bottom: none; }
+  .lp-check-icon {
+    width: 20px; height: 20px; border-radius: 50%;
+    background: rgba(184,146,74,.1); border: 1px solid rgba(184,146,74,.2);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 1px; color: var(--amber);
+  }
 </style>
 </head>
 
@@ -791,14 +831,16 @@
     ───────────────────────────────────────────────── -->
     <div id="page-home" class="page active">
 
-      <!-- ══ HERO ══ -->
-      <div class="hero-bg lp-section" style="padding-top:52px;padding-bottom:52px">
+      <!-- ══════════════════════════════════════════════
+           HERO
+      ══════════════════════════════════════════════ -->
+      <div class="hero-bg lp-section" style="padding-top:64px;padding-bottom:64px">
         <div class="lp-hero-grid">
 
           <!-- Left: Text + search -->
           <div>
             <span class="lp-mono-label">Atlas Market Intelligence · GCC &amp; MENA</span>
-            <h1 class="hero-title" style="font-size:clamp(36px,5vw,66px);text-align:left;margin-bottom:18px;line-height:.95">
+            <h1 class="hero-title" style="font-size:clamp(40px,5.5vw,72px);text-align:left;margin-bottom:20px;line-height:.92">
               Demand<br><em>Intelligence</em>
             </h1>
             <p class="lp-subtext" style="margin-bottom:28px">
@@ -932,90 +974,165 @@
           <!-- Product grid -->
           <div class="lp-prod-grid" id="lp-prod-grid">
 
+            <!-- ── Honey (Live) ── -->
             <div class="lp-prod-card" data-cat="food" onclick="openReport('Dashboard.html','GCC Honey Markets 2024–2030')">
-              <div class="lp-prod-thumb" style="background:linear-gradient(135deg,#1A0E00,#2A1800)">
-                <span style="filter:drop-shadow(0 0 14px rgba(232,146,10,.7))">🍯</span>
-                <div style="position:absolute;inset:0;background:radial-gradient(circle at 40% 50%,rgba(184,146,74,.08),transparent 65%)"></div>
+              <div class="lp-prod-thumb" style="background:linear-gradient(160deg,#1C0A00,#2E1600,#120800)">
+                <div class="lp-prod-thumb-inner">
+                  <svg viewBox="0 0 60 60" width="52" height="52">
+                    <polygon points="30,4 52,17 52,43 30,56 8,43 8,17" fill="none" stroke="rgba(184,146,74,.55)" stroke-width="1.3"/>
+                    <polygon points="30,14 44,22 44,38 30,46 16,38 16,22" fill="rgba(184,146,74,.1)" stroke="rgba(184,146,74,.3)" stroke-width="1"/>
+                    <circle cx="30" cy="30" r="5.5" fill="rgba(184,146,74,.28)" stroke="rgba(184,146,74,.55)" stroke-width="1"/>
+                  </svg>
+                  <div class="lp-prod-card-accent" style="background:linear-gradient(90deg,transparent,#B8924A,transparent)"></div>
+                  <div class="lp-prod-card-dot" style="background:#48BFA0;box-shadow:0 0 6px rgba(72,191,160,.7)"></div>
+                </div>
               </div>
               <div class="lp-prod-info">
+                <div class="lp-prod-eyebrow">Food &amp; Beverages</div>
                 <div class="lp-prod-name">Honey</div>
                 <div class="lp-prod-geo">GCC · 6 countries · 2025–2030</div>
-                <span class="lp-prod-badge live">Live</span>
+                <span class="lp-prod-badge live" style="margin-top:8px;display:inline-block">Live</span>
               </div>
             </div>
 
+            <!-- ── Olive Oil (Soon) ── -->
             <div class="lp-prod-card soon" data-cat="food">
-              <div class="lp-prod-thumb" style="background:linear-gradient(135deg,#0A1200,#141E08)">
-                <span style="opacity:.75">🫒</span>
+              <div class="lp-prod-thumb" style="background:linear-gradient(160deg,#080F06,#0D1A09,#060C04)">
+                <div class="lp-prod-thumb-inner">
+                  <svg viewBox="0 0 60 60" width="52" height="52">
+                    <path d="M30,6 C30,6 46,19 46,34 C46,44.5 39,52 30,52 C21,52 14,44.5 14,34 C14,19 30,6 30,6z" fill="rgba(61,107,92,.14)" stroke="rgba(61,107,92,.5)" stroke-width="1.3"/>
+                    <line x1="30" y1="18" x2="30" y2="50" stroke="rgba(61,107,92,.3)" stroke-width="1"/>
+                    <path d="M30,30 C26,26 19,28 21,34" fill="none" stroke="rgba(61,107,92,.35)" stroke-width="1"/>
+                    <path d="M30,24 C34,20 41,22 39,28" fill="none" stroke="rgba(61,107,92,.35)" stroke-width="1"/>
+                  </svg>
+                  <div class="lp-prod-card-accent" style="background:linear-gradient(90deg,transparent,#3D6B5C,transparent)"></div>
+                </div>
               </div>
               <div class="lp-prod-info">
+                <div class="lp-prod-eyebrow">Food &amp; Beverages</div>
                 <div class="lp-prod-name">Olive Oil</div>
                 <div class="lp-prod-geo">GCC · 6 countries</div>
-                <span class="lp-prod-badge soon-b">Coming Soon</span>
+                <span class="lp-prod-badge soon-b" style="margin-top:8px;display:inline-block">Coming Soon</span>
               </div>
             </div>
 
+            <!-- ── Dates (Soon) ── -->
             <div class="lp-prod-card soon" data-cat="food">
-              <div class="lp-prod-thumb" style="background:linear-gradient(135deg,#10080A,#1E1008)">
-                <span style="opacity:.75">🌴</span>
+              <div class="lp-prod-thumb" style="background:linear-gradient(160deg,#100606,#1C0C08,#0C0404)">
+                <div class="lp-prod-thumb-inner">
+                  <svg viewBox="0 0 60 60" width="52" height="52">
+                    <line x1="30" y1="50" x2="30" y2="24" stroke="rgba(139,90,60,.5)" stroke-width="2"/>
+                    <path d="M30,24 C22,17 12,21 16,30 C20,26 26,26 30,28" fill="rgba(139,90,60,.15)" stroke="rgba(139,90,60,.4)" stroke-width="1"/>
+                    <path d="M30,24 C38,17 48,21 44,30 C40,26 34,26 30,28" fill="rgba(139,90,60,.15)" stroke="rgba(139,90,60,.4)" stroke-width="1"/>
+                    <ellipse cx="30" cy="44" rx="5" ry="7" fill="rgba(139,90,60,.2)" stroke="rgba(139,90,60,.4)" stroke-width="1"/>
+                  </svg>
+                  <div class="lp-prod-card-accent" style="background:linear-gradient(90deg,transparent,#8B5A3C,transparent)"></div>
+                </div>
               </div>
               <div class="lp-prod-info">
+                <div class="lp-prod-eyebrow">Food &amp; Beverages</div>
                 <div class="lp-prod-name">Dates &amp; Dried Fruit</div>
                 <div class="lp-prod-geo">GCC · MENA</div>
-                <span class="lp-prod-badge soon-b">Coming Soon</span>
+                <span class="lp-prod-badge soon-b" style="margin-top:8px;display:inline-block">Coming Soon</span>
               </div>
             </div>
 
+            <!-- ── Goat Milk (Live) ── -->
             <div class="lp-prod-card" data-cat="dairy" onclick="openReport('Dashboard.html','UAE Goat Milk 2024–2030')">
-              <div class="lp-prod-thumb" style="background:linear-gradient(135deg,#0A1018,#141822)">
-                <span style="filter:drop-shadow(0 0 10px rgba(72,191,160,.5))">🐐</span>
-                <div style="position:absolute;inset:0;background:radial-gradient(circle at 40% 50%,rgba(72,191,160,.07),transparent 65%)"></div>
+              <div class="lp-prod-thumb" style="background:linear-gradient(160deg,#060E10,#0A1418,#060C0E)">
+                <div class="lp-prod-thumb-inner">
+                  <svg viewBox="0 0 60 60" width="52" height="52">
+                    <path d="M30,8 L37,22 A15,15 0 1,1 23,22 Z" fill="rgba(72,191,160,.12)" stroke="rgba(72,191,160,.45)" stroke-width="1.3"/>
+                    <circle cx="30" cy="37" r="7" fill="rgba(72,191,160,.15)" stroke="rgba(72,191,160,.4)" stroke-width="1"/>
+                    <circle cx="30" cy="37" r="2.5" fill="rgba(72,191,160,.35)"/>
+                  </svg>
+                  <div class="lp-prod-card-accent" style="background:linear-gradient(90deg,transparent,#48BFA0,transparent)"></div>
+                  <div class="lp-prod-card-dot" style="background:#48BFA0;box-shadow:0 0 6px rgba(72,191,160,.7)"></div>
+                </div>
               </div>
               <div class="lp-prod-info">
+                <div class="lp-prod-eyebrow">Dairy &amp; Alternatives</div>
                 <div class="lp-prod-name">Goat Milk</div>
                 <div class="lp-prod-geo">UAE · 2025–2030</div>
-                <span class="lp-prod-badge live">Live</span>
+                <span class="lp-prod-badge live" style="margin-top:8px;display:inline-block">Live</span>
               </div>
             </div>
 
+            <!-- ── Cow Milk (Soon) ── -->
             <div class="lp-prod-card soon" data-cat="dairy">
-              <div class="lp-prod-thumb" style="background:linear-gradient(135deg,#0C1018,#141825)">
-                <span style="opacity:.75">🥛</span>
+              <div class="lp-prod-thumb" style="background:linear-gradient(160deg,#080C12,#0C1018,#060A10)">
+                <div class="lp-prod-thumb-inner">
+                  <svg viewBox="0 0 60 60" width="52" height="52">
+                    <path d="M18,16 L20,47 L40,47 L42,16 Z" fill="rgba(100,130,165,.1)" stroke="rgba(100,130,165,.4)" stroke-width="1.3"/>
+                    <ellipse cx="30" cy="15.5" rx="12" ry="3.5" fill="rgba(100,130,165,.15)" stroke="rgba(100,130,165,.35)" stroke-width="1"/>
+                    <line x1="19" y1="26" x2="41" y2="26" stroke="rgba(100,130,165,.18)" stroke-width="1"/>
+                    <line x1="19.5" y1="34" x2="40.5" y2="34" stroke="rgba(100,130,165,.12)" stroke-width="1"/>
+                  </svg>
+                  <div class="lp-prod-card-accent" style="background:linear-gradient(90deg,transparent,#6482A5,transparent)"></div>
+                </div>
               </div>
               <div class="lp-prod-info">
+                <div class="lp-prod-eyebrow">Dairy &amp; Alternatives</div>
                 <div class="lp-prod-name">Cow Milk</div>
                 <div class="lp-prod-geo">GCC · 6 countries</div>
-                <span class="lp-prod-badge soon-b">Coming Soon</span>
+                <span class="lp-prod-badge soon-b" style="margin-top:8px;display:inline-block">Coming Soon</span>
               </div>
             </div>
 
+            <!-- ── Personal Care (Soon) ── -->
             <div class="lp-prod-card soon" data-cat="care">
-              <div class="lp-prod-thumb" style="background:linear-gradient(135deg,#12091A,#1E1030)">
-                <span style="opacity:.75">✨</span>
+              <div class="lp-prod-thumb" style="background:linear-gradient(160deg,#0E0816,#160E20,#0A0610)">
+                <div class="lp-prod-thumb-inner">
+                  <svg viewBox="0 0 60 60" width="52" height="52">
+                    <polygon points="30,6 34,26 54,30 34,34 30,54 26,34 6,30 26,26" fill="rgba(155,100,180,.12)" stroke="rgba(155,100,180,.45)" stroke-width="1.3"/>
+                    <circle cx="30" cy="30" r="6" fill="rgba(155,100,180,.18)" stroke="rgba(155,100,180,.35)" stroke-width="1"/>
+                  </svg>
+                  <div class="lp-prod-card-accent" style="background:linear-gradient(90deg,transparent,#9B64B4,transparent)"></div>
+                </div>
               </div>
               <div class="lp-prod-info">
+                <div class="lp-prod-eyebrow">Personal Care</div>
                 <div class="lp-prod-name">Personal Care</div>
                 <div class="lp-prod-geo">GCC · MENA</div>
-                <span class="lp-prod-badge soon-b">Coming Soon</span>
+                <span class="lp-prod-badge soon-b" style="margin-top:8px;display:inline-block">Coming Soon</span>
               </div>
             </div>
 
+            <!-- ── Consumer Appliances (Soon) ── -->
             <div class="lp-prod-card soon" data-cat="appliances">
-              <div class="lp-prod-thumb" style="background:linear-gradient(135deg,#0A100A,#101A10)">
-                <span style="opacity:.75">🏠</span>
+              <div class="lp-prod-thumb" style="background:linear-gradient(160deg,#060A0E,#0A1016,#04080C)">
+                <div class="lp-prod-thumb-inner">
+                  <svg viewBox="0 0 60 60" width="52" height="52">
+                    <circle cx="30" cy="30" r="18" fill="none" stroke="rgba(90,130,180,.4)" stroke-width="1.3"/>
+                    <circle cx="30" cy="30" r="9" fill="rgba(90,130,180,.1)" stroke="rgba(90,130,180,.3)" stroke-width="1"/>
+                    <line x1="30" y1="8"  x2="30" y2="16" stroke="rgba(90,130,180,.45)" stroke-width="1.5"/>
+                    <line x1="30" y1="44" x2="30" y2="52" stroke="rgba(90,130,180,.45)" stroke-width="1.5"/>
+                    <line x1="8"  y1="30" x2="16" y2="30" stroke="rgba(90,130,180,.45)" stroke-width="1.5"/>
+                    <line x1="44" y1="30" x2="52" y2="30" stroke="rgba(90,130,180,.45)" stroke-width="1.5"/>
+                    <line x1="15" y1="15" x2="21" y2="21" stroke="rgba(90,130,180,.3)" stroke-width="1.2"/>
+                    <line x1="39" y1="39" x2="45" y2="45" stroke="rgba(90,130,180,.3)" stroke-width="1.2"/>
+                  </svg>
+                  <div class="lp-prod-card-accent" style="background:linear-gradient(90deg,transparent,#5A82B4,transparent)"></div>
+                </div>
               </div>
               <div class="lp-prod-info">
+                <div class="lp-prod-eyebrow">Appliances</div>
                 <div class="lp-prod-name">Consumer Appliances</div>
                 <div class="lp-prod-geo">GCC · MENA</div>
-                <span class="lp-prod-badge soon-b">Coming Soon</span>
+                <span class="lp-prod-badge soon-b" style="margin-top:8px;display:inline-block">Coming Soon</span>
               </div>
             </div>
 
-            <!-- Browse more card -->
+            <!-- ── Browse more ── -->
             <div class="lp-prod-card" style="display:flex;align-items:center;justify-content:center;
-                        min-height:170px;border-style:dashed" onclick="showPage('industries')">
+                        min-height:200px;border-style:dashed;opacity:.7" onclick="showPage('industries')">
               <div style="text-align:center">
-                <div style="font-size:22px;color:var(--text-3);margin-bottom:8px">+</div>
+                <div style="width:36px;height:36px;border-radius:50%;border:1.5px solid var(--border-hi);
+                            display:flex;align-items:center;justify-content:center;margin:0 auto 10px">
+                  <svg style="width:16px;height:16px;color:var(--text-3)" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/>
+                  </svg>
+                </div>
                 <div style="font-size:12px;font-weight:600;color:var(--text-2)">All industries</div>
                 <div style="font-size:10.5px;color:var(--text-3);margin-top:3px">More models in pipeline</div>
               </div>
@@ -1053,51 +1170,65 @@
         </div>
       </div>
 
-      <!-- ══ GCC COVERAGE ══ -->
+      <!-- ══ DISCOVER DATA ON YOUR MARKET ══ -->
       <div class="lp-coverage-bg">
         <div class="lp-section">
-          <div class="lp-coverage-grid">
-            <!-- Left: Text + country cards -->
+          <div class="lp-discover-grid">
+
+            <!-- Left: Feature checklist -->
             <div>
-              <span class="lp-mono-label">Geographic coverage</span>
-              <h2 class="lp-heading" style="margin-bottom:14px">Across all six<br>GCC markets</h2>
-              <p class="lp-subtext" style="margin-bottom:26px;max-width:400px">
-                Each model is calibrated to local consumption patterns, import-dependency ratios, and currency-adjusted market values — Saudi Riyal to Omani Rial.
+              <span class="lp-mono-label">Discover data on your market</span>
+              <h2 class="lp-heading" style="margin-bottom:18px">Global trends,<br>locally visualised</h2>
+              <p class="lp-subtext" style="margin-bottom:28px">
+                Every model is calibrated to local consumption patterns, import-dependency ratios, and currency-adjusted values — from Saudi Riyal to Omani Rial.
               </p>
-              <div class="lp-country-grid">
-                <div class="lp-country-card">
-                  <div class="lp-country-name">🇸🇦 Saudi Arabia</div>
-                  <div class="lp-country-val">SAR</div>
-                  <div class="lp-country-unit">Largest GCC market</div>
+
+              <div style="margin-bottom:28px">
+                <div class="lp-check-item">
+                  <div class="lp-check-icon">
+                    <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  <div>
+                    <div style="font-size:13px;font-weight:600;color:var(--text-ink);margin-bottom:2px">Bottom-up population architecture</div>
+                    <div style="font-size:11.5px;color:var(--text-3);line-height:1.5">Segments by nationality, income band, and household size anchored to Gulf Statistical Centre data</div>
+                  </div>
                 </div>
-                <div class="lp-country-card">
-                  <div class="lp-country-name">🇦🇪 UAE</div>
-                  <div class="lp-country-val">AED</div>
-                  <div class="lp-country-unit">Premium segments</div>
+                <div class="lp-check-item">
+                  <div class="lp-check-icon">
+                    <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  <div>
+                    <div style="font-size:13px;font-weight:600;color:var(--text-ink);margin-bottom:2px">Supply-side calibration via UN Comtrade</div>
+                    <div style="font-size:11.5px;color:var(--text-3);line-height:1.5">FAO production + import flows triangulated against Euromonitor retail estimates</div>
+                  </div>
                 </div>
-                <div class="lp-country-card">
-                  <div class="lp-country-name">🇰🇼 Kuwait</div>
-                  <div class="lp-country-val">KWD</div>
-                  <div class="lp-country-unit">High per-capita</div>
+                <div class="lp-check-item">
+                  <div class="lp-check-icon">
+                    <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  <div>
+                    <div style="font-size:13px;font-weight:600;color:var(--text-ink);margin-bottom:2px">4-channel demand decomposition</div>
+                    <div style="font-size:11.5px;color:var(--text-3);line-height:1.5">Retail household, HoReCa, food manufacturing, and gifting sized independently per country</div>
+                  </div>
                 </div>
-                <div class="lp-country-card">
-                  <div class="lp-country-name">🇶🇦 Qatar</div>
-                  <div class="lp-country-val">QAR</div>
-                  <div class="lp-country-unit">HoReCa driven</div>
-                </div>
-                <div class="lp-country-card">
-                  <div class="lp-country-name">🇧🇭 Bahrain</div>
-                  <div class="lp-country-val">BHD</div>
-                  <div class="lp-country-unit">Compact market</div>
-                </div>
-                <div class="lp-country-card">
-                  <div class="lp-country-name">🇴🇲 Oman</div>
-                  <div class="lp-country-val">OMR</div>
-                  <div class="lp-country-unit">Growing demand</div>
+                <div class="lp-check-item">
+                  <div class="lp-check-icon">
+                    <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  <div>
+                    <div style="font-size:13px;font-weight:600;color:var(--text-ink);margin-bottom:2px">3-scenario forecasts to 2030</div>
+                    <div style="font-size:11.5px;color:var(--text-3);line-height:1.5">Conservative, moderate, and aggressive paths with sub-category premiumisation curves</div>
+                  </div>
                 </div>
               </div>
+
+              <div style="display:flex;gap:10px;flex-wrap:wrap">
+                <button class="btn-primary" onclick="showPage('consumer-products')">Explore live reports →</button>
+                <button class="btn-outline" onclick="showPage('industries')">All industries</button>
+              </div>
             </div>
-            <!-- Right: Stylized GCC map -->
+
+            <!-- Right: GCC map card + country grid -->
             <div>
               <div style="background:var(--card);border:1px solid var(--border);border-radius:4px;
                           padding:22px;overflow:hidden;position:relative">
@@ -1116,31 +1247,23 @@
                     </pattern>
                   </defs>
                   <rect width="300" height="210" fill="url(#gcmap-grid)"/>
-                  <!-- Saudi Arabia (large central polygon) -->
                   <polygon points="55,18 195,18 215,55 205,110 185,155 145,175 95,160 65,110 48,60"
                            fill="rgba(184,146,74,.1)" stroke="rgba(184,146,74,.28)" stroke-width="1.2"/>
-                  <!-- Kuwait (small top polygon) -->
                   <polygon points="45,14 72,12 76,30 58,36 40,26"
                            fill="rgba(31,58,95,.18)" stroke="rgba(31,58,95,.4)" stroke-width="1"/>
-                  <!-- Qatar (narrow peninsula) -->
                   <polygon points="218,58 232,52 236,72 222,78"
                            fill="rgba(107,31,46,.15)" stroke="rgba(107,31,46,.4)" stroke-width="1"/>
-                  <!-- Bahrain (small island) -->
                   <circle cx="207" cy="52" r="5" fill="rgba(184,146,74,.18)" stroke="rgba(184,146,74,.5)" stroke-width="1"/>
-                  <!-- UAE -->
                   <polygon points="215,70 248,58 258,82 250,106 228,112 215,98"
                            fill="rgba(61,107,92,.14)" stroke="rgba(61,107,92,.32)" stroke-width="1"/>
-                  <!-- Oman -->
                   <polygon points="242,68 270,48 285,78 278,136 255,150 230,130 228,112 252,96"
                            fill="rgba(138,111,47,.1)" stroke="rgba(138,111,47,.25)" stroke-width="1"/>
-                  <!-- Country labels -->
                   <text x="128" y="92"  text-anchor="middle" fill="rgba(245,240,230,.5)" font-size="9"   font-family="IBM Plex Sans,sans-serif" font-weight="600">Saudi Arabia</text>
                   <text x="56"  y="24"  text-anchor="middle" fill="rgba(31,58,95,.9)"    font-size="7"   font-family="IBM Plex Sans,sans-serif">Kuwait</text>
                   <text x="226" y="68"  text-anchor="middle" fill="rgba(245,240,230,.45)"font-size="6"   font-family="IBM Plex Sans,sans-serif">Qatar</text>
                   <text x="207" y="44"  text-anchor="middle" fill="rgba(184,146,74,.85)" font-size="5.5" font-family="IBM Plex Sans,sans-serif">BHR</text>
                   <text x="236" y="90"  text-anchor="middle" fill="rgba(61,107,92,.85)"  font-size="7"   font-family="IBM Plex Sans,sans-serif">UAE</text>
                   <text x="258" y="106" text-anchor="middle" fill="rgba(138,111,47,.8)"  font-size="7"   font-family="IBM Plex Sans,sans-serif">Oman</text>
-                  <!-- Pulsing live dots -->
                   <circle cx="128" cy="100" r="3.5" fill="#48BFA0" opacity=".85">
                     <animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite"/>
                   </circle>
@@ -1148,23 +1271,33 @@
                     <animate attributeName="opacity" values="1;0.3;1" dur="2.4s" repeatCount="indefinite"/>
                   </circle>
                 </svg>
-                <!-- Stats row -->
                 <div style="display:flex;gap:20px;padding-top:14px;border-top:1px solid var(--border);margin-top:4px">
                   <div>
-                    <div style="font-family:var(--font-mono);font-size:17px;color:var(--amber);font-weight:500">$374M</div>
+                    <div style="font-family:var(--font-mono);font-size:18px;color:var(--amber);font-weight:500">$374M</div>
                     <div style="font-size:9.5px;color:var(--text-3)">GCC honey 2030</div>
                   </div>
                   <div>
-                    <div style="font-family:var(--font-mono);font-size:17px;color:#48BFA0;font-weight:500">7.1%</div>
+                    <div style="font-family:var(--font-mono);font-size:18px;color:#48BFA0;font-weight:500">7.1%</div>
                     <div style="font-size:9.5px;color:var(--text-3)">Value CAGR</div>
                   </div>
                   <div>
-                    <div style="font-family:var(--font-mono);font-size:17px;color:var(--text-1);font-weight:500">6</div>
+                    <div style="font-family:var(--font-mono);font-size:18px;color:var(--text-1);font-weight:500">6</div>
                     <div style="font-size:9.5px;color:var(--text-3)">Countries modelled</div>
                   </div>
                 </div>
               </div>
+
+              <!-- Country mini-grid -->
+              <div class="lp-country-grid" style="margin-top:12px">
+                <div class="lp-country-card"><div class="lp-country-name">🇸🇦 Saudi Arabia</div><div class="lp-country-val">SAR</div><div class="lp-country-unit">Largest GCC market</div></div>
+                <div class="lp-country-card"><div class="lp-country-name">🇦🇪 UAE</div><div class="lp-country-val">AED</div><div class="lp-country-unit">Premium segments</div></div>
+                <div class="lp-country-card"><div class="lp-country-name">🇰🇼 Kuwait</div><div class="lp-country-val">KWD</div><div class="lp-country-unit">High per-capita</div></div>
+                <div class="lp-country-card"><div class="lp-country-name">🇶🇦 Qatar</div><div class="lp-country-val">QAR</div><div class="lp-country-unit">HoReCa driven</div></div>
+                <div class="lp-country-card"><div class="lp-country-name">🇧🇭 Bahrain</div><div class="lp-country-val">BHD</div><div class="lp-country-unit">Compact market</div></div>
+                <div class="lp-country-card"><div class="lp-country-name">🇴🇲 Oman</div><div class="lp-country-val">OMR</div><div class="lp-country-unit">Growing demand</div></div>
+              </div>
             </div>
+
           </div>
         </div>
       </div>
