@@ -296,7 +296,7 @@ body{
 @media (max-width:767px){
   .nav-sep{display:none}
   .nav-links{padding:6px 0;order:2}
-  .nav-filters{order:3;width:100%;padding:6px 0 10px;border-top:1px solid #0C1828;gap:6px;flex-wrap:wrap}
+  .dash-tab-bar .nav-filters{flex-wrap:wrap;gap:6px}
   .nav-right{order:1;padding-left:0}
   .nav-meta{display:none}
   .panel-wrap{padding:14px 14px 48px}
@@ -508,6 +508,53 @@ html[data-theme="light"] .sb-nav::-webkit-scrollbar-thumb{background:#D8D0C0}
 }
 .smry-table tbody tr:hover{background:rgba(184,146,74,.04)}
 .smry-cagr{color:var(--positive)!important;font-weight:600}
+
+/* ── REPORT TAB BAR ──────────────────────────────────────── */
+.dash-tab-bar{
+  flex-shrink:0;
+  display:flex;align-items:center;
+  padding:0 28px;
+  background:var(--bg-nav);
+  border-bottom:1px solid var(--border);
+}
+.dash-tab{
+  display:flex;align-items:center;
+  height:44px;padding:0 20px 0 0;
+  font-size:13px;font-weight:400;
+  color:var(--text-muted);font-family:var(--font-ui);
+  cursor:pointer;background:none;border:none;
+  border-bottom:2px solid transparent;
+  white-space:nowrap;position:relative;top:1px;
+  transition:color var(--dur-fast),border-color var(--dur-fast);
+}
+.dash-tab:hover{color:var(--text-primary)}
+.dash-tab.active{color:var(--text-primary);font-weight:500;border-bottom-color:var(--atlas-gold)}
+html[data-theme="light"] .dash-tab.active{color:#2A1800}
+
+/* placeholder panels */
+.tab-placeholder{display:none;padding:80px 0;text-align:center}
+.tab-placeholder.active{display:block}
+.tab-ph-icon{
+  width:52px;height:52px;border-radius:50%;
+  background:rgba(184,146,74,.07);border:1px solid rgba(184,146,74,.18);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 18px;color:var(--atlas-gold);
+}
+.tab-placeholder h3{
+  font-family:var(--font-display);font-size:22px;font-weight:400;
+  color:var(--text-primary);margin-bottom:8px;
+}
+.tab-placeholder p{
+  font-size:12.5px;color:var(--text-muted);max-width:360px;
+  margin:0 auto;line-height:1.7;
+}
+.tab-placeholder .coming-pill{
+  display:inline-block;margin-top:18px;
+  padding:5px 14px;border-radius:20px;font-size:10px;font-weight:500;
+  font-family:var(--font-mono);letter-spacing:.1em;text-transform:uppercase;
+  background:rgba(184,146,74,.08);border:1px solid rgba(184,146,74,.2);
+  color:var(--atlas-gold);
+}
 </style>
 </head>
 <body>
@@ -621,15 +668,20 @@ html[data-theme="light"] .sb-nav::-webkit-scrollbar-thumb{background:#D8D0C0}
     <svg style="width:18px;height:18px" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
   </button>
 
-  <div class="nav-links">
-    <button class="nav-btn active" onclick="switchSec('dashboard')" id="nav-dashboard">
-      <span class="nav-btn-icon">⊞</span> Dashboard
-    </button>
+  <div class="nav-right">
+    <div class="loading-spinner" id="spinner"></div>
   </div>
+</header>
 
-  <div class="nav-sep"></div>
+<!-- ═══ REPORT TABS ═════════════════════════════════════════ -->
+<div class="dash-tab-bar">
+  <button class="dash-tab active" id="dtab-mktoverview"  onclick="switchDashTab('mktoverview')">Market Overview</button>
+  <button class="dash-tab"        id="dtab-competition"  onclick="switchDashTab('competition')">Competition</button>
+  <button class="dash-tab"        id="dtab-value-chain"  onclick="switchDashTab('value-chain')">Value Chain</button>
+  <button class="dash-tab"        id="dtab-experts"      onclick="switchDashTab('experts')">Experts</button>
+  <button class="dash-tab"        id="dtab-news"         onclick="switchDashTab('news')">News</button>
 
-  <div class="nav-filters">
+  <div class="nav-filters" style="margin-left:auto;padding:0;border-top:none">
     <div class="nav-filter-group">
       <span class="nav-filter-label">Country</span>
       <select class="nav-select nav-select-country" id="countrySelect" onchange="onCountryChange(this.value)">
@@ -661,14 +713,13 @@ html[data-theme="light"] .sb-nav::-webkit-scrollbar-thumb{background:#D8D0C0}
       </select>
     </div>
   </div>
-
-  <div class="nav-right">
-    <div class="loading-spinner" id="spinner"></div>
-  </div>
-</header>
+</div>
 
 <div class="content-area">
 <div class="panel-wrap">
+
+<!-- ═══ MARKET OVERVIEW PANELS (sec-dashboard + sec-compare) ═══ -->
+<div id="mkt-overview-panels">
 
   <!-- ═══ DASHBOARD PANEL ═══ -->
   <div class="sec-panel active" id="sec-dashboard">
@@ -875,6 +926,48 @@ html[data-theme="light"] .sb-nav::-webkit-scrollbar-thumb{background:#D8D0C0}
       FAO FAOSTAT · Euromonitor · ITC Trademap · UN Comtrade · Apr 2026
     </div>
   </div>
+
+</div><!-- /mkt-overview-panels -->
+
+<!-- ═══ COMPETITION TAB ═══ -->
+<div class="tab-placeholder" id="tab-competition">
+  <div class="tab-ph-icon">
+    <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg>
+  </div>
+  <h3>Competition Analysis</h3>
+  <p>Competitive landscape, player market shares, brand positioning, and pricing strategy analysis across GCC markets.</p>
+  <span class="coming-pill">Coming Soon</span>
+</div>
+
+<!-- ═══ VALUE CHAIN TAB ═══ -->
+<div class="tab-placeholder" id="tab-value-chain">
+  <div class="tab-ph-icon">
+    <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"/></svg>
+  </div>
+  <h3>Value Chain</h3>
+  <p>End-to-end value chain mapping from production and sourcing through distribution, retail, and end consumer across the GCC.</p>
+  <span class="coming-pill">Coming Soon</span>
+</div>
+
+<!-- ═══ EXPERTS TAB ═══ -->
+<div class="tab-placeholder" id="tab-experts">
+  <div class="tab-ph-icon">
+    <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
+  </div>
+  <h3>Experts</h3>
+  <p>Connect with verified industry experts, analysts, and practitioners with deep knowledge of GCC consumer markets.</p>
+  <span class="coming-pill">Coming Soon</span>
+</div>
+
+<!-- ═══ NEWS TAB ═══ -->
+<div class="tab-placeholder" id="tab-news">
+  <div class="tab-ph-icon">
+    <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z"/></svg>
+  </div>
+  <h3>News &amp; Intelligence</h3>
+  <p>Curated market news, regulatory updates, new product launches, and analyst commentary relevant to the GCC consumer markets.</p>
+  <span class="coming-pill">Coming Soon</span>
+</div>
 
 </div>
 </div>
@@ -1576,6 +1669,18 @@ function onCountryChange(val)  { dashboard.onCountryChange(val); }
 function onProductChange(val)  { dashboard.onProductChange(val); }
 function onYearChange(val)     { dashboard.onYearChange(val); }
 function switchSec(name)       { dashboard.switchSec(name); }
+
+// ── REPORT TABS ───────────────────────────────────────────
+const DTAB_IDS = ['mktoverview','competition','value-chain','experts','news'];
+function switchDashTab(tab) {
+  DTAB_IDS.forEach(t => document.getElementById(`dtab-${t}`)?.classList.toggle('active', t===tab));
+  const isOverview = tab === 'mktoverview';
+  document.getElementById('mkt-overview-panels').style.display = isOverview ? '' : 'none';
+  ['competition','value-chain','experts','news'].forEach(t => {
+    const el = document.getElementById(`tab-${t}`);
+    if (el) el.classList.toggle('active', t===tab);
+  });
+}
 
 // ── SIDEBAR ───────────────────────────────────────────────
 function openSidebar() {
