@@ -1,5 +1,5 @@
 {
   "rewrites": [
-    { "source": "/", "destination": "/Intelligence_AI_Portal.html" }
+    { "source": "/portal-legacy", "destination": "/Intelligence_AI_Portal.html" }
   ]
 }
