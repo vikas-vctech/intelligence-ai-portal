@@ -5,10 +5,11 @@ const { default: flattenColorPalette } = require("tailwindcss/lib/util/flattenCo
 
 // Adds every Tailwind color as a CSS variable: var(--blue-500), var(--indigo-300), etc.
 // The aurora gradient relies on these variables being present on :root.
-function addVariablesForColors({ addBase, theme }: { addBase: (base: Record<string, Record<string, string>>) => void; theme: (path: string) => Record<string, string> }) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function addVariablesForColors({ addBase, theme }: any) {
   const allColors = flattenColorPalette(theme("colors"));
   const newVars = Object.fromEntries(
-    Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
+    Object.entries(allColors).map(([key, val]) => [`--${key}`, String(val)])
   );
   addBase({ ":root": newVars });
 }
