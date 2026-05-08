@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -314,6 +314,75 @@ body{
   .top-nav{display:none}
   .content-area{overflow:visible}
   .panel-wrap{padding:0;max-width:none}
+}
+
+/* ══ STATISTICS PANEL ══════════════════════════════════════ */
+#sec-statistics{display:none}
+.stat-section{display:none}
+.stat-section.active{display:block}
+.stat-grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--gap);margin-bottom:var(--gap)}
+.stat-card{
+  background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);
+  padding:16px 18px;transition:border-color .18s,box-shadow .18s;
+}
+.stat-card:hover{border-color:rgba(184,146,74,.25);box-shadow:0 4px 20px rgba(0,0,0,.3)}
+.stat-card.wide{grid-column:span 2}
+.stat-card-eyebrow{
+  font-size:8.5px;font-weight:600;color:var(--text-muted);
+  text-transform:uppercase;letter-spacing:1.1px;
+  font-family:var(--font-ui);margin-bottom:3px;
+}
+.stat-card-title{
+  font-size:13px;font-weight:400;color:var(--text-primary);
+  margin-bottom:2px;font-family:var(--font-display);
+  line-height:1.3;letter-spacing:.01em;
+}
+.stat-card-sub{font-size:9.5px;color:var(--text-muted);margin-bottom:12px;line-height:1.4}
+.stat-card-source{font-size:8px;color:var(--text-muted);margin-top:8px;opacity:.7}
+
+/* ── Top Sectors table ─────────────────────────────────────── */
+.sectors-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:20px}
+.sectors-summary .kpi{flex:unset;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px}
+.sectors-sl{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.sectors-tbl{width:100%;border-collapse:collapse;font-size:11.5px}
+.sectors-tbl th{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);padding:6px 10px;border-bottom:1px solid var(--border-strong);text-align:left;white-space:nowrap}
+.sectors-tbl th.r{text-align:right}.sectors-tbl th.c{text-align:center}
+.sectors-tbl td{padding:9px 10px;border-bottom:1px solid var(--border);vertical-align:middle}
+.sectors-tbl tr:last-child td{border-bottom:none}
+.sectors-tbl tr:hover td{background:rgba(245,240,230,.03)}
+.rank-num{font-size:14px;font-weight:600;color:var(--text-muted);text-align:center;font-family:var(--font-display)}
+.rank-num.top3{color:var(--atlas-gold)}
+.sec-name{font-size:12.5px;font-weight:500;color:var(--text-primary);margin-bottom:2px}
+.sec-sub{font-size:10px;color:var(--text-muted)}
+.tag-row{display:flex;gap:4px;flex-wrap:wrap}
+.stag{font-size:9px;padding:2px 6px;border-radius:3px;border:1px solid var(--border);color:var(--text-muted);white-space:nowrap}
+.mkt-sz{font-size:12.5px;font-weight:500;color:var(--text-primary);text-align:right;white-space:nowrap}
+.mkt-sz-sub{font-size:9px;color:var(--text-muted);text-align:right}
+.sec-cagr{font-size:12px;font-weight:500;text-align:right;color:#4CAF50}
+.sbar-wrap{display:flex;flex-direction:column;gap:3px;min-width:90px}
+.sbar-track{height:6px;background:var(--border-strong);border-radius:3px;overflow:hidden}
+.sbar-fill{height:100%;border-radius:3px}
+.sbar-lbl{font-size:9px;color:var(--text-muted);text-align:right}
+.trend-badge{font-size:9.5px;font-weight:500;padding:2px 7px;border-radius:3px;text-align:center;white-space:nowrap}
+.tr-surge{background:rgba(162,51,30,.25);color:#E07060;border:1px solid rgba(162,51,30,.4)}
+.tr-rising{background:rgba(184,146,74,.20);color:var(--atlas-gold);border:1px solid rgba(184,146,74,.35)}
+.tr-stable{background:rgba(61,107,92,.25);color:#5DB89A;border:1px solid rgba(61,107,92,.4)}
+.tr-emerging{background:rgba(31,58,95,.4);color:#6BA4D8;border:1px solid rgba(31,58,95,.6)}
+.driver-col{font-size:10.5px;color:var(--text-secondary);line-height:1.5;max-width:180px}
+.sectors-legend{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:10px 14px;display:flex;gap:18px;flex-wrap:wrap;margin-top:16px;align-items:center}
+.sleg-item{display:flex;align-items:center;gap:6px;font-size:10px;color:var(--text-secondary)}
+.sleg-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.sectors-footer{margin-top:12px;font-size:8.5px;color:var(--text-muted);line-height:1.5}
+@media(max-width:1199px){.sectors-summary{grid-template-columns:repeat(2,1fr)}.driver-col{display:none}.sectors-tbl th:nth-child(3),.sectors-tbl td:nth-child(3){display:none}}
+@media(max-width:767px){.sectors-summary{grid-template-columns:1fr 1fr}}
+
+@media(max-width:767px){
+  .stat-grid2{grid-template-columns:1fr}
+  .stat-card.wide{grid-column:span 1}
+}
+@media(min-width:768px) and (max-width:1199px){
+  .stat-grid2{grid-template-columns:1fr}
+  .stat-card.wide{grid-column:span 1}
 }
 
 /* ══ LIGHT MODE ════════════════════════════════════════════ */
@@ -751,7 +820,7 @@ html[data-theme="light"] .dash-tab.active{color:#2A1800}
       Home
     </a>
 
-    <a class="sb-item" onclick="showSbToast('Statistics')">
+    <a class="sb-item" id="sb-statistics" onclick="showStatisticsPanel()">
       <svg class="sb-icon" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z"/></svg>
       Statistics
     </a>
@@ -878,6 +947,36 @@ html[data-theme="light"] .dash-tab.active{color:#2A1800}
         <option value="2029">2029</option>
         <option value="2030">2030</option>
       </select>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ STATISTICS FILTER BAR ═══════════════════════════════ -->
+<div class="dash-tab-bar" id="stat-filter-bar" style="display:none">
+  <button class="dash-tab active" id="stab-population" onclick="switchStatSection('population',this)">Population</button>
+  <button class="dash-tab"        id="stab-economy"    onclick="switchStatSection('economy',this)">Economy</button>
+  <button class="dash-tab"        id="stab-trade"      onclick="switchStatSection('trade',this)">Trade</button>
+  <button class="dash-tab"        id="stab-sectors"    onclick="switchStatSection('sectors',this)">Top Sectors</button>
+
+  <div class="nav-filters" style="margin-left:auto;padding:0;border-top:none">
+    <div class="nav-filter-group">
+      <span class="nav-filter-label">Country</span>
+      <select class="nav-select nav-select-country" id="statCountrySelect" onchange="onStatFilterChange()">
+        <option value="UAE">UAE</option>
+        <option value="Saudi Arabia">Saudi Arabia</option>
+        <option value="Kuwait">Kuwait</option>
+        <option value="Qatar">Qatar</option>
+        <option value="Bahrain">Bahrain</option>
+        <option value="Oman">Oman</option>
+      </select>
+    </div>
+    <div class="nav-filter-group">
+      <span class="nav-filter-label">From</span>
+      <select class="nav-select" id="statFromSelect" onchange="onStatFilterChange()"></select>
+    </div>
+    <div class="nav-filter-group">
+      <span class="nav-filter-label">To</span>
+      <select class="nav-select" id="statToSelect" onchange="onStatFilterChange()"></select>
     </div>
   </div>
 </div>
@@ -1290,6 +1389,343 @@ html[data-theme="light"] .dash-tab.active{color:#2A1800}
   <span class="coming-pill">Coming Soon</span>
 </div>
 
+<!-- ═══ STATISTICS PANEL ════════════════════════════════════ -->
+<div id="sec-statistics">
+
+  <div class="page-header">
+    <div>
+      <h1>UAE Statistics</h1>
+      <div class="page-header-sub">Country-level indicators · 2000–2030 · Historical + Projection</div>
+    </div>
+    <div class="page-header-meta">Illustrative data — sources to be verified</div>
+  </div>
+
+  <!-- ── Population ── -->
+  <div class="stat-section active" id="stat-sec-population">
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-lbl">Population 2025</div><div class="kpi-val">10.0M</div><div class="kpi-sub">▲ +1.5% / yr</div></div>
+      <div class="kpi teal"><div class="kpi-lbl">Fertility Rate</div><div class="kpi-val">1.44</div><div class="kpi-sub">Below replacement (2.1)</div></div>
+      <div class="kpi amber"><div class="kpi-lbl">Life Expectancy</div><div class="kpi-val">79.3 yrs</div><div class="kpi-sub">▲ +6.2 yrs since 2000</div></div>
+      <div class="kpi coral"><div class="kpi-lbl">Urban Population</div><div class="kpi-val">87%</div><div class="kpi-sub">One of world's highest</div></div>
+    </div>
+    <div class="stat-grid2">
+      <div class="stat-card wide">
+        <div class="stat-card-eyebrow">Total Population</div>
+        <div class="stat-card-title">Population has tripled since 2000 — driven by labour migration, not natural increase</div>
+        <div class="stat-card-sub">Millions · 2000–2030 · Dotted = projection from 2025</div>
+        <div class="chart-wrap" style="height:200px"><canvas id="sc-pop-total"></canvas></div>
+        <div class="stat-card-source">UN World Population Prospects 2024 / UAE Statistics Centre (Illustrative)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-eyebrow">Population Density</div>
+        <div class="stat-card-title">Density surges to 120/km² — urban concentration, not land area</div>
+        <div class="stat-card-sub">Persons per km²</div>
+        <div class="chart-wrap" style="height:190px"><canvas id="sc-density"></canvas></div>
+        <div class="stat-card-source">World Bank DataBank (Illustrative)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-eyebrow">Total Fertility Rate</div>
+        <div class="stat-card-title">Fertility falls to 1.44 — well below replacement, making future growth migration-dependent</div>
+        <div class="stat-card-sub">Births per woman · Dashed = replacement level (2.1)</div>
+        <div class="chart-wrap" style="height:190px"><canvas id="sc-fertility"></canvas></div>
+        <div class="stat-card-source">UN DESA World Fertility Data (Illustrative)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-eyebrow">Life Expectancy at Birth</div>
+        <div class="stat-card-title">Up 6.2 years since 2000 — healthcare infrastructure investment paying off</div>
+        <div class="stat-card-sub">Years · Both sexes combined</div>
+        <div class="chart-wrap" style="height:190px"><canvas id="sc-lifeexp"></canvas></div>
+        <div class="stat-card-source">WHO / World Bank (Illustrative)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-eyebrow">Life Expectancy by Gender</div>
+        <div class="stat-card-title">Women outlive men by 3.5 years — consistent with global norms</div>
+        <div class="stat-card-sub">Years · Male vs Female</div>
+        <div class="chart-wrap" style="height:190px"><canvas id="sc-lifeexp-gender"></canvas></div>
+        <div class="stat-card-source">WHO Global Health Observatory (Illustrative)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-eyebrow">Birth Rate vs Death Rate</div>
+        <div class="stat-card-title">Natural increase is thin — expat workforce skews young, suppressing the death rate</div>
+        <div class="stat-card-sub">Per 1,000 population per year</div>
+        <div class="chart-wrap" style="height:190px"><canvas id="sc-birth-death"></canvas></div>
+        <div class="stat-card-source">World Bank Health Indicators (Illustrative)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-eyebrow">Urban Population Share</div>
+        <div class="stat-card-title">At 87%, among the world's most urbanised — anchored by Dubai and Abu Dhabi</div>
+        <div class="stat-card-sub">% of total population in urban areas</div>
+        <div class="chart-wrap" style="height:190px"><canvas id="sc-urban"></canvas></div>
+        <div class="stat-card-source">UN World Urbanisation Prospects (Illustrative)</div>
+      </div>
+    </div>
+  </div><!-- /stat-sec-population -->
+
+  <!-- ── Economy ── -->
+  <div class="stat-section" id="stat-sec-economy">
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-lbl">GDP 2025 (USD)</div><div class="kpi-val">$530B</div><div class="kpi-sub">▲ ×5 since 2000</div></div>
+      <div class="kpi teal"><div class="kpi-lbl">GDP per Capita</div><div class="kpi-val">$53K</div><div class="kpi-sub">Top 10 globally</div></div>
+      <div class="kpi amber"><div class="kpi-lbl">Unemployment</div><div class="kpi-val">2.7%</div><div class="kpi-sub">Nationals: ~10%</div></div>
+      <div class="kpi coral"><div class="kpi-lbl">Inflation 2025</div><div class="kpi-val">2.1%</div><div class="kpi-sub">▼ From 4.9% peak (2022)</div></div>
+    </div>
+    <div class="stat-grid2">
+      <div class="stat-card wide">
+        <div class="stat-card-eyebrow">Gross Domestic Product (USD billions)</div>
+        <div class="stat-card-title">GDP has grown fivefold in 24 years — 2020 contraction recovered; $700B projected by 2030</div>
+        <div class="stat-card-sub">USD billions · 2000–2030 · Projection from 2025</div>
+        <div class="chart-wrap" style="height:200px"><canvas id="sc-gdp"></canvas></div>
+        <div class="stat-card-source">World Bank National Accounts / IMF WEO (Illustrative)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-eyebrow">GDP per Capita (USD)</div>
+        <div class="stat-card-title">Recovery from 2020 is strong but diluted by renewed population growth</div>
+        <div class="stat-card-sub">USD · Nominal</div>
+        <div class="chart-wrap" style="height:190px"><canvas id="sc-gdp-pc"></canvas></div>
+        <div class="stat-card-source">World Bank / IMF (Illustrative)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-eyebrow">Real GDP Growth Rate</div>
+        <div class="stat-card-title">2020 was the only contraction of two decades — shallower than most peers</div>
+        <div class="stat-card-sub">% change year-on-year · Real terms</div>
+        <div class="chart-wrap" style="height:190px"><canvas id="sc-gdp-growth"></canvas></div>
+        <div class="stat-card-source">IMF World Economic Outlook (Illustrative)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-eyebrow">GDP by Sector — 2025</div>
+        <div class="stat-card-title">Non-oil GDP is 70% of total — diversification milestone, though oil sets the floor</div>
+        <div class="stat-card-sub">% share of total GDP</div>
+        <div class="chart-wrap" style="height:210px"><canvas id="sc-sectors"></canvas></div>
+        <div class="stat-card-source">UAE Ministry of Economy (Illustrative)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-eyebrow">Unemployment Rate</div>
+        <div class="stat-card-title">Headline at 2.7% — masks structurally high Emirati rate in private sector</div>
+        <div class="stat-card-sub">% of total labour force</div>
+        <div class="chart-wrap" style="height:190px"><canvas id="sc-unemp"></canvas></div>
+        <div class="stat-card-source">ILO / World Bank (Illustrative)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-eyebrow">Consumer Price Inflation</div>
+        <div class="stat-card-title">The 2022 spike to 4.9% has unwound — a 2–2.5% path expected through 2030</div>
+        <div class="stat-card-sub">Annual % change in CPI · 2000–2030</div>
+        <div class="chart-wrap" style="height:190px"><canvas id="sc-inflation"></canvas></div>
+        <div class="stat-card-source">UAE Statistics Centre / World Bank (Illustrative)</div>
+      </div>
+    </div>
+  </div><!-- /stat-sec-economy -->
+
+  <!-- ── Trade ── -->
+  <div class="stat-section" id="stat-sec-trade">
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-lbl">Total Exports 2025</div><div class="kpi-val">$380B</div><div class="kpi-sub">incl. re-exports</div></div>
+      <div class="kpi teal"><div class="kpi-lbl">Total Imports 2025</div><div class="kpi-val">$320B</div><div class="kpi-sub">▲ +4% / yr</div></div>
+      <div class="kpi amber"><div class="kpi-lbl">Trade Balance</div><div class="kpi-val">+$60B</div><div class="kpi-sub">Surplus · goods only</div></div>
+      <div class="kpi coral"><div class="kpi-lbl">Trade / GDP</div><div class="kpi-val">132%</div><div class="kpi-sub">One of world's highest</div></div>
+    </div>
+    <div class="stat-grid2">
+      <div class="stat-card wide">
+        <div class="stat-card-eyebrow">Trade Balance — Exports vs Imports</div>
+        <div class="stat-card-title">Surplus widened since 2020 — oil export values recovered faster than import demand</div>
+        <div class="stat-card-sub">USD billions · Goods only</div>
+        <div class="chart-wrap" style="height:200px"><canvas id="sc-trade"></canvas></div>
+        <div class="stat-card-source">UN Comtrade / UAE Federal Customs Authority (Illustrative)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-eyebrow">Top Export Commodities (2025)</div>
+        <div class="stat-card-title">Crude oil and petroleum make up over half of exports — hydrocarbons still set the ceiling</div>
+        <div class="stat-card-sub">USD billions</div>
+        <div class="chart-wrap" style="height:230px"><canvas id="sc-exp-comm"></canvas></div>
+        <div class="stat-card-source">UAE FCA / UN Comtrade (Illustrative)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-eyebrow">Top Import Commodities (2025)</div>
+        <div class="stat-card-title">Machinery, gold and vehicles account for half — reflecting construction and re-export gold trade</div>
+        <div class="stat-card-sub">USD billions</div>
+        <div class="chart-wrap" style="height:230px"><canvas id="sc-imp-comm"></canvas></div>
+        <div class="stat-card-source">UAE FCA / UN Comtrade (Illustrative)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-eyebrow">Top Export Partners (2025)</div>
+        <div class="stat-card-title">India and China now absorb more UAE exports than Europe — a fundamental trade-gravity shift</div>
+        <div class="stat-card-sub">% share of total exports</div>
+        <div class="chart-wrap" style="height:230px"><canvas id="sc-exp-part"></canvas></div>
+        <div class="stat-card-source">UAE Federal Customs Authority (Illustrative)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-eyebrow">Top Import Partners (2025)</div>
+        <div class="stat-card-title">China is now the largest import source — displacing the US as supply chains shifted eastward</div>
+        <div class="stat-card-sub">% share of total imports</div>
+        <div class="chart-wrap" style="height:230px"><canvas id="sc-imp-part"></canvas></div>
+        <div class="stat-card-source">UAE Federal Customs Authority (Illustrative)</div>
+      </div>
+    </div>
+  </div><!-- /stat-sec-trade -->
+
+  <!-- ── Top Sectors ── -->
+  <div class="stat-section" id="stat-sec-sectors">
+
+    <!-- KPI summary strip -->
+    <div class="sectors-summary">
+      <div class="kpi">
+        <div class="kpi-lbl">Combined TAM (Top 10)</div>
+        <div class="kpi-val">&gt;$750B</div>
+        <div class="kpi-sub">2025E combined market value</div>
+      </div>
+      <div class="kpi teal">
+        <div class="kpi-lbl">Avg. CAGR (Top 10)</div>
+        <div class="kpi-val">~11%</div>
+        <div class="kpi-sub">Median growth rate 2025–30</div>
+      </div>
+      <div class="kpi amber">
+        <div class="kpi-lbl">Search Surge Sectors</div>
+        <div class="kpi-val">4 of 10</div>
+        <div class="kpi-sub">YoY search volume &gt;40%</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-lbl">Primary Demand Driver</div>
+        <div class="kpi-val" style="font-size:16px;padding-top:3px">Vision 2030</div>
+        <div class="kpi-sub">Present in 8 of 10 sectors</div>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <div class="sectors-sl">Sector ranking — by search interest intensity for market size estimates · GCC region · Nov 2024 – May 2025</div>
+    <div style="overflow-x:auto">
+      <table class="sectors-tbl">
+        <thead>
+          <tr>
+            <th style="width:3%">No.</th>
+            <th style="width:18%">Sector</th>
+            <th style="width:15%">Key sub-themes</th>
+            <th style="width:10%" class="r">Market size<br><span style="font-weight:400;text-transform:none;letter-spacing:0">(2025E)</span></th>
+            <th style="width:7%" class="r">CAGR</th>
+            <th style="width:13%">Search intensity</th>
+            <th style="width:8%" class="c">Trend</th>
+            <th style="width:26%">Primary search driver</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="rank-num top3">1</div></td>
+            <td><div class="sec-name">Real Estate &amp; Construction</div><div class="sec-sub">Residential, commercial, mega-projects</div></td>
+            <td><div class="tag-row"><span class="stag">NEOM</span><span class="stag">UAE residential</span><span class="stag">PropTech</span></div></td>
+            <td><div class="mkt-sz">$308B</div><div class="mkt-sz-sub">RE $141B + Const. $167B</div></td>
+            <td><div class="sec-cagr">+6.1%</div></td>
+            <td><div class="sbar-wrap"><div class="sbar-track"><div class="sbar-fill" style="width:100%;background:#E07060"></div></div><div class="sbar-lbl">Highest</div></div></td>
+            <td><span class="trend-badge tr-surge">Surging</span></td>
+            <td><div class="driver-col">Saudi Vision 2030 mega-projects (NEOM, Red Sea, Qiddiya) and UAE real estate FDI reforms driving the highest volume of investor research queries.</div></td>
+          </tr>
+          <tr>
+            <td><div class="rank-num top3">2</div></td>
+            <td><div class="sec-name">Fintech &amp; Financial Services</div><div class="sec-sub">Digital banking, payments, BNPL, CBDC</div></td>
+            <td><div class="tag-row"><span class="stag">Open banking</span><span class="stag">BNPL</span><span class="stag">CBDC</span></div></td>
+            <td><div class="mkt-sz">~$45B</div><div class="mkt-sz-sub">Banking assets $3.2T total</div></td>
+            <td><div class="sec-cagr">+14.2%</div></td>
+            <td><div class="sbar-wrap"><div class="sbar-track"><div class="sbar-fill" style="width:93%;background:#E07060"></div></div><div class="sbar-lbl">Very high</div></div></td>
+            <td><span class="trend-badge tr-surge">Surging</span></td>
+            <td><div class="driver-col">UAE and Saudi Arabia open-banking mandates, SAMA regulatory sandbox, and regional CBDC pilots generating high investor and analyst query volumes.</div></td>
+          </tr>
+          <tr>
+            <td><div class="rank-num top3">3</div></td>
+            <td><div class="sec-name">Healthcare &amp; Pharmaceuticals</div><div class="sec-sub">Hospitals, pharma, medtech, digital health</div></td>
+            <td><div class="tag-row"><span class="stag">Telemedicine</span><span class="stag">Pharma mfg</span><span class="stag">MedTech</span></div></td>
+            <td><div class="mkt-sz">~$60B</div><div class="mkt-sz-sub">Pharma $23.7B + hospitals</div></td>
+            <td><div class="sec-cagr">+11.1%</div></td>
+            <td><div class="sbar-wrap"><div class="sbar-track"><div class="sbar-fill" style="width:87%;background:#E07060"></div></div><div class="sbar-lbl">Very high</div></div></td>
+            <td><span class="trend-badge tr-surge">Surging</span></td>
+            <td><div class="driver-col">Saudi hospital privatisation roadmap, UAE's Malaffi EHR platform, and post-COVID regional pharma manufacturing push driving market-sizing queries.</div></td>
+          </tr>
+          <tr>
+            <td><div class="rank-num">4</div></td>
+            <td><div class="sec-name">Renewable Energy &amp; Cleantech</div><div class="sec-sub">Solar, green hydrogen, wind, storage</div></td>
+            <td><div class="tag-row"><span class="stag">Green hydrogen</span><span class="stag">Solar</span><span class="stag">Net Zero</span></div></td>
+            <td><div class="mkt-sz">~$35B</div><div class="mkt-sz-sub">2025 GCC clean energy est.</div></td>
+            <td><div class="sec-cagr">+17.4%</div></td>
+            <td><div class="sbar-wrap"><div class="sbar-track"><div class="sbar-fill" style="width:81%;background:var(--atlas-gold)"></div></div><div class="sbar-lbl">High</div></div></td>
+            <td><span class="trend-badge tr-rising">Rising</span></td>
+            <td><div class="driver-col">Saudi 2030 renewable targets (50% clean energy), UAE Net Zero 2050, NEOM's 100% renewable mandate and ACWA Power / Masdar deal flow attracting global capital research.</div></td>
+          </tr>
+          <tr>
+            <td><div class="rank-num">5</div></td>
+            <td><div class="sec-name">AI, Cloud &amp; Digital Transformation</div><div class="sec-sub">AI platforms, SaaS, data centres, 5G</div></td>
+            <td><div class="tag-row"><span class="stag">GenAI</span><span class="stag">Data centres</span><span class="stag">SaaS</span></div></td>
+            <td><div class="mkt-sz">~$52B</div><div class="mkt-sz-sub">Smart cities $145B by 2032</div></td>
+            <td><div class="sec-cagr">+25.7%</div></td>
+            <td><div class="sbar-wrap"><div class="sbar-track"><div class="sbar-fill" style="width:78%;background:var(--atlas-gold)"></div></div><div class="sbar-lbl">High</div></div></td>
+            <td><span class="trend-badge tr-surge">Surging</span></td>
+            <td><div class="driver-col">Microsoft, Google, and Oracle hyperscale data centre commitments to Saudi and UAE, plus national AI strategies generating intense research demand.</div></td>
+          </tr>
+          <tr>
+            <td><div class="rank-num">6</div></td>
+            <td><div class="sec-name">Logistics &amp; Supply Chain</div><div class="sec-sub">Freight, ports, last-mile, cold chain</div></td>
+            <td><div class="tag-row"><span class="stag">E-com logistics</span><span class="stag">Free zones</span><span class="stag">Cold chain</span></div></td>
+            <td><div class="mkt-sz">$83B</div><div class="mkt-sz-sub">→ $120B by 2031</div></td>
+            <td><div class="sec-cagr">+6.1%</div></td>
+            <td><div class="sbar-wrap"><div class="sbar-track"><div class="sbar-fill" style="width:72%;background:var(--atlas-gold)"></div></div><div class="sbar-lbl">High</div></div></td>
+            <td><span class="trend-badge tr-rising">Rising</span></td>
+            <td><div class="driver-col">IMEC corridor announcement, Jebel Ali port expansion, and Saudi Landbridge rail project driving PE and infrastructure fund interest in GCC logistics.</div></td>
+          </tr>
+          <tr>
+            <td><div class="rank-num">7</div></td>
+            <td><div class="sec-name">Tourism &amp; Hospitality</div><div class="sec-sub">Inbound, luxury, entertainment, sport</div></td>
+            <td><div class="tag-row"><span class="stag">Saudi inbound</span><span class="stag">Luxury hotels</span><span class="stag">FIFA 2034</span></div></td>
+            <td><div class="mkt-sz">~$75B</div><div class="mkt-sz-sub">GCC outbound + inbound est.</div></td>
+            <td><div class="sec-cagr">+6.8%</div></td>
+            <td><div class="sbar-wrap"><div class="sbar-track"><div class="sbar-fill" style="width:66%;background:#8B6F2F"></div></div><div class="sbar-lbl">Moderate-high</div></div></td>
+            <td><span class="trend-badge tr-rising">Rising</span></td>
+            <td><div class="driver-col">Saudi ranked 3rd globally in tourist arrival growth in 2024; FIFA 2034 hosting rights confirmed; Red Sea and NEOM hospitality pipelines attracting hotel PE research.</div></td>
+          </tr>
+          <tr>
+            <td><div class="rank-num">8</div></td>
+            <td><div class="sec-name">E-commerce &amp; Retail</div><div class="sec-sub">Online retail, Q-commerce, grocery tech</div></td>
+            <td><div class="tag-row"><span class="stag">Q-commerce</span><span class="stag">Grocery delivery</span><span class="stag">D2C</span></div></td>
+            <td><div class="mkt-sz">~$22B</div><div class="mkt-sz-sub">GCC e-commerce 2025E</div></td>
+            <td><div class="sec-cagr">+13.5%</div></td>
+            <td><div class="sbar-wrap"><div class="sbar-track"><div class="sbar-fill" style="width:60%;background:#8B6F2F"></div></div><div class="sbar-lbl">Moderate-high</div></div></td>
+            <td><span class="trend-badge tr-rising">Rising</span></td>
+            <td><div class="driver-col">High smartphone penetration (&gt;97%), young demographics, and rapid post-COVID digital adoption are attracting VC and growth-equity market-size research.</div></td>
+          </tr>
+          <tr>
+            <td><div class="rank-num">9</div></td>
+            <td><div class="sec-name">Education Technology</div><div class="sec-sub">K-12 EdTech, higher ed, vocational, LMS</div></td>
+            <td><div class="tag-row"><span class="stag">K-12 digital</span><span class="stag">EdTech VC</span><span class="stag">Upskilling</span></div></td>
+            <td><div class="mkt-sz">~$8B</div><div class="mkt-sz-sub">GCC EdTech 2025E</div></td>
+            <td><div class="sec-cagr">+15.2%</div></td>
+            <td><div class="sbar-wrap"><div class="sbar-track"><div class="sbar-fill" style="width:50%;background:#3D6B5C"></div></div><div class="sbar-lbl">Moderate</div></div></td>
+            <td><span class="trend-badge tr-emerging">Emerging</span></td>
+            <td><div class="driver-col">Saudi Human Capability Development Program, UAE Centennial 2071 education goals, and workforce nationalisation targets fuelling EdTech investor interest.</div></td>
+          </tr>
+          <tr>
+            <td><div class="rank-num">10</div></td>
+            <td><div class="sec-name">Critical Minerals &amp; Mining</div><div class="sec-sub">Rare earths, copper, phosphate, gold</div></td>
+            <td><div class="tag-row"><span class="stag">Ma'aden</span><span class="stag">Rare earths</span><span class="stag">Battery minerals</span></div></td>
+            <td><div class="mkt-sz">~$18B</div><div class="mkt-sz-sub">Saudi mining sector 2025E</div></td>
+            <td><div class="sec-cagr">+8.3%</div></td>
+            <td><div class="sbar-wrap"><div class="sbar-track"><div class="sbar-fill" style="width:42%;background:#3D6B5C"></div></div><div class="sbar-lbl">Moderate</div></div></td>
+            <td><span class="trend-badge tr-emerging">Emerging</span></td>
+            <td><div class="driver-col">Saudi Arabia's $2.5 trillion mineral wealth estimate and new mining law reforms generating fast-rising search interest from global mining majors, SWFs, and battery supply chain investors.</div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Legend -->
+    <div class="sectors-legend">
+      <div class="sleg-item"><div class="sleg-dot" style="background:#E07060"></div><strong style="color:var(--text-primary);margin-right:2px">Surging</strong> — YoY search volume &gt;40%</div>
+      <div class="sleg-item"><div class="sleg-dot" style="background:var(--atlas-gold)"></div><strong style="color:var(--text-primary);margin-right:2px">Rising</strong> — YoY growth 20–40%</div>
+      <div class="sleg-item"><div class="sleg-dot" style="background:#6BA4D8"></div><strong style="color:var(--text-primary);margin-right:2px">Emerging</strong> — New entrant · growth 10–20%</div>
+      <div class="sleg-item"><div class="sleg-dot" style="background:#5DB89A"></div><strong style="color:var(--text-primary);margin-right:2px">Stable</strong> — Consistent baseline demand</div>
+      <div style="flex:1"></div>
+      <span style="font-size:9px;color:var(--text-muted)">Search intensity proxied from market report publication volume, investor query patterns, and analyst note frequency — Nov 2024 to May 2025.</span>
+    </div>
+
+    <div class="sectors-footer">Sources: Mordor Intelligence, IMARC Group, PwC GCC Economic Themes 2025/26, World Bank GCC Report Dec 2025, DataM Intelligence, State Street GCC IPO Report — May 2025</div>
+
+  </div><!-- /stat-sec-sectors -->
+
+</div><!-- /sec-statistics -->
+
 </div>
 </div>
 </div><!-- /main -->
@@ -1368,6 +1804,9 @@ function toggleTheme() {
   Chart.defaults.color = toLight ? '#6B7280' : '#6E7785';
   _updateThemeBtn(toLight);
   dashboard.loadSection(dashboard.activeSection, dashboard.activeCountry, dashboard.activeProduct);
+  if (document.getElementById('sec-statistics').style.display !== 'none') {
+    _statChartsRendered = false; renderStatCharts(); _statChartsRendered = true;
+  }
 }
 function _updateThemeBtn(isLight) {
   const icon = document.getElementById('theme-icon');
@@ -1994,6 +2433,7 @@ function switchSec(name)       { dashboard.switchSec(name); }
 // ── REPORT TABS ───────────────────────────────────────────
 const DTAB_IDS = ['mktoverview','competition','value-chain','experts','news'];
 function switchDashTab(tab) {
+  hideStatisticsPanel();
   DTAB_IDS.forEach(t => document.getElementById(`dtab-${t}`)?.classList.toggle('active', t===tab));
   const isOverview = tab === 'mktoverview';
   document.getElementById('mkt-overview-panels').style.display = isOverview ? '' : 'none';
@@ -2042,6 +2482,228 @@ function showSbToast(feature) {
   _sbToastTimer = setTimeout(() => { toast.style.display = 'none'; }, 2500);
 }
 
+// ══ STATISTICS PANEL ══════════════════════════════════════
+
+// ── Data (2000–2030, 31 values) ───────────────────────────
+const STAT_YEARS = Array.from({length:31}, (_,i)=>2000+i);
+const STAT_SPLIT = 25; // index 25 = 2025, projection starts
+
+const STAT = {
+  pop:       [3.3,3.7,4.1,4.5,4.9,5.4,6.0,6.6,7.1,7.4,7.7,7.9,8.1,8.3,8.5,8.7,8.9,9.1,9.3,9.5,9.7,9.8,9.9,10.0,10.0,10.2,10.4,10.6,10.9,11.1,11.4],
+  density:   [40,44,49,54,59,65,72,79,85,89,92,95,97,100,102,104,107,109,111,114,116,118,119,120,120,122,125,127,131,133,137],
+  fertility: [2.5,2.4,2.3,2.2,2.1,2.1,2.1,2.0,2.0,1.9,1.9,1.8,1.8,1.7,1.7,1.6,1.6,1.6,1.5,1.5,1.5,1.5,1.4,1.4,1.4,1.4,1.4,1.4,1.4,1.4,1.4],
+  birthRate: [16.4,15.8,15.3,14.8,14.4,14.1,13.9,13.6,13.2,12.8,12.5,12.2,12.0,11.8,11.7,11.6,11.5,11.4,11.3,11.2,11.1,11.0,11.0,10.9,10.9,10.8,10.8,10.7,10.7,10.6,10.6],
+  deathRate: [2.1,2.0,2.0,1.9,1.9,1.8,1.8,1.8,1.7,1.7,1.7,1.6,1.6,1.6,1.6,1.6,1.6,1.6,1.6,1.6,1.7,1.7,1.7,1.7,1.8,1.8,1.8,1.9,1.9,1.9,2.0],
+  lifeExp:   [73.1,73.5,73.9,74.3,74.7,75.1,75.5,75.8,76.1,76.4,76.7,77.0,77.3,77.6,77.9,78.1,78.3,78.5,78.7,78.8,78.9,79.1,79.2,79.3,79.4,79.6,79.8,80.0,80.2,80.4,80.6],
+  lifeExpM:  [71.0,71.4,71.8,72.2,72.6,73.0,73.4,73.7,74.0,74.3,74.6,74.9,75.2,75.5,75.8,76.0,76.2,76.4,76.6,76.7,76.8,77.0,77.1,77.2,77.3,77.5,77.7,77.9,78.1,78.3,78.5],
+  lifeExpF:  [75.3,75.7,76.1,76.5,76.9,77.3,77.7,78.0,78.3,78.6,78.9,79.2,79.5,79.8,80.1,80.3,80.5,80.7,80.9,81.0,81.1,81.3,81.4,81.5,81.6,81.8,82.0,82.2,82.4,82.6,82.8],
+  urban:     [77,78,79,80,80,81,82,83,84,84,85,85,85,85,86,86,86,86,87,87,87,87,87,87,87,87,88,88,88,88,89],
+  gdp:       [104,118,130,160,185,225,260,294,317,254,289,339,374,404,390,370,365,385,415,421,359,388,449,509,530,560,590,620,655,680,710],
+  gdpGrowth: [12.4,5.3,2.6,11.7,9.7,8.2,8.8,6.1,5.3,-4.8,1.6,6.9,4.5,5.1,3.1,3.8,3.1,0.5,1.2,1.3,-6.1,4.0,7.9,3.4,4.0,4.1,4.2,4.3,4.3,4.2,4.1],
+  gdpPc:     [29600,31000,31400,34800,36900,40900,42600,43100,43400,33400,36500,41800,44900,47200,44600,40800,39900,41400,43600,43300,36100,38900,44500,49900,53000,54000,55800,57000,58800,60000,61300],
+  inflation: [1.5,2.8,2.9,3.1,4.2,6.2,9.3,11.0,12.3,1.6,0.9,0.9,0.7,1.1,2.3,4.1,1.6,2.0,3.1,-1.9,-2.1,0.2,4.9,3.4,2.1,2.0,2.1,2.1,2.2,2.2,2.3],
+  unemp:     [3.5,3.3,3.2,3.0,3.1,3.2,3.0,2.9,2.8,5.5,4.8,4.2,3.8,3.5,3.2,3.1,3.0,2.9,2.8,2.7,4.1,3.5,3.0,2.8,2.7,2.6,2.5,2.5,2.4,2.4,2.3],
+  exports:   [50,60,70,90,110,145,175,195,230,175,205,260,300,330,310,280,275,300,330,340,270,310,390,450,480,500,525,555,580,605,630],
+  imports:   [42,50,58,72,88,110,130,155,175,155,175,210,240,265,255,240,235,255,275,280,240,270,310,360,380,400,420,440,465,485,505],
+};
+
+// ── Chart registry for destroy/re-render ──────────────────
+const _statCharts = {};
+function _sc(id, cfg) {
+  if (_statCharts[id]) _statCharts[id].destroy();
+  const el = document.getElementById(id);
+  if (!el) return;
+  _statCharts[id] = new Chart(el, cfg);
+}
+
+// Split array at STAT_SPLIT: hist keeps [0..split] proj has nulls then [split..]
+function _split(arr) {
+  const hist = arr.slice(0, STAT_SPLIT + 1).concat(arr.slice(STAT_SPLIT + 1).map(() => null));
+  const proj = arr.slice(0, STAT_SPLIT).map(() => null).concat(arr.slice(STAT_SPLIT));
+  return { hist, proj };
+}
+
+// ── Year-range state (indices into STAT arrays) ───────────
+let _statFrom = 0;   // 0 = 2000
+let _statTo   = 30;  // 30 = 2030
+
+function _statLabels() { return STAT_YEARS.slice(_statFrom, _statTo + 1); }
+function _statSlice(arr) { return arr.slice(_statFrom, _statTo + 1); }
+function _statSplit(arr) {
+  const sliced   = _statSlice(arr);
+  const splitRel = STAT_SPLIT - _statFrom;
+  if (splitRel < 0) return { hist: null, proj: sliced };     // all projection
+  if (splitRel >= sliced.length - 1) return { hist: sliced, proj: null }; // all history
+  const hist = sliced.map((v, i) => i <= splitRel ? v : null);
+  const proj = sliced.map((v, i) => i >= splitRel ? v : null);
+  return { hist, proj };
+}
+
+// ── Base chart options reusing Dashboard palette ──────────
+function _statLineOpts({yLabel=''} = {}) {
+  const {G, TXT} = _getChartColors();
+  const labels = _statLabels();
+  return {
+    responsive:true, maintainAspectRatio:false,
+    plugins:{
+      legend:{display:false},
+      datalabels:{display:false},
+      tooltip:{callbacks:{title: items => `${labels[items[0].dataIndex]}`, label: c => ` ${c.dataset.label}: ${c.parsed.y ?? '—'}`}},
+    },
+    scales:{
+      x:{grid:{color:'transparent'},border:{color:G},
+         ticks:{color:TXT,font:{size:9},maxTicksLimit:8,
+           callback:(v,i) => { const yr=labels[i]; return yr%5===0||labels.length<=11?yr:''; }}},
+      y:{grid:{color:G},border:{color:'transparent'},
+         ticks:{color:TXT,font:{size:9},maxTicksLimit:6},
+         title:{display:!!yLabel,text:yLabel,color:TXT,font:{size:9}}},
+    },
+  };
+}
+
+function _statBarOpts({indexAxis='x'} = {}) {
+  const {G, TXT} = _getChartColors();
+  return {
+    responsive:true, maintainAspectRatio:false, indexAxis,
+    plugins:{legend:{display:false},datalabels:{display:false}},
+    scales:{
+      x:{grid:{color:indexAxis==='y'?G:'transparent'},border:{color:indexAxis==='y'?'transparent':G},
+         ticks:{color:TXT,font:{size:9}}},
+      y:{grid:{color:indexAxis==='y'?'transparent':G},border:{color:indexAxis==='y'?G:'transparent'},
+         ticks:{color:TXT,font:{size:9}}},
+    },
+  };
+}
+
+// ── Section tab switching ─────────────────────────────────
+function switchStatSection(name, btn) {
+  document.querySelectorAll('.stat-section').forEach(el => el.classList.remove('active'));
+  ['population','economy','trade','sectors'].forEach(n => {
+    const b = document.getElementById(`stab-${n}`);
+    if (b) b.classList.remove('active');
+  });
+  const sec = document.getElementById(`stat-sec-${name}`);
+  if (sec) sec.classList.add('active');
+  if (btn) btn.classList.add('active');
+}
+
+// ── Panel show / hide ─────────────────────────────────────
+let _statChartsRendered = false;
+function showStatisticsPanel() {
+  document.querySelectorAll('.sb-item').forEach(el => el.classList.remove('sb-open'));
+  document.getElementById('sb-statistics')?.classList.add('sb-open');
+  document.querySelector('.dash-tab-bar').style.display = 'none';
+  document.getElementById('stat-filter-bar').style.display = 'flex';
+  document.getElementById('mkt-overview-panels').style.display = 'none';
+  ['competition','value-chain','experts','news'].forEach(t => {
+    const el = document.getElementById(`tab-${t}`);
+    if (el) el.style.display = 'none';
+  });
+  document.getElementById('sec-statistics').style.display = 'block';
+  if (!_statChartsRendered) {
+    requestAnimationFrame(() => { renderStatCharts(); _statChartsRendered = true; });
+  }
+  if (window.innerWidth <= 767) closeSidebar();
+}
+
+function hideStatisticsPanel() {
+  document.getElementById('sec-statistics').style.display = 'none';
+  document.getElementById('stat-filter-bar').style.display = 'none';
+  document.querySelector('.dash-tab-bar').style.display = '';
+  document.getElementById('sb-statistics')?.classList.remove('sb-open');
+}
+
+// ── Re-render charts (called on theme toggle / filter change) ─
+function renderStatCharts() {
+  const {G, TXT, LEG, CARD_BG} = _getChartColors();
+  const GOLD='#B8924A', BLUE='#1F3A5F', TEAL='#3D6B5C', CORAL='#A8331E', STONE='#A89F8E';
+  const labels = _statLabels();
+
+  function h(c){return{borderColor:c,backgroundColor:'transparent',borderWidth:2,pointRadius:0,tension:0.3,datalabels:{display:false}};}
+  function p(c){return{borderColor:c,backgroundColor:c+'22',borderWidth:2,borderDash:[5,4],pointRadius:0,tension:0.3,fill:true,datalabels:{display:false}};}
+
+  function sl(id, datasets, yLabel) {
+    _sc(id, {type:'line', data:{labels, datasets}, options:_statLineOpts({yLabel})});
+  }
+  function sl2(id, datasets) {
+    _sc(id, {type:'line', data:{labels, datasets}, options:{
+      ..._statLineOpts(),
+      plugins:{legend:{display:true,position:'bottom',labels:{boxWidth:10,padding:10,font:{size:9},color:LEG}},datalabels:{display:false}},
+    }});
+  }
+  function splitDs(arr, hColor, pColor) {
+    const {hist, proj} = _statSplit(arr);
+    const ds = [];
+    if (hist) ds.push({label:'Historical', data:hist, ...h(hColor)});
+    if (proj) ds.push({label:'Projection', data:proj, ...p(pColor)});
+    return ds;
+  }
+  function hbar(id, barLabels, values, colors) {
+    _sc(id, {type:'bar', data:{labels:barLabels, datasets:[{data:values,backgroundColor:colors,borderRadius:2,borderSkipped:false,datalabels:{display:false}}]}, options:_statBarOpts({indexAxis:'y'})});
+  }
+
+  // ── Population
+  sl('sc-pop-total', splitDs(STAT.pop, BLUE, GOLD), 'Millions');
+  sl('sc-density',   splitDs(STAT.density, BLUE, GOLD), 'per km²');
+  _sc('sc-fertility', {type:'line', data:{labels, datasets:[
+    ...splitDs(STAT.fertility, BLUE, GOLD),
+    {label:'Replacement', data:labels.map(()=>2.1), borderColor:TXT, borderWidth:1, borderDash:[3,3], pointRadius:0, datalabels:{display:false}},
+  ]}, options:_statLineOpts()});
+  sl('sc-lifeexp',    splitDs(STAT.lifeExp, BLUE, GOLD), 'Years');
+  sl2('sc-lifeexp-gender', [{label:'Male', data:_statSlice(STAT.lifeExpM), ...h(BLUE)}, {label:'Female', data:_statSlice(STAT.lifeExpF), ...h(TEAL)}]);
+  sl2('sc-birth-death', [{label:'Birth rate', data:_statSlice(STAT.birthRate), ...h(BLUE)}, {label:'Death rate', data:_statSlice(STAT.deathRate), ...h(CORAL)}]);
+  sl('sc-urban', splitDs(STAT.urban, TEAL, GOLD), '%');
+
+  // ── Economy
+  (function() {
+    const {hist,proj} = _statSplit(STAT.gdp);
+    const ds = [];
+    if (hist) ds.push({label:'Historical', data:hist, ...h(BLUE), backgroundColor:BLUE+'18', fill:true});
+    if (proj) ds.push({label:'Projection', data:proj, ...p(GOLD)});
+    sl('sc-gdp', ds, 'USD B');
+  })();
+  sl('sc-gdp-pc', splitDs(STAT.gdpPc, BLUE, GOLD), 'USD');
+  const gdpGrowthSliced = _statSlice(STAT.gdpGrowth);
+  _sc('sc-gdp-growth', {type:'bar', data:{labels, datasets:[{label:'Growth', data:gdpGrowthSliced,
+    backgroundColor:gdpGrowthSliced.map(v=>v<0?CORAL+'CC':BLUE+'CC'),
+    borderRadius:2, borderSkipped:false, datalabels:{display:false}}]},
+    options:{responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{display:false}, datalabels:{display:false},
+        tooltip:{callbacks:{title:items=>`${labels[items[0].dataIndex]}`, label:c=>` ${c.parsed.y.toFixed(1)}%`}}},
+      scales:{
+        x:{grid:{color:'transparent'}, border:{color:G}, ticks:{color:TXT, font:{size:9}, maxTicksLimit:8,
+           callback:(v,i)=>{const yr=labels[i];return yr%5===0||labels.length<=11?yr:''}}},
+        y:{grid:{color:G}, border:{color:'transparent'}, ticks:{color:TXT, font:{size:9}, callback:v=>`${v}%`}},
+      }}});
+  _sc('sc-sectors', {type:'doughnut', data:{labels:['Oil & Gas','Real Estate','Trade & Retail','Finance','Tourism','Other'],
+    datasets:[{data:[30,16,14,12,10,18], backgroundColor:[CORAL+'CC',BLUE+'CC',TEAL+'CC',GOLD+'CC','#9B59B6CC','#607D8BCC'], borderColor:CARD_BG, borderWidth:2}]},
+    options:{responsive:true, maintainAspectRatio:false, cutout:'58%',
+      plugins:{legend:{display:true, position:'bottom', labels:{color:LEG,font:{size:9},boxWidth:10,padding:8}},
+        datalabels:{formatter:v=>v>=10?`${v}%`:'', color:'#fff', font:{size:9,weight:'600'}}}}});
+  sl('sc-unemp', splitDs(STAT.unemp, TEAL, GOLD), '%');
+  (function() {
+    const {hist,proj} = _statSplit(STAT.inflation);
+    const ds = [];
+    if (hist) ds.push({label:'Historical', data:hist, ...h(BLUE), backgroundColor:BLUE+'18', fill:true});
+    if (proj) ds.push({label:'Projection', data:proj, ...p(GOLD)});
+    ds.push({label:'Zero', data:labels.map(()=>0), borderColor:TXT, borderWidth:1, borderDash:[3,3], pointRadius:0, datalabels:{display:false}});
+    sl('sc-inflation', ds, '%');
+  })();
+
+  // ── Trade (time-series uses sliced data; bar charts are point-in-time — no slicing)
+  const expSliced = _statSlice(STAT.exports);
+  const impSliced = _statSlice(STAT.imports);
+  sl2('sc-trade', [
+    {label:'Exports', data:expSliced, ...h(TEAL), fill:false},
+    {label:'Imports', data:impSliced, ...h(CORAL), fill:false},
+    {label:'Balance', data:expSliced.map((e,i)=>e-impSliced[i]), borderColor:GOLD, borderWidth:2, pointRadius:0, tension:0.3, backgroundColor:GOLD+'18', fill:true, datalabels:{display:false}},
+  ]);
+  hbar('sc-exp-comm', ['Crude Oil','Refined Petroleum','Gold','Aluminium','Natural Gas','Plastics','Machinery','Other'],   [145,82,48,28,22,18,15,22], [CORAL,CORAL+'AA',GOLD,TEAL,BLUE,TEAL+'AA',STONE,STONE+'88']);
+  hbar('sc-imp-comm', ['Machinery & Equip.','Gold','Vehicles','Precious Stones','Electronics','Apparel','Food & Bev.','Other'], [72,65,40,32,30,22,20,39], [BLUE,GOLD,TEAL,GOLD+'AA',BLUE+'AA',TEAL+'AA',CORAL+'AA',STONE+'88']);
+  hbar('sc-exp-part', ['India','China','Japan','South Korea','Iraq','Thailand','Singapore','Others'], [22,16,9,8,7,5,4,29], [BLUE,BLUE,BLUE,BLUE,BLUE,BLUE,BLUE,STONE+'88']);
+  hbar('sc-imp-part', ['China','India','USA','Germany','Japan','UK','South Korea','Others'],          [24,11,9,6,5,5,4,36], [CORAL,CORAL,CORAL,CORAL,CORAL,CORAL,CORAL,STONE+'88']);
+}
+
 // ── CHART.JS INIT ─────────────────────────────────────────
 Chart.register(ChartDataLabels);
 Chart.defaults.plugins.datalabels.display = false;
@@ -2049,9 +2711,55 @@ Chart.defaults.font.family = "'IBM Plex Sans', -apple-system, sans-serif";
 Chart.defaults.font.size   = 11;
 Chart.defaults.color       = document.documentElement.dataset.theme === 'light' ? '#6B7280' : '#6E7785';
 
+// ── Statistics filter init ─────────────────────────────────
+(function() {
+  const fromSel = document.getElementById('statFromSelect');
+  const toSel   = document.getElementById('statToSelect');
+  if (!fromSel || !toSel) return;
+  const MIN = 2000, MAX = 2030;
+  for (let y = MIN; y <= MAX; y++) {
+    const o1 = new Option(y, y); if (y === MIN) o1.selected = true;
+    const o2 = new Option(y, y); if (y === MAX) o2.selected = true;
+    fromSel.appendChild(o1);
+    toSel.appendChild(o2);
+  }
+})();
+
+function onStatFilterChange() {
+  const fromSel    = document.getElementById('statFromSelect');
+  const toSel      = document.getElementById('statToSelect');
+  const fromYear   = parseInt(fromSel.value, 10);
+  let   toYear     = parseInt(toSel.value, 10);
+
+  // Enforce from <= to: if from moved past to, bump to
+  if (fromYear > toYear) {
+    toYear = fromYear;
+    toSel.value = fromYear;
+  }
+  // Disable "To" options that are before "From"
+  Array.from(toSel.options).forEach(o => { o.disabled = parseInt(o.value) < fromYear; });
+
+  _statFrom = fromYear - 2000;
+  _statTo   = toYear   - 2000;
+
+  // Update country label in page header
+  const country = document.getElementById('statCountrySelect').value;
+  const hdr = document.querySelector('#sec-statistics .page-header h1');
+  if (hdr) hdr.textContent = `${country} Statistics`;
+
+  _statChartsRendered = false;
+  renderStatCharts();
+  _statChartsRendered = true;
+}
+
 // ── BOOT ──────────────────────────────────────────────────
 _updateThemeBtn(document.documentElement.dataset.theme === 'light');
 const dashboard = new MarketDashboard();
+
+// Auto-activate statistics panel when opened via Dashboard.html#statistics
+if (window.location.hash === '#statistics') {
+  requestAnimationFrame(() => showStatisticsPanel());
+}
 </script>
 </body>
 </html>

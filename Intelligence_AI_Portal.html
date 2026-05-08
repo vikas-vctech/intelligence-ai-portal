@@ -370,8 +370,8 @@
   .portal-nav-logo {
     display: flex; align-items: center; margin-right: 36px; flex-shrink: 0; cursor: pointer;
   }
-  .portal-nav-logo .logo-dark  { display: block; height: 42px; width: auto; }
-  .portal-nav-logo .logo-light { display: none;  height: 42px; width: auto; }
+  .portal-nav-logo .logo-dark  { display: block; height: 58px; width: auto; }
+  .portal-nav-logo .logo-light { display: none;  height: 58px; width: auto; }
   html[data-theme="light"] .portal-nav-logo .logo-dark  { display: none; }
   html[data-theme="light"] .portal-nav-logo .logo-light { display: block; }
 
@@ -827,10 +827,10 @@
     <!-- Nav links -->
     <nav class="portal-nav-links">
 
-      <!-- Products -->
+      <!-- Industries -->
       <div class="portal-nav-item" id="pni-products">
         <button class="portal-nav-btn" onclick="togglePortalDD('products')">
-          Products <span class="portal-chev">▾</span>
+          Industries <span class="portal-chev">▾</span>
         </button>
         <div class="portal-dd" id="dd-products">
           <a onclick="showPage('consumer-products');closeAllPortalDDs()">
@@ -845,17 +845,11 @@
         </div>
       </div>
 
+      <!-- Statistics -->
+      <button class="portal-nav-btn" onclick="openStats()">Statistics</button>
+
       <!-- Solutions -->
-      <div class="portal-nav-item" id="pni-solutions">
-        <button class="portal-nav-btn" onclick="togglePortalDD('solutions')">
-          Solutions <span class="portal-chev">▾</span>
-        </button>
-        <div class="portal-dd" id="dd-solutions">
-          <a onclick="showPage('statistics');closeAllPortalDDs()">Statistics</a>
-          <a onclick="showPage('survey');closeAllPortalDDs()">Survey</a>
-          <a onclick="showComingSoon('My Reports');closeAllPortalDDs()">My Reports</a>
-        </div>
-      </div>
+      <button class="portal-nav-btn" onclick="showComingSoon('Solutions')">Solutions</button>
 
       <!-- Resources -->
       <div class="portal-nav-item" id="pni-resources">
@@ -1570,7 +1564,7 @@
           <!-- Platform -->
           <div>
             <div class="lp-footer-col-title">Platform</div>
-            <a class="lp-footer-link" onclick="showPage('statistics')">Statistics</a>
+            <a class="lp-footer-link" onclick="openStats()">Statistics</a>
             <a class="lp-footer-link" onclick="showPage('survey')">Survey</a>
             <a class="lp-footer-link" onclick="showComingSoon('My Reports')">My Reports</a>
             <a class="lp-footer-link" onclick="showComingSoon('Contact Us')">Contact Us</a>
@@ -2232,6 +2226,10 @@ function showPage(name) {
 
 function openReport(url, title) {
   window.location.href = url;
+}
+
+function openStats() {
+  window.open('Dashboard.html#statistics', '_blank');
 }
 
 function toggleEl(id, chevId) {
