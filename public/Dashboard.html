@@ -2403,16 +2403,60 @@ class MarketDashboard {
       plugins:{legend:{display:false},tooltip:{callbacks:{label:tipCb}}}
     });
 
-    // Market overview
+    // Shared helpers: stacked charts with thousands Y-axis (volume) or plain number Y-axis (value)
+    const prodAnnotVol = (data) => ({
+      type:'line', label:'__total__', data,
+      borderColor:'transparent', backgroundColor:'transparent',
+      pointRadius:0, pointHoverRadius:0, fill:false,
+      datalabels:{display:true,anchor:'end',align:'top',offset:3,
+        color:LBL,font:{size:9.5,weight:'700'},
+        formatter:v=>`${(v/1000).toFixed(1)}K`}
+    });
+    const prodAnnotVal = (data) => ({
+      type:'line', label:'__total__', data,
+      borderColor:'transparent', backgroundColor:'transparent',
+      pointRadius:0, pointHoverRadius:0, fill:false,
+      datalabels:{display:true,anchor:'end',align:'top',offset:3,
+        color:LBL,font:{size:9.5,weight:'700'},
+        formatter:v=>`${v.toFixed(0)}`}
+    });
+    const stkProdVol = (tipLabel) => ({
+      responsive:true, maintainAspectRatio:false,
+      scales:{
+        x:{stacked:true, grid:{color:'transparent'}, border:{color:G}, ticks:{maxRotation:0,color:TXT}},
+        y:{stacked:true, grid:{color:G}, border:{color:'transparent'}, beginAtZero:true, grace:'18%',
+           ticks:{callback:v=>(v/1000).toFixed(1), color:TXT}}
+      },
+      plugins:{
+        legend:{position:'bottom', labels:{boxWidth:10,padding:10,font:{size:10},color:LEG,
+          filter:i=>i.text!=='__total__'}},
+        tooltip:{mode:'index', callbacks:{label:tipLabel}}
+      }
+    });
+    const stkProdVal = (tipLabel) => ({
+      responsive:true, maintainAspectRatio:false,
+      scales:{
+        x:{stacked:true, grid:{color:'transparent'}, border:{color:G}, ticks:{maxRotation:0,color:TXT}},
+        y:{stacked:true, grid:{color:G}, border:{color:'transparent'}, beginAtZero:true, grace:'18%',
+           ticks:{callback:v=>v.toFixed(0), color:TXT}}
+      },
+      plugins:{
+        legend:{position:'bottom', labels:{boxWidth:10,padding:10,font:{size:10},color:LEG,
+          filter:i=>i.text!=='__total__'}},
+        tooltip:{mode:'index', callbacks:{label:tipLabel}}
+      }
+    });
+
+    // Market overview — volume in thousands (no unit on ticks), value as plain number (no M on ticks)
     this.mc('ch-mktvol', {type:'bar', data:{
       labels:FCST_YEARS,
-      datasets:[...CH_ORDER.map((ch,i)=>({label:ch,data:mask(chVol[i]),backgroundColor:C_CH[i],stack:'s'})),annotLine(mask(totVol),'v')]
-    }, options:stkOpts(v=>`${v.toFixed(0)} ${volUnit}`, c=>`${c.dataset.label}: ${c.parsed.y.toFixed(0)} ${volUnit}`)});
+      datasets:[...CH_ORDER.map((ch,i)=>({label:ch,data:mask(chVol[i]),backgroundColor:C_CH[i],stack:'s'})),prodAnnotVol(mask(totVol))]
+    }, options:stkProdVol(c=>`${c.dataset.label}: ${(c.parsed.y/1000).toFixed(2)}K t`)});
 
     this.mc('ch-mktval', {type:'bar', data:{
       labels:FCST_YEARS,
-      datasets:[...CH_ORDER.map((ch,i)=>({label:ch,data:mask(chVal[i]),backgroundColor:C_CH[i],stack:'s'})),annotLine(mask(totVal),'M')]
-    }, options:stkOpts(v=>`${v.toFixed(0)}M`, c=>`${c.dataset.label}: ${cur} ${c.parsed.y.toFixed(1)}M`)});
+      datasets:[...CH_ORDER.map((ch,i)=>({label:ch,data:mask(chVal[i]),backgroundColor:C_CH[i],stack:'s'})),prodAnnotVal(mask(totVal))]
+    }, options:stkProdVal(c=>`${c.dataset.label}: ${cur} ${c.parsed.y.toFixed(1)}M`));
 
     // Summary table
     _el('ph-meta', `All values in millions (${cur}) and volumes in ${volUnit}`);
@@ -2518,50 +2562,6 @@ class MarketDashboard {
     const _elp = (id, txt) => { const e = document.getElementById(id); if(e) e.textContent = txt; };
     _elp('sub-prod-vol', `thousand tonnes · retail household · grows ${_cagr(totRetVol[0],totRetVol[5],5).toFixed(1)}% CAGR 2025–2030`);
     _elp('sub-prod-val', `${cur} million · retail household · value CAGR ${_cagr(totRetVal[0],totRetVal[5],5).toFixed(1)}% 2025–2030`);
-
-    const prodAnnotVol = (data) => ({
-      type:'line', label:'__total__', data,
-      borderColor:'transparent', backgroundColor:'transparent',
-      pointRadius:0, pointHoverRadius:0, fill:false,
-      datalabels:{display:true,anchor:'end',align:'top',offset:3,
-        color:LBL,font:{size:9.5,weight:'700'},
-        formatter:v=>`${(v/1000).toFixed(1)}K`}
-    });
-    const prodAnnotVal = (data) => ({
-      type:'line', label:'__total__', data,
-      borderColor:'transparent', backgroundColor:'transparent',
-      pointRadius:0, pointHoverRadius:0, fill:false,
-      datalabels:{display:true,anchor:'end',align:'top',offset:3,
-        color:LBL,font:{size:9.5,weight:'700'},
-        formatter:v=>`${v.toFixed(0)}`}
-    });
-
-    const stkProdVol = (tipLabel) => ({
-      responsive:true, maintainAspectRatio:false,
-      scales:{
-        x:{stacked:true, grid:{color:'transparent'}, border:{color:G}, ticks:{maxRotation:0,color:TXT}},
-        y:{stacked:true, grid:{color:G}, border:{color:'transparent'}, beginAtZero:true, grace:'18%',
-           ticks:{callback:v=>(v/1000).toFixed(1), color:TXT}}
-      },
-      plugins:{
-        legend:{position:'bottom', labels:{boxWidth:10,padding:10,font:{size:10},color:LEG,
-          filter:i=>i.text!=='__total__'}},
-        tooltip:{mode:'index', callbacks:{label:tipLabel}}
-      }
-    });
-    const stkProdVal = (tipLabel) => ({
-      responsive:true, maintainAspectRatio:false,
-      scales:{
-        x:{stacked:true, grid:{color:'transparent'}, border:{color:G}, ticks:{maxRotation:0,color:TXT}},
-        y:{stacked:true, grid:{color:G}, border:{color:'transparent'}, beginAtZero:true, grace:'18%',
-           ticks:{callback:v=>v.toFixed(0), color:TXT}}
-      },
-      plugins:{
-        legend:{position:'bottom', labels:{boxWidth:10,padding:10,font:{size:10},color:LEG,
-          filter:i=>i.text!=='__total__'}},
-        tooltip:{mode:'index', callbacks:{label:tipLabel}}
-      }
-    });
 
     this.mc('ch-prod-vol', {type:'bar', data:{
       labels:FCST_YEARS,
