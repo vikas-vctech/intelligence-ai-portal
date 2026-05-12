@@ -600,6 +600,11 @@ html[data-theme="light"] .sb-logo-img-light{display:block}
 .sbt-l4{padding:3px 8px 4px 41px;font-size:10.5px;display:flex;align-items:center;gap:4px;font-weight:600;color:var(--atlas-gold)}
 .sbt-icon{font-size:8px;color:var(--text-muted);flex-shrink:0;width:9px;text-align:center}
 .sbt-l4 .sbt-icon{color:var(--atlas-gold)}
+.sbt-l1,.sbt-l2,.sbt-l3{cursor:pointer}
+.sbt-l1:hover{color:var(--atlas-gold)}
+.sbt-l2:hover,.sbt-l3:hover{color:var(--text-primary)}
+.sbt-l4{cursor:pointer;border-radius:3px;transition:background .12s}
+.sbt-l4:hover{background:rgba(184,146,74,.12)}
 .sb-sub{
   display:block;padding:7px 12px 7px 37px;font-size:12px;
   color:var(--text-muted);cursor:pointer;border-radius:4px;
@@ -951,26 +956,58 @@ html[data-theme="light"] .dash-tab.active{color:#2A1800}
       </a>
       <div class="sb-submenu open" id="sbmenu-industries">
 
-        <!-- L1: Food & Beverage -->
-        <div class="sbt-l1">
-          <span class="sbt-icon">∨</span>
-          Food &amp; Beverage
+        <!-- L1: Food & Beverage (collapsible) -->
+        <div class="sbt-l1" onclick="toggleSbtNode('sbt-fb')">
+          <span class="sbt-icon" id="sbt-fb-icon">∨</span> Food &amp; Beverage
         </div>
+        <div id="sbt-fb">
 
-        <!-- Branch: Agriculture & Raw Materials → Sugar & Sweeteners → Honey -->
-        <div class="sbt-l2"><span class="sbt-icon">∨</span> Agriculture &amp; Raw Materials</div>
-        <div class="sbt-l3"><span class="sbt-icon">∨</span> Sugar &amp; Sweeteners</div>
-        <div class="sbt-l4"><span class="sbt-icon">—</span> Honey</div>
+          <!-- L2: Agriculture & Raw Materials -->
+          <div class="sbt-l2" onclick="toggleSbtNode('sbt-arm')">
+            <span class="sbt-icon" id="sbt-arm-icon">∨</span> Agriculture &amp; Raw Materials
+          </div>
+          <div id="sbt-arm">
+            <div class="sbt-l3" onclick="toggleSbtNode('sbt-ss')">
+              <span class="sbt-icon" id="sbt-ss-icon">∨</span> Sugar &amp; Sweeteners
+            </div>
+            <div id="sbt-ss">
+              <div class="sbt-l4" onclick="selectSbtProduct('Honey')">
+                <span class="sbt-icon">—</span> Honey
+              </div>
+            </div>
+          </div>
 
-        <!-- Branch: Packaged Food → Dairy Products → Goat Milk -->
-        <div class="sbt-l2"><span class="sbt-icon">∨</span> Packaged Food</div>
-        <div class="sbt-l3"><span class="sbt-icon">∨</span> Dairy Products</div>
-        <div class="sbt-l4"><span class="sbt-icon">—</span> Goat Milk</div>
+          <!-- L2: Packaged Food -->
+          <div class="sbt-l2" onclick="toggleSbtNode('sbt-pf')">
+            <span class="sbt-icon" id="sbt-pf-icon">∨</span> Packaged Food
+          </div>
+          <div id="sbt-pf">
+            <div class="sbt-l3" onclick="toggleSbtNode('sbt-dp')">
+              <span class="sbt-icon" id="sbt-dp-icon">∨</span> Dairy Products
+            </div>
+            <div id="sbt-dp">
+              <div class="sbt-l4" onclick="selectSbtProduct('Goat Milk')">
+                <span class="sbt-icon">—</span> Goat Milk
+              </div>
+            </div>
+          </div>
 
-        <!-- Branch: Fresh Food → Fruits & Vegetables → Hydroponic Farming -->
-        <div class="sbt-l2"><span class="sbt-icon">∨</span> Fresh Food</div>
-        <div class="sbt-l3"><span class="sbt-icon">∨</span> Fruits &amp; Vegetables</div>
-        <div class="sbt-l4"><span class="sbt-icon">—</span> Hydroponic Farming</div>
+          <!-- L2: Fresh Food -->
+          <div class="sbt-l2" onclick="toggleSbtNode('sbt-ff')">
+            <span class="sbt-icon" id="sbt-ff-icon">∨</span> Fresh Food
+          </div>
+          <div id="sbt-ff">
+            <div class="sbt-l3" onclick="toggleSbtNode('sbt-fv')">
+              <span class="sbt-icon" id="sbt-fv-icon">∨</span> Fruits &amp; Vegetables
+            </div>
+            <div id="sbt-fv">
+              <div class="sbt-l4" onclick="selectSbtProduct('Hydroponic')">
+                <span class="sbt-icon">—</span> Hydroponic Farming
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /sbt-fb -->
 
         <a class="sb-sub" style="color:var(--text-muted);padding-left:14px;margin-top:4px" onclick="window.location.href='Intelligence_AI_Portal.html'">All Industries →</a>
       </div>
@@ -2900,13 +2937,29 @@ function onProductChange(val)  { dashboard.onProductChange(val); }
 function onYearChange(val)     { dashboard.onYearChange(val); }
 function switchSec(name)       { dashboard.switchSec(name); }
 
-// ── DATA TREE ─────────────────────────────────────────────
-function toggleDataTree() {
-  const body = document.getElementById('dt-body');
-  const btn  = document.getElementById('dt-toggle-btn');
-  const collapsed = body.style.display === 'none';
-  body.style.display = collapsed ? '' : 'none';
-  btn.textContent   = collapsed ? '∧' : '∨';
+// ── SIDEBAR TAXONOMY TREE ─────────────────────────────────
+function toggleSbtNode(id) {
+  const el   = document.getElementById(id);
+  const icon = document.getElementById(id + '-icon');
+  if (!el) return;
+  const hiding = el.style.display !== 'none';
+  el.style.display = hiding ? 'none' : '';
+  if (icon) icon.textContent = hiding ? '›' : '∨';
+}
+
+function selectSbtProduct(product) {
+  const sel = document.getElementById('productSelect');
+  if (!sel) return;
+  for (const o of sel.options) {
+    if (o.value.toLowerCase().includes(product.toLowerCase()) ||
+        product.toLowerCase().includes(o.value.toLowerCase())) {
+      sel.value = o.value;
+      dashboard.onProductChange(o.value);
+      switchDashTab('mktoverview');
+      return;
+    }
+  }
+  showSbToast(`${product} — loading…`);
 }
 
 // ── REPORT TABS ───────────────────────────────────────────
@@ -3302,7 +3355,30 @@ function renderCompCharts() {
 
 // ── BOOT ──────────────────────────────────────────────────
 _updateThemeBtn(document.documentElement.dataset.theme === 'light');
+
+// Pre-select product from URL param: Dashboard.html?product=Goat+Milk
+const _urlProduct = new URLSearchParams(window.location.search).get('product');
+
 const dashboard = new MarketDashboard();
+
+// Apply URL product after products are loaded (loadProducts runs in init())
+if (_urlProduct) {
+  const _origLoad = dashboard.loadProducts.bind(dashboard);
+  dashboard.loadProducts = async function() {
+    await _origLoad();
+    const sel = document.getElementById('productSelect');
+    if (sel) {
+      for (const o of sel.options) {
+        if (o.value.toLowerCase().includes(_urlProduct.toLowerCase()) ||
+            _urlProduct.toLowerCase().includes(o.value.toLowerCase())) {
+          sel.value = o.value;
+          this.activeProduct = o.value;
+          break;
+        }
+      }
+    }
+  };
+}
 
 // Auto-activate statistics panel when opened via Dashboard.html#statistics
 if (window.location.hash === '#statistics') {

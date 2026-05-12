@@ -833,13 +833,9 @@
           Industries <span class="portal-chev">▾</span>
         </button>
         <div class="portal-dd" id="dd-products">
-          <a onclick="showPage('consumer-products');closeAllPortalDDs()">
-            Consumer Products <span class="portal-dd-live">Live</span>
+          <a onclick="openTaxonomyOverlay();closeAllPortalDDs()">
+            Food &amp; Beverage <span class="portal-dd-live">Live</span>
           </a>
-          <a onclick="showComingSoon('Defense &amp; Industrial');closeAllPortalDDs()">Defense &amp; Industrial</a>
-          <a onclick="showComingSoon('Pharmaceuticals');closeAllPortalDDs()">Pharmaceuticals</a>
-          <a onclick="showComingSoon('Technology');closeAllPortalDDs()">Technology</a>
-          <a onclick="showComingSoon('Financial Services');closeAllPortalDDs()">Financial Services</a>
           <div class="portal-dd-sep"></div>
           <a onclick="showPage('industries');closeAllPortalDDs()" style="color:var(--amber)">All Industries →</a>
         </div>
@@ -2336,6 +2332,115 @@ function initHeroAurora() {
   hero.insertBefore(el, hero.firstChild);
 }
 initHeroAurora();
+
+// ─── Taxonomy overlay ────────────────────────────────────
+function openTaxonomyOverlay() {
+  document.getElementById('taxonomy-overlay').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function closeTaxonomyOverlay() {
+  document.getElementById('taxonomy-overlay').style.display = 'none';
+  document.body.style.overflow = '';
+}
+function openProductDashboard(product) {
+  closeTaxonomyOverlay();
+  window.open('Dashboard.html?product=' + encodeURIComponent(product), '_blank');
+}
+function toggleTaxNode(id) {
+  const el   = document.getElementById(id);
+  const icon = document.getElementById(id + '-icon');
+  if (!el) return;
+  const hiding = el.style.display !== 'none';
+  el.style.display = hiding ? 'none' : '';
+  if (icon) icon.textContent = hiding ? '›' : '∨';
+}
 </script>
+
+<!-- ═══ TAXONOMY OVERLAY ═══ -->
+<div id="taxonomy-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:500;align-items:center;justify-content:center">
+  <div style="background:var(--card,#fff);border:1px solid var(--border,#e5e7eb);border-radius:8px;padding:28px 32px;max-width:480px;width:92%;max-height:80vh;overflow-y:auto;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.35)">
+
+    <!-- Header -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+      <div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--amber,#B8924A);margin-bottom:4px">Food &amp; Beverage Taxonomy</div>
+        <div style="font-size:18px;font-weight:700;color:var(--text-ink,#0F172A);font-family:var(--font-display,'Georgia',serif)">Select a Product</div>
+      </div>
+      <button onclick="closeTaxonomyOverlay()" style="background:none;border:none;cursor:pointer;font-size:18px;color:var(--text-3,#94a3b8);padding:4px 8px;border-radius:4px;line-height:1" title="Close">✕</button>
+    </div>
+
+    <!-- Tree -->
+    <div style="font-family:var(--font-ui,'Inter',sans-serif)">
+
+      <!-- L1 -->
+      <div onclick="toggleTaxNode('tax-fb')" style="display:flex;align-items:center;gap:6px;padding:7px 0;cursor:pointer;font-size:13px;font-weight:700;color:var(--text-ink,#0F172A);border-bottom:1px solid var(--border,#e5e7eb);margin-bottom:6px">
+        <span id="tax-fb-icon" style="font-size:9px;color:var(--amber,#B8924A);width:12px">∨</span>
+        Food &amp; Beverage
+      </div>
+      <div id="tax-fb">
+
+        <!-- L2: Agriculture & Raw Materials -->
+        <div onclick="toggleTaxNode('tax-arm')" style="display:flex;align-items:center;gap:6px;padding:5px 0 5px 14px;cursor:pointer;font-size:12px;font-weight:600;color:var(--text-2,#475569)">
+          <span id="tax-arm-icon" style="font-size:9px;color:#94a3b8;width:12px">∨</span>
+          Agriculture &amp; Raw Materials
+        </div>
+        <div id="tax-arm">
+          <div onclick="toggleTaxNode('tax-ss')" style="display:flex;align-items:center;gap:6px;padding:4px 0 4px 28px;cursor:pointer;font-size:11.5px;color:var(--text-3,#94a3b8)">
+            <span id="tax-ss-icon" style="font-size:9px;width:12px">∨</span>
+            Sugar &amp; Sweeteners
+          </div>
+          <div id="tax-ss">
+            <div onclick="openProductDashboard('Honey')" style="display:flex;align-items:center;gap:6px;padding:6px 12px 6px 42px;cursor:pointer;font-size:12px;font-weight:600;color:var(--amber,#B8924A);border-radius:4px;transition:background .12s" onmouseover="this.style.background='rgba(184,146,74,.1)'" onmouseout="this.style.background=''">
+              <span style="font-size:9px;width:12px">—</span>
+              Honey <span style="font-size:9px;background:rgba(72,191,160,.14);color:#48BFA0;border:1px solid rgba(72,191,160,.3);border-radius:2px;padding:0 4px;margin-left:4px;font-weight:700;letter-spacing:.05em;text-transform:uppercase">Live</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- L2: Packaged Food -->
+        <div onclick="toggleTaxNode('tax-pf')" style="display:flex;align-items:center;gap:6px;padding:5px 0 5px 14px;cursor:pointer;font-size:12px;font-weight:600;color:var(--text-2,#475569)">
+          <span id="tax-pf-icon" style="font-size:9px;color:#94a3b8;width:12px">∨</span>
+          Packaged Food
+        </div>
+        <div id="tax-pf">
+          <div onclick="toggleTaxNode('tax-dp')" style="display:flex;align-items:center;gap:6px;padding:4px 0 4px 28px;cursor:pointer;font-size:11.5px;color:var(--text-3,#94a3b8)">
+            <span id="tax-dp-icon" style="font-size:9px;width:12px">∨</span>
+            Dairy Products
+          </div>
+          <div id="tax-dp">
+            <div onclick="openProductDashboard('Goat Milk')" style="display:flex;align-items:center;gap:6px;padding:6px 12px 6px 42px;cursor:pointer;font-size:12px;font-weight:600;color:var(--amber,#B8924A);border-radius:4px;transition:background .12s" onmouseover="this.style.background='rgba(184,146,74,.1)'" onmouseout="this.style.background=''">
+              <span style="font-size:9px;width:12px">—</span>
+              Goat Milk <span style="font-size:9px;background:rgba(72,191,160,.14);color:#48BFA0;border:1px solid rgba(72,191,160,.3);border-radius:2px;padding:0 4px;margin-left:4px;font-weight:700;letter-spacing:.05em;text-transform:uppercase">Live</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- L2: Fresh Food -->
+        <div onclick="toggleTaxNode('tax-ff')" style="display:flex;align-items:center;gap:6px;padding:5px 0 5px 14px;cursor:pointer;font-size:12px;font-weight:600;color:var(--text-2,#475569)">
+          <span id="tax-ff-icon" style="font-size:9px;color:#94a3b8;width:12px">∨</span>
+          Fresh Food
+        </div>
+        <div id="tax-ff">
+          <div onclick="toggleTaxNode('tax-fv')" style="display:flex;align-items:center;gap:6px;padding:4px 0 4px 28px;cursor:pointer;font-size:11.5px;color:var(--text-3,#94a3b8)">
+            <span id="tax-fv-icon" style="font-size:9px;width:12px">∨</span>
+            Fruits &amp; Vegetables
+          </div>
+          <div id="tax-fv">
+            <div onclick="openProductDashboard('Hydroponic')" style="display:flex;align-items:center;gap:6px;padding:6px 12px 6px 42px;cursor:pointer;font-size:12px;font-weight:600;color:var(--amber,#B8924A);border-radius:4px;transition:background .12s" onmouseover="this.style.background='rgba(184,146,74,.1)'" onmouseout="this.style.background=''">
+              <span style="font-size:9px;width:12px">—</span>
+              Hydroponic Farming <span style="font-size:9px;background:rgba(72,191,160,.14);color:#48BFA0;border:1px solid rgba(72,191,160,.3);border-radius:2px;padding:0 4px;margin-left:4px;font-weight:700;letter-spacing:.05em;text-transform:uppercase">Live</span>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /tax-fb -->
+    </div>
+
+    <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border,#e5e7eb);font-size:11px;color:var(--text-3,#94a3b8)">
+      Click a product name to open its demand intelligence dashboard
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
