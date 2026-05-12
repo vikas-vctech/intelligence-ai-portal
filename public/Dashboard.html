@@ -591,8 +591,15 @@ html[data-theme="light"] .sb-logo-img-light{display:block}
 .sb-icon{width:16px;height:16px;flex-shrink:0}
 .sb-chevron{margin-left:auto;transition:transform .2s;flex-shrink:0;width:12px;height:12px}
 .sb-chevron.rotated{transform:rotate(90deg)}
-.sb-submenu{overflow:hidden;max-height:0;transition:max-height .25s ease}
-.sb-submenu.open{max-height:240px}
+.sb-submenu{overflow:hidden;max-height:0;transition:max-height .35s ease}
+.sb-submenu.open{max-height:500px;overflow-y:auto}
+/* Sidebar taxonomy tree nodes */
+.sbt-l1{padding:6px 12px 4px 14px;font-size:11.5px;font-weight:700;color:var(--text-primary);display:flex;align-items:center;gap:5px;font-family:var(--font-ui);letter-spacing:.01em}
+.sbt-l2{padding:4px 8px 4px 22px;font-size:11px;color:var(--text-secondary,var(--text-muted));display:flex;align-items:center;gap:5px}
+.sbt-l3{padding:3px 8px 3px 32px;font-size:10.5px;color:var(--text-muted);display:flex;align-items:center;gap:5px}
+.sbt-l4{padding:3px 8px 4px 41px;font-size:10.5px;display:flex;align-items:center;gap:4px;font-weight:600;color:var(--atlas-gold)}
+.sbt-icon{font-size:8px;color:var(--text-muted);flex-shrink:0;width:9px;text-align:center}
+.sbt-l4 .sbt-icon{color:var(--atlas-gold)}
 .sb-sub{
   display:block;padding:7px 12px 7px 37px;font-size:12px;
   color:var(--text-muted);cursor:pointer;border-radius:4px;
@@ -943,14 +950,29 @@ html[data-theme="light"] .dash-tab.active{color:#2A1800}
         <svg class="sb-chevron rotated" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
       </a>
       <div class="sb-submenu open" id="sbmenu-industries">
-        <a class="sb-sub sb-active" onclick="window.location.href='Intelligence_AI_Portal.html'">
-          <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#22c55e;margin-right:6px;vertical-align:middle;box-shadow:0 0 5px #22c55e"></span>Consumer Products
-        </a>
-        <a class="sb-sub" onclick="showSbToast('Defense &amp; Industrial')">Defense &amp; Industrial</a>
-        <a class="sb-sub" onclick="showSbToast('Pharmaceuticals')">Pharmaceuticals</a>
-        <a class="sb-sub" onclick="showSbToast('Technology')">Technology</a>
-        <a class="sb-sub" onclick="showSbToast('Financial Services')">Financial Services</a>
-        <a class="sb-sub" style="color:var(--text-muted)" onclick="window.location.href='Intelligence_AI_Portal.html'">All Industries →</a>
+
+        <!-- L1: Food & Beverage -->
+        <div class="sbt-l1">
+          <span class="sbt-icon">∨</span>
+          Food &amp; Beverage
+        </div>
+
+        <!-- Branch: Agriculture & Raw Materials → Sugar & Sweeteners → Honey -->
+        <div class="sbt-l2"><span class="sbt-icon">∨</span> Agriculture &amp; Raw Materials</div>
+        <div class="sbt-l3"><span class="sbt-icon">∨</span> Sugar &amp; Sweeteners</div>
+        <div class="sbt-l4"><span class="sbt-icon">—</span> Honey</div>
+
+        <!-- Branch: Packaged Food → Dairy Products → Goat Milk -->
+        <div class="sbt-l2"><span class="sbt-icon">∨</span> Packaged Food</div>
+        <div class="sbt-l3"><span class="sbt-icon">∨</span> Dairy Products</div>
+        <div class="sbt-l4"><span class="sbt-icon">—</span> Goat Milk</div>
+
+        <!-- Branch: Fresh Food → Fruits & Vegetables → Hydroponic Farming -->
+        <div class="sbt-l2"><span class="sbt-icon">∨</span> Fresh Food</div>
+        <div class="sbt-l3"><span class="sbt-icon">∨</span> Fruits &amp; Vegetables</div>
+        <div class="sbt-l4"><span class="sbt-icon">—</span> Hydroponic Farming</div>
+
+        <a class="sb-sub" style="color:var(--text-muted);padding-left:14px;margin-top:4px" onclick="window.location.href='Intelligence_AI_Portal.html'">All Industries →</a>
       </div>
     </div>
 
@@ -1094,100 +1116,6 @@ html[data-theme="light"] .dash-tab.active{color:#2A1800}
 
 <div class="content-area">
 <div class="panel-wrap">
-
-<!-- ═══ DATA TREE — always visible, taxonomy classification for tracked products ═══ -->
-<div class="data-tree-card">
-  <div class="data-tree-hdr" onclick="toggleDataTree()">
-    <span class="data-tree-hdr-icon"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/></svg></span>
-    <span class="data-tree-hdr-title">Data Tree</span>
-    <button class="data-tree-toggle-btn" id="dt-toggle-btn">∧</button>
-  </div>
-  <div class="data-tree-body" id="dt-body">
-    <ul class="dt-tree">
-      <li class="dt-node">
-        <div class="dt-row">
-          <span class="dt-icon">∨</span>
-          <span class="dt-label l1">Food &amp; Beverage</span>
-        </div>
-        <ul class="dt-children">
-
-          <!-- Honey: Agriculture & Raw Materials > Sugar & Sweeteners -->
-          <li class="dt-node">
-            <div class="dt-row">
-              <span class="dt-icon">∨</span>
-              <span class="dt-label l2">Agriculture &amp; Raw Materials</span>
-            </div>
-            <ul class="dt-children">
-              <li class="dt-node">
-                <div class="dt-row">
-                  <span class="dt-icon">∨</span>
-                  <span class="dt-label">Sugar &amp; Sweeteners</span>
-                </div>
-                <ul class="dt-children">
-                  <li class="dt-node">
-                    <div class="dt-row">
-                      <span class="dt-icon">—</span>
-                      <span class="dt-label active">Honey</span>
-                    </div>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-
-          <!-- Goat Milk: Packaged Food > Dairy Products -->
-          <li class="dt-node">
-            <div class="dt-row">
-              <span class="dt-icon">∨</span>
-              <span class="dt-label l2">Packaged Food</span>
-            </div>
-            <ul class="dt-children">
-              <li class="dt-node">
-                <div class="dt-row">
-                  <span class="dt-icon">∨</span>
-                  <span class="dt-label">Dairy Products</span>
-                </div>
-                <ul class="dt-children">
-                  <li class="dt-node">
-                    <div class="dt-row">
-                      <span class="dt-icon">—</span>
-                      <span class="dt-label active">Goat Milk</span>
-                    </div>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-
-          <!-- Hydroponic: Fresh Food > Fruits & Vegetables -->
-          <li class="dt-node">
-            <div class="dt-row">
-              <span class="dt-icon">∨</span>
-              <span class="dt-label l2">Fresh Food</span>
-            </div>
-            <ul class="dt-children">
-              <li class="dt-node">
-                <div class="dt-row">
-                  <span class="dt-icon">∨</span>
-                  <span class="dt-label">Fruits &amp; Vegetables</span>
-                </div>
-                <ul class="dt-children">
-                  <li class="dt-node">
-                    <div class="dt-row">
-                      <span class="dt-icon">—</span>
-                      <span class="dt-label active">Hydroponic Farming</span>
-                    </div>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-
-        </ul>
-      </li>
-    </ul>
-  </div>
-</div>
 
 <!-- ═══ MARKET OVERVIEW PANELS (sec-dashboard + sec-compare) ═══ -->
 <div id="mkt-overview-panels">
