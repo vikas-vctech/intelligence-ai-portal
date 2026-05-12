@@ -1426,10 +1426,14 @@ html[data-theme="light"] .dash-tab.active{color:#2A1800}
     </div>
   </div>
 
-  <!-- Row 1: Company profile + About & Tags | Revenue bar + Sales donut -->
+  <!-- ── SECTION 1: Company Background ── -->
+  <div class="sec-divider">
+    <div class="sec-divider-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"/></svg></div>
+    <div class="sec-divider-text"><h2>Company Background</h2><span>Corporate overview · financials · channel mix · Hatta Honey Bee Garden · 2025</span></div>
+  </div>
   <div class="grid2">
     <div class="card">
-      <div class="card-title">Company Profile &amp; Background</div>
+      <div class="card-title">Company Profile</div>
       <div class="card-sub">Founded 1972 · Hatta region, Dubai · Private ownership</div>
       <table class="comp-info-table">
         <tr><td>Headquarters</td><td>Dubai, UAE</td></tr>
@@ -1463,7 +1467,11 @@ html[data-theme="light"] .dash-tab.active{color:#2A1800}
     </div>
   </div>
 
-  <!-- Row 2: Products table | Brand attribute table -->
+  <!-- ── SECTION 2: Products & Packaging ── -->
+  <div class="sec-divider">
+    <div class="sec-divider-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"/></svg></div>
+    <div class="sec-divider-text"><h2>Products &amp; Packaging</h2><span>SKU range · pricing tiers · packaging formats · product gallery</span></div>
+  </div>
   <div class="grid2">
     <div class="card">
       <div class="card-title">Products &amp; Packages</div>
@@ -1488,6 +1496,26 @@ html[data-theme="light"] .dash-tab.active{color:#2A1800}
       </div>
     </div>
     <div class="card">
+      <div class="card-title">Product Gallery</div>
+      <div class="card-sub">Illustrative · 6 SKU categories</div>
+      <div class="comp-prod-images">
+        <div class="comp-img-ph" style="background:linear-gradient(135deg,#2A1800,#4A2E00)">🍯<span>Sidr 500g</span></div>
+        <div class="comp-img-ph" style="background:linear-gradient(135deg,#1A2800,#2E4A00)">🫙<span>Organic</span></div>
+        <div class="comp-img-ph" style="background:linear-gradient(135deg,#1A1F2B,#2E3A4A)">🎁<span>Gift Set</span></div>
+        <div class="comp-img-ph" style="background:linear-gradient(135deg,#2A1000,#4A2000)">🍯<span>Natural</span></div>
+        <div class="comp-img-ph" style="background:linear-gradient(135deg,#1F2A1A,#354A2E)">🌿<span>Specialty</span></div>
+        <div class="comp-img-ph" style="background:linear-gradient(135deg,#2A2000,#4A3800)">⭐<span>Blended</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SECTION 3: Brand Positioning ── -->
+  <div class="sec-divider">
+    <div class="sec-divider-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.955 11.955 0 003 12c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg></div>
+    <div class="sec-divider-text"><h2>Brand Positioning</h2><span>Attribute benchmarking · competitive positioning map · top competitor rankings</span></div>
+  </div>
+  <div class="grid3">
+    <div class="card">
       <div class="card-title">Brand Attribute Comparison</div>
       <div class="card-sub">vs. top 3 competitors · ● present &nbsp; ◑ partial &nbsp; ○ absent</div>
       <table class="comp-attr-table">
@@ -1506,14 +1534,10 @@ html[data-theme="light"] .dash-tab.active{color:#2A1800}
         </tbody>
       </table>
     </div>
-  </div>
-
-  <!-- Row 3: Positioning map | Top competitors | Product gallery -->
-  <div class="grid3">
     <div class="card">
       <div class="card-title">Positioning Map</div>
       <div class="card-sub">Distribution breadth vs. price premium index · bubble = revenue</div>
-      <div class="chart-wrap" style="height:240px"><canvas id="ch-comp-bubble"></canvas></div>
+      <div class="chart-wrap" style="height:280px"><canvas id="ch-comp-bubble"></canvas></div>
     </div>
     <div class="card">
       <div class="card-title">Top Retail Competitors</div>
@@ -1527,21 +1551,13 @@ html[data-theme="light"] .dash-tab.active{color:#2A1800}
         <div class="comp-top-item"><span class="comp-rank">6</span><div><strong>Langnese</strong><div class="comp-top-sub">Germany · Supermarket mainstream · AED 25–60</div></div></div>
       </div>
     </div>
-    <div class="card">
-      <div class="card-title">Product Gallery</div>
-      <div class="card-sub">Illustrative · 6 SKU categories</div>
-      <div class="comp-prod-images">
-        <div class="comp-img-ph" style="background:linear-gradient(135deg,#2A1800,#4A2E00)">🍯<span>Sidr 500g</span></div>
-        <div class="comp-img-ph" style="background:linear-gradient(135deg,#1A2800,#2E4A00)">🫙<span>Organic</span></div>
-        <div class="comp-img-ph" style="background:linear-gradient(135deg,#1A1F2B,#2E3A4A)">🎁<span>Gift Set</span></div>
-        <div class="comp-img-ph" style="background:linear-gradient(135deg,#2A1000,#4A2000)">🍯<span>Natural</span></div>
-        <div class="comp-img-ph" style="background:linear-gradient(135deg,#1F2A1A,#354A2E)">🌿<span>Specialty</span></div>
-        <div class="comp-img-ph" style="background:linear-gradient(135deg,#2A2000,#4A3800)">⭐<span>Blended</span></div>
-      </div>
-    </div>
   </div>
 
-  <!-- Row 4: Marketing cards — 6 in 2 rows of 3 using grid3 -->
+  <!-- ── SECTION 4: Marketing & Promotion ── -->
+  <div class="sec-divider">
+    <div class="sec-divider-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.34 15.84c-.688-.06-1.386-.09-2.09-.09H7.5a4.5 4.5 0 110-9h.75c.704 0 1.402-.03 2.09-.09m0 9.18c.253.962.584 1.892.985 2.783.247.55.06 1.21-.463 1.511l-.657.38c-.551.318-1.26.117-1.527-.461a20.845 20.845 0 01-1.44-4.282m3.102.069a18.03 18.03 0 01-.59-4.59c0-1.586.205-3.124.59-4.59m0 9.18a23.848 23.848 0 018.835 2.535M10.34 6.66a23.847 23.847 0 008.835-2.535m0 0A23.74 23.74 0 0018.795 3m.38 1.125a23.91 23.91 0 011.014 5.395m-1.014 8.855c-.118.38-.245.754-.38 1.125m.38-1.125a23.91 23.91 0 001.014-5.395m0-3.46c.495.413.811 1.035.811 1.73 0 .695-.316 1.317-.811 1.73m0-3.46a24.347 24.347 0 010 3.46"/></svg></div>
+    <div class="sec-divider-text"><h2>Marketing &amp; Promotion</h2><span>Social channels · content strategy · brand awareness · engagement metrics</span></div>
+  </div>
   <div class="grid3">
     <div class="card">
       <div class="card-title">📷 Instagram</div>
