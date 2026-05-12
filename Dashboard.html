@@ -1095,6 +1095,100 @@ html[data-theme="light"] .dash-tab.active{color:#2A1800}
 <div class="content-area">
 <div class="panel-wrap">
 
+<!-- ═══ DATA TREE — always visible, taxonomy classification for tracked products ═══ -->
+<div class="data-tree-card">
+  <div class="data-tree-hdr" onclick="toggleDataTree()">
+    <span class="data-tree-hdr-icon"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/></svg></span>
+    <span class="data-tree-hdr-title">Data Tree</span>
+    <button class="data-tree-toggle-btn" id="dt-toggle-btn">∧</button>
+  </div>
+  <div class="data-tree-body" id="dt-body">
+    <ul class="dt-tree">
+      <li class="dt-node">
+        <div class="dt-row">
+          <span class="dt-icon">∨</span>
+          <span class="dt-label l1">Food &amp; Beverage</span>
+        </div>
+        <ul class="dt-children">
+
+          <!-- Honey: Agriculture & Raw Materials > Sugar & Sweeteners -->
+          <li class="dt-node">
+            <div class="dt-row">
+              <span class="dt-icon">∨</span>
+              <span class="dt-label l2">Agriculture &amp; Raw Materials</span>
+            </div>
+            <ul class="dt-children">
+              <li class="dt-node">
+                <div class="dt-row">
+                  <span class="dt-icon">∨</span>
+                  <span class="dt-label">Sugar &amp; Sweeteners</span>
+                </div>
+                <ul class="dt-children">
+                  <li class="dt-node">
+                    <div class="dt-row">
+                      <span class="dt-icon">—</span>
+                      <span class="dt-label active">Honey</span>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+
+          <!-- Goat Milk: Packaged Food > Dairy Products -->
+          <li class="dt-node">
+            <div class="dt-row">
+              <span class="dt-icon">∨</span>
+              <span class="dt-label l2">Packaged Food</span>
+            </div>
+            <ul class="dt-children">
+              <li class="dt-node">
+                <div class="dt-row">
+                  <span class="dt-icon">∨</span>
+                  <span class="dt-label">Dairy Products</span>
+                </div>
+                <ul class="dt-children">
+                  <li class="dt-node">
+                    <div class="dt-row">
+                      <span class="dt-icon">—</span>
+                      <span class="dt-label active">Goat Milk</span>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+
+          <!-- Hydroponic: Fresh Food > Fruits & Vegetables -->
+          <li class="dt-node">
+            <div class="dt-row">
+              <span class="dt-icon">∨</span>
+              <span class="dt-label l2">Fresh Food</span>
+            </div>
+            <ul class="dt-children">
+              <li class="dt-node">
+                <div class="dt-row">
+                  <span class="dt-icon">∨</span>
+                  <span class="dt-label">Fruits &amp; Vegetables</span>
+                </div>
+                <ul class="dt-children">
+                  <li class="dt-node">
+                    <div class="dt-row">
+                      <span class="dt-icon">—</span>
+                      <span class="dt-label active">Hydroponic Farming</span>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+
 <!-- ═══ MARKET OVERVIEW PANELS (sec-dashboard + sec-compare) ═══ -->
 <div id="mkt-overview-panels">
 
@@ -1102,100 +1196,6 @@ html[data-theme="light"] .dash-tab.active{color:#2A1800}
   <div class="sec-panel active" id="sec-dashboard">
 
     <div id="err-dashboard" class="err-banner"></div>
-
-    <!-- DATA TREE — taxonomy classification for tracked products -->
-    <div class="data-tree-card">
-      <div class="data-tree-hdr" onclick="toggleDataTree()">
-        <span class="data-tree-hdr-icon"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/></svg></span>
-        <span class="data-tree-hdr-title">Data Tree</span>
-        <button class="data-tree-toggle-btn" id="dt-toggle-btn">∧</button>
-      </div>
-      <div class="data-tree-body" id="dt-body">
-        <ul class="dt-tree">
-          <li class="dt-node">
-            <div class="dt-row">
-              <span class="dt-icon">∨</span>
-              <span class="dt-label l1">Food &amp; Beverage</span>
-            </div>
-            <ul class="dt-children">
-
-              <!-- Honey: Agriculture & Raw Materials > Sugar & Sweeteners -->
-              <li class="dt-node">
-                <div class="dt-row">
-                  <span class="dt-icon">∨</span>
-                  <span class="dt-label l2">Agriculture &amp; Raw Materials</span>
-                </div>
-                <ul class="dt-children">
-                  <li class="dt-node">
-                    <div class="dt-row">
-                      <span class="dt-icon">∨</span>
-                      <span class="dt-label">Sugar &amp; Sweeteners</span>
-                    </div>
-                    <ul class="dt-children">
-                      <li class="dt-node">
-                        <div class="dt-row">
-                          <span class="dt-icon">—</span>
-                          <span class="dt-label active">Honey</span>
-                        </div>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-
-              <!-- Goat Milk: Packaged Food > Dairy Products -->
-              <li class="dt-node">
-                <div class="dt-row">
-                  <span class="dt-icon">∨</span>
-                  <span class="dt-label l2">Packaged Food</span>
-                </div>
-                <ul class="dt-children">
-                  <li class="dt-node">
-                    <div class="dt-row">
-                      <span class="dt-icon">∨</span>
-                      <span class="dt-label">Dairy Products</span>
-                    </div>
-                    <ul class="dt-children">
-                      <li class="dt-node">
-                        <div class="dt-row">
-                          <span class="dt-icon">—</span>
-                          <span class="dt-label active">Goat Milk</span>
-                        </div>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-
-              <!-- Hydroponic: Fresh Food > Fruits & Vegetables -->
-              <li class="dt-node">
-                <div class="dt-row">
-                  <span class="dt-icon">∨</span>
-                  <span class="dt-label l2">Fresh Food</span>
-                </div>
-                <ul class="dt-children">
-                  <li class="dt-node">
-                    <div class="dt-row">
-                      <span class="dt-icon">∨</span>
-                      <span class="dt-label">Fruits &amp; Vegetables</span>
-                    </div>
-                    <ul class="dt-children">
-                      <li class="dt-node">
-                        <div class="dt-row">
-                          <span class="dt-icon">—</span>
-                          <span class="dt-label active">Hydroponic Farming</span>
-                        </div>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </div>
 
     <!-- Page header -->
     <div class="page-header">
