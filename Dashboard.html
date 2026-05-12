@@ -1459,7 +1459,7 @@ html[data-theme="light"] .dash-tab.active{color:#2A1800}
       <div class="comp-fin-bar-track"><div class="comp-fin-bar-fill" style="width:68%"></div></div>
       <div class="comp-fin-sub">vs. AED 126M Al Shifa (category leader) · gap = 32%</div>
       <div class="comp-fin-label" style="margin-top:4px">Status of Sales — channel split</div>
-      <div class="chart-wrap" style="height:200px"><canvas id="ch-comp-donut"></canvas></div>
+      <div class="chart-wrap" style="height:220px"><canvas id="ch-comp-donut"></canvas></div>
     </div>
   </div>
 
@@ -3301,11 +3301,11 @@ function renderCompCharts() {
   // Atlas palette — matches color-1…color-6 + burgundy
   const C1='#B8924A', C2='#8B6F2F', C3='#3D6B5C', C4='#1F3A5F', C5='#A89F8E', C6='#A8331E';
 
-  // Donut — Sales channel mix, same cutout depth as Market Overview pies
+  // Donut — Sales channel mix, same style as Market Overview channel share donut
   new Chart(document.getElementById('ch-comp-donut'), {
     type: 'doughnut',
     data: {
-      labels: ['Retail 58%','HoReCa 22%','Online 12%','Gifting 8%'],
+      labels: ['Retail Household','HoReCa','Online / D2C','Gifting / Seasonal'],
       datasets:[{
         data:[58,22,12,8],
         backgroundColor:[C1, C3, C4, C6],
@@ -3316,12 +3316,22 @@ function renderCompCharts() {
       cutout:'65%',
       responsive:true, maintainAspectRatio:false,
       plugins:{
-        legend:{
-          display:true, position:'bottom',
-          labels:{color:TXT, font:{size:10}, padding:12, boxWidth:10, boxHeight:10}
+        datalabels:{
+          display:true, color:'#fff', font:{size:10, weight:'700'},
+          formatter:(v,ctx) => {
+            const t = ctx.dataset.data.reduce((a,b)=>a+b,0);
+            const p = v/t*100;
+            return p < 6 ? '' : `${p.toFixed(0)}%`;
+          }
         },
-        datalabels:{display:false},
-        tooltip:{callbacks:{label:ctx=>`${ctx.label}`}}
+        legend:{
+          display:true, position:'right',
+          labels:{color:TXT, font:{size:10}, padding:10, boxWidth:10, boxHeight:10}
+        },
+        tooltip:{callbacks:{label:c=>{
+          const t = c.dataset.data.reduce((a,b)=>a+b,0);
+          return `${c.label}: ${c.parsed.toFixed(0)}% of sales`;
+        }}}
       },
       animation:{duration:700}
     }
