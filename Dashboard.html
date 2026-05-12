@@ -2412,6 +2412,7 @@ class MarketDashboard {
   renderCharts(rows, subcats, chVal, chVol, scVal, scVol, totVal, totVol, totRetVal, totRetVol, cur, volUnit, activeYear) {
     const {G, TXT, LBL, LEG, CARD_BG} = _getChartColors();
     const isAll = activeYear === 'all';
+    const isLitreVol = volUnit.toLowerCase().includes('litre');
     const yIdx  = isAll ? 0 : Math.max(0, FCST_YEARS.indexOf(activeYear));
     const mask  = arr => isAll ? arr : arr.map((v, i) => i === yIdx ? v : 0);
     const refYr = isAll ? 2025 : activeYear;
@@ -2422,9 +2423,10 @@ class MarketDashboard {
     const topSCShare = totRetVal[yIdx] > 0 ? (scVal[0][yIdx] / totRetVal[yIdx] * 100) : 0;
 
     const _el = (id, txt) => { const e = document.getElementById(id); if(e) e.textContent = txt; };
+    const _volUnitLabel = isLitreVol ? 'M litres' : 'thousand tonnes';
     _el('sub-mktvol',  isAll
-      ? `Total volume (thousand tonnes) · all channels stacked · grows ${_cagr(totVol[0],totVol[5],5).toFixed(1)}% CAGR`
-      : `Total volume (thousand tonnes) · all channels · ${activeYear} selected`);
+      ? `Total volume (${_volUnitLabel}) · all channels stacked · grows ${_cagr(totVol[0],totVol[5],5).toFixed(1)}% CAGR`
+      : `Total volume (${_volUnitLabel}) · all channels · ${activeYear} selected`);
     _el('sub-mktval',  isAll
       ? `${cur} million · all channels · value CAGR ${_cagr(totVal[0],totVal[5],5).toFixed(1)}%`
       : `${cur} million · all channels · ${activeYear} selected`);
@@ -2489,7 +2491,7 @@ class MarketDashboard {
       pointRadius:0, pointHoverRadius:0, fill:false,
       datalabels:{display:true,anchor:'end',align:'top',offset:3,
         color:LBL,font:{size:9.5,weight:'700'},
-        formatter:v=>`${(v/1000).toFixed(1)}K`}
+        formatter:isLitreVol ? v=>`${v.toFixed(1)}M` : v=>`${(v/1000).toFixed(1)}K`}
     });
     const prodAnnotVal = (data) => ({
       type:'line', label:'__total__', data,
@@ -2504,7 +2506,7 @@ class MarketDashboard {
       scales:{
         x:{stacked:true, grid:{color:'transparent'}, border:{color:G}, ticks:{maxRotation:0,color:TXT}},
         y:{stacked:true, grid:{color:G}, border:{color:'transparent'}, beginAtZero:true, grace:'18%',
-           ticks:{callback:v=>(v/1000).toFixed(1), color:TXT}}
+           ticks:{callback:isLitreVol ? v=>v.toFixed(1) : v=>(v/1000).toFixed(1), color:TXT}}
       },
       plugins:{
         legend:{position:'bottom', labels:{boxWidth:10,padding:10,font:{size:10},color:LEG,
@@ -2530,7 +2532,9 @@ class MarketDashboard {
     this.mc('ch-mktvol', {type:'bar', data:{
       labels:FCST_YEARS,
       datasets:[...CH_ORDER.map((ch,i)=>({label:ch,data:mask(chVol[i]),backgroundColor:C_CH[i],stack:'s'})),prodAnnotVol(mask(totVol))]
-    }, options:stkProdVol(c=>`${c.dataset.label}: ${(c.parsed.y/1000).toFixed(2)}K t`)});
+    }, options:stkProdVol(isLitreVol
+      ? c=>`${c.dataset.label}: ${c.parsed.y.toFixed(2)}M L`
+      : c=>`${c.dataset.label}: ${(c.parsed.y/1000).toFixed(2)}K t`)});
 
     this.mc('ch-mktval', {type:'bar', data:{
       labels:FCST_YEARS,
@@ -2639,13 +2643,15 @@ class MarketDashboard {
 
     // ── Product Category charts (retail household, volume & value by sub_category) ──
     const _elp = (id, txt) => { const e = document.getElementById(id); if(e) e.textContent = txt; };
-    _elp('sub-prod-vol', `thousand tonnes · retail household · grows ${_cagr(totRetVol[0],totRetVol[5],5).toFixed(1)}% CAGR 2025–2030`);
+    _elp('sub-prod-vol', `${_volUnitLabel} · retail household · grows ${_cagr(totRetVol[0],totRetVol[5],5).toFixed(1)}% CAGR 2025–2030`);
     _elp('sub-prod-val', `${cur} million · retail household · value CAGR ${_cagr(totRetVal[0],totRetVal[5],5).toFixed(1)}% 2025–2030`);
 
     this.mc('ch-prod-vol', {type:'bar', data:{
       labels:FCST_YEARS,
       datasets:[...subcats.map((sc,i)=>({label:sc,data:mask(scVol[i]),backgroundColor:C_SC[i]||'#607D8B',stack:'s'})),prodAnnotVol(mask(totRetVol))]
-    }, options:stkProdVol(c=>`${c.dataset.label}: ${(c.parsed.y/1000).toFixed(2)}K t`)});
+    }, options:stkProdVol(isLitreVol
+      ? c=>`${c.dataset.label}: ${c.parsed.y.toFixed(2)}M L`
+      : c=>`${c.dataset.label}: ${(c.parsed.y/1000).toFixed(2)}K t`)});
 
     this.mc('ch-prod-val', {type:'bar', data:{
       labels:FCST_YEARS,
@@ -2653,13 +2659,14 @@ class MarketDashboard {
     }, options:stkProdVal(c=>`${c.dataset.label}: ${cur} ${c.parsed.y.toFixed(1)}M`)});
 
     // Product category summary table
-    const fmtKt = v => (v/1000).toFixed(2);
+    const fmtKt = isLitreVol ? v => v.toFixed(2) : v => (v/1000).toFixed(2);
+    const _volColHeader = isLitreVol ? 'Volume (M litres)' : 'Volume (K tonnes)';
     const fmtPM = v => `${v.toFixed(0)}`;
     const fmtPC = v => `${v.toFixed(1)}%`;
     let pSmryHtml = `<table class="smry-table"><thead>
       <tr>
         <th>Product</th>
-        <th colspan="3" style="border-left:1px solid var(--border)">Volume (K tonnes)</th>
+        <th colspan="3" style="border-left:1px solid var(--border)">${_volColHeader}</th>
         <th colspan="3" style="border-left:1px solid var(--border)">Value (${cur} M)</th>
       </tr>
       <tr>
