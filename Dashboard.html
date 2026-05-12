@@ -1386,6 +1386,9 @@ html[data-theme="light"] .dash-tab.active{color:#2A1800}
 <!-- ═══ COMPETITION TAB ═══ -->
 <div id="tab-competition">
 
+  <!-- Honey profile — shown only when Honey is the active product -->
+  <div id="comp-honey-profile">
+
   <!-- Page header — same pattern as Market Overview -->
   <div class="page-header">
     <div>
@@ -1601,6 +1604,27 @@ html[data-theme="light"] .dash-tab.active{color:#2A1800}
     Competitor profile — Hatta Honey · UAE Honey Market · Illustrative data, sources to be verified<br>
     Euromonitor · Mordor Intelligence · Dubai Chamber of Commerce · Company filings · May 2025
   </div>
+
+  </div><!-- /comp-honey-profile -->
+
+  <!-- No-profile placeholder — shown for all other products -->
+  <div id="comp-no-profile" style="display:none">
+    <div class="page-header">
+      <div>
+        <h1 id="comp-np-title">Competitor Profiles</h1>
+        <div class="page-header-sub" id="comp-np-sub">Select a product to view available profiles</div>
+      </div>
+    </div>
+    <div class="tab-placeholder" style="border:none;background:none;padding:60px 0">
+      <div class="tab-ph-icon">
+        <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-2 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+      </div>
+      <h3 id="comp-np-heading">No profile available for this product</h3>
+      <p id="comp-np-body" style="max-width:360px;margin:8px auto 0;font-size:12px;color:var(--text-muted);line-height:1.7">
+        Competitor profiling for <strong id="comp-np-product"></strong> is being researched. Switch to <strong>Honey</strong> to view the Hatta Honey Bee Garden profile, or select Honey from the sidebar.
+      </p>
+    </div>
+  </div><!-- /comp-no-profile -->
 
 </div><!-- /tab-competition -->
 
@@ -2935,6 +2959,9 @@ class MarketDashboard {
   async onProductChange(val) {
     this.activeProduct = val;
     await this.loadSection(this.activeSection, this.activeCountry, this.activeProduct);
+    if (document.getElementById('tab-competition').classList.contains('active')) {
+      renderCompetitionTab(val);
+    }
   }
 
   async onYearChange(val) {
@@ -2996,7 +3023,7 @@ function switchDashTab(tab) {
     const el = document.getElementById(`tab-${t}`);
     if (el) el.classList.toggle('active', t===tab);
   });
-  if (tab === 'competition') renderCompCharts();
+  if (tab === 'competition') renderCompetitionTab(dashboard.activeProduct);
 }
 
 // ── EXPERT PANEL FILTER TABS ──────────────────────────────
@@ -3309,6 +3336,19 @@ function onStatFilterChange() {
 }
 
 // ── COMPETITION CHARTS ────────────────────────────────────
+function renderCompetitionTab(product) {
+  const isHoney = product && product.toLowerCase().includes('honey');
+  document.getElementById('comp-honey-profile').style.display = isHoney ? '' : 'none';
+  const noProfile = document.getElementById('comp-no-profile');
+  noProfile.style.display = isHoney ? 'none' : '';
+  if (!isHoney && product) {
+    document.getElementById('comp-np-product').textContent = product;
+    document.getElementById('comp-np-title').textContent = `${product} — Competitor Profiles`;
+    document.getElementById('comp-np-sub').textContent = `Competitor profiling · ${product} market · profile under research`;
+  }
+  if (isHoney) renderCompCharts();
+}
+
 let _compChartsRendered = false;
 function renderCompCharts() {
   if (_compChartsRendered) return;
