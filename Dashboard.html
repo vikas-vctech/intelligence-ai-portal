@@ -389,6 +389,38 @@ body{
 #tab-competition{display:none}
 #tab-competition.active{display:block}
 
+/* ══ VALUE CHAIN TAB ═══════════════════════════════════════ */
+#tab-value-chain{display:none;padding:0}
+#tab-value-chain.active{display:block}
+.vc-grid{display:grid;grid-template-columns:1fr 1.1fr 0.9fr;min-height:600px}
+.vc-col{border-right:1px solid var(--border);padding:0}
+.vc-col:last-child{border-right:none}
+.vc-col-hdr{font-size:12px;font-weight:700;font-family:var(--font-display);color:#fff;background:var(--atlas-compass);padding:11px 18px;letter-spacing:.04em}
+.vc-col-body{padding:16px 18px}
+.vc-section-lbl{font-size:10px;font-weight:700;color:var(--atlas-gold);text-transform:uppercase;letter-spacing:.07em;margin:14px 0 8px;padding-bottom:5px;border-bottom:1px solid var(--border)}
+.vc-section-lbl:first-child{margin-top:0}
+.vc-farm-type{font-size:11px;font-weight:700;color:var(--text-primary);margin:10px 0 2px}
+.vc-farm-sub{font-size:10.5px;color:var(--text-muted);margin:0 0 2px;line-height:1.5}
+.vc-farm-detail{font-size:10px;color:var(--text-muted);font-style:italic;line-height:1.5;margin-bottom:4px}
+.vc-imp-table{width:100%;border-collapse:collapse;font-size:10.5px;margin-top:4px}
+.vc-imp-table td{padding:5px 0;border-bottom:1px solid var(--border);vertical-align:top}
+.vc-imp-table td:first-child{color:var(--atlas-gold);font-weight:700;width:26%;padding-right:8px}
+.vc-imp-table td:last-child{color:var(--text-muted);text-align:right;font-size:10px}
+.vc-imp-table tr:last-child td{border-bottom:none}
+.vc-channel{border:1px solid var(--border);border-radius:var(--radius);margin-bottom:12px;overflow:hidden}
+.vc-channel-hdr{display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--atlas-compass);color:#fff;font-size:11px;font-weight:700;letter-spacing:.03em}
+.vc-channel-num{width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0}
+.vc-channel-body{padding:10px 12px}
+.vc-channel-body ul{margin:0;padding-left:14px}
+.vc-channel-body ul li{font-size:10.5px;color:var(--text-muted);line-height:1.65;margin-bottom:1px}
+.vc-seg{display:flex;align-items:flex-start;gap:12px;margin-bottom:13px;padding-bottom:13px;border-bottom:1px solid var(--border)}
+.vc-seg:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.vc-seg-pct{min-width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff;border-radius:3px;flex-shrink:0}
+.vc-seg-lbl{font-size:10px;font-weight:700;color:var(--text-primary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+.vc-seg-detail ul{margin:0;padding-left:13px}
+.vc-seg-detail ul li{font-size:10px;color:var(--text-muted);line-height:1.6}
+.vc-footnote{padding:8px 18px;font-size:9.5px;color:var(--text-muted);border-top:1px solid var(--border)}
+
 /* page-header action area */
 .comp-stab{
   padding:4px 12px;font-size:11px;font-family:var(--font-ui);
@@ -2451,14 +2483,179 @@ html[data-theme="light"] .dash-tab.active{color:#2A1800}
 </div><!-- /tab-competition -->
 
 <!-- ═══ VALUE CHAIN TAB ═══ -->
-<div class="tab-placeholder" id="tab-value-chain">
-  <div class="tab-ph-icon">
-    <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"/></svg>
+<div id="tab-value-chain">
+
+  <!-- Goat Milk value chain — shown only when Goat Milk product is active -->
+  <div id="vc-goatmilk" style="display:none">
+    <div class="page-header" style="margin-bottom:0;border-bottom:1px solid var(--border)">
+      <div>
+        <h1>Goat Milk Value Chain — UAE</h1>
+        <div class="page-header-sub">Production &amp; Sourcing → Distribution → Retail &amp; End Consumer · 2025</div>
+      </div>
+    </div>
+    <div class="vc-grid">
+
+      <!-- ── Col 1: Suppliers ── -->
+      <div class="vc-col">
+        <div class="vc-col-hdr">Goat Milk Product Suppliers</div>
+        <div class="vc-col-body">
+
+          <div class="vc-section-lbl">Local Producers</div>
+
+          <div class="vc-farm-type">Large commercial farms</div>
+          <div class="vc-farm-sub">Licensed, cold chain</div>
+          <div class="vc-farm-detail">Royal Desert Farm, Al Maleeha Farms, Emirates Farm for Livestock and Agricultural Production LLC, Al Dayaa, Premium Organics</div>
+
+          <div class="vc-farm-type">Semi-commercial farms</div>
+          <div class="vc-farm-sub">Informal sales, WhatsApp / social orders</div>
+          <div class="vc-farm-detail">50–60 farms (Abu Dhabi, RAK, Fujairah)</div>
+
+          <div class="vc-farm-type">Subsistence farms</div>
+          <div class="vc-farm-sub">Family use + occasional surplus</div>
+          <div class="vc-farm-detail">1,000–1,200 farms</div>
+
+          <div class="vc-section-lbl">International Importers</div>
+          <table class="vc-imp-table">
+            <tr>
+              <td>UK</td>
+              <td>UHT goat milk</td>
+              <td>Delamere Dairy</td>
+            </tr>
+            <tr>
+              <td>France</td>
+              <td>Fresh chèvre, Brie-style</td>
+              <td>Chavroux, Saignon, Président</td>
+            </tr>
+            <tr>
+              <td>Cyprus</td>
+              <td>Halloumi (PDO)</td>
+              <td>Pittas, Alambra, Olympus</td>
+            </tr>
+            <tr>
+              <td>KSA</td>
+              <td>Labneh, processed cheese</td>
+              <td>Almarai, SADAFCO</td>
+            </tr>
+            <tr>
+              <td>NL / Germany</td>
+              <td>Goat milk powder, UHT</td>
+              <td>Jumbo, Holle</td>
+            </tr>
+          </table>
+
+        </div>
+        <div class="vc-footnote">Source: Primary Research, Comtrade, FAO, Finapt Analysis</div>
+      </div>
+
+      <!-- ── Col 2: Distribution Channels ── -->
+      <div class="vc-col">
+        <div class="vc-col-hdr">Distribution Channels</div>
+        <div class="vc-col-body">
+
+          <div class="vc-channel">
+            <div class="vc-channel-hdr">
+              <span class="vc-channel-num">1</span>
+              Farm Direct &amp; Online Delivery
+            </div>
+            <div class="vc-channel-body">
+              <ul>
+                <li>Farm website + WhatsApp ordering &amp; home delivery <em>(dominant channel for local producers)</em></li>
+                <li>Subscription boxes (weekly fresh goat milk delivery)</li>
+                <li>Instagram / social media orders</li>
+                <li>Farmers markets &amp; organic pop-ups <em>(Ripe Market, Farmers Market on the Terrace)</em></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="vc-channel">
+            <div class="vc-channel-hdr">
+              <span class="vc-channel-num">2</span>
+              Licensed Distributors &amp; Cold Chain
+            </div>
+            <div class="vc-channel-body">
+              <ul>
+                <li>Specialized dairy distributors <em>(e.g., Agthia Group, National Food Products Co.)</em></li>
+                <li>Importer trading companies <em>(clear pathway for all imported brands)</em></li>
+                <li>Re-export trading companies <em>(Dubai Jebel Ali Free Zone → GCC re-distribution)</em></li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+        <div class="vc-footnote">Goat Milk Market in UAE · 2025</div>
+      </div>
+
+      <!-- ── Col 3: Customer Segments ── -->
+      <div class="vc-col">
+        <div class="vc-col-hdr">Customer Segments</div>
+        <div class="vc-col-body">
+
+          <div class="vc-seg">
+            <div class="vc-seg-pct" style="background:var(--atlas-compass)">35%</div>
+            <div class="vc-seg-detail">
+              <div class="vc-seg-lbl">Retail</div>
+              <ul>
+                <li>Hypermarkets (LuLu, Carrefour)</li>
+                <li>Supermarkets (Spinneys, Waitrose)</li>
+                <li>Specialty/organic stores (Organic Foods &amp; Café, Holland &amp; Barrett UAE)</li>
+                <li>Co-operatives</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="vc-seg">
+            <div class="vc-seg-pct" style="background:#2a7a6a">30%</div>
+            <div class="vc-seg-detail">
+              <div class="vc-seg-lbl">Direct to Consumer</div>
+              <ul>
+                <li>Farm website/app subscriptions</li>
+                <li>WhatsApp community orders</li>
+                <li>Farmers markets &amp; organic festivals</li>
+                <li>Farm visits (agri-tourism)</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="vc-seg">
+            <div class="vc-seg-pct" style="background:var(--atlas-gold)">25%</div>
+            <div class="vc-seg-detail">
+              <div class="vc-seg-lbl">HoReCa</div>
+              <ul>
+                <li>5-star hotels (breakfast, room service, in-house restaurants)</li>
+                <li>Farm-to-table &amp; Mediterranean restaurants</li>
+                <li>Specialty cafés using goat milk in coffee/pastry</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="vc-seg">
+            <div class="vc-seg-pct" style="background:var(--atlas-burgundy)">10%</div>
+            <div class="vc-seg-detail">
+              <div class="vc-seg-lbl">Re-Exports</div>
+              <ul>
+                <li>GCC re-distribution via Jebel Ali FTZ (Oman, Qatar)</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+        <div class="vc-footnote">&nbsp;</div>
+      </div>
+
+    </div>
+  </div><!-- /vc-goatmilk -->
+
+  <!-- No value chain available — shown for all other products -->
+  <div id="vc-no-content" style="display:none;padding:80px 0;text-align:center">
+    <div class="tab-ph-icon">
+      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"/></svg>
+    </div>
+    <h3 id="vc-np-title">Value Chain</h3>
+    <p id="vc-np-sub">Value chain mapping for this product is under research.</p>
+    <span class="coming-pill">Coming Soon</span>
   </div>
-  <h3>Value Chain</h3>
-  <p>End-to-end value chain mapping from production and sourcing through distribution, retail, and end consumer across the GCC.</p>
-  <span class="coming-pill">Coming Soon</span>
-</div>
+
+</div><!-- /tab-value-chain -->
 
 <!-- ═══ EXPERTS TAB ═══ -->
 <div class="tab-placeholder" id="tab-experts" style="padding:0;text-align:left">
@@ -3785,6 +3982,9 @@ class MarketDashboard {
     if (document.getElementById('tab-competition').classList.contains('active')) {
       renderCompetitionTab(val);
     }
+    if (document.getElementById('tab-value-chain').classList.contains('active')) {
+      renderValueChainTab(val);
+    }
   }
 
   async onYearChange(val) {
@@ -3865,6 +4065,17 @@ function switchDashTab(tab) {
     if (el) el.classList.toggle('active', t===tab);
   });
   if (tab === 'competition') renderCompetitionTab(dashboard.activeProduct);
+  if (tab === 'value-chain') renderValueChainTab(dashboard.activeProduct);
+}
+
+function renderValueChainTab(product) {
+  const isGoatMilk = product && product.toLowerCase().includes('goat');
+  document.getElementById('vc-goatmilk').style.display = isGoatMilk ? '' : 'none';
+  document.getElementById('vc-no-content').style.display = isGoatMilk ? 'none' : '';
+  if (!isGoatMilk && product) {
+    document.getElementById('vc-np-title').textContent = `${product} — Value Chain`;
+    document.getElementById('vc-np-sub').textContent = `Value chain mapping · ${product} market · under research`;
+  }
 }
 
 // ── EXPERT PANEL FILTER TABS ──────────────────────────────
