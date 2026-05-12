@@ -386,152 +386,95 @@ body{
 }
 
 /* ══ COMPETITION TAB ═══════════════════════════════════════ */
-#tab-competition{display:none;padding:0}
+#tab-competition{display:none}
 #tab-competition.active{display:block}
 
-.comp-header{
-  display:flex;align-items:center;gap:14px;
-  padding:14px 28px;border-bottom:1px solid var(--border);
-  background:var(--bg-card);flex-wrap:wrap;
-}
-.comp-logo-box{
-  width:46px;height:46px;border-radius:var(--radius);flex-shrink:0;
-  border:1px solid var(--atlas-gold);display:flex;align-items:center;
-  justify-content:center;font-size:22px;background:rgba(184,146,74,.08);
-}
-.comp-name{font-family:var(--font-display);font-size:18px;color:var(--text-primary);line-height:1.2}
-.comp-rating{font-size:13px;color:var(--atlas-gold);margin-left:6px}
-.comp-verified{font-size:11px;color:var(--atlas-gold);opacity:.7}
-.comp-desc-short{font-size:11px;color:var(--text-muted);margin-top:2px}
-.comp-stabs{display:flex;gap:2px;margin-left:24px}
+/* page-header action area */
 .comp-stab{
-  padding:5px 14px;font-size:11.5px;font-family:var(--font-ui);
+  padding:4px 12px;font-size:11px;font-family:var(--font-ui);
   background:transparent;border:1px solid var(--border);border-radius:20px;
   color:var(--text-muted);cursor:pointer;transition:all .15s;
 }
 .comp-stab:hover{color:var(--text-primary);border-color:var(--border-strong)}
 .comp-stab.active{background:rgba(184,146,74,.12);border-color:var(--atlas-gold);color:var(--atlas-gold);font-weight:500}
-.comp-actions{margin-left:auto;display:flex;gap:8px;flex-shrink:0}
 .comp-action-btn{
-  padding:5px 14px;font-size:11px;font-family:var(--font-ui);
+  padding:4px 13px;font-size:11px;font-family:var(--font-ui);
   border:1px solid var(--border-strong);border-radius:var(--radius);
   background:transparent;color:var(--text-secondary);cursor:pointer;transition:all .15s;
 }
 .comp-action-btn:hover{color:var(--text-primary);border-color:var(--atlas-gold)}
 .comp-action-primary{background:rgba(184,146,74,.12);border-color:var(--atlas-gold);color:var(--atlas-gold)}
 
-.comp-section{padding:20px 28px;border-bottom:1px solid var(--border)}
-.comp-section-hdr{
-  display:flex;align-items:center;gap:10px;
-  font-family:var(--font-display);font-size:13px;font-weight:400;
-  color:var(--text-primary);margin-bottom:16px;
-}
-.comp-section-num{
-  width:22px;height:22px;border-radius:50%;flex-shrink:0;
-  background:rgba(184,146,74,.15);border:1px solid rgba(184,146,74,.4);
-  color:var(--atlas-gold);font-size:10px;font-family:var(--font-mono);
-  display:flex;align-items:center;justify-content:center;font-weight:600;
-}
-.comp-overview-grid{display:grid;grid-template-columns:1fr 1.3fr 1fr;gap:var(--gap)}
-.comp-block{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px}
-.comp-block-label{font-size:8.5px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:10px}
-
-.comp-info-table{width:100%;border-collapse:collapse;font-size:11.5px}
+/* Info table inside .card */
+.comp-info-table{width:100%;border-collapse:collapse;font-size:11.5px;margin-bottom:14px}
 .comp-info-table tr:nth-child(even) td{background:rgba(245,240,230,.03)}
-.comp-info-table td{padding:6px 8px;border-bottom:1px solid var(--border);vertical-align:top}
-.comp-info-table td:first-child{color:var(--text-muted);width:45%;font-size:10.5px}
+.comp-info-table td{padding:7px 6px;border-bottom:1px solid var(--border);vertical-align:top}
+.comp-info-table td:first-child{color:var(--text-muted);width:46%;font-size:10.5px}
 .comp-info-table td:last-child{color:var(--text-primary);font-weight:500}
 .comp-info-table tr:last-child td{border-bottom:none}
-
-.comp-about-text{font-size:12px;color:var(--text-secondary);line-height:1.7;margin-bottom:12px}
+.comp-about-text{font-size:11.5px;color:var(--text-secondary);line-height:1.75;margin-bottom:12px}
 .comp-tags-row{display:flex;gap:5px;flex-wrap:wrap}
-.comp-tag{font-size:9.5px;padding:3px 8px;border-radius:12px;border:1px solid var(--border);color:var(--text-muted);background:rgba(245,240,230,.04)}
+.comp-tag{font-size:9.5px;padding:3px 9px;border-radius:12px;border:1px solid var(--border);color:var(--text-muted)}
+.comp-tag-gold{border-color:rgba(184,146,74,.4);color:var(--atlas-gold);background:rgba(184,146,74,.08)}
+.comp-tag-teal{border-color:rgba(61,107,92,.4);color:#5DB89A;background:rgba(61,107,92,.08)}
 
-.comp-fin-section{margin-bottom:4px}
-.comp-fin-label{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.9px;color:var(--text-muted);margin-bottom:4px}
-.comp-fin-value{font-size:22px;font-weight:500;color:var(--atlas-gold);font-family:var(--font-mono);letter-spacing:-1px;margin-bottom:6px}
-.comp-fin-bar-track{height:6px;background:var(--border-strong);border-radius:3px;overflow:hidden;margin-bottom:4px}
-.comp-fin-bar-fill{height:100%;background:var(--atlas-gold);border-radius:3px}
-.comp-fin-sub{font-size:9.5px;color:var(--text-muted)}
-.comp-donut-wrap{display:flex;align-items:center;gap:12px;margin-top:8px}
-.comp-donut-legend{display:flex;flex-direction:column;gap:4px;font-size:10px;color:var(--text-secondary)}
-.comp-donut-legend div{display:flex;align-items:center;gap:5px}
-.comp-donut-legend span{display:inline-block;width:8px;height:8px;border-radius:50%;flex-shrink:0}
+/* Revenue bar inside .card */
+.comp-fin-label{font-size:8.5px;font-weight:600;text-transform:uppercase;letter-spacing:.9px;color:var(--text-muted);margin-bottom:4px}
+.comp-fin-value{font-size:22px;font-weight:500;color:var(--color-1);font-family:var(--font-mono);letter-spacing:-1px;margin-bottom:8px}
+.comp-fin-bar-track{height:6px;background:var(--border-strong);border-radius:3px;overflow:hidden;margin-bottom:5px}
+.comp-fin-bar-fill{height:100%;background:var(--color-1);border-radius:3px}
+.comp-fin-sub{font-size:9.5px;color:var(--text-muted);margin-bottom:16px}
 
-.comp-prod-layout{display:flex;gap:var(--gap);align-items:flex-start}
+/* Products table inside .card */
 .comp-prod-table{width:100%;border-collapse:collapse;font-size:11.5px}
 .comp-prod-table th{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);padding:7px 10px;border-bottom:1px solid var(--border-strong);text-align:left;white-space:nowrap}
 .comp-prod-table th.r{text-align:right}
 .comp-prod-table td{padding:9px 10px;border-bottom:1px solid var(--border);vertical-align:middle;color:var(--text-primary)}
 .comp-prod-table tr:last-child td{border-bottom:none}
-.comp-prod-table tr:hover td{background:rgba(245,240,230,.03)}
+.comp-prod-table tr:hover td{background:rgba(184,146,74,.04)}
 .comp-prod-sub{font-size:9.5px;color:var(--text-muted);margin-top:2px;font-weight:400}
 .comp-prod-tag{font-size:9px;padding:2px 7px;border-radius:3px;border:1px solid var(--border);color:var(--text-muted)}
-.comp-tag-gold{border-color:rgba(184,146,74,.4);color:var(--atlas-gold);background:rgba(184,146,74,.08)}
-.comp-tag-teal{border-color:rgba(61,107,92,.4);color:#5DB89A;background:rgba(61,107,92,.08)}
-.comp-premium-low{color:var(--text-secondary)}
-.comp-premium-mid{color:var(--atlas-gold)}
-.comp-premium-high{color:#5DB89A}
-.comp-prod-images{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;flex-shrink:0;width:200px}
+.comp-premium-low{color:var(--text-secondary);text-align:right}
+.comp-premium-mid{color:var(--color-1);text-align:right}
+.comp-premium-high{color:var(--color-3);text-align:right}
+
+/* Product image grid inside .card */
+.comp-prod-images{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
 .comp-img-ph{
-  border-radius:var(--radius);padding:10px 6px;text-align:center;
-  font-size:20px;display:flex;flex-direction:column;align-items:center;
-  gap:4px;border:1px solid var(--border);cursor:default;
+  border-radius:var(--radius);padding:14px 6px;text-align:center;
+  font-size:22px;display:flex;flex-direction:column;align-items:center;
+  gap:5px;border:1px solid var(--border);
 }
 .comp-img-ph span{font-size:9px;color:rgba(245,240,230,.55);font-family:var(--font-ui)}
 
-.comp-bp-grid{display:grid;grid-template-columns:1.1fr 1.4fr 1fr;gap:var(--gap)}
+/* Attribute table inside .card */
 .comp-attr-table{width:100%;border-collapse:collapse;font-size:10.5px}
-.comp-attr-table th{font-size:8.5px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted);padding:5px 8px;border-bottom:1px solid var(--border-strong);text-align:center}
+.comp-attr-table th{font-size:8.5px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted);padding:6px 8px;border-bottom:1px solid var(--border-strong);text-align:center}
 .comp-attr-table th:first-child{text-align:left}
-.comp-attr-table td{padding:7px 8px;border-bottom:1px solid var(--border);text-align:center;color:var(--text-muted);font-size:11px}
+.comp-attr-table td{padding:7px 8px;border-bottom:1px solid var(--border);text-align:center;font-size:13px}
 .comp-attr-table td:first-child{text-align:left;color:var(--text-secondary);font-size:10.5px}
 .comp-attr-table tr:last-child td{border-bottom:none}
-.comp-attr-table tr:hover td{background:rgba(245,240,230,.03)}
-.dot.gold{color:var(--atlas-gold);font-size:14px}
-.dot.mid{color:var(--atlas-stone);font-size:14px}
-.dot.dim{color:var(--border-strong);font-size:14px}
-.comp-pos-chart-wrap{height:220px;position:relative}
-.comp-pos-legend{margin-top:6px}
+.comp-attr-table tr:hover td{background:rgba(184,146,74,.04)}
+.dot.gold{color:var(--color-1)}
+.dot.mid{color:var(--atlas-stone)}
+.dot.dim{color:var(--border-strong);font-size:11px}
 
-.comp-top-list{display:flex;flex-direction:column;gap:8px}
+/* Top competitors list inside .card */
+.comp-top-list{display:flex;flex-direction:column;gap:7px}
 .comp-top-item{display:flex;align-items:flex-start;gap:10px;padding:8px 10px;border-radius:var(--radius);border:1px solid var(--border)}
-.comp-top-item b{font-size:12px;color:var(--text-primary);font-weight:500}
+.comp-top-item strong{font-size:12px;color:var(--text-primary);font-weight:500}
 .comp-top-active{border-color:rgba(184,146,74,.4);background:rgba(184,146,74,.06)}
 .comp-top-sub{font-size:10px;color:var(--text-muted);margin-top:2px}
 .comp-rank{
-  width:20px;height:20px;border-radius:50%;flex-shrink:0;
+  width:22px;height:22px;border-radius:50%;flex-shrink:0;
   background:var(--bg-primary);border:1px solid var(--border);
   font-size:10px;font-family:var(--font-mono);color:var(--text-muted);
-  display:flex;align-items:center;justify-content:center;margin-top:1px;
+  display:flex;align-items:center;justify-content:center;
 }
-.comp-rank.gold{border-color:rgba(184,146,74,.5);color:var(--atlas-gold);background:rgba(184,146,74,.1)}
+.comp-rank.gold{border-color:rgba(184,146,74,.5);color:var(--color-1);background:rgba(184,146,74,.1)}
 
-.comp-mkt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
-.comp-mkt-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
-.comp-mkt-card:hover{border-color:rgba(184,146,74,.25)}
-.comp-mkt-card-top{
-  padding:14px 16px;font-size:12px;font-weight:500;color:#fff;
-  display:flex;align-items:center;gap:8px;min-height:52px;
-}
-.comp-social-icon{font-size:18px}
-.comp-mkt-card-body{padding:12px 14px}
-.comp-mkt-title{font-size:12.5px;font-weight:500;color:var(--text-primary);margin-bottom:3px}
-.comp-mkt-stat{font-size:10px;color:var(--atlas-gold);margin-bottom:6px;font-family:var(--font-mono)}
-.comp-mkt-desc{font-size:10.5px;color:var(--text-muted);line-height:1.6}
-
-@media(max-width:1199px){
-  .comp-overview-grid{grid-template-columns:1fr 1fr}
-  .comp-bp-grid{grid-template-columns:1fr 1fr}
-  .comp-mkt-grid{grid-template-columns:repeat(2,1fr)}
-}
-@media(max-width:767px){
-  .comp-overview-grid,.comp-bp-grid,.comp-mkt-grid{grid-template-columns:1fr}
-  .comp-prod-layout{flex-direction:column}
-  .comp-prod-images{width:100%;grid-template-columns:repeat(3,1fr)}
-  .comp-section{padding:16px}
-  .comp-header{padding:12px 16px}
-}
+/* Marketing card stat line */
+.comp-mkt-stat{font-size:10px;color:var(--color-1);margin-bottom:6px;font-family:var(--font-mono)}
 
 /* ══ LIGHT MODE ════════════════════════════════════════════ */
 html[data-theme="light"] {
@@ -1346,127 +1289,150 @@ html[data-theme="light"] .dash-tab.active{color:#2A1800}
 <!-- ═══ COMPETITION TAB ═══ -->
 <div id="tab-competition">
 
-  <!-- ── Profile Header ── -->
-  <div class="comp-header">
-    <div class="comp-logo-box">🍯</div>
+  <!-- Page header — same pattern as Market Overview -->
+  <div class="page-header">
     <div>
-      <div class="comp-name">Hatta Honey <span class="comp-rating">★ 4.1</span> <span class="comp-verified">✓</span></div>
-      <div class="comp-desc-short">Established 1972 · Dubai · Leading UAE honey producer</div>
+      <h1>🍯 Hatta Honey <span style="font-size:14px;color:var(--color-1);font-family:var(--font-ui);font-weight:400">★ 4.1</span></h1>
+      <div class="page-header-sub">Competitor Profile · UAE Honey Market · Established 1972 · Dubai</div>
     </div>
-    <div class="comp-stabs">
+    <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
       <button class="comp-stab active">Competitors</button>
       <button class="comp-stab">Competitive Profile</button>
       <button class="comp-stab">Hatta Honey</button>
-    </div>
-    <div class="comp-actions">
+      <div style="width:1px;height:20px;background:var(--border);margin:0 4px"></div>
       <button class="comp-action-btn">↑ Export</button>
       <button class="comp-action-btn comp-action-primary">Market Share</button>
     </div>
   </div>
 
-  <!-- ── ① Company Overview ── -->
-  <div class="comp-section">
-    <div class="comp-section-hdr"><span class="comp-section-num">1</span> Company Overview</div>
-    <div class="comp-overview-grid">
-
-      <div class="comp-block">
-        <div class="comp-block-label">Company Profile</div>
-        <table class="comp-info-table">
-          <tr><td>Headquarters</td><td>Dubai, UAE</td></tr>
-          <tr><td>Founded</td><td>1972</td></tr>
-          <tr><td>Employees</td><td>150–200</td></tr>
-          <tr><td>Est. Revenue</td><td>AED 86M (~$23.4M)</td></tr>
-          <tr><td>Ownership</td><td>Private</td></tr>
-          <tr><td>Revenue CAGR</td><td>8.5% (2020–25)</td></tr>
-          <tr><td>Avg. Price</td><td>AED 45–280 / unit</td></tr>
-        </table>
-      </div>
-
-      <div class="comp-block">
-        <div class="comp-block-label">About Hatta Honey</div>
-        <p class="comp-about-text">Hatta Honey is one of the UAE's oldest and most recognised premium honey brands, headquartered in the Hatta region of Dubai. Founded in 1972, the company specialises in wild-harvested Sidr and Summra honey sourced from Yemen and Oman, along with a growing range of flavoured and organic variants. Distribution spans UAE supermarkets, specialty health stores, duty-free retail, and direct e-commerce channels. The brand is a consistent exhibitor at Gulfood and SIAL Middle East.</p>
-        <div class="comp-tags-row">
-          <span class="comp-tag">Premium</span>
-          <span class="comp-tag">Sidr Honey</span>
-          <span class="comp-tag">Organic</span>
-          <span class="comp-tag">Gift Packs</span>
-          <span class="comp-tag">UAE Origin</span>
-        </div>
-      </div>
-
-      <div class="comp-block">
-        <div class="comp-block-label">Key Financials</div>
-        <div class="comp-fin-section">
-          <div class="comp-fin-label">Revenue 2025E</div>
-          <div class="comp-fin-value">AED 86M</div>
-          <div class="comp-fin-bar-track"><div class="comp-fin-bar-fill" style="width:68%"></div></div>
-          <div class="comp-fin-sub">vs. AED 126M category leader</div>
-        </div>
-        <div class="comp-fin-label" style="margin-top:16px;margin-bottom:8px">Status of Sales</div>
-        <div class="comp-donut-wrap">
-          <canvas id="ch-comp-donut" width="120" height="120"></canvas>
-          <div class="comp-donut-legend">
-            <div><span style="background:#B8924A"></span>Retail 58%</div>
-            <div><span style="background:#3D6B5C"></span>HoReCa 22%</div>
-            <div><span style="background:#1F3A5F"></span>Online 12%</div>
-            <div><span style="background:#6B1F2E"></span>Gifting 8%</div>
-          </div>
-        </div>
-      </div>
-
+  <!-- KPI row — 4 cards, same as Market Overview -->
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="kpi-lbl">Revenue 2025E</div>
+      <div class="kpi-val">AED 86M</div>
+      <div class="kpi-sub">~$23.4M · est. · private</div>
+    </div>
+    <div class="kpi teal">
+      <div class="kpi-lbl">Market Rank</div>
+      <div class="kpi-val">#3 of 6</div>
+      <div class="kpi-sub">UAE honey retail · 2025</div>
+    </div>
+    <div class="kpi amber">
+      <div class="kpi-lbl">Avg Price Premium</div>
+      <div class="kpi-val">+23%</div>
+      <div class="kpi-sub">vs. category average AED</div>
+    </div>
+    <div class="kpi coral">
+      <div class="kpi-lbl">Revenue CAGR</div>
+      <div class="kpi-val">8.5%</div>
+      <div class="kpi-sub">2020–2025 · estimated</div>
     </div>
   </div>
 
-  <!-- ── ② Products & Packages ── -->
-  <div class="comp-section">
-    <div class="comp-section-hdr"><span class="comp-section-num">2</span> Products &amp; Packages</div>
-    <div class="comp-prod-layout">
-      <div style="overflow-x:auto;flex:1">
+  <!-- Row 1: Company profile + About & Tags | Revenue bar + Sales donut -->
+  <div class="grid2">
+    <div class="card">
+      <div class="card-title">Company Profile &amp; Background</div>
+      <div class="card-sub">Founded 1972 · Hatta region, Dubai · Private ownership</div>
+      <table class="comp-info-table">
+        <tr><td>Headquarters</td><td>Dubai, UAE</td></tr>
+        <tr><td>Founded</td><td>1972</td></tr>
+        <tr><td>Employees</td><td>150–200</td></tr>
+        <tr><td>Est. Revenue</td><td>AED 86M (~$23.4M)</td></tr>
+        <tr><td>Ownership</td><td>Private</td></tr>
+        <tr><td>Revenue CAGR</td><td>8.5% (2020–25)</td></tr>
+        <tr><td>Avg. Unit Price</td><td>AED 45–280</td></tr>
+        <tr><td>Key Channels</td><td>LuLu, Carrefour, Spinneys, D2C</td></tr>
+      </table>
+      <p class="comp-about-text">One of the UAE's oldest premium honey brands, specialising in wild-harvested Sidr and Summra honey sourced from Yemen and Oman. Distribution spans supermarkets, specialty health stores, duty-free retail, and direct e-commerce. Consistent Gulfood exhibitor since 2004.</p>
+      <div class="comp-tags-row">
+        <span class="comp-tag comp-tag-gold">Premium</span>
+        <span class="comp-tag">Sidr Honey</span>
+        <span class="comp-tag comp-tag-teal">Organic</span>
+        <span class="comp-tag">Gift Packs</span>
+        <span class="comp-tag">UAE Origin</span>
+        <span class="comp-tag">Halal · ESMA</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Revenue &amp; Sales Channel Mix</div>
+      <div class="card-sub">2025 estimated · AED million · all channels</div>
+      <div class="comp-fin-label">Revenue 2025E vs. category leader</div>
+      <div class="comp-fin-value">AED 86M</div>
+      <div class="comp-fin-bar-track"><div class="comp-fin-bar-fill" style="width:68%"></div></div>
+      <div class="comp-fin-sub">vs. AED 126M Al Shifa (category leader) · gap = 32%</div>
+      <div class="comp-fin-label" style="margin-top:4px">Status of Sales — channel split</div>
+      <div class="chart-wrap" style="height:200px"><canvas id="ch-comp-donut"></canvas></div>
+    </div>
+  </div>
+
+  <!-- Row 2: Products table | Brand attribute table -->
+  <div class="grid2">
+    <div class="card">
+      <div class="card-title">Products &amp; Packages</div>
+      <div class="card-sub">SKU count · retail and trade pricing · price premium vs. category average</div>
+      <div style="overflow-x:auto">
         <table class="comp-prod-table">
           <thead>
             <tr>
-              <th>Product Name</th>
-              <th>SKUs</th>
-              <th class="r">Retail Price (AED)</th>
-              <th class="r">Trade Price (AED)</th>
-              <th class="r">Price Premium</th>
-              <th>Type</th>
+              <th>Product</th><th>SKUs</th>
+              <th class="r">Retail (AED)</th><th class="r">Trade (AED)</th>
+              <th class="r">Premium</th><th>Tier</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td><strong>Natural Honey</strong><div class="comp-prod-sub">125g – 1kg jars</div></td>
-              <td>8</td><td class="r">45–120</td><td class="r">32–85</td>
-              <td class="r comp-premium-low">+12%</td>
-              <td><span class="comp-prod-tag">Standard</span></td>
-            </tr>
-            <tr>
-              <td><strong>Sidr Honey</strong><div class="comp-prod-sub">250g – 500g premium jars</div></td>
-              <td>4</td><td class="r">180–280</td><td class="r">128–198</td>
-              <td class="r comp-premium-high">+38%</td>
-              <td><span class="comp-prod-tag comp-tag-gold">Premium</span></td>
-            </tr>
-            <tr>
-              <td><strong>Specialty Honey</strong><div class="comp-prod-sub">Black seed, Manuka blends</div></td>
-              <td>6</td><td class="r">90–160</td><td class="r">64–114</td>
-              <td class="r comp-premium-mid">+22%</td>
-              <td><span class="comp-prod-tag">Specialty</span></td>
-            </tr>
-            <tr>
-              <td><strong>Organic Honey</strong><div class="comp-prod-sub">Certified organic, 250g</div></td>
-              <td>3</td><td class="r">130–175</td><td class="r">92–124</td>
-              <td class="r comp-premium-mid">+28%</td>
-              <td><span class="comp-prod-tag comp-tag-teal">Organic</span></td>
-            </tr>
-            <tr>
-              <td><strong>Blended Honey</strong><div class="comp-prod-sub">Infused variants, gift sets</div></td>
-              <td>5</td><td class="r">65–220</td><td class="r">46–156</td>
-              <td class="r comp-premium-low">+15%</td>
-              <td><span class="comp-prod-tag">Gifting</span></td>
-            </tr>
+            <tr><td><strong>Natural Honey</strong><div class="comp-prod-sub">125g – 1kg jars</div></td><td>8</td><td class="r">45–120</td><td class="r">32–85</td><td class="comp-premium-low">+12%</td><td><span class="comp-prod-tag">Standard</span></td></tr>
+            <tr><td><strong>Sidr Honey</strong><div class="comp-prod-sub">250g – 500g premium jars</div></td><td>4</td><td class="r">180–280</td><td class="r">128–198</td><td class="comp-premium-high">+38%</td><td><span class="comp-prod-tag comp-tag-gold">Premium</span></td></tr>
+            <tr><td><strong>Specialty Honey</strong><div class="comp-prod-sub">Black seed, Manuka blends</div></td><td>6</td><td class="r">90–160</td><td class="r">64–114</td><td class="comp-premium-mid">+22%</td><td><span class="comp-prod-tag">Specialty</span></td></tr>
+            <tr><td><strong>Organic Honey</strong><div class="comp-prod-sub">Certified organic, 250g</div></td><td>3</td><td class="r">130–175</td><td class="r">92–124</td><td class="comp-premium-mid">+28%</td><td><span class="comp-prod-tag comp-tag-teal">Organic</span></td></tr>
+            <tr><td><strong>Blended Honey</strong><div class="comp-prod-sub">Infused variants, gift sets</div></td><td>5</td><td class="r">65–220</td><td class="r">46–156</td><td class="comp-premium-low">+15%</td><td><span class="comp-prod-tag">Gifting</span></td></tr>
           </tbody>
         </table>
       </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Brand Attribute Comparison</div>
+      <div class="card-sub">vs. top 3 competitors · ● present &nbsp; ◑ partial &nbsp; ○ absent</div>
+      <table class="comp-attr-table">
+        <thead>
+          <tr><th>Attribute</th><th>Hatta</th><th>Sidr Royal</th><th>Nature's Best</th><th>Al Shifa</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Premium positioning</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot dim">○</td><td class="dot dim">○</td></tr>
+          <tr><td>UAE origin story</td><td class="dot gold">●</td><td class="dot dim">○</td><td class="dot dim">○</td><td class="dot dim">○</td></tr>
+          <tr><td>Sidr / Summra range</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot dim">○</td><td class="dot mid">◑</td></tr>
+          <tr><td>Organic certified</td><td class="dot mid">◑</td><td class="dot dim">○</td><td class="dot gold">●</td><td class="dot dim">○</td></tr>
+          <tr><td>Gift packaging</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot dim">○</td><td class="dot mid">◑</td></tr>
+          <tr><td>Modern D2C / e-com</td><td class="dot mid">◑</td><td class="dot dim">○</td><td class="dot gold">●</td><td class="dot gold">●</td></tr>
+          <tr><td>HoReCa penetration</td><td class="dot mid">◑</td><td class="dot dim">○</td><td class="dot dim">○</td><td class="dot gold">●</td></tr>
+          <tr><td>Social media reach</td><td class="dot gold">●</td><td class="dot mid">◑</td><td class="dot mid">◑</td><td class="dot gold">●</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Row 3: Positioning map | Top competitors | Product gallery -->
+  <div class="grid3">
+    <div class="card">
+      <div class="card-title">Positioning Map</div>
+      <div class="card-sub">Distribution breadth vs. price premium index · bubble = revenue</div>
+      <div class="chart-wrap" style="height:240px"><canvas id="ch-comp-bubble"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Top Retail Competitors</div>
+      <div class="card-sub">Ranked by UAE shelf share · 2025 estimate</div>
+      <div class="comp-top-list">
+        <div class="comp-top-item"><span class="comp-rank gold">1</span><div><strong>Al Shifa</strong><div class="comp-top-sub">KSA · Mass market leader · ~34% UAE shelf share</div></div></div>
+        <div class="comp-top-item"><span class="comp-rank">2</span><div><strong>Sidr Royal</strong><div class="comp-top-sub">Yemen · Ultra-premium · AED 300–600 / unit</div></div></div>
+        <div class="comp-top-item comp-top-active"><span class="comp-rank gold">3</span><div><strong>Hatta Honey ←</strong><div class="comp-top-sub">UAE · Premium-mid · AED 45–280 / unit</div></div></div>
+        <div class="comp-top-item"><span class="comp-rank">4</span><div><strong>Nature's Best</strong><div class="comp-top-sub">NZ / AU import · Organic niche · AED 90–200</div></div></div>
+        <div class="comp-top-item"><span class="comp-rank">5</span><div><strong>Manuka Health</strong><div class="comp-top-sub">NZ import · Functional health · AED 120–350</div></div></div>
+        <div class="comp-top-item"><span class="comp-rank">6</span><div><strong>Langnese</strong><div class="comp-top-sub">Germany · Supermarket mainstream · AED 25–60</div></div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Product Gallery</div>
+      <div class="card-sub">Illustrative · 6 SKU categories</div>
       <div class="comp-prod-images">
         <div class="comp-img-ph" style="background:linear-gradient(135deg,#2A1800,#4A2E00)">🍯<span>Sidr 500g</span></div>
         <div class="comp-img-ph" style="background:linear-gradient(135deg,#1A2800,#2E4A00)">🫙<span>Organic</span></div>
@@ -1478,122 +1444,49 @@ html[data-theme="light"] .dash-tab.active{color:#2A1800}
     </div>
   </div>
 
-  <!-- ── ③ Brand Positioning ── -->
-  <div class="comp-section">
-    <div class="comp-section-hdr"><span class="comp-section-num">3</span> Brand Positioning</div>
-    <div class="comp-bp-grid">
-
-      <div class="comp-block">
-        <div class="comp-block-label">Brand Attribute Comparison</div>
-        <table class="comp-attr-table">
-          <thead>
-            <tr><th>Attribute</th><th>Hatta</th><th>Sidr Royal</th><th>Nature's Best</th><th>Al Shifa</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>Premium positioning</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot dim">○</td><td class="dot dim">○</td></tr>
-            <tr><td>UAE origin story</td><td class="dot gold">●</td><td class="dot dim">○</td><td class="dot dim">○</td><td class="dot dim">○</td></tr>
-            <tr><td>Sidr / Summra range</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot dim">○</td><td class="dot mid">◑</td></tr>
-            <tr><td>Organic certified</td><td class="dot mid">◑</td><td class="dot dim">○</td><td class="dot gold">●</td><td class="dot dim">○</td></tr>
-            <tr><td>Gift packaging</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot dim">○</td><td class="dot mid">◑</td></tr>
-            <tr><td>Modern D2C / e-com</td><td class="dot mid">◑</td><td class="dot dim">○</td><td class="dot gold">●</td><td class="dot gold">●</td></tr>
-            <tr><td>HoReCa penetration</td><td class="dot mid">◑</td><td class="dot dim">○</td><td class="dot dim">○</td><td class="dot gold">●</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="comp-block">
-        <div class="comp-block-label">Positioning Map — Price vs. Brand Reach</div>
-        <div class="comp-pos-chart-wrap"><canvas id="ch-comp-bubble"></canvas></div>
-        <div class="comp-pos-legend"><span style="font-size:9px;color:var(--text-muted)">Bubble size = estimated revenue · X = distribution breadth · Y = price premium index</span></div>
-      </div>
-
-      <div class="comp-block">
-        <div class="comp-block-label">Top Retail Competitor Positions</div>
-        <div class="comp-top-list">
-          <div class="comp-top-item"><span class="comp-rank gold">1</span><div><strong>Al Shifa</strong><div class="comp-top-sub">KSA · Mass market leader · ~34% UAE shelf share</div></div></div>
-          <div class="comp-top-item"><span class="comp-rank">2</span><div><strong>Sidr Royal</strong><div class="comp-top-sub">Yemen · Ultra-premium · AED 300–600 / unit</div></div></div>
-          <div class="comp-top-item comp-top-active"><span class="comp-rank gold">3</span><div><strong>Hatta Honey ←</strong><div class="comp-top-sub">UAE · Premium-mid · AED 45–280 / unit</div></div></div>
-          <div class="comp-top-item"><span class="comp-rank">4</span><div><strong>Nature's Best</strong><div class="comp-top-sub">NZ / AU import · Organic niche · AED 90–200</div></div></div>
-          <div class="comp-top-item"><span class="comp-rank">5</span><div><strong>Manuka Health</strong><div class="comp-top-sub">NZ import · Functional health · AED 120–350</div></div></div>
-          <div class="comp-top-item"><span class="comp-rank">6</span><div><strong>Langnese</strong><div class="comp-top-sub">Germany · Supermarket mainstream · AED 25–60</div></div></div>
-        </div>
-      </div>
-
+  <!-- Row 4: Marketing cards — 6 in 2 rows of 3 using grid3 -->
+  <div class="grid3">
+    <div class="card">
+      <div class="card-title">📷 Instagram</div>
+      <div class="card-sub">Social media · primary channel</div>
+      <div class="comp-mkt-stat">128K followers · 3.2% engagement rate</div>
+      <p style="font-size:11px;color:var(--text-muted);line-height:1.6">Lifestyle content, gifting campaigns, and Ramadan promotions. 4–6 posts/week with heavy use of reels and stories.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">▶ YouTube</div>
+      <div class="card-sub">Video content · brand storytelling</div>
+      <div class="comp-mkt-stat">18.4K subscribers · 42K avg views</div>
+      <p style="font-size:11px;color:var(--text-muted);line-height:1.6">Harvest documentaries, product education, and Hatta region heritage storytelling. High completion rate.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">🍯 Product Education</div>
+      <div class="card-sub">Honey profiles · 6 product lines</div>
+      <div class="comp-mkt-stat">6 SKU categories · origin + tasting notes</div>
+      <p style="font-size:11px;color:var(--text-muted);line-height:1.6">Origin stories, health benefits, and tasting notes published on website and packaging inserts for each SKU category.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">📦 Packaging</div>
+      <div class="card-sub">3 packaging tiers · Arabic calligraphy branding</div>
+      <div class="comp-mkt-stat">Retail jar · Gift box · Travel miniature</div>
+      <p style="font-size:11px;color:var(--text-muted);line-height:1.6">Retail jar, premium gift box, and travel/duty-free miniature. Heritage Arabic calligraphy branding across all tiers.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">🏆 Brand Awareness</div>
+      <div class="card-sub">Certifications · trade shows · retail listings</div>
+      <div class="comp-mkt-stat">Halal · ESMA · ISO 22000</div>
+      <p style="font-size:11px;color:var(--text-muted);line-height:1.6">Gulfood exhibitor since 2004. Dubai Quality Award 2022 finalist. Listed in LuLu, Carrefour, and Spinneys UAE-wide.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">📊 Social Engagement</div>
+      <div class="card-sub">Above category average · seasonal spikes</div>
+      <div class="comp-mkt-stat">3.2% IG · 4.1% TikTok · vs. 1.8% avg</div>
+      <p style="font-size:11px;color:var(--text-muted);line-height:1.6">Ramadan campaigns deliver 2–3× engagement spike. Influencer seeding in health and wellness niche. TikTok growing rapidly.</p>
     </div>
   </div>
 
-  <!-- ── ④ Marketing & Promotions ── -->
-  <div class="comp-section" style="border-bottom:none">
-    <div class="comp-section-hdr"><span class="comp-section-num">4</span> Marketing &amp; Promotions</div>
-    <div class="comp-mkt-grid">
-
-      <div class="comp-mkt-card">
-        <div class="comp-mkt-card-top" style="background:linear-gradient(135deg,#833AB4,#FD1D1D,#F77737)">
-          <span class="comp-social-icon">📷</span> Instagram
-        </div>
-        <div class="comp-mkt-card-body">
-          <div class="comp-mkt-title">Social Media Posts</div>
-          <div class="comp-mkt-stat">128K followers · 3.2% engagement</div>
-          <div class="comp-mkt-desc">Lifestyle content, gifting campaigns, Ramadan promotions. 4–6 posts/week. Heavy use of reels.</div>
-        </div>
-      </div>
-
-      <div class="comp-mkt-card">
-        <div class="comp-mkt-card-top" style="background:linear-gradient(135deg,#CC0000,#880000)">
-          <span class="comp-social-icon">▶</span> YouTube
-        </div>
-        <div class="comp-mkt-card-body">
-          <div class="comp-mkt-title">Video Content</div>
-          <div class="comp-mkt-stat">18.4K subscribers · 42K avg views</div>
-          <div class="comp-mkt-desc">Harvest documentaries, product education, Hatta region heritage storytelling.</div>
-        </div>
-      </div>
-
-      <div class="comp-mkt-card">
-        <div class="comp-mkt-card-top" style="background:linear-gradient(135deg,#B8924A,#6B4F1F)">
-          <span class="comp-social-icon">🍯</span> Honey Profiles
-        </div>
-        <div class="comp-mkt-card-body">
-          <div class="comp-mkt-title">Product Education</div>
-          <div class="comp-mkt-stat">6 product lines profiled</div>
-          <div class="comp-mkt-desc">Origin stories, tasting notes, and health benefits published on website and packaging inserts for each SKU.</div>
-        </div>
-      </div>
-
-      <div class="comp-mkt-card">
-        <div class="comp-mkt-card-top" style="background:linear-gradient(135deg,#1F3A5F,#0E1A2B)">
-          <span class="comp-social-icon">📦</span> Packaging
-        </div>
-        <div class="comp-mkt-card-body">
-          <div class="comp-mkt-title">Honey Packaging Profiles</div>
-          <div class="comp-mkt-stat">3 packaging tiers</div>
-          <div class="comp-mkt-desc">Retail jar, premium gift box, and travel / duty-free miniature. Heritage Arabic calligraphy branding throughout.</div>
-        </div>
-      </div>
-
-      <div class="comp-mkt-card">
-        <div class="comp-mkt-card-top" style="background:linear-gradient(135deg,#3D6B5C,#1A3028)">
-          <span class="comp-social-icon">🏆</span> Certifications
-        </div>
-        <div class="comp-mkt-card-body">
-          <div class="comp-mkt-title">Brand Awareness</div>
-          <div class="comp-mkt-stat">Halal · ESMA · ISO 22000</div>
-          <div class="comp-mkt-desc">Gulfood exhibitor since 2004. Dubai Quality Award 2022 finalist. Listed in LuLu, Carrefour, and Spinneys.</div>
-        </div>
-      </div>
-
-      <div class="comp-mkt-card">
-        <div class="comp-mkt-card-top" style="background:linear-gradient(135deg,#6B1F2E,#3A0F18)">
-          <span class="comp-social-icon">📊</span> Engagement
-        </div>
-        <div class="comp-mkt-card-body">
-          <div class="comp-mkt-title">Social Media Engagement</div>
-          <div class="comp-mkt-stat">3.2% IG · 4.1% TikTok</div>
-          <div class="comp-mkt-desc">Above category average (1.8%). Ramadan campaigns deliver 2–3× engagement spike. Influencer seeding in health / wellness niche.</div>
-        </div>
-      </div>
-
-    </div>
+  <div class="footnote">
+    Competitor profile — Hatta Honey · UAE Honey Market · Illustrative data, sources to be verified<br>
+    Euromonitor · Mordor Intelligence · Dubai Chamber of Commerce · Company filings · May 2025
   </div>
 
 </div><!-- /tab-competition -->
@@ -3151,55 +3044,63 @@ let _compChartsRendered = false;
 function renderCompCharts() {
   if (_compChartsRendered) return;
   _compChartsRendered = true;
-  const {G, TXT} = _getChartColors();
+  const {G, TXT, CARD_BG} = _getChartColors();
+  // Atlas palette — matches color-1…color-6 + burgundy
+  const C1='#B8924A', C2='#8B6F2F', C3='#3D6B5C', C4='#1F3A5F', C5='#A89F8E', C6='#A8331E';
 
-  // Donut — Status of Sales
+  // Donut — Sales channel mix, same cutout depth as Market Overview pies
   new Chart(document.getElementById('ch-comp-donut'), {
     type: 'doughnut',
     data: {
-      labels: ['Retail','HoReCa','Online','Gifting'],
-      datasets:[{ data:[58,22,12,8],
-        backgroundColor:['#B8924A','#3D6B5C','#1F3A5F','#6B1F2E'],
-        borderWidth:2, borderColor:'transparent' }]
+      labels: ['Retail 58%','HoReCa 22%','Online 12%','Gifting 8%'],
+      datasets:[{
+        data:[58,22,12,8],
+        backgroundColor:[C1, C3, C4, C6],
+        borderWidth:2, borderColor:CARD_BG
+      }]
     },
     options:{
-      cutout:'68%',
+      cutout:'65%',
+      responsive:true, maintainAspectRatio:false,
       plugins:{
-        legend:{display:false},
+        legend:{
+          display:true, position:'bottom',
+          labels:{color:TXT, font:{size:10}, padding:12, boxWidth:10, boxHeight:10}
+        },
         datalabels:{display:false},
-        tooltip:{callbacks:{label:ctx=>`${ctx.label}: ${ctx.parsed}%`}}
+        tooltip:{callbacks:{label:ctx=>`${ctx.label}`}}
       },
       animation:{duration:700}
     }
   });
 
-  // Bubble — Positioning map
+  // Bubble — brand positioning map, Atlas palette colours
   new Chart(document.getElementById('ch-comp-bubble'), {
     type: 'bubble',
     data: { datasets:[
-      { label:'Hatta Honey',   data:[{x:55,y:72,r:14}], backgroundColor:'rgba(184,146,74,.85)',  borderColor:'rgba(184,146,74,1)',  borderWidth:1 },
-      { label:'Al Shifa',      data:[{x:85,y:32,r:20}], backgroundColor:'rgba(61,107,92,.75)',   borderColor:'rgba(61,107,92,1)',   borderWidth:1 },
-      { label:'Sidr Royal',    data:[{x:28,y:92,r:10}], backgroundColor:'rgba(107,31,46,.8)',    borderColor:'rgba(107,31,46,1)',   borderWidth:1 },
-      { label:"Nature's Best", data:[{x:42,y:58,r:9}],  backgroundColor:'rgba(31,58,95,.85)',    borderColor:'rgba(31,58,95,1)',    borderWidth:1 },
-      { label:'Manuka Health', data:[{x:35,y:78,r:8}],  backgroundColor:'rgba(140,130,110,.7)', borderColor:'rgba(140,130,110,1)', borderWidth:1 },
-      { label:'Langnese',      data:[{x:78,y:22,r:12}], backgroundColor:'rgba(90,90,90,.65)',   borderColor:'rgba(120,120,120,1)', borderWidth:1 },
+      { label:'Hatta Honey',   data:[{x:55,y:72,r:14}], backgroundColor:C1+'DD', borderColor:C1, borderWidth:1.5 },
+      { label:'Al Shifa',      data:[{x:85,y:32,r:20}], backgroundColor:C3+'CC', borderColor:C3, borderWidth:1.5 },
+      { label:'Sidr Royal',    data:[{x:28,y:92,r:10}], backgroundColor:C6+'CC', borderColor:C6, borderWidth:1.5 },
+      { label:"Nature's Best", data:[{x:42,y:58,r:9}],  backgroundColor:C4+'DD', borderColor:C4, borderWidth:1.5 },
+      { label:'Manuka Health', data:[{x:35,y:78,r:8}],  backgroundColor:C5+'CC', borderColor:C5, borderWidth:1.5 },
+      { label:'Langnese',      data:[{x:78,y:22,r:12}], backgroundColor:C2+'CC', borderColor:C2, borderWidth:1.5 },
     ]},
     options:{
       responsive:true, maintainAspectRatio:false,
       plugins:{
-        legend:{labels:{color:TXT,font:{size:9},boxWidth:10}},
+        legend:{labels:{color:TXT, font:{size:9}, boxWidth:10, boxHeight:10, padding:10}},
         datalabels:{
           formatter:(_,ctx)=>ctx.dataset.label,
-          color:TXT, font:{size:8.5}, anchor:'end', align:'top', offset:2
+          color:TXT, font:{size:8.5, weight:'500'}, anchor:'end', align:'top', offset:2
         }
       },
       scales:{
         x:{ min:0, max:100,
-            title:{display:true,text:'Distribution breadth →',color:TXT,font:{size:9}},
-            grid:{color:G}, ticks:{color:TXT,font:{size:9}} },
+            title:{display:true, text:'Distribution breadth →', color:TXT, font:{size:9}},
+            grid:{color:G}, border:{color:G}, ticks:{color:TXT, font:{size:9}} },
         y:{ min:0, max:100,
-            title:{display:true,text:'Price premium index ↑',color:TXT,font:{size:9}},
-            grid:{color:G}, ticks:{color:TXT,font:{size:9}} }
+            title:{display:true, text:'Price premium index ↑', color:TXT, font:{size:9}},
+            grid:{color:G}, border:{color:'transparent'}, ticks:{color:TXT, font:{size:9}} }
       },
       animation:{duration:700}
     }
