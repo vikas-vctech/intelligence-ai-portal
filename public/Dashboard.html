@@ -476,6 +476,26 @@ body{
 /* Marketing card stat line */
 .comp-mkt-stat{font-size:10px;color:var(--color-1);margin-bottom:6px;font-family:var(--font-mono)}
 
+/* ══ DATA TREE ══════════════════════════════════════════════ */
+.data-tree-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:var(--gap);overflow:hidden}
+.data-tree-hdr{display:flex;align-items:center;gap:8px;padding:9px 16px;border-bottom:1px solid var(--border);cursor:pointer;user-select:none}
+.data-tree-hdr:hover{background:rgba(184,146,74,.04)}
+.data-tree-hdr-icon{color:var(--atlas-gold);display:flex;align-items:center;flex-shrink:0}
+.data-tree-hdr-title{font-size:10.5px;font-weight:700;color:var(--text-primary);font-family:var(--font-display);letter-spacing:.08em;text-transform:uppercase;flex:1}
+.data-tree-toggle-btn{background:none;border:none;cursor:pointer;color:var(--text-muted);font-size:11px;padding:0;line-height:1;transition:transform .2s}
+.data-tree-body{padding:14px 20px;display:flex;gap:0}
+.dt-tree{list-style:none;margin:0;padding:0;width:100%}
+.dt-node{list-style:none;margin:0;padding:0}
+.dt-row{display:flex;align-items:baseline;gap:5px;padding:2px 0;cursor:default}
+.dt-row:hover .dt-label{color:var(--atlas-gold)}
+.dt-icon{font-size:9px;color:var(--text-muted);flex-shrink:0;width:10px;text-align:center;font-style:normal}
+.dt-label{font-size:11px;color:var(--text-muted);line-height:1.45}
+.dt-label.l1{font-size:12px;font-weight:700;color:var(--text-primary);font-family:var(--font-display)}
+.dt-label.l2{font-size:11.5px;color:var(--text-secondary,var(--text-muted))}
+.dt-label.active{color:var(--atlas-gold);font-weight:700;font-size:11.5px}
+.dt-children{list-style:none;padding-left:18px;margin:0;border-left:1px solid var(--border)}
+.dt-spacer{display:inline-block;width:10px}
+
 /* ══ LIGHT MODE ════════════════════════════════════════════ */
 html[data-theme="light"] {
   --bg-primary:  #F5F0E6;
@@ -1082,6 +1102,100 @@ html[data-theme="light"] .dash-tab.active{color:#2A1800}
   <div class="sec-panel active" id="sec-dashboard">
 
     <div id="err-dashboard" class="err-banner"></div>
+
+    <!-- DATA TREE — taxonomy classification for tracked products -->
+    <div class="data-tree-card">
+      <div class="data-tree-hdr" onclick="toggleDataTree()">
+        <span class="data-tree-hdr-icon"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/></svg></span>
+        <span class="data-tree-hdr-title">Data Tree</span>
+        <button class="data-tree-toggle-btn" id="dt-toggle-btn">∧</button>
+      </div>
+      <div class="data-tree-body" id="dt-body">
+        <ul class="dt-tree">
+          <li class="dt-node">
+            <div class="dt-row">
+              <span class="dt-icon">∨</span>
+              <span class="dt-label l1">Food &amp; Beverage</span>
+            </div>
+            <ul class="dt-children">
+
+              <!-- Honey: Agriculture & Raw Materials > Sugar & Sweeteners -->
+              <li class="dt-node">
+                <div class="dt-row">
+                  <span class="dt-icon">∨</span>
+                  <span class="dt-label l2">Agriculture &amp; Raw Materials</span>
+                </div>
+                <ul class="dt-children">
+                  <li class="dt-node">
+                    <div class="dt-row">
+                      <span class="dt-icon">∨</span>
+                      <span class="dt-label">Sugar &amp; Sweeteners</span>
+                    </div>
+                    <ul class="dt-children">
+                      <li class="dt-node">
+                        <div class="dt-row">
+                          <span class="dt-icon">—</span>
+                          <span class="dt-label active">Honey</span>
+                        </div>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Goat Milk: Packaged Food > Dairy Products -->
+              <li class="dt-node">
+                <div class="dt-row">
+                  <span class="dt-icon">∨</span>
+                  <span class="dt-label l2">Packaged Food</span>
+                </div>
+                <ul class="dt-children">
+                  <li class="dt-node">
+                    <div class="dt-row">
+                      <span class="dt-icon">∨</span>
+                      <span class="dt-label">Dairy Products</span>
+                    </div>
+                    <ul class="dt-children">
+                      <li class="dt-node">
+                        <div class="dt-row">
+                          <span class="dt-icon">—</span>
+                          <span class="dt-label active">Goat Milk</span>
+                        </div>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Hydroponic: Fresh Food > Fruits & Vegetables -->
+              <li class="dt-node">
+                <div class="dt-row">
+                  <span class="dt-icon">∨</span>
+                  <span class="dt-label l2">Fresh Food</span>
+                </div>
+                <ul class="dt-children">
+                  <li class="dt-node">
+                    <div class="dt-row">
+                      <span class="dt-icon">∨</span>
+                      <span class="dt-label">Fruits &amp; Vegetables</span>
+                    </div>
+                    <ul class="dt-children">
+                      <li class="dt-node">
+                        <div class="dt-row">
+                          <span class="dt-icon">—</span>
+                          <span class="dt-label active">Hydroponic Farming</span>
+                        </div>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
 
     <!-- Page header -->
     <div class="page-header">
@@ -2857,6 +2971,15 @@ function onCountryChange(val)  { dashboard.onCountryChange(val); }
 function onProductChange(val)  { dashboard.onProductChange(val); }
 function onYearChange(val)     { dashboard.onYearChange(val); }
 function switchSec(name)       { dashboard.switchSec(name); }
+
+// ── DATA TREE ─────────────────────────────────────────────
+function toggleDataTree() {
+  const body = document.getElementById('dt-body');
+  const btn  = document.getElementById('dt-toggle-btn');
+  const collapsed = body.style.display === 'none';
+  body.style.display = collapsed ? '' : 'none';
+  btn.textContent   = collapsed ? '∧' : '∨';
+}
 
 // ── REPORT TABS ───────────────────────────────────────────
 const DTAB_IDS = ['mktoverview','competition','value-chain','experts','news'];
