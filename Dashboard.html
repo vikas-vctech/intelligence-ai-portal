@@ -464,6 +464,15 @@ body{
 .comp-top-item{display:flex;align-items:flex-start;gap:10px;padding:8px 10px;border-radius:var(--radius);border:1px solid var(--border)}
 .comp-top-item strong{font-size:12px;color:var(--text-primary);font-weight:500}
 .comp-top-active{border-color:rgba(184,146,74,.4);background:rgba(184,146,74,.06)}
+.comp-co-card{cursor:pointer;transition:border-color .18s,box-shadow .18s;border:1px solid var(--border)}
+.comp-co-card:hover{border-color:var(--atlas-gold);box-shadow:0 0 0 1px rgba(184,146,74,.18)}
+.comp-co-logo{font-size:32px;margin-bottom:10px}
+.comp-co-name{font-size:16px;font-weight:700;color:var(--text-primary);font-family:var(--font-display);margin-bottom:4px}
+.comp-co-sub{font-size:11px;color:var(--text-muted);margin-bottom:12px}
+.comp-co-stats{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.comp-co-stat{font-size:10.5px;color:var(--text-secondary,var(--text-muted));background:var(--bg-primary);border:1px solid var(--border);border-radius:3px;padding:3px 8px}
+.comp-co-view{display:block;width:100%;margin-top:14px;padding:8px;text-align:center;font-size:11px;font-weight:600;letter-spacing:.05em;border:1px solid var(--atlas-gold);border-radius:var(--radius);color:var(--atlas-gold);background:rgba(184,146,74,.08);cursor:pointer;transition:background .15s}
+.comp-co-view:hover{background:rgba(184,146,74,.18)}
 .comp-top-sub{font-size:10px;color:var(--text-muted);margin-top:2px}
 .comp-rank{
   width:22px;height:22px;border-radius:50%;flex-shrink:0;
@@ -1451,8 +1460,59 @@ html[data-theme="light"] .dash-tab.active{color:#2A1800}
   <!-- Honey profile — shown only when Honey is the active product -->
   <div id="comp-honey-profile">
 
+  <!-- ── Company selector — shown by default when Honey is active ── -->
+  <div id="comp-company-selector">
+    <div class="page-header">
+      <div>
+        <h1>UAE Honey Market — Competitor Profiles</h1>
+        <div class="page-header-sub">Select a company to view their full competitive profile</div>
+      </div>
+    </div>
+    <div class="sec-divider">
+      <div class="sec-divider-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"/></svg></div>
+      <div class="sec-divider-text"><h2>Companies</h2><span>Honey market · UAE · 2 profiles available · click to open</span></div>
+    </div>
+    <div class="grid2" style="max-width:800px">
+      <div class="card comp-co-card" onclick="openCompanyProfile('hatta')">
+        <div class="comp-co-logo">🍯</div>
+        <div class="comp-co-name">Hatta Honey Bee Garden</div>
+        <div class="comp-co-sub">Dubai, UAE · Established 1972 · Private</div>
+        <div class="comp-co-stats">
+          <span class="comp-co-stat">AED 86M revenue</span>
+          <span class="comp-co-stat">#3 market rank</span>
+          <span class="comp-co-stat">+23% price premium</span>
+          <span class="comp-co-stat">8.5% CAGR</span>
+        </div>
+        <div class="comp-tags-row">
+          <span class="comp-tag comp-tag-gold">Premium</span>
+          <span class="comp-tag">Sidr Honey</span>
+          <span class="comp-tag comp-tag-teal">Organic</span>
+          <span class="comp-tag">Gift Packs</span>
+        </div>
+        <div class="comp-co-view">View Profile →</div>
+      </div>
+      <div class="card comp-co-card" onclick="openCompanyProfile('emirates')">
+        <div class="comp-co-logo">🐝</div>
+        <div class="comp-co-name">Emirates Beekeepers</div>
+        <div class="comp-co-sub">Dubai, UAE · Established 2001 · Emirati Consortium</div>
+        <div class="comp-co-stats">
+          <span class="comp-co-stat">AED 7–8M revenue</span>
+          <span class="comp-co-stat">#4 market rank</span>
+          <span class="comp-co-stat">30–35K beehives</span>
+          <span class="comp-co-stat">60% direct sales</span>
+        </div>
+        <div class="comp-tags-row">
+          <span class="comp-tag comp-tag-gold">Emirati Brand</span>
+          <span class="comp-tag">100% UAE Origin</span>
+          <span class="comp-tag">Direct Sales</span>
+        </div>
+        <div class="comp-co-view">View Profile →</div>
+      </div>
+    </div>
+  </div><!-- /comp-company-selector -->
+
   <!-- ── Hatta Honey Bee Garden profile ── -->
-  <div id="comp-profile-hatta">
+  <div id="comp-profile-hatta" style="display:none">
 
   <!-- Page header — same pattern as Market Overview -->
   <div class="page-header">
@@ -1461,9 +1521,8 @@ html[data-theme="light"] .dash-tab.active{color:#2A1800}
       <div class="page-header-sub">Competitor Profile · UAE Honey Market · Established 1972 · Dubai</div>
     </div>
     <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
-      <button class="comp-stab active">Competitors</button>
-      <button class="comp-stab">Competitive Profile</button>
-      <button class="comp-stab">Hatta Honey</button>
+      <button class="comp-stab" onclick="openCompanySelector()">← All Competitors</button>
+      <button class="comp-stab active">Hatta Honey</button>
       <div style="width:1px;height:20px;background:var(--border);margin:0 4px"></div>
       <button class="comp-action-btn">↑ Export</button>
       <button class="comp-action-btn comp-action-primary">Market Share</button>
@@ -1681,9 +1740,8 @@ html[data-theme="light"] .dash-tab.active{color:#2A1800}
       <div class="page-header-sub">Competitor Profile · UAE Honey Market · Established 2001 · Dubai</div>
     </div>
     <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
-      <button class="comp-stab active">Competitors</button>
-      <button class="comp-stab">Competitive Profile</button>
-      <button class="comp-stab">Emirates Beekeepers</button>
+      <button class="comp-stab" onclick="openCompanySelector()">← All Competitors</button>
+      <button class="comp-stab active">Emirates Beekeepers</button>
       <div style="width:1px;height:20px;background:var(--border);margin:0 4px"></div>
       <button class="comp-action-btn">↑ Export</button>
       <button class="comp-action-btn comp-action-primary">Market Share</button>
@@ -3244,6 +3302,7 @@ class MarketDashboard {
 
   async onProductChange(val) {
     this.activeProduct = val;
+    _activeCompany = null; // reset so Companies tab shows the selector for new product
     await this.loadSection(this.activeSection, this.activeCountry, this.activeProduct);
     if (document.getElementById('tab-competition').classList.contains('active')) {
       renderCompetitionTab(val);
@@ -3640,7 +3699,22 @@ function onStatFilterChange() {
 }
 
 // ── COMPETITION CHARTS ────────────────────────────────────
-let _activeCompany = 'hatta';
+let _activeCompany = null;
+
+function openCompanySelector() {
+  _activeCompany = null;
+  document.getElementById('comp-company-selector').style.display = '';
+  document.getElementById('comp-profile-hatta').style.display    = 'none';
+  document.getElementById('comp-profile-emirates').style.display = 'none';
+}
+
+function openCompanyProfile(companyId) {
+  _activeCompany = companyId;
+  document.getElementById('comp-company-selector').style.display = 'none';
+  document.getElementById('comp-profile-hatta').style.display    = companyId === 'hatta'    ? '' : 'none';
+  document.getElementById('comp-profile-emirates').style.display = companyId === 'emirates' ? '' : 'none';
+  renderCompCharts();
+}
 
 function renderCompetitionTab(product, companyId) {
   const isHoney = product && product.toLowerCase().includes('honey');
@@ -3652,10 +3726,12 @@ function renderCompetitionTab(product, companyId) {
     document.getElementById('comp-np-sub').textContent = `Competitor profiling · ${product} market · profile under research`;
   }
   if (isHoney) {
-    const cid = companyId || _activeCompany || 'hatta';
-    document.getElementById('comp-profile-hatta').style.display    = cid === 'hatta'    ? '' : 'none';
-    document.getElementById('comp-profile-emirates').style.display = cid === 'emirates' ? '' : 'none';
-    renderCompCharts();
+    const cid = companyId || _activeCompany;
+    if (cid) {
+      openCompanyProfile(cid);
+    } else {
+      openCompanySelector();
+    }
   }
 }
 
