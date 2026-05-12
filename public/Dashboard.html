@@ -1198,7 +1198,7 @@ html[data-theme="light"] .dash-tab.active{color:#2A1800}
     <div class="grid2">
       <div class="card">
         <div class="card-title">Volume by channel grows steadily through 2030</div>
-        <div class="card-sub" id="sub-mktvol">Total volume (tonnes) · all channels stacked</div>
+        <div class="card-sub" id="sub-mktvol">Total volume (thousand tonnes) · all channels stacked</div>
         <div class="chart-wrap" style="height:240px"><canvas id="ch-mktvol"></canvas></div>
       </div>
       <div class="card">
@@ -2344,8 +2344,8 @@ class MarketDashboard {
 
     const _el = (id, txt) => { const e = document.getElementById(id); if(e) e.textContent = txt; };
     _el('sub-mktvol',  isAll
-      ? `Total volume (${volUnit}) · all channels stacked · grows ${_cagr(totVol[0],totVol[5],5).toFixed(1)}% CAGR`
-      : `Total volume (${volUnit}) · all channels · ${activeYear} selected`);
+      ? `Total volume (thousand tonnes) · all channels stacked · grows ${_cagr(totVol[0],totVol[5],5).toFixed(1)}% CAGR`
+      : `Total volume (thousand tonnes) · all channels · ${activeYear} selected`);
     _el('sub-mktval',  isAll
       ? `${cur} million · all channels · value CAGR ${_cagr(totVal[0],totVal[5],5).toFixed(1)}%`
       : `${cur} million · all channels · ${activeYear} selected`);
