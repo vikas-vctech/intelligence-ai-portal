@@ -605,6 +605,11 @@ html[data-theme="light"] .sb-logo-img-light{display:block}
 .sbt-l2:hover,.sbt-l3:hover{color:var(--text-primary)}
 .sbt-l4{cursor:pointer;border-radius:3px;transition:background .12s}
 .sbt-l4:hover{background:rgba(184,146,74,.12)}
+.sbt-l4-cat{padding:3px 8px 4px 41px;font-size:10.5px;display:flex;align-items:center;gap:4px;color:var(--text-muted);cursor:pointer;border-radius:3px;transition:background .12s}
+.sbt-l4-cat:hover{background:rgba(184,146,74,.08);color:var(--text-primary)}
+.sbt-company{padding:3px 8px 4px 54px;font-size:10px;color:var(--text-secondary,var(--text-muted));display:flex;align-items:center;gap:5px;cursor:pointer;border-radius:3px;transition:background .12s,color .12s}
+.sbt-company:hover{background:rgba(184,146,74,.13);color:var(--atlas-gold)}
+.sbt-co-empty{padding:3px 8px 4px 54px;font-size:10px;color:var(--text-muted);font-style:italic;opacity:.7}
 .sb-sub{
   display:block;padding:7px 12px 7px 37px;font-size:12px;
   color:var(--text-muted);cursor:pointer;border-radius:4px;
@@ -1030,8 +1035,62 @@ html[data-theme="light"] .dash-tab.active{color:#2A1800}
         <svg class="sb-chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
       </a>
       <div class="sb-submenu" id="sbmenu-companies">
-        <a class="sb-sub" onclick="window.location.href='Intelligence_AI_Portal.html'">All Companies</a>
-        <a class="sb-sub" onclick="window.location.href='Intelligence_AI_Portal.html'">Consumer Goods</a>
+        <!-- L1 -->
+        <div class="sbt-l1" onclick="toggleSbtNode('sbt-co-fb')">
+          <span class="sbt-icon" id="sbt-co-fb-icon">∨</span> Food &amp; Beverage
+        </div>
+        <div id="sbt-co-fb">
+          <!-- L2: Agriculture & Raw Materials -->
+          <div class="sbt-l2" onclick="toggleSbtNode('sbt-co-arm')">
+            <span class="sbt-icon" id="sbt-co-arm-icon">∨</span> Agriculture &amp; Raw Materials
+          </div>
+          <div id="sbt-co-arm">
+            <div class="sbt-l3" onclick="toggleSbtNode('sbt-co-ss')">
+              <span class="sbt-icon" id="sbt-co-ss-icon">∨</span> Sugar &amp; Sweeteners
+            </div>
+            <div id="sbt-co-ss">
+              <div class="sbt-l4-cat" onclick="toggleSbtNode('sbt-co-honey')">
+                <span class="sbt-icon" id="sbt-co-honey-icon">∨</span> Honey
+              </div>
+              <div id="sbt-co-honey">
+                <div class="sbt-company" onclick="selectSbtCompany('Honey')">
+                  <span style="color:var(--atlas-gold);font-size:8px;flex-shrink:0">◆</span> Hatta Honey Bee Garden
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- L2: Packaged Food -->
+          <div class="sbt-l2" onclick="toggleSbtNode('sbt-co-pf')">
+            <span class="sbt-icon" id="sbt-co-pf-icon">›</span> Packaged Food
+          </div>
+          <div id="sbt-co-pf" style="display:none">
+            <div class="sbt-l3" onclick="toggleSbtNode('sbt-co-dp')">
+              <span class="sbt-icon" id="sbt-co-dp-icon">∨</span> Dairy Products
+            </div>
+            <div id="sbt-co-dp">
+              <div class="sbt-l4-cat" style="cursor:default;opacity:.55">
+                <span class="sbt-icon">—</span> Goat Milk
+              </div>
+              <div class="sbt-co-empty">No profiles yet</div>
+            </div>
+          </div>
+          <!-- L2: Fresh Food -->
+          <div class="sbt-l2" onclick="toggleSbtNode('sbt-co-ff')">
+            <span class="sbt-icon" id="sbt-co-ff-icon">›</span> Fresh Food
+          </div>
+          <div id="sbt-co-ff" style="display:none">
+            <div class="sbt-l3" onclick="toggleSbtNode('sbt-co-fv')">
+              <span class="sbt-icon" id="sbt-co-fv-icon">∨</span> Fruits &amp; Vegetables
+            </div>
+            <div id="sbt-co-fv">
+              <div class="sbt-l4-cat" style="cursor:default;opacity:.55">
+                <span class="sbt-icon">—</span> Hydroponic Farming
+              </div>
+              <div class="sbt-co-empty">No profiles yet</div>
+            </div>
+          </div>
+        </div>
+        <a class="sb-sub" style="color:var(--text-muted);padding-left:14px;margin-top:4px" onclick="window.location.href='Intelligence_AI_Portal.html'">All Companies →</a>
       </div>
     </div>
 
@@ -3010,6 +3069,23 @@ function selectSbtProduct(product) {
     }
   }
   showSbToast(`${product} — loading…`);
+}
+
+function selectSbtCompany(product) {
+  // Sync product dropdown so competition tab shows the right profile
+  const sel = document.getElementById('productSelect');
+  if (sel) {
+    for (const o of sel.options) {
+      if (o.value.toLowerCase().includes(product.toLowerCase()) ||
+          product.toLowerCase().includes(o.value.toLowerCase())) {
+        sel.value = o.value;
+        dashboard.activeProduct = o.value;
+        break;
+      }
+    }
+  }
+  // Open the competition tab — renderCompetitionTab will fire inside switchDashTab
+  switchDashTab('competition');
 }
 
 // ── REPORT TABS ───────────────────────────────────────────
