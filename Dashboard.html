@@ -3446,7 +3446,7 @@ const _cache = {};
 async function fetchProducts() {
   if (_cache['__products']) return _cache['__products'];
   const url = `${SB_URL}/rest/v1/demand_estimates?select=product_category&order=product_category.asc&limit=5000`;
-  const r = await fetch(url, { headers:{ apikey:SB_KEY, Authorization:`Bearer ${SB_KEY}` } });
+  const r = await fetch(url, { cache:'no-store', headers:{ apikey:SB_KEY, Authorization:`Bearer ${SB_KEY}` } });
   if (!r.ok) return ['Honey'];
   const data = await r.json();
   if (!Array.isArray(data) || data.length === 0) return ['Honey'];
