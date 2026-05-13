@@ -791,6 +791,24 @@ html[data-theme="light"] .dash-tab.active{color:#2A1800}
   color:var(--atlas-gold);
 }
 
+/* ── DEFINITION TAB ───────────────────────────────────────── */
+#tab-definition{display:none;padding:0}
+#tab-definition.active{display:block}
+.def-wrap{padding:28px 0 40px}
+.def-section-title{font-family:var(--font-display);font-size:20px;font-weight:400;color:var(--text-primary);margin-bottom:4px}
+.def-section-sub{font-size:12px;color:var(--text-muted);margin-bottom:22px}
+.def-table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.def-table{width:100%;border-collapse:collapse;font-size:11.5px;color:var(--text-primary);min-width:860px}
+.def-table thead th{background:var(--atlas-teal);color:#fff;font-family:var(--font-display);font-size:12px;font-weight:600;padding:10px 14px;text-align:center;border:1px solid rgba(255,255,255,.15)}
+.def-table thead th.def-corner{background:var(--bg-card);border:none}
+.def-table tbody td{padding:12px 14px;border:1px solid var(--border);vertical-align:top;line-height:1.55}
+.def-table tbody td.def-row-hdr{background:var(--atlas-compass);color:#fff;font-family:var(--font-display);font-size:11px;font-weight:600;text-align:center;white-space:nowrap;width:96px}
+.def-table tbody tr:nth-child(even) td:not(.def-row-hdr){background:rgba(0,0,0,.04)}
+html[data-theme="light"] .def-table tbody tr:nth-child(even) td:not(.def-row-hdr){background:rgba(0,0,0,.025)}
+.def-bullet{margin:0;padding-left:14px}
+.def-bullet li{margin-bottom:3px}
+.def-no-content{padding:80px 0;text-align:center}
+
 /* ── EXPERT PANEL ─────────────────────────────────────────── */
 .ep-wrap{padding:4px 0 0}
 .ep-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;flex-wrap:wrap;gap:10px}
@@ -2999,13 +3017,66 @@ html[data-theme="light"] .dash-tab.active{color:#2A1800}
 </div>
 
 <!-- ═══ DEFINITION TAB ═══ -->
-<div class="tab-placeholder" id="tab-definition">
-  <div class="tab-ph-icon">
-    <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/></svg>
+<div id="tab-definition">
+
+  <!-- Goat Milk definitions -->
+  <div id="def-goatmilk" style="display:none">
+    <div class="def-wrap">
+      <div class="def-section-title">Types of Goat Dairy</div>
+      <div class="def-section-sub">Product taxonomy · process, appearance &amp; flavour, shelf life &amp; storage · UAE market</div>
+      <div class="def-table-scroll">
+        <table class="def-table">
+          <thead>
+            <tr>
+              <th class="def-corner"></th>
+              <th>Fresh Goat Milk</th>
+              <th>UHT / Long-Life Goat Milk</th>
+              <th>Goat Cheese</th>
+              <th>Goat Labneh</th>
+              <th>Goat Halloumi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="def-row-hdr">Process</td>
+              <td><ul class="def-bullet"><li>Raw goat milk filtered, pasteurized at 72°C (HTST) or 63°C (LTLT), chilled to 4°C, and bottled</li></ul></td>
+              <td><ul class="def-bullet"><li>Raw milk ultra-heat treated (UHT) at 135–150°C for 2–4 seconds then aseptically sealed in Tetra Pak cartons</li></ul></td>
+              <td><ul class="def-bullet"><li>Goat milk coagulated with rennet or acid</li><li>Curds cut and drained without pressing or aging; fresh chèvre-style cheese formed into logs, rounds, or curd blocks</li></ul></td>
+              <td><ul class="def-bullet"><li>Goat yogurt strained through muslin cloth or centrifuged to remove whey; produces a thick, concentrated fresh cheese</li></ul></td>
+              <td><ul class="def-bullet"><li>Goat milk (or blended goat/sheep) coagulated with rennet, curds cut, lightly pressed; halloumi uniquely cooked in its own whey at 90°C</li></ul></td>
+            </tr>
+            <tr>
+              <td class="def-row-hdr">Appearance &amp; Flavour</td>
+              <td><ul class="def-bullet"><li>Pure white; slightly lighter-bodied than cow milk due to smaller fat globules</li><li>Mildly sweet with a subtle tangy goat note</li></ul></td>
+              <td><ul class="def-bullet"><li>Pure white; marginally cooked/caramel undertone vs fresh; milder goaty note</li><li>Smooth, neutral, clean taste profile</li></ul></td>
+              <td><ul class="def-bullet"><li>Pure white; texture ranges from silky smooth curd to a firm sliceable log</li><li>Clean, bright, lemony tang with a delicate earthy goat note</li></ul></td>
+              <td><ul class="def-bullet"><li>Bright white; very thick, spreadable texture; intensely tangy and creamy with a pronounced flavour</li><li>Deepens with longer straining or herb infusion</li></ul></td>
+              <td><ul class="def-bullet"><li>Ivory-white, layered, rubbery texture</li><li>Mild, milky, salty; squeaks when bitten fresh</li></ul></td>
+            </tr>
+            <tr>
+              <td class="def-row-hdr">Shelf Life &amp; Storage</td>
+              <td><ul class="def-bullet"><li>7–14 days refrigerated at 4°C</li><li>Most perishable goat dairy format</li><li>Strict cold chain required from farm to consumer</li></ul></td>
+              <td><ul class="def-bullet"><li>6–12 months at room temperature unopened</li><li>Refrigerate and consume within 5–7 days once opened</li><li>No cold chain required pre-sale</li></ul></td>
+              <td><ul class="def-bullet"><li>3–6 weeks refrigerated at 4°C; sensitive to temperature and airflow</li><li>Must be stored airtight; fresh logs have 3–4 weeks shelf life</li></ul></td>
+              <td><ul class="def-bullet"><li>Plain: 2–3 weeks refrigerated</li><li>Preserved in olive oil: up to 3 months</li><li>Dried/aged format (kishk): months at room temperature</li></ul></td>
+              <td><ul class="def-bullet"><li>6+ months refrigerated in brine or vacuum-packed</li></ul></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
-  <h3>Definitions &amp; Methodology</h3>
-  <p>Glossary of key terms, data definitions, model assumptions, and methodology notes for each product category and market.</p>
-  <span class="coming-pill">Coming Soon</span>
+
+  <!-- No-content fallback for other products -->
+  <div id="def-no-content" class="tab-placeholder">
+    <div class="tab-ph-icon">
+      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/></svg>
+    </div>
+    <h3>Definitions &amp; Methodology</h3>
+    <p id="def-np-sub">Glossary of key terms, data definitions, model assumptions, and methodology notes for this product category.</p>
+    <span class="coming-pill">Coming Soon</span>
+  </div>
+
 </div>
 
 <!-- ═══ NEWS TAB ═══ -->
@@ -4257,6 +4328,7 @@ function switchDashTab(tab) {
   });
   if (tab === 'competition') renderCompetitionTab(dashboard.activeProduct);
   if (tab === 'value-chain') renderValueChainTab(dashboard.activeProduct);
+  if (tab === 'definition')  renderDefinitionTab(dashboard.activeProduct);
 }
 
 function renderValueChainTab(product) {
@@ -4270,6 +4342,21 @@ function renderValueChainTab(product) {
   if (!hasContent && product) {
     document.getElementById('vc-np-title').textContent = `${product} — Value Chain`;
     document.getElementById('vc-np-sub').textContent = `Value chain mapping · ${product} market · under research`;
+  }
+}
+
+function renderDefinitionTab(product) {
+  const p = (product || '').toLowerCase();
+  const isGoatMilk = p.includes('goat');
+  const hasContent = isGoatMilk;
+  document.getElementById('def-goatmilk').style.display   = isGoatMilk ? '' : 'none';
+  document.getElementById('def-no-content').style.display = hasContent ? 'none' : '';
+  if (!hasContent) {
+    const tabEl = document.getElementById('tab-definition');
+    if (tabEl) tabEl.style.padding = '80px 0';
+  } else {
+    const tabEl = document.getElementById('tab-definition');
+    if (tabEl) tabEl.style.padding = '';
   }
 }
 
