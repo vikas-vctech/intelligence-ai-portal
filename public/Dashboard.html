@@ -1338,7 +1338,7 @@ html[data-theme="light"] .dash-tab.active{color:#2A1800}
     <!-- Product category stacked bar charts -->
     <div class="grid2">
       <div class="card">
-        <div class="card-title">Volume by honey type grows steadily through 2030</div>
+        <div class="card-title" id="title-prod-vol">Volume by honey type grows steadily through 2030</div>
         <div class="card-sub" id="sub-prod-vol">thousand tonnes · retail household · stacked by product category</div>
         <div class="chart-wrap" style="height:240px"><canvas id="ch-prod-vol"></canvas></div>
       </div>
@@ -1358,7 +1358,7 @@ html[data-theme="light"] .dash-tab.active{color:#2A1800}
       </div>
       <div class="card">
         <div class="card-title">Growth by product category (CAGR 2025–2030)</div>
-        <div class="card-sub">Volume CAGR vs Value CAGR by honey type · retail household</div>
+        <div class="card-sub" id="sub-prod-cagr">Volume CAGR vs Value CAGR by honey type · retail household</div>
         <div class="chart-wrap" style="height:224px"><canvas id="ch-prod-cagr"></canvas></div>
       </div>
     </div>
@@ -1477,7 +1477,7 @@ html[data-theme="light"] .dash-tab.active{color:#2A1800}
       </div>
       <div class="card">
         <div class="card-title">GCC market concentration in 2025</div>
-        <div class="card-sub">% of total GCC honey market · USD</div>
+        <div class="card-sub" id="sub-gcc-donut">% of total GCC honey market · USD</div>
         <div class="chart-wrap" style="height:270px"><canvas id="ch-gcc-donut"></canvas></div>
       </div>
     </div>
@@ -3896,6 +3896,8 @@ class MarketDashboard {
     const _elp = (id, txt) => { const e = document.getElementById(id); if(e) e.textContent = txt; };
     _elp('sub-prod-vol', `${_volUnitLabel} · retail household · grows ${_cagr(totRetVol[0],totRetVol[5],5).toFixed(1)}% CAGR 2025–2030`);
     _elp('sub-prod-val', `${cur} million · retail household · value CAGR ${_cagr(totRetVal[0],totRetVal[5],5).toFixed(1)}% 2025–2030`);
+    _elp('title-prod-vol', `Volume by ${this.activeProduct} type grows steadily through 2030`);
+    _elp('sub-prod-cagr', `Volume CAGR vs Value CAGR by ${this.activeProduct} type · retail household`);
 
     this.mc('ch-prod-vol', {type:'bar', data:{
       labels:FCST_YEARS,
@@ -4051,6 +4053,8 @@ class MarketDashboard {
     document.getElementById('gcc-kv2').textContent = `USD ${gccTot[5].toFixed(0)}M`;
     document.getElementById('gcc-kv3').textContent = `${_cagr(gccRetVol[0],gccRetVol[5],5).toFixed(1)}%`;
     document.getElementById('gcc-kv4').textContent = `${_cagr(gccTot[0],gccTot[5],5).toFixed(1)}%`;
+    const _elpG = (id, txt) => { const e = document.getElementById(id); if(e) e.textContent = txt; };
+    _elpG('sub-gcc-donut', `% of total GCC ${product} market · USD`);
 
     const v25arr  = GCC_ORDER.map((_,i) => ccVal[i][0]);
     const v30arr  = GCC_ORDER.map((_,i) => ccVal[i][5]);
