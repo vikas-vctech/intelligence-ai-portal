@@ -3067,6 +3067,54 @@ html[data-theme="light"] .def-table tbody tr:nth-child(even) td:not(.def-row-hdr
     </div>
   </div>
 
+  <!-- Honey definitions -->
+  <div id="def-honey" style="display:none">
+    <div class="def-wrap">
+      <div class="def-section-title">Types of Honey</div>
+      <div class="def-section-sub">Product taxonomy · process, appearance &amp; flavour, shelf life &amp; storage · UAE market</div>
+      <div class="def-table-scroll">
+        <table class="def-table">
+          <thead>
+            <tr>
+              <th class="def-corner"></th>
+              <th>Sidr / Summra Honey</th>
+              <th>Wildflower / Multifloral</th>
+              <th>Manuka Honey</th>
+              <th>Black Seed Honey</th>
+              <th>Raw / Unprocessed Honey</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="def-row-hdr">Process</td>
+              <td><ul class="def-bullet"><li>Bees collect nectar from Ziziphus (Sidr/Lote) trees in Yemen, Oman, and Saudi Arabia</li><li>Cold-pressed or centrifuge-extracted; minimally filtered to preserve enzymes and pollen</li></ul></td>
+              <td><ul class="def-bullet"><li>Bees forage multiple flower species; flavour and colour vary by region and season</li><li>Commercial variants blended from multiple origins for consistency; heat-treated and fine-filtered for clarity</li></ul></td>
+              <td><ul class="def-bullet"><li>Bees collect nectar exclusively from Leptospermum scoparium (Manuka) bushes in New Zealand and Australia</li><li>Graded by MGO (methylglyoxal) or UMF rating; independently tested and certified before export</li></ul></td>
+              <td><ul class="def-bullet"><li>Natural honey blended or infused with Nigella sativa (black seed) oil or powder</li><li>Positioned as a functional wellness food; some variants use bee pollen collected near Nigella fields</li></ul></td>
+              <td><ul class="def-bullet"><li>Extracted from honeycomb with minimal processing — no pasteurisation or fine filtration</li><li>May retain natural bee pollen, beeswax particles, propolis, and active enzymes; sourced from artisanal or small-scale producers</li></ul></td>
+            </tr>
+            <tr>
+              <td class="def-row-hdr">Appearance &amp; Flavour</td>
+              <td><ul class="def-bullet"><li>Dark amber to golden-brown; thick, viscous texture</li><li>Rich, complex flavour — buttery and caramel-like with a slight herbal bitterness and distinctive floral aftertaste</li></ul></td>
+              <td><ul class="def-bullet"><li>Light golden to medium amber; colour and aroma shift with season and source flora</li><li>Mild to moderate floral sweetness; accessible, crowd-pleasing flavour profile; less complex than monofloral varieties</li></ul></td>
+              <td><ul class="def-bullet"><li>Dark cream to medium brown; thick, smooth or slightly grainy texture</li><li>Earthy, medicinal taste; bold resinous and herbal notes; intensity scales with MGO grade</li></ul></td>
+              <td><ul class="def-bullet"><li>Medium to dark amber; slightly oily or grainy texture from seed content</li><li>Distinctive spicy, peppery notes from Nigella; sweet-savoury with a warming, aromatic finish</li></ul></td>
+              <td><ul class="def-bullet"><li>Opaque; often partially crystallised; colour varies by floral source</li><li>Rich, intense, layered flavour; textured on the palate; natural enzyme activity creates a complex aftertaste</li></ul></td>
+            </tr>
+            <tr>
+              <td class="def-row-hdr">Shelf Life &amp; Storage</td>
+              <td><ul class="def-bullet"><li>2–5 years sealed at room temperature (15–25°C)</li><li>Slow to crystallise; store away from direct light and heat</li><li>Crystallisation does not indicate spoilage — gently warm to restore</li></ul></td>
+              <td><ul class="def-bullet"><li>2+ years sealed; moderate crystallisation rate</li><li>Store in a cool, dry location; once crystallised, gently warm in water bath to restore liquid state</li></ul></td>
+              <td><ul class="def-bullet"><li>Indefinite shelf life when stored correctly; does not ferment</li><li>Store at room temperature, sealed; refrigeration not required; MGO content is stable over time</li></ul></td>
+              <td><ul class="def-bullet"><li>12–18 months depending on seed oil content; seed fraction can cause rancidity if stored warm</li><li>Refrigerate after opening; check manufacturer guidelines; separate seed settling is normal</li></ul></td>
+              <td><ul class="def-bullet"><li>1–2 years at room temperature; crystallises faster than processed honey due to retained pollen</li><li>Store sealed away from heat and moisture; do not refrigerate — accelerates crystallisation</li></ul></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
   <!-- No-content fallback for other products -->
   <div id="def-no-content" class="tab-placeholder">
     <div class="tab-ph-icon">
@@ -4348,16 +4396,13 @@ function renderValueChainTab(product) {
 function renderDefinitionTab(product) {
   const p = (product || '').toLowerCase();
   const isGoatMilk = p.includes('goat');
-  const hasContent = isGoatMilk;
+  const isHoney    = p.includes('honey');
+  const hasContent = isGoatMilk || isHoney;
   document.getElementById('def-goatmilk').style.display   = isGoatMilk ? '' : 'none';
+  document.getElementById('def-honey').style.display      = isHoney    ? '' : 'none';
   document.getElementById('def-no-content').style.display = hasContent ? 'none' : '';
-  if (!hasContent) {
-    const tabEl = document.getElementById('tab-definition');
-    if (tabEl) tabEl.style.padding = '80px 0';
-  } else {
-    const tabEl = document.getElementById('tab-definition');
-    if (tabEl) tabEl.style.padding = '';
-  }
+  const tabEl = document.getElementById('tab-definition');
+  if (tabEl) tabEl.style.padding = hasContent ? '' : '80px 0';
 }
 
 // ── EXPERT PANEL FILTER TABS ──────────────────────────────
