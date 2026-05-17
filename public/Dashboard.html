@@ -1281,6 +1281,14 @@ html[data-theme="light"] .launch-logo-light{display:block}
                 <span class="sbt-icon">—</span> Goat Milk
               </div>
             </div>
+            <div class="sbt-l3" onclick="toggleSbtNode('sbt-bk')">
+              <span class="sbt-icon" id="sbt-bk-icon">∨</span> Bakery &amp; Bread
+            </div>
+            <div id="sbt-bk">
+              <div class="sbt-l4" onclick="selectSbtProduct('Bakery Products')">
+                <span class="sbt-icon">—</span> Bakery Products
+              </div>
+            </div>
           </div>
 
           <!-- L2: Fresh Food -->
@@ -1373,6 +1381,20 @@ html[data-theme="light"] .launch-logo-light{display:block}
             <div id="sbt-co-dp">
               <div class="sbt-l4-cat" style="cursor:default;opacity:.55">
                 <span class="sbt-icon">—</span> Goat Milk
+              </div>
+              <div class="sbt-co-empty">No profiles yet</div>
+            </div>
+          </div>
+          <div class="sbt-l2" onclick="toggleSbtNode('sbt-co-pf2')">
+            <span class="sbt-icon" id="sbt-co-pf2-icon">›</span> Bakery &amp; Bread
+          </div>
+          <div id="sbt-co-pf2" style="display:none">
+            <div class="sbt-l3" onclick="toggleSbtNode('sbt-co-bk')">
+              <span class="sbt-icon" id="sbt-co-bk-icon">∨</span> Bakery Products
+            </div>
+            <div id="sbt-co-bk">
+              <div class="sbt-l4-cat" style="cursor:default;opacity:.55">
+                <span class="sbt-icon">—</span> Bakery Products
               </div>
               <div class="sbt-co-empty">No profiles yet</div>
             </div>
@@ -1538,7 +1560,7 @@ html[data-theme="light"] .launch-logo-light{display:block}
           type="text"
           class="launch-search-input"
           id="launch-product-input"
-          placeholder="Search product — Honey, Goat Milk, Hydroponic…"
+          placeholder="Search product — Honey, Goat Milk, Bakery Products…"
           autocomplete="off"
           oninput="launchSuggest(this.value)"
           onfocus="launchSuggest(this.value)"
@@ -1658,6 +1680,23 @@ html[data-theme="light"] .launch-logo-light{display:block}
                   <div class="ltax-l4-row" onclick="launchQuick('Goat Milk','United Arab Emirates')">
                     <span class="ltax-l4-icon">🥛</span>
                     <span class="ltax-l4-name">Goat Milk</span>
+                    <span class="ltax-tag-live">Live data</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- L3: Bakery & Bread -->
+              <div>
+                <div class="ltax-row" onclick="toggleLtax('ltax-bk','ltax-bk-arr')">
+                  <div class="ltax-indent" style="padding-left:54px">
+                    <svg class="ltax-arrow" id="ltax-bk-arr" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+                    <span class="ltax-l3-lbl">Bakery &amp; Bread</span>
+                  </div>
+                </div>
+                <div class="ltax-body" id="ltax-bk">
+                  <div class="ltax-l4-row" onclick="launchQuick('Bakery Products','United Arab Emirates')">
+                    <span class="ltax-l4-icon">🥐</span>
+                    <span class="ltax-l4-name">Bakery Products</span>
                     <span class="ltax-tag-live">Live data</span>
                   </div>
                 </div>
@@ -7665,6 +7704,7 @@ const LAUNCH_PRODUCTS = [
   { name: 'Goat Milk',          category: 'Dairy Products',       icon: '🥛' },
   { name: 'Hydroponic Produce', category: 'Fruits & Vegetables',  icon: '🌿' },
   { name: 'Poultry',            category: 'Poultry & Meat',       icon: '🐓' },
+  { name: 'Bakery Products',    category: 'Bakery & Bread',       icon: '🥐' },
 ];
 
 function _launchHideAll() {
