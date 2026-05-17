@@ -832,6 +832,113 @@ html[data-theme="light"] .def-table tbody tr:nth-child(even) td:not(.def-row-hdr
 .swot-dot-opp{bottom:-8px;left:-8px;background:#2a7a6a}
 .swot-dot-thr{bottom:-8px;right:-8px;background:#9b1c1c}
 
+/* ══ LAUNCH PAGE ═══════════════════════════════════════════ */
+#sec-launch{display:none}
+.launch-wrap{
+  min-height:calc(100vh - 220px);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:60px 20px 80px;
+}
+.launch-logo{height:48px;margin-bottom:44px;display:block}
+.launch-logo-light{display:none}
+html[data-theme="light"] .launch-logo{display:none}
+html[data-theme="light"] .launch-logo-light{display:block}
+.launch-headline{
+  font-family:var(--font-display);font-size:30px;font-weight:400;
+  color:var(--text-primary);text-align:center;margin-bottom:6px;letter-spacing:.01em;
+}
+.launch-sub{font-size:12.5px;color:var(--text-muted);text-align:center;margin-bottom:36px;line-height:1.6}
+.launch-form{
+  display:flex;align-items:center;gap:8px;
+  background:var(--bg-card);border:1px solid var(--border-strong);
+  border-radius:8px;padding:10px;
+  width:100%;max-width:920px;flex-wrap:wrap;
+}
+.launch-search-wrap{position:relative;flex:1;min-width:220px}
+.launch-search-input{
+  width:100%;background:var(--bg-primary);border:1px solid var(--border);
+  border-radius:6px;padding:11px 14px 11px 38px;
+  font-size:13px;color:var(--text-primary);font-family:var(--font-ui);
+  outline:none;transition:border-color .15s;
+}
+.launch-search-input:focus{border-color:var(--atlas-gold)}
+.launch-search-input::placeholder{color:var(--text-muted)}
+.launch-search-icon{
+  position:absolute;left:12px;top:50%;transform:translateY(-50%);
+  color:var(--text-muted);pointer-events:none;
+}
+.launch-suggestions{
+  position:absolute;top:calc(100% + 4px);left:0;right:0;
+  background:var(--bg-card);border:1px solid var(--border-strong);
+  border-radius:6px;z-index:200;overflow:hidden;display:none;
+  box-shadow:0 8px 24px rgba(0,0,0,.35);
+}
+.launch-suggestion{
+  padding:9px 14px;font-size:12px;color:var(--text-secondary);
+  cursor:pointer;display:flex;gap:10px;align-items:center;
+  transition:background .1s;
+}
+.launch-suggestion:hover,.launch-suggestion.active{
+  background:rgba(184,146,74,.1);color:var(--text-primary);
+}
+.launch-suggestion-cat{font-size:9.5px;color:var(--text-muted);margin-top:1px}
+.launch-select{
+  background:var(--bg-primary);color:var(--text-secondary);
+  border:1px solid var(--border);border-radius:6px;
+  padding:11px 32px 11px 12px;font-size:12.5px;font-family:var(--font-ui);
+  appearance:none;-webkit-appearance:none;cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5'%3E%3Cpath d='M0 0l4 5 4-5z' fill='%236E7785'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 10px center;
+  transition:border-color .15s;white-space:nowrap;flex-shrink:0;
+}
+.launch-select:focus{outline:none;border-color:var(--atlas-gold)}
+.launch-select option{background:#1A2638}
+.launch-btn{
+  background:var(--atlas-gold);color:var(--atlas-midnight);
+  border:none;border-radius:6px;padding:11px 24px;
+  font-size:13px;font-weight:600;font-family:var(--font-ui);
+  cursor:pointer;white-space:nowrap;letter-spacing:.02em;
+  transition:background .15s,transform .1s;flex-shrink:0;
+}
+.launch-btn:hover{background:#C9A05A}
+.launch-btn:active{transform:scale(.98)}
+.launch-report-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:12px;
+  width:100%;max-width:920px;margin-top:48px;
+}
+.launch-report-card{
+  background:var(--bg-card);border:1px solid var(--border);border-radius:6px;
+  padding:20px 22px;cursor:pointer;
+  transition:border-color .18s,box-shadow .18s,transform .15s;
+}
+.launch-report-card:hover{
+  border-color:rgba(184,146,74,.4);
+  box-shadow:0 4px 24px rgba(0,0,0,.32);
+  transform:translateY(-2px);
+}
+.launch-report-emoji{font-size:26px;margin-bottom:10px;line-height:1}
+.launch-report-name{
+  font-family:var(--font-display);font-size:16px;color:var(--text-primary);
+  margin-bottom:4px;
+}
+.launch-report-meta{font-size:10px;color:var(--text-muted);line-height:1.55}
+.launch-report-tag{
+  display:inline-block;font-size:9px;padding:2px 8px;border-radius:12px;
+  margin-top:10px;background:rgba(61,107,92,.12);
+  border:1px solid rgba(61,107,92,.3);color:#5DB89A;
+}
+.launch-divider{
+  display:flex;align-items:center;gap:12px;
+  width:100%;max-width:920px;margin:40px 0 0;
+}
+.launch-divider-line{flex:1;height:1px;background:var(--border)}
+.launch-divider-lbl{font-size:9.5px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.1em;white-space:nowrap}
+@media(max-width:767px){
+  .launch-form{flex-direction:column}
+  .launch-search-wrap,.launch-select,.launch-btn{width:100%}
+  .launch-report-grid{grid-template-columns:1fr}
+}
+
 /* ═══ NEWS INTELLIGENCE TAB ═══ */
 .ni-wrap{padding:28px 32px 60px}
 .ni-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;flex-wrap:wrap;gap:12px}
@@ -1089,6 +1196,11 @@ html[data-theme="light"] .def-table tbody tr:nth-child(even) td:not(.def-row-hdr
     <a class="sb-item" onclick="window.location.href='Intelligence_AI_Portal.html'">
       <svg class="sb-icon" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75"/></svg>
       Home
+    </a>
+
+    <a class="sb-item" id="sb-launch" onclick="showLaunchPanel()">
+      <svg class="sb-icon" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/></svg>
+      Launch
     </a>
 
     <a class="sb-item" id="sb-statistics" onclick="showStatisticsPanel()">
@@ -1367,6 +1479,113 @@ html[data-theme="light"] .def-table tbody tr:nth-child(even) td:not(.def-row-hdr
 
 <div class="content-area">
 <div class="panel-wrap">
+
+<!-- ═══ LAUNCH PAGE ════════════════════════════════════════════ -->
+<div id="sec-launch">
+  <div class="launch-wrap">
+
+    <!-- Logo -->
+    <img class="launch-logo"
+         src="Atlas%20Design%20System/assets/atlas_logo_gold_on_midnight.png"
+         alt="Atlas Market Intelligence">
+    <img class="launch-logo launch-logo-light"
+         src="Atlas%20Design%20System/assets/atlas_logo_wordmark.png"
+         alt="Atlas Market Intelligence">
+
+    <h1 class="launch-headline">Market Intelligence</h1>
+    <p class="launch-sub">Search for a product market and select a geography to open the full intelligence report</p>
+
+    <!-- Search form -->
+    <div class="launch-form">
+
+      <!-- Product search with autocomplete -->
+      <div class="launch-search-wrap">
+        <svg class="launch-search-icon" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/>
+        </svg>
+        <input
+          type="text"
+          class="launch-search-input"
+          id="launch-product-input"
+          placeholder="Search product — Honey, Goat Milk, Hydroponic…"
+          autocomplete="off"
+          oninput="launchSuggest(this.value)"
+          onfocus="launchSuggest(this.value)"
+          onkeydown="launchKeydown(event)">
+        <div class="launch-suggestions" id="launch-suggestions"></div>
+      </div>
+
+      <!-- Region -->
+      <select class="launch-select" id="launch-region">
+        <option value="United Arab Emirates">UAE</option>
+        <option value="Saudi Arabia">Saudi Arabia</option>
+        <option value="Kuwait">Kuwait</option>
+        <option value="Qatar">Qatar</option>
+        <option value="Bahrain">Bahrain</option>
+        <option value="Oman">Oman</option>
+        <option value="gcc">GCC</option>
+      </select>
+
+      <!-- Year From -->
+      <select class="launch-select" id="launch-year-from">
+        <option value="2020">From 2020</option>
+        <option value="2021">From 2021</option>
+        <option value="2022">From 2022</option>
+        <option value="2023">From 2023</option>
+        <option value="2024">From 2024</option>
+        <option value="2025" selected>From 2025</option>
+      </select>
+
+      <!-- Year To -->
+      <select class="launch-select" id="launch-year-to">
+        <option value="2025">To 2025</option>
+        <option value="2026">To 2026</option>
+        <option value="2027">To 2027</option>
+        <option value="2028">To 2028</option>
+        <option value="2029">To 2029</option>
+        <option value="2030" selected>To 2030</option>
+      </select>
+
+      <!-- Open report button -->
+      <button class="launch-btn" onclick="launchReport()">Open Report →</button>
+
+    </div><!-- /launch-form -->
+
+    <!-- Divider -->
+    <div class="launch-divider">
+      <div class="launch-divider-line"></div>
+      <span class="launch-divider-lbl">Available Reports</span>
+      <div class="launch-divider-line"></div>
+    </div>
+
+    <!-- Featured report cards -->
+    <div class="launch-report-grid">
+
+      <div class="launch-report-card" onclick="launchQuick('Honey','United Arab Emirates')">
+        <div class="launch-report-emoji">🍯</div>
+        <div class="launch-report-name">Honey</div>
+        <div class="launch-report-meta">Sugar &amp; Sweeteners · UAE market<br>Supply-side demand model · 2025–2030</div>
+        <span class="launch-report-tag">Live data</span>
+      </div>
+
+      <div class="launch-report-card" onclick="launchQuick('Goat Milk','United Arab Emirates')">
+        <div class="launch-report-emoji">🥛</div>
+        <div class="launch-report-name">Goat Milk</div>
+        <div class="launch-report-meta">Dairy Products · UAE market<br>Supply-side demand model · 2025–2030</div>
+        <span class="launch-report-tag">Live data</span>
+      </div>
+
+      <div class="launch-report-card" onclick="launchQuick('Hydroponic','United Arab Emirates')">
+        <div class="launch-report-emoji">🌿</div>
+        <div class="launch-report-name">Hydroponic Produce</div>
+        <div class="launch-report-meta">Fresh Food · UAE market<br>Supply-side demand model · 2025–2030</div>
+        <span class="launch-report-tag">Live data</span>
+      </div>
+
+    </div><!-- /launch-report-grid -->
+
+  </div><!-- /launch-wrap -->
+</div><!-- /sec-launch -->
 
 <!-- ═══ MARKET OVERVIEW PANELS (sec-dashboard + sec-compare) ═══ -->
 <div id="mkt-overview-panels">
@@ -6868,7 +7087,8 @@ function showStatisticsPanel() {
   document.querySelector('.dash-tab-bar').style.display = 'none';
   document.getElementById('stat-filter-bar').style.display = 'flex';
   document.getElementById('mkt-overview-panels').style.display = 'none';
-  ['competition','value-chain','experts','news'].forEach(t => {
+  document.getElementById('sec-launch').style.display = 'none';
+  ['competition','value-chain','experts','definition','news','swot'].forEach(t => {
     const el = document.getElementById(`tab-${t}`);
     if (el) el.style.display = 'none';
   });
@@ -7300,6 +7520,135 @@ function renderCompCharts() {
   });
 }
 
+// ── LAUNCH PAGE ────────────────────────────────────────────
+const LAUNCH_PRODUCTS = [
+  { name: 'Honey',              category: 'Sugar & Sweeteners',  icon: '🍯' },
+  { name: 'Goat Milk',          category: 'Dairy Products',       icon: '🥛' },
+  { name: 'Hydroponic Produce', category: 'Fruits & Vegetables',  icon: '🌿' },
+  { name: 'Poultry',            category: 'Poultry & Meat',       icon: '🐓' },
+];
+
+function _launchHideAll() {
+  document.querySelector('.dash-tab-bar').style.display = 'none';
+  document.getElementById('stat-filter-bar').style.display = 'none';
+  document.getElementById('mkt-overview-panels').style.display = 'none';
+  document.getElementById('sec-statistics').style.display = 'none';
+  ['competition','value-chain','experts','definition','news','swot'].forEach(t => {
+    const el = document.getElementById(`tab-${t}`);
+    if (el) el.style.display = 'none';
+  });
+}
+
+function showLaunchPanel() {
+  document.querySelectorAll('.sb-item').forEach(el => el.classList.remove('sb-open'));
+  document.getElementById('sb-launch')?.classList.add('sb-open');
+  _launchHideAll();
+  document.getElementById('sec-launch').style.display = '';
+  if (window.innerWidth <= 767) closeSidebar();
+}
+
+function hideLaunchPanel() {
+  document.getElementById('sec-launch').style.display = 'none';
+  document.getElementById('sb-launch')?.classList.remove('sb-open');
+  document.querySelector('.dash-tab-bar').style.display = '';
+}
+
+let _launchSugIdx = -1;
+
+function launchSuggest(val) {
+  const box = document.getElementById('launch-suggestions');
+  const q = val.trim().toLowerCase();
+  const matches = q
+    ? LAUNCH_PRODUCTS.filter(p =>
+        p.name.toLowerCase().includes(q) || p.category.toLowerCase().includes(q))
+    : LAUNCH_PRODUCTS;
+  if (!matches.length) { box.style.display = 'none'; return; }
+  _launchSugIdx = -1;
+  box.innerHTML = matches.map((p, i) =>
+    `<div class="launch-suggestion" onmousedown="launchPickSuggestion('${p.name}')" data-idx="${i}">
+      <span style="font-size:18px;line-height:1">${p.icon}</span>
+      <div>
+        <div style="font-size:12.5px;color:var(--text-primary)">${p.name}</div>
+        <div class="launch-suggestion-cat">${p.category}</div>
+      </div>
+    </div>`).join('');
+  box.style.display = '';
+}
+
+function launchPickSuggestion(name) {
+  document.getElementById('launch-product-input').value = name;
+  document.getElementById('launch-suggestions').style.display = 'none';
+  _launchSugIdx = -1;
+}
+
+function launchKeydown(e) {
+  const box = document.getElementById('launch-suggestions');
+  const items = box.querySelectorAll('.launch-suggestion');
+  if (!items.length || box.style.display === 'none') {
+    if (e.key === 'Enter') launchReport();
+    return;
+  }
+  if (e.key === 'ArrowDown') {
+    e.preventDefault();
+    _launchSugIdx = Math.min(_launchSugIdx + 1, items.length - 1);
+    items.forEach((el, i) => el.classList.toggle('active', i === _launchSugIdx));
+  } else if (e.key === 'ArrowUp') {
+    e.preventDefault();
+    _launchSugIdx = Math.max(_launchSugIdx - 1, -1);
+    items.forEach((el, i) => el.classList.toggle('active', i === _launchSugIdx));
+  } else if (e.key === 'Enter') {
+    e.preventDefault();
+    if (_launchSugIdx >= 0 && items[_launchSugIdx]) {
+      const q = document.getElementById('launch-product-input').value.trim().toLowerCase();
+      const filtered = q
+        ? LAUNCH_PRODUCTS.filter(p => p.name.toLowerCase().includes(q) || p.category.toLowerCase().includes(q))
+        : LAUNCH_PRODUCTS;
+      const chosen = filtered[_launchSugIdx];
+      if (chosen) launchPickSuggestion(chosen.name);
+    } else {
+      launchReport();
+    }
+  } else if (e.key === 'Escape') {
+    box.style.display = 'none';
+    _launchSugIdx = -1;
+  }
+}
+
+function launchReport() {
+  const raw = document.getElementById('launch-product-input').value.trim();
+  if (!raw) {
+    const inp = document.getElementById('launch-product-input');
+    inp.focus();
+    inp.style.borderColor = 'var(--atlas-signal)';
+    setTimeout(() => { inp.style.borderColor = ''; }, 1400);
+    return;
+  }
+  const region = document.getElementById('launch-region').value;
+  // Set country in the main tab bar
+  const countrySelect = document.getElementById('countrySelect');
+  if (countrySelect) {
+    countrySelect.value = region;
+    dashboard.onCountryChange(region);
+  }
+  hideLaunchPanel();
+  selectSbtProduct(raw);
+}
+
+function launchQuick(product, region) {
+  document.getElementById('launch-product-input').value = product;
+  document.getElementById('launch-region').value = region;
+  launchReport();
+}
+
+// Close suggestions when clicking outside the search box
+document.addEventListener('click', function(e) {
+  const box = document.getElementById('launch-suggestions');
+  if (box && !box.contains(e.target) && e.target.id !== 'launch-product-input') {
+    box.style.display = 'none';
+    _launchSugIdx = -1;
+  }
+});
+
 // ── BOOT ──────────────────────────────────────────────────
 _updateThemeBtn(document.documentElement.dataset.theme === 'light');
 
@@ -7330,6 +7679,9 @@ if (_urlProduct) {
 // Auto-activate statistics panel when opened via Dashboard.html#statistics
 if (window.location.hash === '#statistics') {
   requestAnimationFrame(() => showStatisticsPanel());
+// Show Launch page as the default entry point (no URL params, no hash)
+} else if (!_urlProduct) {
+  requestAnimationFrame(() => showLaunchPanel());
 }
 
 // ── Generic competition-tab helpers (shared across all products) ──
