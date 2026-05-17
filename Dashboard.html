@@ -933,8 +933,10 @@ html[data-theme="light"] .launch-logo-light{display:block}
 .ltax-row:hover{background:rgba(184,146,74,.05)}
 .ltax-indent{display:flex;align-items:center;padding:10px 18px;flex:1;gap:8px}
 .ltax-arrow{
-  font-size:10px;color:var(--text-muted);
-  transition:transform .18s;flex-shrink:0;width:12px;display:inline-block;
+  width:13px;height:13px;flex-shrink:0;
+  color:var(--text-muted);
+  transition:transform .22s var(--ease-atlas);
+  overflow:visible;display:block;
 }
 .ltax-arrow.open{transform:rotate(90deg)}
 .ltax-l1-lbl{font-family:var(--font-display);font-size:14px;color:var(--text-primary)}
@@ -1598,7 +1600,7 @@ html[data-theme="light"] .launch-logo-light{display:block}
       <div>
         <div class="ltax-row" onclick="toggleLtax('ltax-fb','ltax-fb-arr')">
           <div class="ltax-indent" style="padding-left:18px">
-            <span class="ltax-arrow open" id="ltax-fb-arr">›</span>
+            <svg class="ltax-arrow open" id="ltax-fb-arr" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
             <span class="ltax-l1-lbl">Food &amp; Beverage</span>
           </div>
         </div>
@@ -1608,21 +1610,21 @@ html[data-theme="light"] .launch-logo-light{display:block}
           <div>
             <div class="ltax-row" onclick="toggleLtax('ltax-arm','ltax-arm-arr')">
               <div class="ltax-indent" style="padding-left:36px">
-                <span class="ltax-arrow open" id="ltax-arm-arr">›</span>
+                <svg class="ltax-arrow" id="ltax-arm-arr" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
                 <span class="ltax-l2-lbl">Agriculture &amp; Raw Materials</span>
               </div>
             </div>
-            <div class="ltax-body open" id="ltax-arm">
+            <div class="ltax-body" id="ltax-arm">
 
               <!-- L3: Sugar & Sweeteners -->
               <div>
                 <div class="ltax-row" onclick="toggleLtax('ltax-ss','ltax-ss-arr')">
                   <div class="ltax-indent" style="padding-left:54px">
-                    <span class="ltax-arrow open" id="ltax-ss-arr">›</span>
+                    <svg class="ltax-arrow" id="ltax-ss-arr" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
                     <span class="ltax-l3-lbl">Sugar &amp; Sweeteners</span>
                   </div>
                 </div>
-                <div class="ltax-body open" id="ltax-ss">
+                <div class="ltax-body" id="ltax-ss">
                   <div class="ltax-l4-row" onclick="launchQuick('Honey','United Arab Emirates')">
                     <span class="ltax-l4-icon">🍯</span>
                     <span class="ltax-l4-name">Honey</span>
@@ -1638,21 +1640,21 @@ html[data-theme="light"] .launch-logo-light{display:block}
           <div>
             <div class="ltax-row" onclick="toggleLtax('ltax-pf','ltax-pf-arr')">
               <div class="ltax-indent" style="padding-left:36px">
-                <span class="ltax-arrow open" id="ltax-pf-arr">›</span>
+                <svg class="ltax-arrow" id="ltax-pf-arr" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
                 <span class="ltax-l2-lbl">Packaged Food</span>
               </div>
             </div>
-            <div class="ltax-body open" id="ltax-pf">
+            <div class="ltax-body" id="ltax-pf">
 
               <!-- L3: Dairy Products -->
               <div>
                 <div class="ltax-row" onclick="toggleLtax('ltax-dp','ltax-dp-arr')">
                   <div class="ltax-indent" style="padding-left:54px">
-                    <span class="ltax-arrow open" id="ltax-dp-arr">›</span>
+                    <svg class="ltax-arrow" id="ltax-dp-arr" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
                     <span class="ltax-l3-lbl">Dairy Products</span>
                   </div>
                 </div>
-                <div class="ltax-body open" id="ltax-dp">
+                <div class="ltax-body" id="ltax-dp">
                   <div class="ltax-l4-row" onclick="launchQuick('Goat Milk','United Arab Emirates')">
                     <span class="ltax-l4-icon">🥛</span>
                     <span class="ltax-l4-name">Goat Milk</span>
@@ -1668,21 +1670,21 @@ html[data-theme="light"] .launch-logo-light{display:block}
           <div>
             <div class="ltax-row" onclick="toggleLtax('ltax-ff','ltax-ff-arr')">
               <div class="ltax-indent" style="padding-left:36px">
-                <span class="ltax-arrow open" id="ltax-ff-arr">›</span>
+                <svg class="ltax-arrow" id="ltax-ff-arr" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
                 <span class="ltax-l2-lbl">Fresh Food</span>
               </div>
             </div>
-            <div class="ltax-body open" id="ltax-ff">
+            <div class="ltax-body" id="ltax-ff">
 
               <!-- L3: Fruits & Vegetables -->
               <div>
                 <div class="ltax-row" onclick="toggleLtax('ltax-fv','ltax-fv-arr')">
                   <div class="ltax-indent" style="padding-left:54px">
-                    <span class="ltax-arrow open" id="ltax-fv-arr">›</span>
+                    <svg class="ltax-arrow" id="ltax-fv-arr" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
                     <span class="ltax-l3-lbl">Fruits &amp; Vegetables</span>
                   </div>
                 </div>
-                <div class="ltax-body open" id="ltax-fv">
+                <div class="ltax-body" id="ltax-fv">
                   <div class="ltax-l4-row" onclick="launchQuick('Hydroponic','United Arab Emirates')">
                     <span class="ltax-l4-icon">🌿</span>
                     <span class="ltax-l4-name">Hydroponic Produce</span>
@@ -1695,11 +1697,11 @@ html[data-theme="light"] .launch-logo-light{display:block}
               <div>
                 <div class="ltax-row" onclick="toggleLtax('ltax-pm','ltax-pm-arr')">
                   <div class="ltax-indent" style="padding-left:54px">
-                    <span class="ltax-arrow open" id="ltax-pm-arr">›</span>
+                    <svg class="ltax-arrow" id="ltax-pm-arr" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
                     <span class="ltax-l3-lbl">Poultry &amp; Meat</span>
                   </div>
                 </div>
-                <div class="ltax-body open" id="ltax-pm">
+                <div class="ltax-body" id="ltax-pm">
                   <div class="ltax-l4-row ltax-disabled">
                     <span class="ltax-l4-icon">🐓</span>
                     <span class="ltax-l4-name">Poultry</span>
