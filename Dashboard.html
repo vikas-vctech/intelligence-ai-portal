@@ -902,41 +902,70 @@ html[data-theme="light"] .launch-logo-light{display:block}
 }
 .launch-btn:hover{background:#C9A05A}
 .launch-btn:active{transform:scale(.98)}
-.launch-report-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:12px;
-  width:100%;max-width:920px;margin-top:48px;
+/* No-report banner */
+.launch-no-report{
+  display:none;align-items:center;gap:12px;
+  background:rgba(168,51,30,.08);border:1px solid rgba(168,51,30,.2);
+  border-radius:6px;padding:12px 18px;
+  width:100%;max-width:920px;margin-top:10px;
 }
-.launch-report-card{
-  background:var(--bg-card);border:1px solid var(--border);border-radius:6px;
-  padding:20px 22px;cursor:pointer;
-  transition:border-color .18s,box-shadow .18s,transform .15s;
+.launch-no-report.visible{display:flex}
+.launch-no-report-icon{font-size:18px;flex-shrink:0}
+.launch-no-report-txt{font-size:12.5px;color:var(--atlas-signal);flex:1}
+.launch-no-report-txt strong{color:var(--text-primary)}
+/* Taxonomy tree */
+.launch-taxonomy{
+  width:100%;max-width:920px;margin-top:36px;
+  background:var(--bg-card);border:1px solid var(--border);border-radius:6px;overflow:hidden;
 }
-.launch-report-card:hover{
-  border-color:rgba(184,146,74,.4);
-  box-shadow:0 4px 24px rgba(0,0,0,.32);
-  transform:translateY(-2px);
+.ltax-section-hdr{
+  padding:11px 20px;display:flex;align-items:center;gap:8px;
+  font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.11em;
+  color:var(--text-muted);font-family:var(--font-ui);
+  border-bottom:1px solid var(--border);
+  background:rgba(245,240,230,.03);
 }
-.launch-report-emoji{font-size:26px;margin-bottom:10px;line-height:1}
-.launch-report-name{
-  font-family:var(--font-display);font-size:16px;color:var(--text-primary);
-  margin-bottom:4px;
+.ltax-row{
+  display:flex;align-items:center;
+  border-bottom:1px solid var(--border);cursor:pointer;
+  transition:background .12s;
 }
-.launch-report-meta{font-size:10px;color:var(--text-muted);line-height:1.55}
-.launch-report-tag{
-  display:inline-block;font-size:9px;padding:2px 8px;border-radius:12px;
-  margin-top:10px;background:rgba(61,107,92,.12);
-  border:1px solid rgba(61,107,92,.3);color:#5DB89A;
+.ltax-row:hover{background:rgba(184,146,74,.05)}
+.ltax-indent{display:flex;align-items:center;padding:10px 18px;flex:1;gap:8px}
+.ltax-arrow{
+  font-size:10px;color:var(--text-muted);
+  transition:transform .18s;flex-shrink:0;width:12px;display:inline-block;
 }
-.launch-divider{
-  display:flex;align-items:center;gap:12px;
-  width:100%;max-width:920px;margin:40px 0 0;
+.ltax-arrow.open{transform:rotate(90deg)}
+.ltax-l1-lbl{font-family:var(--font-display);font-size:14px;color:var(--text-primary)}
+.ltax-l2-lbl{font-size:12px;color:var(--text-secondary);font-weight:500}
+.ltax-l3-lbl{font-size:11.5px;color:var(--text-muted)}
+.ltax-body{display:none}
+.ltax-body.open{display:block}
+.ltax-l4-row{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 20px 9px 76px;
+  border-bottom:1px solid var(--border);cursor:pointer;
+  transition:background .12s;
 }
-.launch-divider-line{flex:1;height:1px;background:var(--border)}
-.launch-divider-lbl{font-size:9.5px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.1em;white-space:nowrap}
+.ltax-l4-row:last-child{border-bottom:none}
+.ltax-l4-row:hover{background:rgba(184,146,74,.08)}
+.ltax-l4-row.ltax-disabled{opacity:.45;cursor:default}
+.ltax-l4-row.ltax-disabled:hover{background:transparent}
+.ltax-l4-icon{font-size:16px;flex-shrink:0;line-height:1}
+.ltax-l4-name{font-size:12.5px;color:var(--text-primary);font-weight:500;flex:1}
+.ltax-tag-live{
+  font-size:9px;padding:2px 8px;border-radius:10px;flex-shrink:0;
+  background:rgba(61,107,92,.12);border:1px solid rgba(61,107,92,.3);color:#5DB89A;
+}
+.ltax-tag-soon{
+  font-size:9px;padding:2px 8px;border-radius:10px;flex-shrink:0;
+  background:rgba(110,119,133,.08);border:1px solid var(--border);color:var(--text-muted);
+}
 @media(max-width:767px){
   .launch-form{flex-direction:column}
   .launch-search-wrap,.launch-select,.launch-btn{width:100%}
-  .launch-report-grid{grid-template-columns:1fr}
+  .ltax-l4-row{padding-left:52px}
 }
 
 /* ═══ NEWS INTELLIGENCE TAB ═══ */
@@ -1551,38 +1580,141 @@ html[data-theme="light"] .launch-logo-light{display:block}
 
     </div><!-- /launch-form -->
 
-    <!-- Divider -->
-    <div class="launch-divider">
-      <div class="launch-divider-line"></div>
-      <span class="launch-divider-lbl">Available Reports</span>
-      <div class="launch-divider-line"></div>
+    <!-- No-report banner (hidden by default, shown when search finds nothing) -->
+    <div class="launch-no-report" id="launch-no-report">
+      <span class="launch-no-report-icon">🔍</span>
+      <span class="launch-no-report-txt">No report found for <strong id="launch-no-report-query">—</strong>. Browse available reports below or try a different search term.</span>
     </div>
 
-    <!-- Featured report cards -->
-    <div class="launch-report-grid">
+    <!-- Taxonomy browse tree -->
+    <div class="launch-taxonomy">
 
-      <div class="launch-report-card" onclick="launchQuick('Honey','United Arab Emirates')">
-        <div class="launch-report-emoji">🍯</div>
-        <div class="launch-report-name">Honey</div>
-        <div class="launch-report-meta">Sugar &amp; Sweeteners · UAE market<br>Supply-side demand model · 2025–2030</div>
-        <span class="launch-report-tag">Live data</span>
+      <div class="ltax-section-hdr">
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z"/></svg>
+        Available Reports — Browse by Taxonomy
       </div>
 
-      <div class="launch-report-card" onclick="launchQuick('Goat Milk','United Arab Emirates')">
-        <div class="launch-report-emoji">🥛</div>
-        <div class="launch-report-name">Goat Milk</div>
-        <div class="launch-report-meta">Dairy Products · UAE market<br>Supply-side demand model · 2025–2030</div>
-        <span class="launch-report-tag">Live data</span>
+      <!-- ── L1: Food & Beverage ── -->
+      <div>
+        <div class="ltax-row" onclick="toggleLtax('ltax-fb','ltax-fb-arr')">
+          <div class="ltax-indent" style="padding-left:18px">
+            <span class="ltax-arrow open" id="ltax-fb-arr">›</span>
+            <span class="ltax-l1-lbl">Food &amp; Beverage</span>
+          </div>
+        </div>
+        <div class="ltax-body open" id="ltax-fb">
+
+          <!-- ── L2: Agriculture & Raw Materials ── -->
+          <div>
+            <div class="ltax-row" onclick="toggleLtax('ltax-arm','ltax-arm-arr')">
+              <div class="ltax-indent" style="padding-left:36px">
+                <span class="ltax-arrow open" id="ltax-arm-arr">›</span>
+                <span class="ltax-l2-lbl">Agriculture &amp; Raw Materials</span>
+              </div>
+            </div>
+            <div class="ltax-body open" id="ltax-arm">
+
+              <!-- L3: Sugar & Sweeteners -->
+              <div>
+                <div class="ltax-row" onclick="toggleLtax('ltax-ss','ltax-ss-arr')">
+                  <div class="ltax-indent" style="padding-left:54px">
+                    <span class="ltax-arrow open" id="ltax-ss-arr">›</span>
+                    <span class="ltax-l3-lbl">Sugar &amp; Sweeteners</span>
+                  </div>
+                </div>
+                <div class="ltax-body open" id="ltax-ss">
+                  <div class="ltax-l4-row" onclick="launchQuick('Honey','United Arab Emirates')">
+                    <span class="ltax-l4-icon">🍯</span>
+                    <span class="ltax-l4-name">Honey</span>
+                    <span class="ltax-tag-live">Live data</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- ── L2: Packaged Food ── -->
+          <div>
+            <div class="ltax-row" onclick="toggleLtax('ltax-pf','ltax-pf-arr')">
+              <div class="ltax-indent" style="padding-left:36px">
+                <span class="ltax-arrow open" id="ltax-pf-arr">›</span>
+                <span class="ltax-l2-lbl">Packaged Food</span>
+              </div>
+            </div>
+            <div class="ltax-body open" id="ltax-pf">
+
+              <!-- L3: Dairy Products -->
+              <div>
+                <div class="ltax-row" onclick="toggleLtax('ltax-dp','ltax-dp-arr')">
+                  <div class="ltax-indent" style="padding-left:54px">
+                    <span class="ltax-arrow open" id="ltax-dp-arr">›</span>
+                    <span class="ltax-l3-lbl">Dairy Products</span>
+                  </div>
+                </div>
+                <div class="ltax-body open" id="ltax-dp">
+                  <div class="ltax-l4-row" onclick="launchQuick('Goat Milk','United Arab Emirates')">
+                    <span class="ltax-l4-icon">🥛</span>
+                    <span class="ltax-l4-name">Goat Milk</span>
+                    <span class="ltax-tag-live">Live data</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- ── L2: Fresh Food ── -->
+          <div>
+            <div class="ltax-row" onclick="toggleLtax('ltax-ff','ltax-ff-arr')">
+              <div class="ltax-indent" style="padding-left:36px">
+                <span class="ltax-arrow open" id="ltax-ff-arr">›</span>
+                <span class="ltax-l2-lbl">Fresh Food</span>
+              </div>
+            </div>
+            <div class="ltax-body open" id="ltax-ff">
+
+              <!-- L3: Fruits & Vegetables -->
+              <div>
+                <div class="ltax-row" onclick="toggleLtax('ltax-fv','ltax-fv-arr')">
+                  <div class="ltax-indent" style="padding-left:54px">
+                    <span class="ltax-arrow open" id="ltax-fv-arr">›</span>
+                    <span class="ltax-l3-lbl">Fruits &amp; Vegetables</span>
+                  </div>
+                </div>
+                <div class="ltax-body open" id="ltax-fv">
+                  <div class="ltax-l4-row" onclick="launchQuick('Hydroponic','United Arab Emirates')">
+                    <span class="ltax-l4-icon">🌿</span>
+                    <span class="ltax-l4-name">Hydroponic Produce</span>
+                    <span class="ltax-tag-live">Live data</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- L3: Poultry & Meat -->
+              <div>
+                <div class="ltax-row" onclick="toggleLtax('ltax-pm','ltax-pm-arr')">
+                  <div class="ltax-indent" style="padding-left:54px">
+                    <span class="ltax-arrow open" id="ltax-pm-arr">›</span>
+                    <span class="ltax-l3-lbl">Poultry &amp; Meat</span>
+                  </div>
+                </div>
+                <div class="ltax-body open" id="ltax-pm">
+                  <div class="ltax-l4-row ltax-disabled">
+                    <span class="ltax-l4-icon">🐓</span>
+                    <span class="ltax-l4-name">Poultry</span>
+                    <span class="ltax-tag-soon">Coming soon</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
       </div>
 
-      <div class="launch-report-card" onclick="launchQuick('Hydroponic','United Arab Emirates')">
-        <div class="launch-report-emoji">🌿</div>
-        <div class="launch-report-name">Hydroponic Produce</div>
-        <div class="launch-report-meta">Fresh Food · UAE market<br>Supply-side demand model · 2025–2030</div>
-        <span class="launch-report-tag">Live data</span>
-      </div>
-
-    </div><!-- /launch-report-grid -->
+    </div><!-- /launch-taxonomy -->
 
   </div><!-- /launch-wrap -->
 </div><!-- /sec-launch -->
@@ -7557,15 +7689,45 @@ function hideLaunchPanel() {
 
 let _launchSugIdx = -1;
 
+function _showLaunchNoReport(query) {
+  const el  = document.getElementById('launch-no-report');
+  const qEl = document.getElementById('launch-no-report-query');
+  if (el)  el.classList.add('visible');
+  if (qEl) qEl.textContent = query;
+}
+function _hideLaunchNoReport() {
+  const el = document.getElementById('launch-no-report');
+  if (el) el.classList.remove('visible');
+}
+
+function toggleLtax(bodyId, arrowId) {
+  const body  = document.getElementById(bodyId);
+  const arrow = document.getElementById(arrowId);
+  if (!body) return;
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  if (arrow) arrow.classList.toggle('open', !isOpen);
+}
+
 function launchSuggest(val) {
   const box = document.getElementById('launch-suggestions');
   const q = val.trim().toLowerCase();
-  const matches = q
-    ? LAUNCH_PRODUCTS.filter(p =>
-        p.name.toLowerCase().includes(q) || p.category.toLowerCase().includes(q))
-    : LAUNCH_PRODUCTS;
-  if (!matches.length) { box.style.display = 'none'; return; }
+  _hideLaunchNoReport();
   _launchSugIdx = -1;
+  if (!q) { box.style.display = 'none'; return; }
+  const matches = LAUNCH_PRODUCTS.filter(p =>
+    p.name.toLowerCase().includes(q) || p.category.toLowerCase().includes(q));
+  if (!matches.length) {
+    box.innerHTML = `<div class="launch-suggestion" style="cursor:default;pointer-events:none;opacity:.8">
+      <span style="font-size:16px;line-height:1">🔍</span>
+      <div>
+        <div style="font-size:12px;color:var(--text-muted)">No reports match "<strong style="color:var(--text-secondary)">${val}</strong>"</div>
+        <div class="launch-suggestion-cat">Try: Honey · Goat Milk · Hydroponic Produce</div>
+      </div>
+    </div>`;
+    box.style.display = '';
+    return;
+  }
   box.innerHTML = matches.map((p, i) =>
     `<div class="launch-suggestion" onmousedown="launchPickSuggestion('${p.name}')" data-idx="${i}">
       <span style="font-size:18px;line-height:1">${p.icon}</span>
@@ -7618,6 +7780,7 @@ function launchKeydown(e) {
 
 function launchReport() {
   const raw = document.getElementById('launch-product-input').value.trim();
+  document.getElementById('launch-suggestions').style.display = 'none';
   if (!raw) {
     const inp = document.getElementById('launch-product-input');
     inp.focus();
@@ -7625,15 +7788,22 @@ function launchReport() {
     setTimeout(() => { inp.style.borderColor = ''; }, 1400);
     return;
   }
+  const q = raw.toLowerCase();
+  const match = LAUNCH_PRODUCTS.find(p =>
+    p.name.toLowerCase().includes(q) || q.includes(p.name.toLowerCase()));
+  if (!match) {
+    _showLaunchNoReport(raw);
+    return;
+  }
+  _hideLaunchNoReport();
   const region = document.getElementById('launch-region').value;
-  // Set country in the main tab bar
   const countrySelect = document.getElementById('countrySelect');
   if (countrySelect) {
     countrySelect.value = region;
     dashboard.onCountryChange(region);
   }
   hideLaunchPanel();
-  selectSbtProduct(raw);
+  selectSbtProduct(match.name);
 }
 
 function launchQuick(product, region) {
