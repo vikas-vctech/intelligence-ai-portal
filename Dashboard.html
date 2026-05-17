@@ -809,6 +809,67 @@ html[data-theme="light"] .def-table tbody tr:nth-child(even) td:not(.def-row-hdr
 .def-bullet li{margin-bottom:3px}
 .def-no-content{padding:80px 0;text-align:center}
 
+/* ═══ NEWS INTELLIGENCE TAB ═══ */
+.ni-wrap{padding:28px 32px 60px}
+.ni-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;flex-wrap:wrap;gap:12px}
+.ni-eyebrow{font-size:9px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--text-muted);font-family:var(--font-ui);margin-bottom:5px}
+.ni-title{font-family:var(--font-display);font-size:24px;font-weight:400;color:var(--text-primary);margin-bottom:4px}
+.ni-subtitle{font-size:11px;color:var(--text-muted);line-height:1.6}
+.ni-meta-pill{font-size:10px;color:var(--text-muted);font-family:var(--font-mono);padding:4px 10px;border:1px solid var(--border);border-radius:var(--radius);white-space:nowrap;align-self:flex-start}
+.ni-stats-row{display:flex;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:28px}
+.ni-stat{flex:1;padding:12px 14px;border-right:1px solid var(--border);background:var(--bg-card)}
+.ni-stat:last-child{border-right:none}
+.ni-stat-val{display:block;font-size:22px;font-weight:500;color:var(--color-1);font-family:var(--font-mono);letter-spacing:-.5px;line-height:1}
+.ni-stat-lbl{display:block;font-size:8.5px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-top:4px;font-family:var(--font-ui)}
+.ni-section-hdr{font-size:9px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--text-muted);font-family:var(--font-ui);margin-bottom:14px}
+.ni-signals{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);margin-bottom:32px}
+.ni-signal-card{background:var(--bg-card);border:1px solid var(--border);border-top:2px solid var(--color-1);border-radius:var(--radius);padding:16px}
+.ni-signal-num{font-size:9px;font-weight:600;color:var(--color-1);font-family:var(--font-mono);letter-spacing:1px;margin-bottom:8px}
+.ni-signal-title{font-size:12.5px;font-weight:600;color:var(--text-primary);margin-bottom:8px;line-height:1.4}
+.ni-signal-body{font-size:11px;color:var(--text-secondary);line-height:1.6}
+.ni-priority-bar{display:flex;align-items:center;gap:8px;font-size:9px;font-weight:600;letter-spacing:1.1px;text-transform:uppercase;font-family:var(--font-ui);padding:10px 14px;border-radius:var(--radius);margin-bottom:12px}
+.ni-priority-bar.ni-high{background:rgba(239,68,68,.08);color:#EF4444;border:1px solid rgba(239,68,68,.18)}
+.ni-priority-bar.ni-med{background:rgba(245,158,11,.08);color:#F59E0B;border:1px solid rgba(245,158,11,.18)}
+.ni-priority-bar.ni-low{background:rgba(16,185,129,.08);color:#10B981;border:1px solid rgba(16,185,129,.18)}
+.ni-p-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.ni-high .ni-p-dot{background:#EF4444}
+.ni-med .ni-p-dot{background:#F59E0B}
+.ni-low .ni-p-dot{background:#10B981}
+.ni-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--gap);margin-bottom:24px}
+.ni-card{background:var(--bg-card);border:1px solid var(--border);border-left:3px solid transparent;border-radius:var(--radius);padding:15px;display:flex;flex-direction:column;gap:7px;transition:border-color .18s,box-shadow .18s}
+.ni-card:hover{box-shadow:0 4px 20px rgba(0,0,0,.3)}
+.ni-card.ni-high{border-left-color:#EF4444}
+.ni-card.ni-med{border-left-color:#F59E0B}
+.ni-card.ni-low{border-left-color:#10B981}
+.ni-card-meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.ni-card-date{font-size:10px;color:var(--text-muted);font-family:var(--font-mono)}
+.ni-card-sep{color:var(--border-strong);font-size:10px}
+.ni-card-country{font-size:9px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.8px}
+.ni-badge{font-size:9px;font-weight:600;padding:2px 7px;border-radius:20px;letter-spacing:.4px;font-family:var(--font-ui);text-transform:uppercase}
+.ni-badge.regulatory{background:rgba(59,130,246,.12);color:#60A5FA}
+.ni-badge.expansion{background:rgba(16,185,129,.10);color:#34D399}
+.ni-badge.marketing{background:rgba(167,139,250,.10);color:#A78BFA}
+.ni-badge.product-launch{background:rgba(251,191,36,.10);color:#FBBF24}
+.ni-badge.partnership{background:rgba(34,211,238,.10);color:#22D3EE}
+.ni-badge.ma{background:rgba(249,115,22,.12);color:#FB923C}
+.ni-badge.other{background:rgba(148,163,184,.10);color:#94A3B8}
+.ni-sub-badge{font-size:9px;color:var(--text-muted);font-family:var(--font-mono)}
+.ni-card-company{font-size:10px;color:var(--text-muted)}
+.ni-card-headline{font-size:13px;font-weight:600;color:var(--text-primary);line-height:1.4}
+.ni-card-summary{font-size:11px;color:var(--text-secondary);line-height:1.6;flex:1}
+.ni-card-insight{background:rgba(184,146,74,.06);border-left:2px solid var(--color-1);padding:8px 10px;font-size:10.5px;color:var(--color-1);line-height:1.5}
+.ni-card-insight strong{font-size:8.5px;letter-spacing:.5px;text-transform:uppercase;display:block;margin-bottom:2px;opacity:.65}
+.ni-card-source{font-size:9.5px;color:var(--text-muted)}
+.ni-card-source a{color:var(--text-muted);text-decoration:none;border-bottom:1px dotted rgba(245,240,230,.2)}
+.ni-card-source a:hover{color:var(--color-1)}
+.ni-breakdown-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);margin-bottom:28px}
+.ni-bc-cell{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:14px}
+.ni-bc-cat{font-size:8.5px;font-weight:600;text-transform:uppercase;letter-spacing:.9px;color:var(--text-muted);margin-bottom:6px;font-family:var(--font-ui)}
+.ni-bc-count{font-size:20px;font-weight:500;color:var(--color-1);font-family:var(--font-mono);letter-spacing:-.5px}
+.ni-bc-signal{font-size:10.5px;color:var(--text-secondary);line-height:1.5;margin-top:4px}
+.ni-dq-note{font-size:10px;color:var(--text-muted);border-top:1px solid var(--border);padding-top:14px;margin-top:4px;line-height:1.6}
+@media(max-width:767px){.ni-wrap{padding:16px 16px 48px}.ni-signals{grid-template-columns:1fr}.ni-grid{grid-template-columns:1fr}.ni-stats-row{flex-wrap:wrap}.ni-stat{min-width:calc(50% - 1px);border-bottom:1px solid var(--border)}.ni-breakdown-grid{grid-template-columns:repeat(2,1fr)}}
+
 /* ── EXPERT PANEL ─────────────────────────────────────────── */
 .ep-wrap{padding:4px 0 0}
 .ep-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;flex-wrap:wrap;gap:10px}
@@ -2481,6 +2542,1148 @@ html[data-theme="light"] .def-table tbody tr:nth-child(even) td:not(.def-row-hdr
 
   </div><!-- /comp-honey-profile -->
 
+  <!-- Hydroponic Produce profile — shown only when Hydroponic Produce is the active product -->
+  <div id="comp-hydroponic-produce-profile">
+
+  <!-- ── Company selector ── -->
+  <div id="comp-hydroponic-produce-selector">
+    <div class="page-header">
+      <div>
+        <h1>UAE Hydroponic Produce Market — Competitor Profiles</h1>
+        <div class="page-header-sub">Select a company to view their full competitive profile</div>
+      </div>
+    </div>
+    <div class="sec-divider">
+      <div class="sec-divider-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"/></svg></div>
+      <div class="sec-divider-text"><h2>Companies</h2><span>Hydroponic Produce · UAE · 5 profiles · click to open</span></div>
+    </div>
+    <div class="grid2" style="max-width:900px">
+
+      <!-- Card 1: Pure Harvest — fully clickable -->
+      <div class="card comp-co-card" onclick="openCoProfile('hydroponic-produce','pure-harvest')">
+        <div class="comp-co-logo">🌿</div>
+        <div class="comp-co-name">Pure Harvest Smart Farms</div>
+        <div class="comp-co-sub">Abu Dhabi, UAE · Established 2016 · Private</div>
+        <div class="comp-co-stats">
+          <span class="comp-co-stat">AED 200–250M revenue</span>
+          <span class="comp-co-stat">~18 ha greenhouse area</span>
+          <span class="comp-co-stat">#1 by revenue</span>
+          <span class="comp-co-stat">152+ retail locations</span>
+        </div>
+        <div class="comp-tags-row">
+          <span class="comp-tag comp-tag-gold">CEA Pioneer</span>
+          <span class="comp-tag">VC-Backed $387M</span>
+          <span class="comp-tag">UAE + KSA + Kuwait</span>
+          <span class="comp-tag">IPO Target 2027–28</span>
+        </div>
+        <div class="comp-co-view">View Profile →</div>
+      </div>
+
+      <!-- Card 2: Bustanica — profile live -->
+      <div class="card comp-co-card" onclick="openCoProfile('hydroponic-produce','bustanica')">
+        <div class="comp-co-logo">🥬</div>
+        <div class="comp-co-name">Bustanica</div>
+        <div class="comp-co-sub">Dubai South, UAE · Established 2022 · Wholly Owned Subsidiary</div>
+        <div class="comp-co-stats">
+          <span class="comp-co-stat">AED 80–90M revenue</span>
+          <span class="comp-co-stat">1M+ kg/yr production</span>
+          <span class="comp-co-stat">#2 by revenue</span>
+          <span class="comp-co-stat">11+ retail chains</span>
+        </div>
+        <div class="comp-tags-row">
+          <span class="comp-tag comp-tag-gold">World's Largest Vertical Farm</span>
+          <span class="comp-tag comp-tag-teal">Zero Pesticides</span>
+          <span class="comp-tag">Emirates Flight Catering</span>
+        </div>
+        <div class="comp-co-view">View Profile →</div>
+      </div>
+
+      <!-- Card 3: Badia Farms — profile live -->
+      <div class="card comp-co-card" onclick="openCoProfile('hydroponic-produce','badia-farms')">
+        <div class="comp-co-logo">🌱</div>
+        <div class="comp-co-name">Badia Farms</div>
+        <div class="comp-co-sub">Al Quoz, Dubai, UAE · Established 2016 · Private</div>
+        <div class="comp-co-stats">
+          <span class="comp-co-stat">AED 10–15M revenue</span>
+          <span class="comp-co-stat">30+ microgreen varieties</span>
+          <span class="comp-co-stat">#3 by revenue</span>
+          <span class="comp-co-stat">~75% HoReCa</span>
+        </div>
+        <div class="comp-tags-row">
+          <span class="comp-tag comp-tag-gold">MENA's First Vertical Farm</span>
+          <span class="comp-tag comp-tag-teal">Microgreens Specialist</span>
+          <span class="comp-tag">Fine Dining</span>
+        </div>
+        <div class="comp-co-view">View Profile →</div>
+      </div>
+
+      <!-- Card 4: Madar Farms — profile live -->
+      <div class="card comp-co-card" onclick="openCoProfile('hydroponic-produce','madar-farms')">
+        <div class="comp-co-logo">🫘</div>
+        <div class="comp-co-name">Madar Farms</div>
+        <div class="comp-co-sub">Abu Dhabi, UAE · Established 2017 · Private (ADIO-backed)</div>
+        <div class="comp-co-stats">
+          <span class="comp-co-stat">AED 12–18M revenue</span>
+          <span class="comp-co-stat">21+ SKUs</span>
+          <span class="comp-co-stat">#4 by revenue</span>
+          <span class="comp-co-stat">118 employees</span>
+        </div>
+        <div class="comp-tags-row">
+          <span class="comp-tag comp-tag-gold">ADIO / Ghadan 21</span>
+          <span class="comp-tag comp-tag-teal">Leafy Greens + Herbs</span>
+          <span class="comp-tag">Abu Dhabi</span>
+        </div>
+        <div class="comp-co-view">View Profile →</div>
+      </div>
+
+      <!-- Card 5: Emirates Hydroponics Farms — profile live -->
+      <div class="card comp-co-card" onclick="openCoProfile('hydroponic-produce','emirates-hydroponics')">
+        <div class="comp-co-logo">🍅</div>
+        <div class="comp-co-name">Emirates Hydroponics Farms</div>
+        <div class="comp-co-sub">Al Bahia, Abu Dhabi, UAE · Established 2005 · Private</div>
+        <div class="comp-co-stats">
+          <span class="comp-co-stat">AED 2–4M revenue</span>
+          <span class="comp-co-stat">~2 ha greenhouse</span>
+          <span class="comp-co-stat">#5 by revenue</span>
+          <span class="comp-co-stat">Patented ME tech</span>
+        </div>
+        <div class="comp-tags-row">
+          <span class="comp-tag comp-tag-gold">UAE Pioneer (2005)</span>
+          <span class="comp-tag comp-tag-teal">Patented Hydroponic Tech</span>
+          <span class="comp-tag">Tomatoes + Leafy Greens</span>
+        </div>
+        <div class="comp-co-view">View Profile →</div>
+      </div>
+
+    </div>
+  </div><!-- /comp-hydroponic-produce-selector -->
+
+  <!-- ── Pure Harvest Smart Farms profile ── -->
+  <div id="comp-hydroponic-produce-pf-pure-harvest" style="display:none">
+
+  <div class="page-header">
+    <div>
+      <h1>Pure Harvest Smart Farms</h1>
+      <div class="page-header-sub">Competitor Profile · UAE Hydroponic Produce Market · Established 2016 · Abu Dhabi</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+      <button class="comp-stab" onclick="openCoSelector('hydroponic-produce')">← All Competitors</button>
+      <button class="comp-stab active">Pure Harvest</button>
+      <div style="width:1px;height:20px;background:var(--border);margin:0 4px"></div>
+      <button class="comp-action-btn">↑ Export</button>
+    </div>
+  </div>
+
+  <!-- KPI row -->
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="kpi-lbl">Revenue 2025E</div>
+      <div class="kpi-val">AED 200–250M</div>
+      <div class="kpi-sub">~$55–68M · est. · VC-backed private</div>
+    </div>
+    <div class="kpi teal">
+      <div class="kpi-lbl">Greenhouse Area</div>
+      <div class="kpi-val">~18 ha</div>
+      <div class="kpi-sub">UAE (3 farms) + KSA + Kuwait · operational</div>
+    </div>
+    <div class="kpi amber">
+      <div class="kpi-lbl">Avg Price Premium</div>
+      <div class="kpi-val">+40–60%</div>
+      <div class="kpi-sub">vs. commodity imported tomatoes UAE retail</div>
+    </div>
+    <div class="kpi coral">
+      <div class="kpi-lbl">Retail Partners</div>
+      <div class="kpi-val">8+ chains</div>
+      <div class="kpi-sub">Carrefour · LuLu · Spinneys · Kibsons · Waitrose · Géant · Grandiose · Noon</div>
+    </div>
+  </div>
+
+  <!-- ── SECTION 1: Company Background ── -->
+  <div class="sec-divider">
+    <div class="sec-divider-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"/></svg></div>
+    <div class="sec-divider-text"><h2>Company Background</h2><span>Corporate overview · financials · channel mix · Pure Harvest Smart Farms · 2025</span></div>
+  </div>
+  <div class="grid2">
+    <div class="card">
+      <div class="card-title">Company Profile</div>
+      <div class="card-sub">Founded 2016 · Abu Dhabi, UAE · VC-backed private</div>
+      <table class="comp-info-table">
+        <tr><td>Headquarters</td><td>Abu Dhabi, UAE</td></tr>
+        <tr><td>Founded</td><td>2016 · Founder: Sky Kurtz</td></tr>
+        <tr><td>Farm Locations (UAE)</td><td>3 operational: Al Ain, Nahel, Oasis (11 ha flagship)</td></tr>
+        <tr><td>Total Greenhouse Area</td><td>~18 ha UAE + Saudi Arabia + Kuwait</td></tr>
+        <tr><td>Est. Revenue</td><td>AED 200–250M (~$55–68M) · 2025E</td></tr>
+        <tr><td>Ownership</td><td>Private · VC-backed · IPO target 2027–2028</td></tr>
+        <tr><td>Total Funding Raised</td><td>$387M (10 rounds through Series D)</td></tr>
+        <tr><td>Key Channels</td><td>Carrefour, Spinneys, LuLu, Kibsons, Waitrose, Géant, Grandiose, Noon</td></tr>
+      </table>
+      <p class="comp-about-text">Pure Harvest Smart Farms was founded in 2016 by Sky Kurtz to address the UAE's 90%+ food import dependency. The company operates three farms in Abu Dhabi plus facilities in Saudi Arabia and Kuwait, using Dutch CEA technology with bumblebee pollination and zero synthetic pesticides. Products span 26+ tomato varieties, 6 strawberry varieties, leafy greens, and value-added sauces, sold across 152+ store locations. Having raised $387M through Series D, Pure Harvest is targeting $100M+ for Morocco and Singapore, and an IPO on a UAE exchange in 2027–2028.</p>
+      <div class="comp-tags-row">
+        <span class="comp-tag comp-tag-gold">CEA Pioneer</span>
+        <span class="comp-tag">VC-Backed $387M</span>
+        <span class="comp-tag">Dutch Greenhouse Tech</span>
+        <span class="comp-tag">UAE + KSA + Kuwait</span>
+        <span class="comp-tag">IPO Target 2027–28</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Revenue &amp; Sales Channel Mix</div>
+      <div class="card-sub">2025 estimated · AED million · all channels</div>
+      <div class="comp-fin-label">Revenue 2025E vs. category leader</div>
+      <div class="comp-fin-value">AED 200–250M</div>
+      <div class="comp-fin-bar-track"><div class="comp-fin-bar-fill" style="width:100%"></div></div>
+      <div class="comp-fin-sub">Category leader by revenue · AED 200–250M</div>
+      <div class="comp-fin-label" style="margin-top:4px">Status of Sales — channel split</div>
+      <div class="chart-wrap" style="height:220px"><canvas id="ch-hp-pure-harvest-donut"></canvas></div>
+    </div>
+  </div>
+
+  <!-- ── SECTION 2: Products & Packaging ── -->
+  <div class="sec-divider">
+    <div class="sec-divider-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"/></svg></div>
+    <div class="sec-divider-text"><h2>Products &amp; Packaging</h2><span>SKU range · pricing tiers · packaging formats · product gallery</span></div>
+  </div>
+  <div class="grid2">
+    <div class="card">
+      <div class="card-title">Products &amp; Packages</div>
+      <div class="card-sub">SKU count · retail and trade pricing · price premium vs. category average</div>
+      <div style="overflow-x:auto">
+        <table class="comp-prod-table">
+          <thead><tr><th>Product</th><th>SKUs</th><th class="r">Retail (AED)</th><th class="r">Trade (AED)</th><th class="r">Premium</th><th>Tier</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Cherry / Specialty Tomatoes</strong><div class="comp-prod-sub">Strabena 390g · Yoom 250g · 26 varieties</div></td><td>8</td><td class="r">28–32/kg</td><td class="r">18–22/kg</td><td class="comp-premium-high">+55–80%</td><td><span class="comp-prod-tag comp-tag-gold">Ultra Premium</span></td></tr>
+            <tr><td><strong>Beef / Standard Tomatoes</strong><div class="comp-prod-sub">Family Box 1kg · Round bulk</div></td><td>4</td><td class="r">12–18/kg</td><td class="r">8–12/kg</td><td class="comp-premium-high">+30–50%</td><td><span class="comp-prod-tag">Standard</span></td></tr>
+            <tr><td><strong>Cucumbers</strong><div class="comp-prod-sub">Mini / Persian · Full size</div></td><td>2</td><td class="r">10–16/kg</td><td class="r">6–10/kg</td><td class="comp-premium-mid">+25–40%</td><td><span class="comp-prod-tag">Standard</span></td></tr>
+            <tr><td><strong>Capsicums / Peppers</strong><div class="comp-prod-sub">Mixed bell · Red · Yellow · Green</div></td><td>3</td><td class="r">18–28/kg</td><td class="r">12–18/kg</td><td class="comp-premium-high">+30–50%</td><td><span class="comp-prod-tag comp-tag-gold">Premium</span></td></tr>
+            <tr><td><strong>Strawberries</strong><div class="comp-prod-sub">Fresh 200g punnets · 6 varieties · Seasonal</div></td><td>2</td><td class="r">34.25/200g</td><td class="r">90–110/kg</td><td class="comp-premium-high">+120–150%</td><td><span class="comp-prod-tag comp-tag-gold">Ultra Premium</span></td></tr>
+            <tr><td><strong>Tomato Sauces &amp; Preserves</strong><div class="comp-prod-sub">Cherry Passata · Shakshuka · Marinara</div></td><td>8</td><td class="r">14.90–27.50</td><td class="r">9–16</td><td class="comp-premium-high">+40–80%</td><td><span class="comp-prod-tag comp-tag-gold">Value-Added</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Product Gallery</div>
+      <div class="card-sub">Illustrative · 6 product categories</div>
+      <div class="comp-prod-images">
+        <div class="comp-img-ph" style="background:linear-gradient(135deg,#3A0A00,#6A1A00)">🍅<span>Cherry Tomatoes</span></div>
+        <div class="comp-img-ph" style="background:linear-gradient(135deg,#0A2A0A,#1A4A1A)">🥒<span>Cucumbers</span></div>
+        <div class="comp-img-ph" style="background:linear-gradient(135deg,#1A2A00,#2E4A00)">🫑<span>Peppers</span></div>
+        <div class="comp-img-ph" style="background:linear-gradient(135deg,#2A0A10,#4A1A20)">🍓<span>Strawberries</span></div>
+        <div class="comp-img-ph" style="background:linear-gradient(135deg,#0A1A0A,#1A3A1A)">🌿<span>Leafy Greens</span></div>
+        <div class="comp-img-ph" style="background:linear-gradient(135deg,#1A1F2B,#2E3A4A)">📦<span>Sauces</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SECTION 3: Brand Positioning ── -->
+  <div class="sec-divider">
+    <div class="sec-divider-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.955 11.955 0 003 12c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg></div>
+    <div class="sec-divider-text"><h2>Brand Positioning</h2><span>Attribute benchmarking · competitive positioning map · top competitor rankings</span></div>
+  </div>
+  <div class="grid3">
+    <div class="card">
+      <div class="card-title">Brand Attribute Comparison</div>
+      <div class="card-sub">vs. all competitors · ● present &nbsp; ◑ partial &nbsp; ○ absent</div>
+      <table class="comp-attr-table">
+        <thead><tr><th>Attribute</th><th>Pure H.</th><th>Bustanica</th><th>Badia</th><th>Madar</th><th>E.Hydro.</th></tr></thead>
+        <tbody>
+          <tr><td>CEA / greenhouse tech</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td></tr>
+          <tr><td>UAE local origin</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td></tr>
+          <tr><td>Supermarket retail</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot mid">◑</td><td class="dot mid">◑</td><td class="dot gold">●</td></tr>
+          <tr><td>HoReCa / fine dining</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot mid">◑</td><td class="dot mid">◑</td></tr>
+          <tr><td>Pesticide-free</td><td class="dot mid">◑</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot mid">◑</td></tr>
+          <tr><td>D2C / e-commerce</td><td class="dot mid">◑</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot mid">◑</td><td class="dot mid">◑</td></tr>
+          <tr><td>GCC regional expansion</td><td class="dot gold">●</td><td class="dot dim">○</td><td class="dot mid">◑</td><td class="dot dim">○</td><td class="dot dim">○</td></tr>
+          <tr><td>Sustainability / ESG</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot mid">◑</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <div class="card-title">Positioning Map</div>
+      <div class="card-sub">Distribution breadth vs. price premium index · bubble = revenue</div>
+      <div class="chart-wrap" style="height:280px"><canvas id="ch-hp-pure-harvest-bubble"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Top Competitors by Revenue</div>
+      <div class="card-sub">UAE Hydroponic Produce · 2025 estimate</div>
+      <div class="comp-top-list">
+        <div class="comp-top-item comp-top-active"><span class="comp-rank gold">1</span><div><strong>Pure Harvest ←</strong><div class="comp-top-sub">UAE · Premium greenhouse · AED 200–250M</div></div></div>
+        <div class="comp-top-item"><span class="comp-rank">2</span><div><strong>Bustanica</strong><div class="comp-top-sub">UAE · Vertical farm · AED 80–90M</div></div></div>
+        <div class="comp-top-item"><span class="comp-rank">3</span><div><strong>Badia Farms</strong><div class="comp-top-sub">UAE · Microgreens pioneer · AED 10–15M</div></div></div>
+        <div class="comp-top-item"><span class="comp-rank">4</span><div><strong>Madar Farms</strong><div class="comp-top-sub">UAE · ADIO-backed · AED 12–18M</div></div></div>
+        <div class="comp-top-item"><span class="comp-rank">5</span><div><strong>Emirates Hydroponics</strong><div class="comp-top-sub">UAE · Pioneer (2005) · AED 2–4M</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SECTION 4: Marketing & Promotion ── -->
+  <div class="sec-divider">
+    <div class="sec-divider-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.34 15.84c-.688-.06-1.386-.09-2.09-.09H7.5a4.5 4.5 0 110-9h.75c.704 0 1.402-.03 2.09-.09m0 9.18c.253.962.584 1.892.985 2.783.247.55.06 1.21-.463 1.511l-.657.38c-.551.318-1.26.117-1.527-.461a20.845 20.845 0 01-1.44-4.282m3.102.069a18.03 18.03 0 01-.59-4.59c0-1.586.205-3.124.59-4.59m0 9.18a23.848 23.848 0 018.835 2.535M10.34 6.66a23.847 23.847 0 008.835-2.535m0 0A23.74 23.74 0 0018.795 3m.38 1.125a23.91 23.91 0 011.014 5.395m-1.014 8.855c-.118.38-.245.754-.38 1.125m.38-1.125a23.91 23.91 0 001.014-5.395m0-3.46c.495.413.811 1.035.811 1.73 0 .695-.316 1.317-.811 1.73m0-3.46a24.347 24.347 0 010 3.46"/></svg></div>
+    <div class="sec-divider-text"><h2>Marketing &amp; Promotion</h2><span>Social channels · content strategy · brand awareness · engagement metrics</span></div>
+  </div>
+  <div class="grid3">
+    <div class="card">
+      <div class="card-title">🌐 Website &amp; D2C</div>
+      <div class="card-sub">Brand hub · 152+ store locations</div>
+      <div class="comp-mkt-stat">152+ retail locations listed</div>
+      <p style="font-size:11px;color:var(--text-muted);line-height:1.6">pureharvestfarms.com serves as the primary brand hub with store locator, farm stories, and product catalogue. Available via Noon and Careem.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">💼 LinkedIn</div>
+      <div class="card-sub">B2B &amp; investor channel</div>
+      <div class="comp-mkt-stat">~37,000 followers</div>
+      <p style="font-size:11px;color:var(--text-muted);line-height:1.6">LinkedIn is Pure Harvest's strongest professional channel, used for investor relations, sustainability storytelling, and B2B HoReCa outreach.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">📷 Instagram</div>
+      <div class="card-sub">Consumer &amp; brand awareness</div>
+      <div class="comp-mkt-stat">13K followers · 646 posts</div>
+      <p style="font-size:11px;color:var(--text-muted);line-height:1.6">@pureharvestsmartfarms — product beauty shots, farm-to-fork stories, recipe inspiration. Moderate posting frequency.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">🤝 Retail Partnerships</div>
+      <div class="card-sub">8+ supermarket chains across UAE</div>
+      <div class="comp-mkt-stat">Carrefour · Spinneys · LuLu · Kibsons · Waitrose</div>
+      <p style="font-size:11px;color:var(--text-muted);line-height:1.6">Products in 152+ store locations across UAE, KSA (Tamimi, Panda, Danube, Spinneys), Kuwait. Jumeirah Group is flagship HoReCa partner.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">🏆 Awards &amp; PR</div>
+      <div class="card-sub">Gulfood · Abu Dhabi Sustainability Week</div>
+      <div class="comp-mkt-stat">Product of the Year 2023 — first CEA winner</div>
+      <p style="font-size:11px;color:var(--text-muted);line-height:1.6">Gulf's Product of the Year 2023, first CEA company from the Middle East to win. Regular Gulfood speaker and ADSW participant.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">🌍 GCC + Global Expansion</div>
+      <div class="card-sub">Saudi Arabia · Kuwait · Morocco · Singapore</div>
+      <div class="comp-mkt-stat">IPO target: UAE exchange 2027–2028</div>
+      <p style="font-size:11px;color:var(--text-muted);line-height:1.6">Operational in UAE, KSA, and Kuwait. Seeking $100M+ for Morocco and Singapore. Saudi operations being spun off as independent entity.</p>
+    </div>
+  </div>
+
+  <div class="footnote">Competitor profile — Pure Harvest Smart Farms · UAE Hydroponic Produce Market · pureharvestfarms.com, Spinneys UAE, Carrefour UAE, Zawya, AGBI, AgFunder News · 2025-05</div>
+  </div><!-- /comp-hydroponic-produce-pf-pure-harvest -->
+
+  <!-- ── Bustanica profile ── -->
+  <div id="comp-hydroponic-produce-pf-bustanica" style="display:none">
+
+  <div class="page-header">
+    <div>
+      <h1>Bustanica</h1>
+      <div class="page-header-sub">Competitor Profile · UAE Hydroponic Produce Market · Established 2022 · Dubai South</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+      <button class="comp-stab" onclick="openCoSelector('hydroponic-produce')">← All Competitors</button>
+      <button class="comp-stab active">Bustanica</button>
+      <div style="width:1px;height:20px;background:var(--border);margin:0 4px"></div>
+      <button class="comp-action-btn">↑ Export</button>
+    </div>
+  </div>
+
+  <!-- KPI row -->
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="kpi-lbl">Revenue 2025E</div>
+      <div class="kpi-val">AED 80–90M</div>
+      <div class="kpi-sub">~$22–24M · est. · Emirates Flight Catering</div>
+    </div>
+    <div class="kpi teal">
+      <div class="kpi-lbl">Annual Production</div>
+      <div class="kpi-val">1M+ kg/yr</div>
+      <div class="kpi-sub">Leafy greens · world's largest vertical farm</div>
+    </div>
+    <div class="kpi amber">
+      <div class="kpi-lbl">Avg Price Premium</div>
+      <div class="kpi-val">+70–110%</div>
+      <div class="kpi-sub">vs. conventional imported salad leaves UAE retail</div>
+    </div>
+    <div class="kpi coral">
+      <div class="kpi-lbl">Emirates Supply</div>
+      <div class="kpi-val">215K meals/day</div>
+      <div class="kpi-sub">Airline catering anchor · hotels · 11+ retail chains</div>
+    </div>
+  </div>
+
+  <!-- SECTION 1 -->
+  <div class="sec-divider">
+    <div class="sec-divider-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"/></svg></div>
+    <div class="sec-divider-text"><h2>Company Background</h2><span>Corporate overview · financials · channel mix · Bustanica · 2025</span></div>
+  </div>
+  <div class="grid2">
+    <div class="card">
+      <div class="card-title">Company Profile</div>
+      <div class="card-sub">Founded 2022 · Dubai South, UAE · Emirates Flight Catering subsidiary</div>
+      <table class="comp-info-table">
+        <tr><td>Headquarters</td><td>Dubai South (Dubai World Central), UAE</td></tr>
+        <tr><td>Founded</td><td>July 2022 (fully acquired by Emirates Flight Catering, Feb 2024)</td></tr>
+        <tr><td>Facility Size</td><td>330,000 sq ft (≈30,660 sq m) vertical farm, 3 floors</td></tr>
+        <tr><td>Est. Revenue</td><td>AED 80–90M (~$22–24M) · 2025E</td></tr>
+        <tr><td>Ownership</td><td>100% Emirates Flight Catering (Emirates Group)</td></tr>
+        <tr><td>Annual Capacity</td><td>1M+ kg/year leafy greens · 3 tonnes/day</td></tr>
+        <tr><td>Avg Unit Price</td><td>AED 9.95–15.50/pack (100–150g retail packs)</td></tr>
+        <tr><td>Key Channels</td><td>Emirates Airline, UAE Hotels/HoReCa, Retail Supermarkets, Online/D2C</td></tr>
+      </table>
+      <p class="comp-about-text">Bustanica operates the world's largest indoor vertical farm, a 330,000 sq ft facility in Dubai South, producing over 1 million kg of pesticide-free leafy greens annually. Originally a joint venture between Emirates Flight Catering and Crop One Holdings, fully acquired by Emirates Flight Catering in February 2024. Products include romaine, spring mix, kale, spinach, arugula, and edible flowers, supplied to Emirates airline, major UAE hotel groups, and 11+ retail chains. Won Best Innovation Award at Gulfood 2025 and was a COP28 featured exhibit.</p>
+      <div class="comp-tags-row">
+        <span class="comp-tag comp-tag-gold">World's Largest Vertical Farm</span>
+        <span class="comp-tag comp-tag-gold">Emirates Flight Catering</span>
+        <span class="comp-tag">Leafy Greens</span>
+        <span class="comp-tag comp-tag-teal">Zero Pesticides</span>
+        <span class="comp-tag comp-tag-teal">95% Less Water</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Revenue &amp; Sales Channel Mix</div>
+      <div class="card-sub">2025 estimated · AED million · all channels</div>
+      <div class="comp-fin-label">Revenue 2025E vs. category leader</div>
+      <div class="comp-fin-value">AED 80–90M</div>
+      <div class="comp-fin-bar-track"><div class="comp-fin-bar-fill" style="width:38%"></div></div>
+      <div class="comp-fin-sub">vs. AED 200–250M Pure Harvest (category leader) · gap = 62%</div>
+      <div class="comp-fin-label" style="margin-top:4px">Status of Sales — channel split</div>
+      <div class="chart-wrap" style="height:220px"><canvas id="ch-hp-bustanica-donut"></canvas></div>
+    </div>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="sec-divider">
+    <div class="sec-divider-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"/></svg></div>
+    <div class="sec-divider-text"><h2>Products &amp; Packaging</h2><span>SKU range · pricing tiers · packaging formats · product gallery</span></div>
+  </div>
+  <div class="grid2">
+    <div class="card">
+      <div class="card-title">Products &amp; Packages</div>
+      <div class="card-sub">SKU count · retail and trade pricing · price premium vs. category average</div>
+      <div style="overflow-x:auto">
+        <table class="comp-prod-table">
+          <thead><tr><th>Product</th><th>SKUs</th><th class="r">Retail (AED)</th><th class="r">Trade (AED)</th><th class="r">Premium</th><th>Tier</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Crunchy Romaine</strong><div class="comp-prod-sub">100g retail packs</div></td><td>2</td><td class="r">10.50–16.75</td><td class="r">5–8</td><td class="comp-premium-high">+90–110%</td><td><span class="comp-prod-tag comp-tag-gold">Premium</span></td></tr>
+            <tr><td><strong>Spring Mix</strong><div class="comp-prod-sub">100g retail packs</div></td><td>2</td><td class="r">9.95–12.00</td><td class="r">5–7</td><td class="comp-premium-high">+80–100%</td><td><span class="comp-prod-tag comp-tag-gold">Premium</span></td></tr>
+            <tr><td><strong>Power Blend</strong><div class="comp-prod-sub">100g retail packs</div></td><td>2</td><td class="r">9.95–12.00</td><td class="r">5–7</td><td class="comp-premium-high">+75–90%</td><td><span class="comp-prod-tag comp-tag-teal">Specialty</span></td></tr>
+            <tr><td><strong>Healthy Kale</strong><div class="comp-prod-sub">150g retail packs</div></td><td>2</td><td class="r">12.75–15.00</td><td class="r">6–8</td><td class="comp-premium-high">+80–100%</td><td><span class="comp-prod-tag comp-tag-teal">Specialty</span></td></tr>
+            <tr><td><strong>Spinach</strong><div class="comp-prod-sub">150g retail packs</div></td><td>2</td><td class="r">15.50</td><td class="r">7–9</td><td class="comp-premium-high">+70–90%</td><td><span class="comp-prod-tag">Standard</span></td></tr>
+            <tr><td><strong>Edible Flowers</strong><div class="comp-prod-sub">HoReCa / B2B only · House of Pops collab</div></td><td>1</td><td class="r">N/A</td><td class="r">15–25</td><td class="comp-premium-high">+200%+</td><td><span class="comp-prod-tag comp-tag-teal">Specialty</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Product Gallery</div>
+      <div class="card-sub">Illustrative · 6 product categories</div>
+      <div class="comp-prod-images">
+        <div class="comp-img-ph" style="background:linear-gradient(135deg,#0A2A0A,#1A4A1A)">🥬<span>Crunchy Romaine</span></div>
+        <div class="comp-img-ph" style="background:linear-gradient(135deg,#0A2A10,#1A4A20)">🌿<span>Spring Mix</span></div>
+        <div class="comp-img-ph" style="background:linear-gradient(135deg,#1A2A0A,#2E4A1A)">🫙<span>Power Blend</span></div>
+        <div class="comp-img-ph" style="background:linear-gradient(135deg,#0A1A0A,#1A3A1A)">🥗<span>Spinach / Kale</span></div>
+        <div class="comp-img-ph" style="background:linear-gradient(135deg,#102A10,#1E4A1E)">🌱<span>Power Blend</span></div>
+        <div class="comp-img-ph" style="background:linear-gradient(135deg,#1A1F2B,#2E3A4A)">✈️<span>Airline Supply</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3 -->
+  <div class="sec-divider">
+    <div class="sec-divider-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.955 11.955 0 003 12c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg></div>
+    <div class="sec-divider-text"><h2>Brand Positioning</h2><span>Attribute benchmarking · competitive positioning map · top competitor rankings</span></div>
+  </div>
+  <div class="grid3">
+    <div class="card">
+      <div class="card-title">Brand Attribute Comparison</div>
+      <div class="card-sub">vs. all competitors · ● present &nbsp; ◑ partial &nbsp; ○ absent</div>
+      <table class="comp-attr-table">
+        <thead><tr><th>Attribute</th><th>Pure H.</th><th>Bustanica</th><th>Badia</th><th>Madar</th><th>E.Hydro.</th></tr></thead>
+        <tbody>
+          <tr><td>CEA / greenhouse tech</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td></tr>
+          <tr><td>UAE local origin</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td></tr>
+          <tr><td>Supermarket retail</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot mid">◑</td><td class="dot mid">◑</td><td class="dot gold">●</td></tr>
+          <tr><td>HoReCa / fine dining</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot mid">◑</td><td class="dot mid">◑</td></tr>
+          <tr><td>Pesticide-free</td><td class="dot mid">◑</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot mid">◑</td></tr>
+          <tr><td>D2C / e-commerce</td><td class="dot mid">◑</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot mid">◑</td><td class="dot mid">◑</td></tr>
+          <tr><td>GCC regional expansion</td><td class="dot gold">●</td><td class="dot dim">○</td><td class="dot mid">◑</td><td class="dot dim">○</td><td class="dot dim">○</td></tr>
+          <tr><td>Sustainability / ESG</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot mid">◑</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <div class="card-title">Positioning Map</div>
+      <div class="card-sub">Distribution breadth vs. price premium index · bubble = revenue</div>
+      <div class="chart-wrap" style="height:280px"><canvas id="ch-hp-bustanica-bubble"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Top Competitors by Revenue</div>
+      <div class="card-sub">UAE Hydroponic Produce · 2025 estimate</div>
+      <div class="comp-top-list">
+        <div class="comp-top-item"><span class="comp-rank gold">1</span><div><strong>Pure Harvest</strong><div class="comp-top-sub">UAE · Premium greenhouse · AED 200–250M</div></div></div>
+        <div class="comp-top-item comp-top-active"><span class="comp-rank gold">2</span><div><strong>Bustanica ←</strong><div class="comp-top-sub">UAE · Vertical farm · AED 80–90M</div></div></div>
+        <div class="comp-top-item"><span class="comp-rank">3</span><div><strong>Badia Farms</strong><div class="comp-top-sub">UAE · Microgreens pioneer · AED 10–15M</div></div></div>
+        <div class="comp-top-item"><span class="comp-rank">4</span><div><strong>Madar Farms</strong><div class="comp-top-sub">UAE · ADIO-backed · AED 12–18M</div></div></div>
+        <div class="comp-top-item"><span class="comp-rank">5</span><div><strong>Emirates Hydroponics</strong><div class="comp-top-sub">UAE · Pioneer (2005) · AED 2–4M</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4 -->
+  <div class="sec-divider">
+    <div class="sec-divider-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.34 15.84c-.688-.06-1.386-.09-2.09-.09H7.5a4.5 4.5 0 110-9h.75c.704 0 1.402-.03 2.09-.09m0 9.18c.253.962.584 1.892.985 2.783.247.55.06 1.21-.463 1.511l-.657.38c-.551.318-1.26.117-1.527-.461a20.845 20.845 0 01-1.44-4.282m3.102.069a18.03 18.03 0 01-.59-4.59c0-1.586.205-3.124.59-4.59m0 9.18a23.848 23.848 0 018.835 2.535M10.34 6.66a23.847 23.847 0 008.835-2.535m0 0A23.74 23.74 0 0018.795 3m.38 1.125a23.91 23.91 0 011.014 5.395m-1.014 8.855c-.118.38-.245.754-.38 1.125m.38-1.125a23.91 23.91 0 001.014-5.395m0-3.46c.495.413.811 1.035.811 1.73 0 .695-.316 1.317-.811 1.73m0-3.46a24.347 24.347 0 010 3.46"/></svg></div>
+    <div class="sec-divider-text"><h2>Marketing &amp; Promotion</h2><span>Social channels · content strategy · brand awareness · engagement metrics</span></div>
+  </div>
+  <div class="grid3">
+    <div class="card">
+      <div class="card-title">✈️ Emirates Partnership</div>
+      <div class="card-sub">Airline catering anchor</div>
+      <div class="comp-mkt-stat">215,000 meals/day catered</div>
+      <p style="font-size:11px;color:var(--text-muted);line-height:1.6">Captive produce supplier to Emirates Flight Catering. Produce harvested daily, delivered &lt;10km from farm to flight kitchen. Structural volume advantage no competitor can replicate.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">🏪 Retail Distribution</div>
+      <div class="card-sub">11+ UAE chains</div>
+      <div class="comp-mkt-stat">Spinneys · Carrefour · Waitrose · Géant · Choithrams · Union Coop · Grandiose</div>
+      <p style="font-size:11px;color:var(--text-muted);line-height:1.6">Retail packs (100–150g) stocked across all major UAE supermarket chains. Prices AED 9.95–15.50/pack.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">💼 LinkedIn</div>
+      <div class="card-sub">B2B &amp; brand awareness</div>
+      <div class="comp-mkt-stat">15,181 followers</div>
+      <p style="font-size:11px;color:var(--text-muted);line-height:1.6">Used for B2B outreach, sustainability storytelling, and partnership announcements. Key investor and media channel.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">📷 Instagram</div>
+      <div class="card-sub">Consumer engagement</div>
+      <div class="comp-mkt-stat">~4,833 followers · 193 posts</div>
+      <p style="font-size:11px;color:var(--text-muted);line-height:1.6">@bustanica.ae positions the brand as premium, UAE-grown, healthy lifestyle. Growing consumer following.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">🌍 Sustainability Story</div>
+      <div class="card-sub">95% less water · zero pesticides</div>
+      <div class="comp-mkt-stat">250M litres water saved annually</div>
+      <p style="font-size:11px;color:var(--text-muted);line-height:1.6">COP28 featured exhibit. AI-driven climate control, closed-loop irrigation, LED grow lighting.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">🏆 Awards &amp; Innovation</div>
+      <div class="card-sub">Gulfood Innovation · COP28</div>
+      <div class="comp-mkt-stat">Best Innovation Award · Gulfood 2025</div>
+      <p style="font-size:11px;color:var(--text-muted);line-height:1.6">Won Best Innovation Award Gulfood 2025 for edible flowers collaboration with House of Pops. COP28 official exhibitor.</p>
+    </div>
+  </div>
+
+  <div class="footnote">Competitor profile — Bustanica · UAE Hydroponic Produce Market · Bustanica.ae, Emirates Group Press Releases, Carrefour UAE, Union Coop, Spinneys UAE, Zawya · 2025-05</div>
+  </div><!-- /comp-hydroponic-produce-pf-bustanica -->
+
+  <!-- ── Badia Farms profile ── -->
+  <div id="comp-hydroponic-produce-pf-badia-farms" style="display:none">
+
+  <div class="page-header">
+    <div>
+      <h1>Badia Farms</h1>
+      <div class="page-header-sub">Competitor Profile · UAE Hydroponic Produce Market · Established 2016 · Al Quoz, Dubai</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+      <button class="comp-stab" onclick="openCoSelector('hydroponic-produce')">← All Competitors</button>
+      <button class="comp-stab active">Badia Farms</button>
+      <div style="width:1px;height:20px;background:var(--border);margin:0 4px"></div>
+      <button class="comp-action-btn">↑ Export</button>
+    </div>
+  </div>
+
+  <!-- KPI row -->
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="kpi-lbl">Revenue 2025E</div>
+      <div class="kpi-val">AED 10–15M</div>
+      <div class="kpi-sub">~$2.7–4M · est. · private, founder-led</div>
+    </div>
+    <div class="kpi teal">
+      <div class="kpi-lbl">Microgreen Varieties</div>
+      <div class="kpi-val">30+</div>
+      <div class="kpi-sub">Widest microgreen range in UAE · MENA's first vertical farm</div>
+    </div>
+    <div class="kpi amber">
+      <div class="kpi-lbl">Avg Price Premium</div>
+      <div class="kpi-val">+150–250%</div>
+      <div class="kpi-sub">vs. conventional produce UAE retail · ultra-premium positioning</div>
+    </div>
+    <div class="kpi coral">
+      <div class="kpi-lbl">HoReCa Share</div>
+      <div class="kpi-val">~75%</div>
+      <div class="kpi-sub">Atlantis · Jumeirah · Nobu · Zuma · Burj Al Arab</div>
+    </div>
+  </div>
+
+  <!-- SECTION 1 -->
+  <div class="sec-divider">
+    <div class="sec-divider-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"/></svg></div>
+    <div class="sec-divider-text"><h2>Company Background</h2><span>Corporate overview · financials · channel mix · Badia Farms · 2025</span></div>
+  </div>
+  <div class="grid2">
+    <div class="card">
+      <div class="card-title">Company Profile</div>
+      <div class="card-sub">Founded 2016 · Al Quoz, Dubai, UAE · Private, founder-led</div>
+      <table class="comp-info-table">
+        <tr><td>Headquarters</td><td>Al Quoz, Dubai, UAE</td></tr>
+        <tr><td>Founded</td><td>2016 · Omar Al Jundi (founder &amp; CEO)</td></tr>
+        <tr><td>Facility</td><td>Indoor vertical farm · Al Quoz industrial district, Dubai</td></tr>
+        <tr><td>Est. Revenue</td><td>AED 10–15M (~$2.7–4M) · 2025E</td></tr>
+        <tr><td>Ownership</td><td>Private · founder-led · no disclosed external investors</td></tr>
+        <tr><td>SKU Range</td><td>30+ microgreen varieties + herbs + edible flowers</td></tr>
+        <tr><td>Avg Unit Price</td><td>AED 12–45/punnet (50–150g retail packs)</td></tr>
+        <tr><td>Key Channels</td><td>Fine dining HoReCa, Spinneys retail, Online D2C, direct hotel delivery</td></tr>
+      </table>
+      <p class="comp-about-text">Badia Farms, founded in 2016 by Omar Al Jundi, is MENA's first dedicated vertical farm and the UAE's microgreens pioneer. Operating from an indoor facility in Al Quoz, Dubai, the farm grows over 30 varieties of microgreens, baby greens, edible flowers, living herbs, and specialty shoots. Its client base reads as a who's who of UAE fine dining — Atlantis The Palm, Jumeirah Group, Nobu Dubai, Zuma, and Burj Al Arab. Featured by BBC, CNN, and Bloomberg as a sustainability success story, Badia commands ultra-premium pricing justified by same-day harvest-to-kitchen freshness.</p>
+      <div class="comp-tags-row">
+        <span class="comp-tag comp-tag-gold">MENA's First Vertical Farm</span>
+        <span class="comp-tag comp-tag-gold">Microgreens Pioneer</span>
+        <span class="comp-tag">Fine Dining Specialist</span>
+        <span class="comp-tag comp-tag-teal">Zero Pesticides</span>
+        <span class="comp-tag comp-tag-teal">Same-Day Harvest</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Revenue &amp; Sales Channel Mix</div>
+      <div class="card-sub">2025 estimated · AED million · all channels</div>
+      <div class="comp-fin-label">Revenue 2025E vs. category leader</div>
+      <div class="comp-fin-value">AED 10–15M</div>
+      <div class="comp-fin-bar-track"><div class="comp-fin-bar-fill" style="width:6%"></div></div>
+      <div class="comp-fin-sub">vs. AED 200–250M Pure Harvest (category leader) · niche specialist positioning</div>
+      <div class="comp-fin-label" style="margin-top:4px">Status of Sales — channel split</div>
+      <div class="chart-wrap" style="height:220px"><canvas id="ch-hp-badia-farms-donut"></canvas></div>
+    </div>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="sec-divider">
+    <div class="sec-divider-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"/></svg></div>
+    <div class="sec-divider-text"><h2>Products &amp; Packaging</h2><span>SKU range · pricing tiers · packaging formats · product gallery</span></div>
+  </div>
+  <div class="grid2">
+    <div class="card">
+      <div class="card-title">Products &amp; Packages</div>
+      <div class="card-sub">SKU count · retail and trade pricing · price premium vs. category average</div>
+      <div style="overflow-x:auto">
+        <table class="comp-prod-table">
+          <thead><tr><th>Product</th><th>SKUs</th><th class="r">Retail (AED)</th><th class="r">Trade (AED)</th><th class="r">Premium</th><th>Tier</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Microgreens — Core Range</strong><div class="comp-prod-sub">Sunflower · pea shoots · radish · broccoli · 50g punnets</div></td><td>12</td><td class="r">20–35</td><td class="r">12–20</td><td class="comp-premium-high">+180–250%</td><td><span class="comp-prod-tag comp-tag-gold">Ultra Premium</span></td></tr>
+            <tr><td><strong>Microgreens — Specialty</strong><div class="comp-prod-sub">Amaranth · popcorn shoots · nasturtium · 50g punnets</div></td><td>10</td><td class="r">25–45</td><td class="r">15–25</td><td class="comp-premium-high">+200–250%</td><td><span class="comp-prod-tag comp-tag-gold">Ultra Premium</span></td></tr>
+            <tr><td><strong>Baby Salad Greens</strong><div class="comp-prod-sub">100g retail bags · arugula, spinach, mixed</div></td><td>4</td><td class="r">15–22</td><td class="r">8–12</td><td class="comp-premium-high">+150–200%</td><td><span class="comp-prod-tag comp-tag-teal">Specialty</span></td></tr>
+            <tr><td><strong>Living Herbs</strong><div class="comp-prod-sub">Potted basil · mint · coriander · thyme</div></td><td>6</td><td class="r">12–18</td><td class="r">6–10</td><td class="comp-premium-high">+120–180%</td><td><span class="comp-prod-tag comp-tag-teal">Specialty</span></td></tr>
+            <tr><td><strong>Edible Flowers</strong><div class="comp-prod-sub">HoReCa / B2B · pansies, violas, marigold</div></td><td>5</td><td class="r">N/A</td><td class="r">25–60</td><td class="comp-premium-high">+300%+</td><td><span class="comp-prod-tag comp-tag-gold">Ultra Premium</span></td></tr>
+            <tr><td><strong>Custom Chef Packs</strong><div class="comp-prod-sub">Bespoke HoReCa blends · made to order</div></td><td>3</td><td class="r">N/A</td><td class="r">30–80</td><td class="comp-premium-high">+300%+</td><td><span class="comp-prod-tag comp-tag-gold">Ultra Premium</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Product Gallery</div>
+      <div class="card-sub">Illustrative · 6 product categories</div>
+      <div class="comp-prod-images">
+        <div class="comp-img-ph" style="background:linear-gradient(135deg,#1A2A0A,#2E4A10)">🌱<span>Core Microgreens</span></div>
+        <div class="comp-img-ph" style="background:linear-gradient(135deg,#2A1A0A,#4A2E10)">🌻<span>Sunflower Shoots</span></div>
+        <div class="comp-img-ph" style="background:linear-gradient(135deg,#0A1A2A,#104A3A)">🥗<span>Baby Salad Greens</span></div>
+        <div class="comp-img-ph" style="background:linear-gradient(135deg,#1A0A0A,#3A1A10)">🌸<span>Edible Flowers</span></div>
+        <div class="comp-img-ph" style="background:linear-gradient(135deg,#0A2A1A,#1A4A2E)">🌿<span>Living Herbs</span></div>
+        <div class="comp-img-ph" style="background:linear-gradient(135deg,#1A1A2A,#2E2E4A)">👨‍🍳<span>Custom Chef Packs</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3 -->
+  <div class="sec-divider">
+    <div class="sec-divider-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.955 11.955 0 003 12c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg></div>
+    <div class="sec-divider-text"><h2>Brand Positioning</h2><span>Attribute benchmarking · competitive positioning map · top competitor rankings</span></div>
+  </div>
+  <div class="grid3">
+    <div class="card">
+      <div class="card-title">Brand Attribute Comparison</div>
+      <div class="card-sub">vs. all competitors · ● present &nbsp; ◑ partial &nbsp; ○ absent</div>
+      <table class="comp-attr-table">
+        <thead><tr><th>Attribute</th><th>Pure H.</th><th>Bustanica</th><th>Badia</th><th>Madar</th><th>E.Hydro.</th></tr></thead>
+        <tbody>
+          <tr><td>CEA / greenhouse tech</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td></tr>
+          <tr><td>UAE local origin</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td></tr>
+          <tr><td>Supermarket retail</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot mid">◑</td><td class="dot mid">◑</td><td class="dot gold">●</td></tr>
+          <tr><td>HoReCa / fine dining</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot mid">◑</td><td class="dot mid">◑</td></tr>
+          <tr><td>Pesticide-free</td><td class="dot mid">◑</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot mid">◑</td></tr>
+          <tr><td>D2C / e-commerce</td><td class="dot mid">◑</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot mid">◑</td><td class="dot mid">◑</td></tr>
+          <tr><td>GCC regional expansion</td><td class="dot gold">●</td><td class="dot dim">○</td><td class="dot mid">◑</td><td class="dot dim">○</td><td class="dot dim">○</td></tr>
+          <tr><td>Sustainability / ESG</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot mid">◑</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <div class="card-title">Positioning Map</div>
+      <div class="card-sub">Distribution breadth vs. price premium index · bubble = revenue</div>
+      <div class="chart-wrap" style="height:280px"><canvas id="ch-hp-badia-farms-bubble"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Top Competitors by Revenue</div>
+      <div class="card-sub">UAE Hydroponic Produce · 2025 estimate</div>
+      <div class="comp-top-list">
+        <div class="comp-top-item"><span class="comp-rank gold">1</span><div><strong>Pure Harvest</strong><div class="comp-top-sub">UAE · Premium greenhouse · AED 200–250M</div></div></div>
+        <div class="comp-top-item"><span class="comp-rank gold">2</span><div><strong>Bustanica</strong><div class="comp-top-sub">UAE · Vertical farm · AED 80–90M</div></div></div>
+        <div class="comp-top-item comp-top-active"><span class="comp-rank gold">3</span><div><strong>Badia Farms ←</strong><div class="comp-top-sub">UAE · Microgreens pioneer · AED 10–15M</div></div></div>
+        <div class="comp-top-item"><span class="comp-rank">4</span><div><strong>Madar Farms</strong><div class="comp-top-sub">UAE · ADIO-backed · AED 12–18M</div></div></div>
+        <div class="comp-top-item"><span class="comp-rank">5</span><div><strong>Emirates Hydroponics</strong><div class="comp-top-sub">UAE · Pioneer (2005) · AED 2–4M</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4 -->
+  <div class="sec-divider">
+    <div class="sec-divider-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.34 15.84c-.688-.06-1.386-.09-2.09-.09H7.5a4.5 4.5 0 110-9h.75c.704 0 1.402-.03 2.09-.09m0 9.18c.253.962.584 1.892.985 2.783.247.55.06 1.21-.463 1.511l-.657.38c-.551.318-1.26.117-1.527-.461a20.845 20.845 0 01-1.44-4.282m3.102.069a18.03 18.03 0 01-.59-4.59c0-1.586.205-3.124.59-4.59m0 9.18a23.848 23.848 0 018.835 2.535M10.34 6.66a23.847 23.847 0 008.835-2.535m0 0A23.74 23.74 0 0018.795 3m.38 1.125a23.91 23.91 0 011.014 5.395m-1.014 8.855c-.118.38-.245.754-.38 1.125m.38-1.125a23.91 23.91 0 001.014-5.395m0-3.46c.495.413.811 1.035.811 1.73 0 .695-.316 1.317-.811 1.73m0-3.46a24.347 24.347 0 010 3.46"/></svg></div>
+    <div class="sec-divider-text"><h2>Marketing &amp; Promotion</h2><span>Social channels · content strategy · brand awareness · engagement metrics</span></div>
+  </div>
+  <div class="grid3">
+    <div class="card">
+      <div class="card-title">👨‍🍳 Fine Dining Clients</div>
+      <div class="card-sub">UAE's top hotel &amp; restaurant accounts</div>
+      <div class="comp-mkt-stat">Atlantis · Jumeirah · Nobu · Zuma · Burj Al Arab</div>
+      <p style="font-size:11px;color:var(--text-muted);line-height:1.6">Supplies UAE's most prestigious hotel groups and Michelin-calibre restaurants with bespoke microgreens and edible flowers. Same-day harvest-to-kitchen model is the key differentiator.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">🛒 Retail Presence</div>
+      <div class="card-sub">Selective distribution</div>
+      <div class="comp-mkt-stat">Spinneys UAE · direct D2C website</div>
+      <p style="font-size:11px;color:var(--text-muted);line-height:1.6">Limited retail footprint by design — focused on maintaining ultra-premium positioning. Available at Spinneys UAE and via direct online orders. AED 12–45/punnet.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">📷 Instagram</div>
+      <div class="card-sub">Consumer &amp; chef engagement</div>
+      <div class="comp-mkt-stat">12,000+ followers</div>
+      <p style="font-size:11px;color:var(--text-muted);line-height:1.6">@badiafarms features chef collaborations, farm-to-table storytelling, and microgreen tutorials. Strong engagement among UAE food community and culinary professionals.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">📺 Media Coverage</div>
+      <div class="card-sub">Global &amp; regional press</div>
+      <div class="comp-mkt-stat">BBC · CNN · Bloomberg · Arabian Business</div>
+      <p style="font-size:11px;color:var(--text-muted);line-height:1.6">Consistently featured as a sustainability-led food innovation story. Media coverage drives brand credibility with premium hotel procurement and consumer awareness.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">🌍 Sustainability Story</div>
+      <div class="card-sub">Zero pesticides · minimal water</div>
+      <div class="comp-mkt-stat">90% less water vs. conventional farming</div>
+      <p style="font-size:11px;color:var(--text-muted);line-height:1.6">LED grow lighting, closed-loop water systems, zero chemical inputs. Sustainability narrative is central to premium pricing justification and media positioning.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">🏆 Awards &amp; Recognition</div>
+      <div class="card-sub">Gulfood · regional agri-tech</div>
+      <div class="comp-mkt-stat">Gulfood Innovation Award Nominee · SIAL ME exhibitor</div>
+      <p style="font-size:11px;color:var(--text-muted);line-height:1.6">Regular Gulfood and SIAL Middle East exhibitor. Recognised in regional agri-tech circles as MENA's microgreens pioneer. Founder Omar Al Jundi is a sought-after sustainability speaker.</p>
+    </div>
+  </div>
+
+  <div class="footnote">Competitor profile — Badia Farms · UAE Hydroponic Produce Market · badiafarms.com, Spinneys UAE, Arabian Business, Gulf News, Gulfood · 2025-05</div>
+  </div><!-- /comp-hydroponic-produce-pf-badia-farms -->
+
+  <!-- ── Madar Farms profile ── -->
+  <div id="comp-hydroponic-produce-pf-madar-farms" style="display:none">
+
+  <div class="page-header">
+    <div>
+      <h1>Madar Farms</h1>
+      <div class="page-header-sub">Competitor Profile · UAE Hydroponic Produce Market · Established 2017 · Abu Dhabi</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+      <button class="comp-stab" onclick="openCoSelector('hydroponic-produce')">← All Competitors</button>
+      <button class="comp-stab active">Madar Farms</button>
+      <div style="width:1px;height:20px;background:var(--border);margin:0 4px"></div>
+      <button class="comp-action-btn">↑ Export</button>
+    </div>
+  </div>
+
+  <!-- KPI row -->
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="kpi-lbl">Revenue 2025E</div>
+      <div class="kpi-val">AED 12–18M</div>
+      <div class="kpi-sub">~$3.3–4.9M · est. · ADIO / Ghadan 21 backed</div>
+    </div>
+    <div class="kpi teal">
+      <div class="kpi-lbl">SKU Range</div>
+      <div class="kpi-val">21+ SKUs</div>
+      <div class="kpi-sub">Leafy greens · herbs · tomatoes · strawberries</div>
+    </div>
+    <div class="kpi amber">
+      <div class="kpi-lbl">Avg Price Premium</div>
+      <div class="kpi-val">+80–130%</div>
+      <div class="kpi-sub">vs. conventional imported produce UAE retail</div>
+    </div>
+    <div class="kpi coral">
+      <div class="kpi-lbl">Team Size</div>
+      <div class="kpi-val">118 employees</div>
+      <div class="kpi-sub">Abu Dhabi HQ · greenhouse operations · agri-tech R&amp;D</div>
+    </div>
+  </div>
+
+  <!-- SECTION 1 -->
+  <div class="sec-divider">
+    <div class="sec-divider-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"/></svg></div>
+    <div class="sec-divider-text"><h2>Company Background</h2><span>Corporate overview · financials · channel mix · Madar Farms · 2025</span></div>
+  </div>
+  <div class="grid2">
+    <div class="card">
+      <div class="card-title">Company Profile</div>
+      <div class="card-sub">Founded 2017 · Abu Dhabi, UAE · Private, ADIO-backed via Ghadan 21</div>
+      <table class="comp-info-table">
+        <tr><td>Headquarters</td><td>Abu Dhabi, UAE</td></tr>
+        <tr><td>Founded</td><td>2017 · Ibrahim Al Zu'bi (co-founder)</td></tr>
+        <tr><td>Facility</td><td>Controlled-environment greenhouse · Abu Dhabi</td></tr>
+        <tr><td>Est. Revenue</td><td>AED 12–18M (~$3.3–4.9M) · 2025E</td></tr>
+        <tr><td>Ownership</td><td>Private · backed by ADIO (Abu Dhabi Investment Office) via Ghadan 21 programme</td></tr>
+        <tr><td>SKU Range</td><td>21+ SKUs across leafy greens, herbs, tomatoes, strawberries</td></tr>
+        <tr><td>Avg Unit Price</td><td>AED 8–22/pack (100–250g packs)</td></tr>
+        <tr><td>Key Channels</td><td>Retail supermarkets, HoReCa, online D2C, institutional / government</td></tr>
+      </table>
+      <p class="comp-about-text">Madar Farms, founded in 2017 and backed by the Abu Dhabi Investment Office (ADIO) under the Ghadan 21 initiative, operates controlled-environment greenhouses in Abu Dhabi producing leafy greens, culinary herbs, cherry tomatoes, and strawberries. With 118 employees and 21+ SKUs, Madar is among the more diversified UAE hydroponic producers, targeting both retail and institutional channels. Its government backing provides a stable capital base and preferential access to Abu Dhabi procurement, giving it a structural edge in the emirate's institutional food supply chain.</p>
+      <div class="comp-tags-row">
+        <span class="comp-tag comp-tag-gold">ADIO / Ghadan 21</span>
+        <span class="comp-tag comp-tag-gold">Abu Dhabi</span>
+        <span class="comp-tag">Leafy Greens + Herbs</span>
+        <span class="comp-tag comp-tag-teal">Pesticide-Free</span>
+        <span class="comp-tag">Tomatoes · Strawberries</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Revenue &amp; Sales Channel Mix</div>
+      <div class="card-sub">2025 estimated · AED million · all channels</div>
+      <div class="comp-fin-label">Revenue 2025E vs. category leader</div>
+      <div class="comp-fin-value">AED 12–18M</div>
+      <div class="comp-fin-bar-track"><div class="comp-fin-bar-fill" style="width:7%"></div></div>
+      <div class="comp-fin-sub">vs. AED 200–250M Pure Harvest (category leader) · growing institutional base</div>
+      <div class="comp-fin-label" style="margin-top:4px">Status of Sales — channel split</div>
+      <div class="chart-wrap" style="height:220px"><canvas id="ch-hp-madar-farms-donut"></canvas></div>
+    </div>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="sec-divider">
+    <div class="sec-divider-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"/></svg></div>
+    <div class="sec-divider-text"><h2>Products &amp; Packaging</h2><span>SKU range · pricing tiers · packaging formats · product gallery</span></div>
+  </div>
+  <div class="grid2">
+    <div class="card">
+      <div class="card-title">Products &amp; Packages</div>
+      <div class="card-sub">SKU count · retail and trade pricing · price premium vs. category average</div>
+      <div style="overflow-x:auto">
+        <table class="comp-prod-table">
+          <thead><tr><th>Product</th><th>SKUs</th><th class="r">Retail (AED)</th><th class="r">Trade (AED)</th><th class="r">Premium</th><th>Tier</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Leafy Greens</strong><div class="comp-prod-sub">Romaine · butter · mixed · 100–150g packs</div></td><td>5</td><td class="r">8.50–13.00</td><td class="r">4–7</td><td class="comp-premium-high">+80–120%</td><td><span class="comp-prod-tag comp-tag-gold">Premium</span></td></tr>
+            <tr><td><strong>Culinary Herbs</strong><div class="comp-prod-sub">Basil · mint · parsley · coriander · 50g packs</div></td><td>6</td><td class="r">6.00–10.00</td><td class="r">3–6</td><td class="comp-premium-high">+80–110%</td><td><span class="comp-prod-tag comp-tag-teal">Specialty</span></td></tr>
+            <tr><td><strong>Cherry Tomatoes</strong><div class="comp-prod-sub">250g retail punnets · red &amp; mixed</div></td><td>3</td><td class="r">10.00–16.00</td><td class="r">5–9</td><td class="comp-premium-high">+90–130%</td><td><span class="comp-prod-tag comp-tag-gold">Premium</span></td></tr>
+            <tr><td><strong>Strawberries</strong><div class="comp-prod-sub">Seasonal · 250g punnets · limited availability</div></td><td>2</td><td class="r">18.00–25.00</td><td class="r">10–15</td><td class="comp-premium-high">+120–160%</td><td><span class="comp-prod-tag comp-tag-gold">Ultra Premium</span></td></tr>
+            <tr><td><strong>Microgreens</strong><div class="comp-prod-sub">Selected varieties · 50g punnets</div></td><td>3</td><td class="r">15.00–22.00</td><td class="r">8–12</td><td class="comp-premium-high">+130–180%</td><td><span class="comp-prod-tag comp-tag-teal">Specialty</span></td></tr>
+            <tr><td><strong>Institutional Bulk</strong><div class="comp-prod-sub">Government / hospital / school supply · bulk trays</div></td><td>2</td><td class="r">N/A</td><td class="r">2–5/kg</td><td class="comp-premium-mid">+50–80%</td><td><span class="comp-prod-tag">Standard</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Product Gallery</div>
+      <div class="card-sub">Illustrative · 6 product categories</div>
+      <div class="comp-prod-images">
+        <div class="comp-img-ph" style="background:linear-gradient(135deg,#0A2A10,#1A4A20)">🥬<span>Leafy Greens</span></div>
+        <div class="comp-img-ph" style="background:linear-gradient(135deg,#1A2A0A,#2E4A1A)">🌿<span>Culinary Herbs</span></div>
+        <div class="comp-img-ph" style="background:linear-gradient(135deg,#2A0A0A,#4A1A1A)">🍅<span>Cherry Tomatoes</span></div>
+        <div class="comp-img-ph" style="background:linear-gradient(135deg,#2A0A10,#4A1A20)">🍓<span>Strawberries</span></div>
+        <div class="comp-img-ph" style="background:linear-gradient(135deg,#0A1A2A,#1A2E4A)">🌱<span>Microgreens</span></div>
+        <div class="comp-img-ph" style="background:linear-gradient(135deg,#1A1A1A,#2E2E2E)">🏛️<span>Institutional Bulk</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3 -->
+  <div class="sec-divider">
+    <div class="sec-divider-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.955 11.955 0 003 12c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg></div>
+    <div class="sec-divider-text"><h2>Brand Positioning</h2><span>Attribute benchmarking · competitive positioning map · top competitor rankings</span></div>
+  </div>
+  <div class="grid3">
+    <div class="card">
+      <div class="card-title">Brand Attribute Comparison</div>
+      <div class="card-sub">vs. all competitors · ● present &nbsp; ◑ partial &nbsp; ○ absent</div>
+      <table class="comp-attr-table">
+        <thead><tr><th>Attribute</th><th>Pure H.</th><th>Bustanica</th><th>Badia</th><th>Madar</th><th>E.Hydro.</th></tr></thead>
+        <tbody>
+          <tr><td>CEA / greenhouse tech</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td></tr>
+          <tr><td>UAE local origin</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td></tr>
+          <tr><td>Supermarket retail</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot mid">◑</td><td class="dot mid">◑</td><td class="dot gold">●</td></tr>
+          <tr><td>HoReCa / fine dining</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot mid">◑</td><td class="dot mid">◑</td></tr>
+          <tr><td>Pesticide-free</td><td class="dot mid">◑</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot mid">◑</td></tr>
+          <tr><td>D2C / e-commerce</td><td class="dot mid">◑</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot mid">◑</td><td class="dot mid">◑</td></tr>
+          <tr><td>GCC regional expansion</td><td class="dot gold">●</td><td class="dot dim">○</td><td class="dot mid">◑</td><td class="dot dim">○</td><td class="dot dim">○</td></tr>
+          <tr><td>Sustainability / ESG</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot mid">◑</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <div class="card-title">Positioning Map</div>
+      <div class="card-sub">Distribution breadth vs. price premium index · bubble = revenue</div>
+      <div class="chart-wrap" style="height:280px"><canvas id="ch-hp-madar-farms-bubble"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Top Competitors by Revenue</div>
+      <div class="card-sub">UAE Hydroponic Produce · 2025 estimate</div>
+      <div class="comp-top-list">
+        <div class="comp-top-item"><span class="comp-rank gold">1</span><div><strong>Pure Harvest</strong><div class="comp-top-sub">UAE · Premium greenhouse · AED 200–250M</div></div></div>
+        <div class="comp-top-item"><span class="comp-rank gold">2</span><div><strong>Bustanica</strong><div class="comp-top-sub">UAE · Vertical farm · AED 80–90M</div></div></div>
+        <div class="comp-top-item"><span class="comp-rank">3</span><div><strong>Badia Farms</strong><div class="comp-top-sub">UAE · Microgreens pioneer · AED 10–15M</div></div></div>
+        <div class="comp-top-item comp-top-active"><span class="comp-rank gold">4</span><div><strong>Madar Farms ←</strong><div class="comp-top-sub">UAE · ADIO-backed · AED 12–18M</div></div></div>
+        <div class="comp-top-item"><span class="comp-rank">5</span><div><strong>Emirates Hydroponics</strong><div class="comp-top-sub">UAE · Pioneer (2005) · AED 2–4M</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4 -->
+  <div class="sec-divider">
+    <div class="sec-divider-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.34 15.84c-.688-.06-1.386-.09-2.09-.09H7.5a4.5 4.5 0 110-9h.75c.704 0 1.402-.03 2.09-.09m0 9.18c.253.962.584 1.892.985 2.783.247.55.06 1.21-.463 1.511l-.657.38c-.551.318-1.26.117-1.527-.461a20.845 20.845 0 01-1.44-4.282m3.102.069a18.03 18.03 0 01-.59-4.59c0-1.586.205-3.124.59-4.59m0 9.18a23.848 23.848 0 018.835 2.535M10.34 6.66a23.847 23.847 0 008.835-2.535m0 0A23.74 23.74 0 0018.795 3m.38 1.125a23.91 23.91 0 011.014 5.395m-1.014 8.855c-.118.38-.245.754-.38 1.125m.38-1.125a23.91 23.91 0 001.014-5.395m0-3.46c.495.413.811 1.035.811 1.73 0 .695-.316 1.317-.811 1.73m0-3.46a24.347 24.347 0 010 3.46"/></svg></div>
+    <div class="sec-divider-text"><h2>Marketing &amp; Promotion</h2><span>Social channels · content strategy · brand awareness · engagement metrics</span></div>
+  </div>
+  <div class="grid3">
+    <div class="card">
+      <div class="card-title">🏛️ Government Backing</div>
+      <div class="card-sub">ADIO / Ghadan 21 programme</div>
+      <div class="comp-mkt-stat">Abu Dhabi Investment Office anchor investor</div>
+      <p style="font-size:11px;color:var(--text-muted);line-height:1.6">Backed by ADIO under the Ghadan 21 economic diversification programme. Government affiliation provides capital stability, preferential access to Abu Dhabi institutional procurement, and regulatory goodwill.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">🛒 Retail &amp; Institutional</div>
+      <div class="card-sub">Dual-channel strategy</div>
+      <div class="comp-mkt-stat">Retail supermarkets + Abu Dhabi institutional supply</div>
+      <p style="font-size:11px;color:var(--text-muted);line-height:1.6">Supplies UAE retail chains alongside Abu Dhabi government institutions (hospitals, schools, government canteens). Institutional channel provides volume stability unavailable to purely retail-focused competitors.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">📷 Instagram</div>
+      <div class="card-sub">Consumer &amp; trade engagement</div>
+      <div class="comp-mkt-stat">~8,000 followers</div>
+      <p style="font-size:11px;color:var(--text-muted);line-height:1.6">@madarfarms content focuses on farm-to-table freshness, UAE food security, and sustainability. Moderate following relative to category; B2B reputation stronger than consumer brand awareness.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">💼 LinkedIn</div>
+      <div class="card-sub">B2B &amp; investor relations</div>
+      <div class="comp-mkt-stat">~3,500 followers</div>
+      <p style="font-size:11px;color:var(--text-muted);line-height:1.6">LinkedIn used for ADIO partnership announcements, agri-tech thought leadership, and institutional client outreach. Key channel for procurement decision-makers in Abu Dhabi.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">🌍 Sustainability &amp; Food Security</div>
+      <div class="card-sub">UAE food sovereignty narrative</div>
+      <div class="comp-mkt-stat">90%+ less water · zero pesticides</div>
+      <p style="font-size:11px;color:var(--text-muted);line-height:1.6">Positions itself as a direct contributor to the UAE's food security agenda. Controlled-environment growing reduces water use by over 90% vs. field farming — a powerful narrative for government stakeholders.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">🏆 Trade Shows &amp; Events</div>
+      <div class="card-sub">Gulfood · SIAL ME · ADIHEX</div>
+      <div class="comp-mkt-stat">Regular Gulfood &amp; SIAL Middle East exhibitor</div>
+      <p style="font-size:11px;color:var(--text-muted);line-height:1.6">Active presence at Gulfood, SIAL Middle East, and Abu Dhabi-focused events (ADIHEX, Abu Dhabi Sustainability Week). Trade show strategy targets both retail buyers and institutional procurement officers.</p>
+    </div>
+  </div>
+
+  <div class="footnote">Competitor profile — Madar Farms · UAE Hydroponic Produce Market · madarfarms.com, ADIO, Arabian Business, Gulf News, Gulfood · 2025-05</div>
+  </div><!-- /comp-hydroponic-produce-pf-madar-farms -->
+
+  <!-- ── Emirates Hydroponics Farms profile ── -->
+  <div id="comp-hydroponic-produce-pf-emirates-hydroponics" style="display:none">
+
+  <div class="page-header">
+    <div>
+      <h1>Emirates Hydroponics Farms</h1>
+      <div class="page-header-sub">Competitor Profile · UAE Hydroponic Produce Market · Established 2005 · Al Bahia, Abu Dhabi</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+      <button class="comp-stab" onclick="openCoSelector('hydroponic-produce')">← All Competitors</button>
+      <button class="comp-stab active">Emirates Hydroponics</button>
+      <div style="width:1px;height:20px;background:var(--border);margin:0 4px"></div>
+      <button class="comp-action-btn">↑ Export</button>
+    </div>
+  </div>
+
+  <!-- KPI row -->
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="kpi-lbl">Revenue 2025E</div>
+      <div class="kpi-val">AED 2–4M</div>
+      <div class="kpi-sub">~$0.5–1.1M · est. · private, family-run</div>
+    </div>
+    <div class="kpi teal">
+      <div class="kpi-lbl">Greenhouse Area</div>
+      <div class="kpi-val">~2 ha</div>
+      <div class="kpi-sub">Al Bahia, Abu Dhabi · UAE's oldest active hydroponic facility</div>
+    </div>
+    <div class="kpi amber">
+      <div class="kpi-lbl">Avg Price Premium</div>
+      <div class="kpi-val">+40–70%</div>
+      <div class="kpi-sub">vs. conventional imported produce UAE retail · value positioning</div>
+    </div>
+    <div class="kpi coral">
+      <div class="kpi-lbl">Founded</div>
+      <div class="kpi-val">2005</div>
+      <div class="kpi-sub">UAE's hydroponic pioneer · patented growing technology in MENA</div>
+    </div>
+  </div>
+
+  <!-- SECTION 1 -->
+  <div class="sec-divider">
+    <div class="sec-divider-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"/></svg></div>
+    <div class="sec-divider-text"><h2>Company Background</h2><span>Corporate overview · financials · channel mix · Emirates Hydroponics Farms · 2025</span></div>
+  </div>
+  <div class="grid2">
+    <div class="card">
+      <div class="card-title">Company Profile</div>
+      <div class="card-sub">Founded 2005 · Al Bahia, Abu Dhabi, UAE · Private, family-run</div>
+      <table class="comp-info-table">
+        <tr><td>Headquarters</td><td>Al Bahia, Abu Dhabi, UAE (E11 highway corridor)</td></tr>
+        <tr><td>Founded</td><td>2005 · UAE's first commercial hydroponic operation</td></tr>
+        <tr><td>Facility</td><td>~2 ha greenhouse · nutrient film technique (NFT) · patented system</td></tr>
+        <tr><td>Est. Revenue</td><td>AED 2–4M (~$0.5–1.1M) · 2025E</td></tr>
+        <tr><td>Ownership</td><td>Private · family-run · no disclosed external investment</td></tr>
+        <tr><td>Core Products</td><td>Tomatoes, cucumbers, leafy greens, herbs · 15+ SKUs</td></tr>
+        <tr><td>Avg Unit Price</td><td>AED 6–14/pack · value-to-mid positioning</td></tr>
+        <tr><td>Key Channels</td><td>Retail supermarkets, wholesale distributors, select HoReCa, online</td></tr>
+      </table>
+      <p class="comp-about-text">Emirates Hydroponics Farms, established in 2005, holds the distinction of being the UAE's first commercial hydroponic operation, predating every competitor in this analysis by over a decade. Operating a ~2 ha greenhouse in Al Bahia on the E11 corridor between Abu Dhabi and Dubai, the company grows tomatoes, cucumbers, leafy greens, and herbs using a patented nutrient film technique system — the first such patent granted in the Middle East. While newer, better-capitalised entrants have surpassed it in revenue, its longevity, proprietary technology, and established wholesale relationships give it durable relevance as a niche supplier.</p>
+      <div class="comp-tags-row">
+        <span class="comp-tag comp-tag-gold">UAE Pioneer (2005)</span>
+        <span class="comp-tag comp-tag-gold">MENA's First Hydroponic Patent</span>
+        <span class="comp-tag">Tomatoes + Cucumbers</span>
+        <span class="comp-tag comp-tag-teal">NFT Growing System</span>
+        <span class="comp-tag">Value Positioning</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Revenue &amp; Sales Channel Mix</div>
+      <div class="card-sub">2025 estimated · AED million · all channels</div>
+      <div class="comp-fin-label">Revenue 2025E vs. category leader</div>
+      <div class="comp-fin-value">AED 2–4M</div>
+      <div class="comp-fin-bar-track"><div class="comp-fin-bar-fill" style="width:2%"></div></div>
+      <div class="comp-fin-sub">vs. AED 200–250M Pure Harvest (category leader) · niche wholesale specialist</div>
+      <div class="comp-fin-label" style="margin-top:4px">Status of Sales — channel split</div>
+      <div class="chart-wrap" style="height:220px"><canvas id="ch-hp-emirates-hydroponics-donut"></canvas></div>
+    </div>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="sec-divider">
+    <div class="sec-divider-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"/></svg></div>
+    <div class="sec-divider-text"><h2>Products &amp; Packaging</h2><span>SKU range · pricing tiers · packaging formats · product gallery</span></div>
+  </div>
+  <div class="grid2">
+    <div class="card">
+      <div class="card-title">Products &amp; Packages</div>
+      <div class="card-sub">SKU count · retail and trade pricing · price premium vs. category average</div>
+      <div style="overflow-x:auto">
+        <table class="comp-prod-table">
+          <thead><tr><th>Product</th><th>SKUs</th><th class="r">Retail (AED)</th><th class="r">Trade (AED)</th><th class="r">Premium</th><th>Tier</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Tomatoes</strong><div class="comp-prod-sub">Beef · cherry · plum · 250–500g packs</div></td><td>4</td><td class="r">7.00–14.00</td><td class="r">3–7</td><td class="comp-premium-mid">+50–80%</td><td><span class="comp-prod-tag comp-tag-teal">Specialty</span></td></tr>
+            <tr><td><strong>Cucumbers</strong><div class="comp-prod-sub">Lebanese · English · 250–500g packs</div></td><td>3</td><td class="r">5.00–9.00</td><td class="r">2–5</td><td class="comp-premium-mid">+40–65%</td><td><span class="comp-prod-tag">Standard</span></td></tr>
+            <tr><td><strong>Leafy Greens</strong><div class="comp-prod-sub">Lettuce · rocket · mixed · 100–150g packs</div></td><td>4</td><td class="r">7.00–12.00</td><td class="r">3–6</td><td class="comp-premium-mid">+50–75%</td><td><span class="comp-prod-tag comp-tag-teal">Specialty</span></td></tr>
+            <tr><td><strong>Herbs</strong><div class="comp-prod-sub">Mint · parsley · basil · coriander · 50g bunches</div></td><td>4</td><td class="r">5.00–8.00</td><td class="r">2–4</td><td class="comp-premium-mid">+40–60%</td><td><span class="comp-prod-tag">Standard</span></td></tr>
+            <tr><td><strong>Wholesale Bulk</strong><div class="comp-prod-sub">Distributor trays · mixed produce · 5–10kg</div></td><td>2</td><td class="r">N/A</td><td class="r">2–4/kg</td><td class="comp-premium-low">+30–50%</td><td><span class="comp-prod-tag">Standard</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Product Gallery</div>
+      <div class="card-sub">Illustrative · 5 product categories</div>
+      <div class="comp-prod-images">
+        <div class="comp-img-ph" style="background:linear-gradient(135deg,#2A0A0A,#4A1A1A)">🍅<span>Tomatoes</span></div>
+        <div class="comp-img-ph" style="background:linear-gradient(135deg,#0A2A10,#1A4A20)">🥒<span>Cucumbers</span></div>
+        <div class="comp-img-ph" style="background:linear-gradient(135deg,#0A2A0A,#1A4A1A)">🥬<span>Leafy Greens</span></div>
+        <div class="comp-img-ph" style="background:linear-gradient(135deg,#1A2A0A,#2E4A10)">🌿<span>Fresh Herbs</span></div>
+        <div class="comp-img-ph" style="background:linear-gradient(135deg,#1A1A2A,#2E2E4A)">📦<span>Wholesale Bulk</span></div>
+        <div class="comp-img-ph" style="background:linear-gradient(135deg,#2A1A0A,#4A2E10)">🔬<span>NFT Tech System</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3 -->
+  <div class="sec-divider">
+    <div class="sec-divider-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.955 11.955 0 003 12c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg></div>
+    <div class="sec-divider-text"><h2>Brand Positioning</h2><span>Attribute benchmarking · competitive positioning map · top competitor rankings</span></div>
+  </div>
+  <div class="grid3">
+    <div class="card">
+      <div class="card-title">Brand Attribute Comparison</div>
+      <div class="card-sub">vs. all competitors · ● present &nbsp; ◑ partial &nbsp; ○ absent</div>
+      <table class="comp-attr-table">
+        <thead><tr><th>Attribute</th><th>Pure H.</th><th>Bustanica</th><th>Badia</th><th>Madar</th><th>E.Hydro.</th></tr></thead>
+        <tbody>
+          <tr><td>CEA / greenhouse tech</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td></tr>
+          <tr><td>UAE local origin</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td></tr>
+          <tr><td>Supermarket retail</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot mid">◑</td><td class="dot mid">◑</td><td class="dot gold">●</td></tr>
+          <tr><td>HoReCa / fine dining</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot mid">◑</td><td class="dot mid">◑</td></tr>
+          <tr><td>Pesticide-free</td><td class="dot mid">◑</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot mid">◑</td></tr>
+          <tr><td>D2C / e-commerce</td><td class="dot mid">◑</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot mid">◑</td><td class="dot mid">◑</td></tr>
+          <tr><td>GCC regional expansion</td><td class="dot gold">●</td><td class="dot dim">○</td><td class="dot mid">◑</td><td class="dot dim">○</td><td class="dot dim">○</td></tr>
+          <tr><td>Sustainability / ESG</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot gold">●</td><td class="dot mid">◑</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <div class="card-title">Positioning Map</div>
+      <div class="card-sub">Distribution breadth vs. price premium index · bubble = revenue</div>
+      <div class="chart-wrap" style="height:280px"><canvas id="ch-hp-emirates-hydroponics-bubble"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Top Competitors by Revenue</div>
+      <div class="card-sub">UAE Hydroponic Produce · 2025 estimate</div>
+      <div class="comp-top-list">
+        <div class="comp-top-item"><span class="comp-rank gold">1</span><div><strong>Pure Harvest</strong><div class="comp-top-sub">UAE · Premium greenhouse · AED 200–250M</div></div></div>
+        <div class="comp-top-item"><span class="comp-rank gold">2</span><div><strong>Bustanica</strong><div class="comp-top-sub">UAE · Vertical farm · AED 80–90M</div></div></div>
+        <div class="comp-top-item"><span class="comp-rank">3</span><div><strong>Badia Farms</strong><div class="comp-top-sub">UAE · Microgreens pioneer · AED 10–15M</div></div></div>
+        <div class="comp-top-item"><span class="comp-rank">4</span><div><strong>Madar Farms</strong><div class="comp-top-sub">UAE · ADIO-backed · AED 12–18M</div></div></div>
+        <div class="comp-top-item comp-top-active"><span class="comp-rank gold">5</span><div><strong>Emirates Hydroponics ←</strong><div class="comp-top-sub">UAE · Pioneer (2005) · AED 2–4M</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4 -->
+  <div class="sec-divider">
+    <div class="sec-divider-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.34 15.84c-.688-.06-1.386-.09-2.09-.09H7.5a4.5 4.5 0 110-9h.75c.704 0 1.402-.03 2.09-.09m0 9.18c.253.962.584 1.892.985 2.783.247.55.06 1.21-.463 1.511l-.657.38c-.551.318-1.26.117-1.527-.461a20.845 20.845 0 01-1.44-4.282m3.102.069a18.03 18.03 0 01-.59-4.59c0-1.586.205-3.124.59-4.59m0 9.18a23.848 23.848 0 018.835 2.535M10.34 6.66a23.847 23.847 0 008.835-2.535m0 0A23.74 23.74 0 0018.795 3m.38 1.125a23.91 23.91 0 011.014 5.395m-1.014 8.855c-.118.38-.245.754-.38 1.125m.38-1.125a23.91 23.91 0 001.014-5.395m0-3.46c.495.413.811 1.035.811 1.73 0 .695-.316 1.317-.811 1.73m0-3.46a24.347 24.347 0 010 3.46"/></svg></div>
+    <div class="sec-divider-text"><h2>Marketing &amp; Promotion</h2><span>Social channels · content strategy · brand awareness · engagement metrics</span></div>
+  </div>
+  <div class="grid3">
+    <div class="card">
+      <div class="card-title">🔬 Patented Technology</div>
+      <div class="card-sub">MENA's first hydroponic patent</div>
+      <div class="comp-mkt-stat">Nutrient Film Technique (NFT) · patented in MENA</div>
+      <p style="font-size:11px;color:var(--text-muted);line-height:1.6">Holds the first hydroponic growing system patent granted in the Middle East. NFT system recirculates nutrient solution continuously over plant roots — highly water-efficient and the technical foundation of the company's credibility.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">🛒 Retail &amp; Wholesale</div>
+      <div class="card-sub">Supermarkets + distributors</div>
+      <div class="comp-mkt-stat">UAE supermarket chains · wholesale distributors</div>
+      <p style="font-size:11px;color:var(--text-muted);line-height:1.6">Products stocked in UAE retail chains and supplied through wholesale distributors. Focuses on everyday produce categories (tomatoes, cucumbers, herbs) rather than premium-only niches, enabling broader volume at lower margin.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">📷 Social Media</div>
+      <div class="card-sub">Low-key digital presence</div>
+      <div class="comp-mkt-stat">~2,000 followers · limited content cadence</div>
+      <p style="font-size:11px;color:var(--text-muted);line-height:1.6">Modest social presence relative to newer competitors. Brand awareness is largely B2B and wholesale-driven. Digital marketing is not a primary growth lever — reputation built on 20-year track record and trade relationships.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">🏛️ Legacy &amp; Longevity</div>
+      <div class="card-sub">20 years of operation · UAE's oldest</div>
+      <div class="comp-mkt-stat">Operating since 2005 · continuous production</div>
+      <p style="font-size:11px;color:var(--text-muted);line-height:1.6">Two decades of uninterrupted operation is a rare differentiator in UAE agri-tech. Demonstrates climate resilience, supply reliability, and operational expertise that no newer entrant can match on tenure alone.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">🌍 Sustainability</div>
+      <div class="card-sub">Water-efficient NFT system</div>
+      <div class="comp-mkt-stat">80%+ less water vs. conventional field farming</div>
+      <p style="font-size:11px;color:var(--text-muted);line-height:1.6">Closed-loop NFT irrigation system dramatically reduces water use. While the sustainability narrative is less actively marketed than competitors, the operational credentials are real and independently verifiable.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">🏆 Industry Recognition</div>
+      <div class="card-sub">Gulfood · agri-tech heritage</div>
+      <div class="comp-mkt-stat">Gulfood exhibitor · cited in UAE food security reports</div>
+      <p style="font-size:11px;color:var(--text-muted);line-height:1.6">Regularly cited in UAE government food security documentation as a pioneer. Gulfood presence maintained since early exhibitions. Recognised by UAE Ministry of Climate Change and Environment as an early agri-tech adopter.</p>
+    </div>
+  </div>
+
+  <div class="footnote">Competitor profile — Emirates Hydroponics Farms · UAE Hydroponic Produce Market · emirateshydroponics.com, UAE Ministry of Climate Change, Arabian Business, Gulfood · 2025-05</div>
+  </div><!-- /comp-hydroponic-produce-pf-emirates-hydroponics -->
+
+  </div><!-- /comp-hydroponic-produce-profile -->
+
   <!-- No-profile placeholder — shown for all other products -->
   <div id="comp-no-profile" style="display:none">
     <div class="page-header">
@@ -3128,13 +4331,434 @@ html[data-theme="light"] .def-table tbody tr:nth-child(even) td:not(.def-row-hdr
 </div>
 
 <!-- ═══ NEWS TAB ═══ -->
-<div class="tab-placeholder" id="tab-news">
+<div class="tab-placeholder" id="tab-news" style="padding:0;text-align:left">
+
+<!-- Honey GCC news intelligence -->
+<div id="news-honey" style="display:none">
+<div class="ni-wrap">
+
+  <!-- Header -->
+  <div class="ni-header">
+    <div>
+      <div class="ni-eyebrow">Market Intelligence · Honey · GCC</div>
+      <h1 class="ni-title">News &amp; Competitive Intelligence</h1>
+      <div class="ni-subtitle">26 developments tracked · 13 Apr–13 May 2026 · Sources: Arabian Business, Gulf News, ADAFSA, SFDA, Zawya, Wamda, DWTC, Khaleej Times, trade publications &amp; social channels</div>
+    </div>
+    <div class="ni-meta-pill">Data: 13 May 2026</div>
+  </div>
+
+  <!-- Stats bar -->
+  <div class="ni-stats-row">
+    <div class="ni-stat"><span class="ni-stat-val">26</span><span class="ni-stat-lbl">Developments</span></div>
+    <div class="ni-stat"><span class="ni-stat-val">12</span><span class="ni-stat-lbl">High Priority</span></div>
+    <div class="ni-stat"><span class="ni-stat-val">5</span><span class="ni-stat-lbl">Regulatory</span></div>
+    <div class="ni-stat"><span class="ni-stat-val">7</span><span class="ni-stat-lbl">Expansion</span></div>
+    <div class="ni-stat"><span class="ni-stat-val">7</span><span class="ni-stat-lbl">Marketing</span></div>
+    <div class="ni-stat"><span class="ni-stat-val">2</span><span class="ni-stat-lbl">Product Launch</span></div>
+  </div>
+
+  <!-- Top 3 Strategic Signals -->
+  <div class="ni-section-hdr">Top 3 Strategic Signals</div>
+  <div class="ni-signals">
+    <div class="ni-signal-card">
+      <div class="ni-signal-num">01</div>
+      <div class="ni-signal-title">Regulatory tightening accelerating premiumisation</div>
+      <div class="ni-signal-body">SFDA NMR mandate, Dubai blockchain authentication, and ADAFSA Farm-to-Factory certification simultaneously raise market entry barriers — rewarding traceable, high-quality producers while forcing out adulterated imports across the GCC's two largest markets.</div>
+    </div>
+    <div class="ni-signal-card">
+      <div class="ni-signal-num">02</div>
+      <div class="ni-signal-title">Dual government supply-side pushes target import independence</div>
+      <div class="ni-signal-body">UAE (EACE strategy, tripling production by 2030) and Saudi Arabia (SAR 190M Reef investment in 7 breeding stations) signal coordinated GCC intent to build domestic honey export capacity and reduce structural import dependency on Yemeni and Omani supplies.</div>
+    </div>
+    <div class="ni-signal-card">
+      <div class="ni-signal-num">03</div>
+      <div class="ni-signal-title">Digital channels becoming the primary competitive battleground</div>
+      <div class="ni-signal-body">Noon Saudi 180% YoY growth, Talabat dedicated category launch, Geohoney D2C subscription, and ONYX Amazon.ae entry confirm that e-commerce and quick-commerce are the highest-growth honey distribution channels — and the next frontier for brand differentiation.</div>
+    </div>
+  </div>
+
+  <!-- HIGH PRIORITY -->
+  <div class="ni-priority-bar ni-high"><span class="ni-p-dot"></span>High Priority &nbsp;·&nbsp; 12 developments</div>
+  <div class="ni-grid">
+
+    <div class="ni-card ni-high">
+      <div class="ni-card-meta">
+        <span class="ni-card-date">2026-05-10</span><span class="ni-card-sep">·</span><span class="ni-card-country">UAE</span>
+        <span class="ni-badge marketing">Marketing</span><span class="ni-sub-badge">Sponsorship</span>
+      </div>
+      <div class="ni-card-company">Multiple UAE honey producers (ADAFSA-supported)</div>
+      <div class="ni-card-headline">UAE honey producers win 29 awards at Paris International Honey Awards (PIHA) 2026</div>
+      <div class="ni-card-summary">UAE producers claimed 29 awards at PIHA 2026 — the highest of any single GCC nation — across Sidr, Wildflower, Ghaf, and Mangrove varieties. ADAFSA credited a decade-long indigenous queen bee breeding programme distributing 10 generations of certified queens to local beekeepers. The result significantly elevates the global perception and premium pricing power of UAE-origin honey.</div>
+      <div class="ni-card-insight"><strong>Strategic Insight</strong>29 PIHA awards provide UAE honey brands with third-party validation that directly supports price premium expansion and export market positioning.</div>
+      <div class="ni-card-source">Source: <a href="https://gulfnews.com/uae/uae-beekeepers-win-29-prestigious-awards-at-piha-2026-1.500490993" target="_blank">Gulf News · ADAFSA / Abu Dhabi Media Office</a></div>
+    </div>
+
+    <div class="ni-card ni-high">
+      <div class="ni-card-meta">
+        <span class="ni-card-date">2026-05-09</span><span class="ni-card-sep">·</span><span class="ni-card-country">UAE</span>
+        <span class="ni-badge ma">M&amp;A</span><span class="ni-sub-badge">Strategic Investment</span>
+      </div>
+      <div class="ni-card-company">HiveHub (Wamda Capital–backed)</div>
+      <div class="ni-card-headline">HiveHub raises USD 2.8M seed round to build GCC honey traceability and marketplace platform</div>
+      <div class="ni-card-summary">Dubai-based startup HiveHub raised USD 2.8M seed funding backed by Wamda Capital and Gulf angels to build a B2B honey traceability and marketplace platform connecting GCC buyers with verified global producers. The platform uses AI-powered quality scoring and blockchain certificates, with marketplace launch planned for Q3 2026.</div>
+      <div class="ni-card-insight"><strong>Strategic Insight</strong>Venture capital entering GCC honey infrastructure signals category maturation; a neutral B2B marketplace could disintermediate existing distributor relationships at scale.</div>
+      <div class="ni-card-source">Source: <a href="https://www.wamda.com" target="_blank">Wamda / Magnitt</a></div>
+    </div>
+
+    <div class="ni-card ni-high">
+      <div class="ni-card-meta">
+        <span class="ni-card-date">2026-05-08</span><span class="ni-card-sep">·</span><span class="ni-card-country">UAE</span>
+        <span class="ni-badge expansion">Expansion</span><span class="ni-sub-badge">Factory Expansion</span>
+      </div>
+      <div class="ni-card-company">Geohoney</div>
+      <div class="ni-card-headline">Geohoney announces expanded UAE farm and production facility</div>
+      <div class="ni-card-summary">Dubai-based Geohoney announced plans to expand its UAE production and processing facility to increase local honey output capacity, part of the UAE food security initiative. Geohoney is the most prominent domestic honey brand in the GCC and is positioned to capture both the supply-disruption premium and EACE national-strategy tailwinds.</div>
+      <div class="ni-card-insight"><strong>Strategic Insight</strong>Geohoney's domestic capacity expansion deepens local sourcing credentials while directly benefiting from the EACE national strategy and the Hormuz supply-disruption pricing premium.</div>
+      <div class="ni-card-source">Source: <a href="https://www.arabianbusiness.com" target="_blank">Arabian Business</a></div>
+    </div>
+
+    <div class="ni-card ni-high">
+      <div class="ni-card-meta">
+        <span class="ni-card-date">2026-05-06</span><span class="ni-card-sep">·</span><span class="ni-card-country">UAE</span>
+        <span class="ni-badge regulatory">Regulatory</span><span class="ni-sub-badge">Certification</span>
+      </div>
+      <div class="ni-card-company">ADAFSA (Abu Dhabi Agriculture and Food Safety Authority)</div>
+      <div class="ni-card-headline">ADAFSA launches 'Farm to Factory' honey traceability and quality certification program</div>
+      <div class="ni-card-summary">ADAFSA launched a 'Farm to Factory' certification programme establishing end-to-end honey traceability from apiary to retail shelf, including mandatory apiary registration and laboratory authentication of origin claims. This positions UAE honey for premium export markets and creates an official quality tier that directly supports pricing differentiation at retail.</div>
+      <div class="ni-card-insight"><strong>Strategic Insight</strong>Mandatory apiary registration and lab authentication creates a defensible quality moat for certified UAE-origin honey and raises entry barriers for unverified imports.</div>
+      <div class="ni-card-source">Source: <a href="https://www.adafsa.gov.ae" target="_blank">ADAFSA official announcement</a></div>
+    </div>
+
+    <div class="ni-card ni-high">
+      <div class="ni-card-meta">
+        <span class="ni-card-date">2026-05-04</span><span class="ni-card-sep">·</span><span class="ni-card-country">UAE</span>
+        <span class="ni-badge regulatory">Regulatory</span><span class="ni-sub-badge">Technology Innovation</span>
+      </div>
+      <div class="ni-card-company">Dubai Municipality</div>
+      <div class="ni-card-headline">Dubai Municipality pilots blockchain-based honey authentication and digital identity system</div>
+      <div class="ni-card-summary">Dubai Municipality is piloting a blockchain-based digital identity system for honey sold in Dubai, using QR codes linked to blockchain records of origin, processing, and lab test results. The pilot covers 15 brands with plans for mandatory adoption by 2027 — a first-of-its-kind regulatory tech initiative for honey in the GCC.</div>
+      <div class="ni-card-insight"><strong>Strategic Insight</strong>Imminent mandatory blockchain authentication in Dubai will eliminate unverified origin claims and accelerate premiumisation by making proof of origin a baseline market requirement.</div>
+      <div class="ni-card-source">Source: <a href="https://www.dm.gov.ae" target="_blank">Dubai Municipality official announcement</a></div>
+    </div>
+
+    <div class="ni-card ni-high">
+      <div class="ni-card-meta">
+        <span class="ni-card-date">2026-05-02</span><span class="ni-card-sep">·</span><span class="ni-card-country">GCC</span>
+        <span class="ni-badge other">Supply Chain</span><span class="ni-sub-badge">Disruption</span>
+      </div>
+      <div class="ni-card-company">Multiple GCC honey suppliers</div>
+      <div class="ni-card-headline">Strait of Hormuz supply disruption triggers 40–120% honey price spikes across GCC</div>
+      <div class="ni-card-summary">Renewed concerns about Strait of Hormuz shipping lanes triggered acute honey supply disruptions across GCC retail markets. Prices for imported varieties spiked 40–120% depending on origin, with Yemeni and Omani honey most affected. Retailers are rationing quantities per customer as suppliers scramble for alternative logistics routes.</div>
+      <div class="ni-card-insight"><strong>Strategic Insight</strong>Acute import-route risk exposes GCC honey supply chain fragility; brands with domestic production or pre-positioned inventory gain immediate and structural pricing power.</div>
+      <div class="ni-card-source">Source: <a href="https://www.gulfnews.com" target="_blank">Gulf News</a></div>
+    </div>
+
+    <div class="ni-card ni-high">
+      <div class="ni-card-meta">
+        <span class="ni-card-date">2026-05-01</span><span class="ni-card-sep">·</span><span class="ni-card-country">GCC</span>
+        <span class="ni-badge regulatory">Regulatory</span><span class="ni-sub-badge">Standard Update</span>
+      </div>
+      <div class="ni-card-company">Gulf Standardisation Organisation (GSO)</div>
+      <div class="ni-card-headline">GSO 2055-1:2026 updated halal food standard takes effect — honey labelling implications</div>
+      <div class="ni-card-summary">The GSO's updated halal food standard GSO 2055-1:2026 has taken effect across all GCC member states. For honey, the standard introduces new cross-contamination controls and expanded labelling of processing aids. Producers have a 12-month compliance window before enforcement begins across all six GCC markets.</div>
+      <div class="ni-card-insight"><strong>Strategic Insight</strong>GCC-wide labelling controls add compliance cost for all honey producers; larger brands with QA infrastructure will absorb this faster than artisanal entrants.</div>
+      <div class="ni-card-source">Source: <a href="https://www.gso.org.sa" target="_blank">Gulf Standardisation Organisation</a></div>
+    </div>
+
+    <div class="ni-card ni-high">
+      <div class="ni-card-meta">
+        <span class="ni-card-date">2026-04-28</span><span class="ni-card-sep">·</span><span class="ni-card-country">UAE</span>
+        <span class="ni-badge expansion">Expansion</span><span class="ni-sub-badge">New Market Entry</span>
+      </div>
+      <div class="ni-card-company">Emirates Apiculture &amp; Commercial Enterprises (EACE)</div>
+      <div class="ni-card-headline">UAE launches national honey industry development strategy under EACE mandate</div>
+      <div class="ni-card-summary">The UAE government officially launched a national honey industry development strategy through EACE, targeting tripling domestic honey production by 2030 and developing the UAE as a regional honey export hub. Key elements include subsidised beehive distribution and beekeeper training programmes across the seven emirates.</div>
+      <div class="ni-card-insight"><strong>Strategic Insight</strong>Government-backed supply-side intervention will structurally reshape UAE domestic honey volumes and challenge import-dependent incumbents within the five-year forecast window.</div>
+      <div class="ni-card-source">Source: <a href="https://www.moccae.gov.ae" target="_blank">UAE Ministry of Climate Change and Environment</a></div>
+    </div>
+
+    <div class="ni-card ni-high">
+      <div class="ni-card-meta">
+        <span class="ni-card-date">2026-04-28</span><span class="ni-card-sep">·</span><span class="ni-card-country">UAE / GCC</span>
+        <span class="ni-badge partnership">Partnership</span><span class="ni-sub-badge">Distribution</span>
+      </div>
+      <div class="ni-card-company">Honey Australia · Lulu Group</div>
+      <div class="ni-card-headline">Honey Australia signs exclusive GCC distribution deal with Lulu Hypermarket</div>
+      <div class="ni-card-summary">Honey Australia signed an exclusive retail distribution agreement with Lulu Hypermarket covering all GCC markets, giving the brand prime shelf placement across Lulu's 200+ GCC outlets from May 2026. A regional launch event was held in Qatar. This is the largest single honey distribution deal confirmed in the GCC this year.</div>
+      <div class="ni-card-insight"><strong>Strategic Insight</strong>Lulu exclusivity locks a major foreign brand into the GCC's largest hypermarket network, directly pressuring shelf space and negotiating leverage for competing import and domestic brands.</div>
+      <div class="ni-card-source">Source: <a href="https://insidefmcg.com.au/2026/02/24/honey-australia-accelerates-middle-east-push-with-lulu-hypermarket-deal/" target="_blank">Inside FMCG · Arabian Business</a></div>
+    </div>
+
+    <div class="ni-card ni-high">
+      <div class="ni-card-meta">
+        <span class="ni-card-date">2026-04-26</span><span class="ni-card-sep">·</span><span class="ni-card-country">Saudi Arabia</span>
+        <span class="ni-badge expansion">Expansion</span><span class="ni-sub-badge">E-commerce Launch</span>
+      </div>
+      <div class="ni-card-company">Noon.com Saudi Arabia</div>
+      <div class="ni-card-headline">Noon.com Saudi Arabia reports 180% YoY growth in premium honey category sales</div>
+      <div class="ni-card-summary">Noon.com reported 180% year-over-year growth in the premium honey category on its Saudi Arabia platform in Q1 2026, attributed to rising health consciousness post-Ramadan and aggressive influencer marketing. Sidr and Manuka honey are the top-selling varieties. The platform is emerging as the primary D2C channel for premium honey brands in Saudi Arabia.</div>
+      <div class="ni-card-insight"><strong>Strategic Insight</strong>180% e-commerce growth on Noon confirms Saudi Arabia as the highest-velocity digital channel for premium honey and validates influencer-led D2C go-to-market strategies.</div>
+      <div class="ni-card-source">Source: <a href="https://www.noon.com" target="_blank">Noon.com press release</a></div>
+    </div>
+
+    <div class="ni-card ni-high">
+      <div class="ni-card-meta">
+        <span class="ni-card-date">2026-04-25</span><span class="ni-card-sep">·</span><span class="ni-card-country">Saudi Arabia</span>
+        <span class="ni-badge regulatory">Regulatory</span><span class="ni-sub-badge">Standard Update</span>
+      </div>
+      <div class="ni-card-company">Saudi Food and Drug Authority (SFDA)</div>
+      <div class="ni-card-headline">SFDA mandates multi-method authentication testing for all imported honey from 2027</div>
+      <div class="ni-card-summary">The SFDA announced that all imported honey entering Saudi Arabia will require multi-method authentication testing — including Nuclear Magnetic Resonance (NMR) and isotopic analysis — from January 2027. The regulation targets adulterated and mislabelled imported honey and significantly raises the compliance bar for all imported honey brands in the world's largest Sidr honey market.</div>
+      <div class="ni-card-insight"><strong>Strategic Insight</strong>NMR-based authentication mandate will force out low-cost adulterated imports and reward premium, traceable origin brands already investing in laboratory certification.</div>
+      <div class="ni-card-source">Source: <a href="https://www.sfda.gov.sa" target="_blank">SFDA official announcement</a></div>
+    </div>
+
+    <div class="ni-card ni-high">
+      <div class="ni-card-meta">
+        <span class="ni-card-date">2026-04-20</span><span class="ni-card-sep">·</span><span class="ni-card-country">Saudi Arabia</span>
+        <span class="ni-badge expansion">Expansion</span><span class="ni-sub-badge">Factory Expansion</span>
+      </div>
+      <div class="ni-card-company">Saudi Reef Authority</div>
+      <div class="ni-card-headline">Saudi Reef Authority invests SAR 190M in 7 new honey bee breeding stations</div>
+      <div class="ni-card-summary">The Saudi Reef Authority announced a SAR 190 million investment in seven new honey bee breeding stations across Asir, Al-Baha, and Jizan regions, supplying certified queen bees to Saudi beekeepers under Vision 2030's food security agenda. Over 15,000 active Saudi beekeepers stand to benefit from the modernisation programme alongside a $5M CGIAR technology cooperation agreement.</div>
+      <div class="ni-card-insight"><strong>Strategic Insight</strong>SAR 190M state investment signals Saudi intent to reduce import dependency and build a competitive domestic Sidr honey supply base targeting 2030 self-sufficiency.</div>
+      <div class="ni-card-source">Source: <a href="https://www.arabnews.com/node/2640178/amp" target="_blank">Arab News · Saudi Reef Authority</a></div>
+    </div>
+
+  </div><!-- /ni-grid high -->
+
+  <!-- MEDIUM PRIORITY -->
+  <div class="ni-priority-bar ni-med"><span class="ni-p-dot"></span>Medium Priority &nbsp;·&nbsp; 12 developments</div>
+  <div class="ni-grid">
+
+    <div class="ni-card ni-med">
+      <div class="ni-card-meta">
+        <span class="ni-card-date">2026-05-08</span><span class="ni-card-sep">·</span><span class="ni-card-country">UAE</span>
+        <span class="ni-badge marketing">Marketing</span><span class="ni-sub-badge">Sponsorship</span>
+      </div>
+      <div class="ni-card-company">Gulfood / DWTC</div>
+      <div class="ni-card-headline">Gulfood 2026 honey category sets exhibitor record with 45+ brands</div>
+      <div class="ni-card-summary">Gulfood 2026 reported a record 45+ honey brands in the specialty food hall, up 40% from 32 brands in 2025. New exhibitors included brands from Ethiopia, Kazakhstan, New Zealand, and two Saudi artisanal producers making their first Gulfood appearance. The show is increasingly the primary GCC B2B launch platform for honey brands seeking retail distribution deals.</div>
+      <div class="ni-card-insight"><strong>Strategic Insight</strong>Record exhibitor count — up 40% from 2025 — signals intensifying competitive crowding at the GCC entry point; retailer shelf space and buyer attention will tighten rapidly.</div>
+      <div class="ni-card-source">Source: <a href="https://www.gulfood.com" target="_blank">DWTC / Gulfood official</a></div>
+    </div>
+
+    <div class="ni-card ni-med">
+      <div class="ni-card-meta">
+        <span class="ni-card-date">2026-05-07</span><span class="ni-card-sep">·</span><span class="ni-card-country">UAE</span>
+        <span class="ni-badge expansion">Expansion</span><span class="ni-sub-badge">E-commerce Launch</span>
+      </div>
+      <div class="ni-card-company">Talabat UAE</div>
+      <div class="ni-card-headline">Talabat UAE adds dedicated honey and bee products category in grocery vertical</div>
+      <div class="ni-card-summary">Talabat UAE added a dedicated honey and bee products category in Talabat Mart, featuring 60+ honey SKUs from 12 brands with same-day delivery. This formalises quick-commerce as a distinct distribution channel for honey, creating a new SKU listing battleground separate from traditional supermarket shelves.</div>
+      <div class="ni-card-insight"><strong>Strategic Insight</strong>Talabat's dedicated honey category creates a new SKU listing battleground and rewards brands investing in quick-commerce presence alongside traditional retail.</div>
+      <div class="ni-card-source">Source: <a href="https://www.talabat.com" target="_blank">Talabat app / press release</a></div>
+    </div>
+
+    <div class="ni-card ni-med">
+      <div class="ni-card-meta">
+        <span class="ni-card-date">2026-05-05</span><span class="ni-card-sep">·</span><span class="ni-card-country">UAE</span>
+        <span class="ni-badge product-launch">Product Launch</span><span class="ni-sub-badge">Premium Launch</span>
+      </div>
+      <div class="ni-card-company">ONYX Honey</div>
+      <div class="ni-card-headline">UAE luxury honey brand ONYX launches on Amazon.ae with premium Sidr collection</div>
+      <div class="ni-card-summary">UAE luxury honey brand ONYX launched on Amazon.ae with a curated collection of premium Sidr honey priced at AED 250–850 per jar, targeting high-income UAE nationals and expats. Origin verification certificates are included in listings. The launch validates the super-premium e-commerce honey segment.</div>
+      <div class="ni-card-insight"><strong>Strategic Insight</strong>AED 250–850 Sidr pricing on Amazon.ae validates a super-premium e-commerce segment and signals consumer willingness to pay for authenticated origin at scale.</div>
+      <div class="ni-card-source">Source: <a href="https://www.amazon.ae" target="_blank">Amazon.ae product listing</a></div>
+    </div>
+
+    <div class="ni-card ni-med">
+      <div class="ni-card-meta">
+        <span class="ni-card-date">2026-05-05</span><span class="ni-card-sep">·</span><span class="ni-card-country">Saudi Arabia</span>
+        <span class="ni-badge expansion">Expansion</span><span class="ni-sub-badge">New Market Entry</span>
+      </div>
+      <div class="ni-card-company">Alowaid Honey (Kuwait)</div>
+      <div class="ni-card-headline">Alowaid Honey expands B2B channel targeting Saudi hotels and restaurants</div>
+      <div class="ni-card-summary">Kuwait-based Alowaid Honey is aggressively targeting the Saudi HoReCa channel with a dedicated B2B sales push, appointing a dedicated Saudi sales team and pitching bulk supply contracts to 5-star hotels in Riyadh and Jeddah. The move reflects growing demand for premium honey in high-end food service across Saudi Arabia.</div>
+      <div class="ni-card-insight"><strong>Strategic Insight</strong>Alowaid's dedicated Saudi HoReCa sales team signals the food service channel is becoming a contested battleground for GCC premium honey suppliers.</div>
+      <div class="ni-card-source">Source: <a href="https://www.tradearabia.com" target="_blank">Trade Arabia</a></div>
+    </div>
+
+    <div class="ni-card ni-med">
+      <div class="ni-card-meta">
+        <span class="ni-card-date">2026-05-03</span><span class="ni-card-sep">·</span><span class="ni-card-country">UAE</span>
+        <span class="ni-badge expansion">Expansion</span><span class="ni-sub-badge">E-commerce Launch</span>
+      </div>
+      <div class="ni-card-company">Geohoney</div>
+      <div class="ni-card-headline">Geohoney launches e-commerce subscription model for premium honey on its UAE website</div>
+      <div class="ni-card-summary">Geohoney launched a direct-to-consumer subscription service offering monthly delivery of curated premium honey varieties including Sidr, Manuka, and seasonal wildflower, bundled with educational content about origins and health benefits. This D2C move reduces retail channel dependency and builds a recurring revenue stream with direct consumer data.</div>
+      <div class="ni-card-insight"><strong>Strategic Insight</strong>Geohoney's subscription D2C model builds recurring revenue and direct consumer data, reducing margin dependency on retail intermediaries.</div>
+      <div class="ni-card-source">Source: <a href="https://www.geohoney.com" target="_blank">Geohoney LinkedIn / website</a></div>
+    </div>
+
+    <div class="ni-card ni-med">
+      <div class="ni-card-meta">
+        <span class="ni-card-date">2026-04-30</span><span class="ni-card-sep">·</span><span class="ni-card-country">GCC</span>
+        <span class="ni-badge other">Market Research</span>
+      </div>
+      <div class="ni-card-company">Industry analysts</div>
+      <div class="ni-card-headline">New report: GCC honey market to grow at 8.5% CAGR through 2031</div>
+      <div class="ni-card-summary">A newly published industry report forecasts the GCC honey market at USD 1.1 billion growing at 8.5% CAGR through 2031, driven by health awareness, premiumisation, and rising disposable incomes. Saudi Arabia and UAE together account for over 65% of regional demand, with Saudi's Vision 2030 food-security investments providing additional structural tailwind.</div>
+      <div class="ni-card-insight"><strong>Strategic Insight</strong>An 8.5% CAGR forecast at USD 1.1B base will intensify foreign brand interest in GCC distribution deals and accelerate competitive market entry timelines.</div>
+      <div class="ni-card-source">Source: <a href="https://www.arabianbusiness.com" target="_blank">Arabian Business</a></div>
+    </div>
+
+    <div class="ni-card ni-med">
+      <div class="ni-card-meta">
+        <span class="ni-card-date">2026-04-29</span><span class="ni-card-sep">·</span><span class="ni-card-country">Saudi Arabia</span>
+        <span class="ni-badge marketing">Marketing</span><span class="ni-sub-badge">Influencer Campaign</span>
+      </div>
+      <div class="ni-card-company">Multiple Saudi honey brands</div>
+      <div class="ni-card-headline">Saudi honey brands dominate Instagram gifting campaigns ahead of Eid Al-Adha</div>
+      <div class="ni-card-summary">Multiple Saudi honey brands launched high-production Eid Al-Adha gifting campaigns on Instagram and TikTok, featuring influencers and celebrity chefs. Sidr honey gift sets priced at SAR 300–800 are the dominant product, driving significant engagement and online orders via brand websites and noon.com.</div>
+      <div class="ni-card-insight"><strong>Strategic Insight</strong>Sidr gifting at SAR 300–800 via social commerce is becoming a primary seasonal revenue driver for Saudi honey brands — a repeatable, high-margin channel.</div>
+      <div class="ni-card-source">Source: <a href="https://www.instagram.com" target="_blank">Instagram / noon.com seller data ⚠</a></div>
+    </div>
+
+    <div class="ni-card ni-med">
+      <div class="ni-card-meta">
+        <span class="ni-card-date">2026-04-24</span><span class="ni-card-sep">·</span><span class="ni-card-country">UAE</span>
+        <span class="ni-badge marketing">Marketing</span><span class="ni-sub-badge">Influencer Campaign</span>
+      </div>
+      <div class="ni-card-company">Al Malaky Royal</div>
+      <div class="ni-card-headline">Al Malaky Royal honey launches influencer ambassador program with 12 UAE wellness creators</div>
+      <div class="ni-card-summary">UAE honey brand Al Malaky Royal launched an ambassador programme with 12 wellness and lifestyle influencers across UAE and Saudi Arabia, focusing on health positioning targeting gym-goers, health-conscious mothers, and corporate wellness programmes. Content spans Instagram, TikTok, and YouTube.</div>
+      <div class="ni-card-insight"><strong>Strategic Insight</strong>Al Malaky Royal's structured wellness ambassador programme signals a shift from product advertising to sustained lifestyle brand-building in the premium honey segment.</div>
+      <div class="ni-card-source">Source: <a href="https://www.instagram.com/almalakyhoney" target="_blank">Instagram / Al Malaky Royal ⚠</a></div>
+    </div>
+
+    <div class="ni-card ni-med">
+      <div class="ni-card-meta">
+        <span class="ni-card-date">2026-04-22</span><span class="ni-card-sep">·</span><span class="ni-card-country">Kuwait</span>
+        <span class="ni-badge marketing">Marketing</span><span class="ni-sub-badge">Influencer Campaign</span>
+      </div>
+      <div class="ni-card-company">Alowaid Honey (Kuwait)</div>
+      <div class="ni-card-headline">Alowaid Honey launches LinkedIn-based B2B campaign targeting GCC food service buyers</div>
+      <div class="ni-card-summary">Kuwait's Alowaid Honey launched a dedicated LinkedIn campaign targeting procurement managers at GCC hotels, restaurants, and food manufacturers, showcasing bulk supply capabilities and competitive pricing. This digital B2B outreach complements the company's traditional trade sales force and concurrent Saudi HoReCa expansion push.</div>
+      <div class="ni-card-insight"><strong>Strategic Insight</strong>LinkedIn-driven B2B outreach reflects a growing trend of honey suppliers using professional digital channels to compete for HoReCa contracts alongside traditional sales teams.</div>
+      <div class="ni-card-source">Source: <a href="https://www.linkedin.com/company/alowaid-honey" target="_blank">LinkedIn company page ⚠</a></div>
+    </div>
+
+    <div class="ni-card ni-med">
+      <div class="ni-card-meta">
+        <span class="ni-card-date">2026-04-20</span><span class="ni-card-sep">·</span><span class="ni-card-country">UAE</span>
+        <span class="ni-badge product-launch">Product Launch</span><span class="ni-sub-badge">Premium Launch</span>
+      </div>
+      <div class="ni-card-company">Ektifa / Sharjah Agriculture and Livestock Production</div>
+      <div class="ni-card-headline">Sharjah Ruler launches QAND luxury confectionery brand featuring 'Al Faya Honeycomb' SKU</div>
+      <div class="ni-card-summary">Sheikh Dr Sultan bin Mohammed Al Qasimi launched the QAND luxury confectionery brand at Mleiha wheat farm, including an 'Al Faya Honeycomb' SKU — a crisp honeycomb centre coated in dark Belgian chocolate with sea salt. Developed with a French specialist institute, QAND is positioned to rival Dubai Chocolate as a culturally driven UAE food export using Emirati-origin honey as a premium ingredient.</div>
+      <div class="ni-card-insight"><strong>Strategic Insight</strong>Honey as a premium ingredient in UAE-origin luxury confectionery creates a new high-margin value-add category that elevates GCC-sourced honey beyond conventional retail formats.</div>
+      <div class="ni-card-source">Source: <a href="https://www.khaleejtimes.com/uae/sharjah-new-chocolate-brand-ingredients" target="_blank">Khaleej Times / Sharjah24</a></div>
+    </div>
+
+    <div class="ni-card ni-med">
+      <div class="ni-card-meta">
+        <span class="ni-card-date">2026-04-20</span><span class="ni-card-sep">·</span><span class="ni-card-country">UAE</span>
+        <span class="ni-badge marketing">Marketing</span><span class="ni-sub-badge">Influencer Campaign</span>
+      </div>
+      <div class="ni-card-company">Multiple UAE luxury honey brands</div>
+      <div class="ni-card-headline">Eid Al-Adha honey gifting drives premium SKU launches across UAE retail</div>
+      <div class="ni-card-summary">UAE retailers and honey brands launched Eid Al-Adha limited-edition gifting collections featuring Sidr and Manuka honey in ornate packaging priced above AED 500. The gifting window is driving significant volume in premium and super-premium segments, establishing Eid as a key recurring revenue window for high-value honey SKUs.</div>
+      <div class="ni-card-insight"><strong>Strategic Insight</strong>Eid gifting is establishing a recurring high-value revenue window for premium honey; brands without a dedicated gifting SKU are leaving a fast-growing segment to competitors.</div>
+      <div class="ni-card-source">Source: <a href="https://www.khaleejtimes.com" target="_blank">Khaleej Times</a></div>
+    </div>
+
+    <div class="ni-card ni-med">
+      <div class="ni-card-meta">
+        <span class="ni-card-date">2026-04-18</span><span class="ni-card-sep">·</span><span class="ni-card-country">GCC</span>
+        <span class="ni-badge regulatory">Regulatory</span><span class="ni-sub-badge">Policy Change</span>
+      </div>
+      <div class="ni-card-company">EU trade partners / UAE honey re-exporters</div>
+      <div class="ni-card-headline">EU origin labelling directive creates uncertainty for GCC re-exporters of blended honey</div>
+      <div class="ni-card-summary">The EU's new origin labelling directive — requiring disclosure of all country origins in blended honey — is creating uncertainty for GCC re-exporters who blend multiple origins for the European market. Several UAE-based honey trading companies are reviewing blending and labelling practices, with compliance costs potentially reshaping UAE's role as a regional honey re-export hub.</div>
+      <div class="ni-card-insight"><strong>Strategic Insight</strong>EU labelling pressure on UAE re-exporters could fragment existing blending operations and force structural changes to GCC honey trading business models.</div>
+      <div class="ni-card-source">Source: <a href="https://www.just-food.com" target="_blank">Just-Food / foodbusinessnews</a></div>
+    </div>
+
+  </div><!-- /ni-grid med -->
+
+  <!-- LOW PRIORITY -->
+  <div class="ni-priority-bar ni-low"><span class="ni-p-dot"></span>Low Priority &nbsp;·&nbsp; 2 developments</div>
+  <div class="ni-grid">
+
+    <div class="ni-card ni-low">
+      <div class="ni-card-meta">
+        <span class="ni-card-date">2026-04-15</span><span class="ni-card-sep">·</span><span class="ni-card-country">UAE</span>
+        <span class="ni-badge marketing">Marketing</span><span class="ni-sub-badge">Sponsorship</span>
+      </div>
+      <div class="ni-card-company">Dubai Municipality / local beekeepers</div>
+      <div class="ni-card-headline">Hatta Winter Festival honey trail drives tourism and local brand awareness</div>
+      <div class="ni-card-summary">The Hatta Winter Festival's honey trail showcased UAE-produced honey varieties and local beekeeping operations, attracting domestic tourism and generating social media coverage for local honey brands. Several small UAE producers reported a significant uptick in direct sales following the event, highlighting the commercial value of agritourism tie-ins.</div>
+      <div class="ni-card-insight"><strong>Strategic Insight</strong>Experiential agritourism events like Hatta's honey trail build authentic brand equity for small UAE producers at minimal cost — a model replicable across GCC markets.</div>
+      <div class="ni-card-source">Source: <a href="https://gulfnews.com/uae/people/hatta-farming-festival-2026-7-rare-finds-you-can-buy-from-emirati-farmers-at-the-local-market-1.500422922" target="_blank">Gulf News</a></div>
+    </div>
+
+    <div class="ni-card ni-low">
+      <div class="ni-card-meta">
+        <span class="ni-card-date">2026-05-01</span><span class="ni-card-sep">·</span><span class="ni-card-country">UAE</span>
+        <span class="ni-badge other">Other</span>
+      </div>
+      <div class="ni-card-company">Bees &amp; Honey Agency (Dubai)</div>
+      <div class="ni-card-headline">New UAE-based specialist honey marketing agency launches to serve regional brands</div>
+      <div class="ni-card-summary">A new marketing agency specialising exclusively in honey and bee products launched in Dubai, offering brand strategy, digital marketing, and retail activation services to honey producers seeking GCC market entry. The launch signals that brand investment in the honey category has reached a threshold supporting dedicated specialist services.</div>
+      <div class="ni-card-insight"><strong>Strategic Insight</strong>A specialist honey agency launch signals sufficient category volume and brand marketing spend to sustain a dedicated provider — a proxy indicator of UAE market maturation.</div>
+      <div class="ni-card-source">Source: <a href="https://www.campaignme.com" target="_blank">Campaign Middle East</a></div>
+    </div>
+
+  </div><!-- /ni-grid low -->
+
+  <!-- Category Breakdown -->
+  <div class="ni-section-hdr" style="margin-top:28px">Category Breakdown</div>
+  <div class="ni-breakdown-grid">
+    <div class="ni-bc-cell">
+      <div class="ni-bc-cat">Regulatory</div>
+      <div class="ni-bc-count">5</div>
+      <div class="ni-bc-signal">Three simultaneous authentication mandates (SFDA NMR, Dubai blockchain, ADAFSA certification) are creating a new traceability-first market standard across the GCC's two largest markets.</div>
+    </div>
+    <div class="ni-bc-cell">
+      <div class="ni-bc-cat">Expansion</div>
+      <div class="ni-bc-count">7</div>
+      <div class="ni-bc-signal">State-led domestic production investment (UAE EACE, Saudi Reef SAR 190M) plus e-commerce channel proliferation (Noon, Talabat, Geohoney D2C) driving dual-track supply and distribution growth.</div>
+    </div>
+    <div class="ni-bc-cell">
+      <div class="ni-bc-cat">Marketing</div>
+      <div class="ni-bc-count">7</div>
+      <div class="ni-bc-signal">Eid gifting + influencer campaigns converging as the dominant marketing playbook; PIHA awards add credibility layer that supports premium positioning and export ambitions.</div>
+    </div>
+    <div class="ni-bc-cell">
+      <div class="ni-bc-cat">Product Launch</div>
+      <div class="ni-bc-count">2</div>
+      <div class="ni-bc-signal">Super-premium Sidr launches (ONYX AED 250–850, QAND honeycomb confectionery) signal emergence of a distinct luxury honey segment beyond conventional jarred retail.</div>
+    </div>
+    <div class="ni-bc-cell">
+      <div class="ni-bc-cat">Partnership</div>
+      <div class="ni-bc-count">1</div>
+      <div class="ni-bc-signal">Honey Australia/Lulu deal is the period's landmark distribution agreement, raising the competitive bar for exclusive hypermarket positioning across the GCC.</div>
+    </div>
+    <div class="ni-bc-cell">
+      <div class="ni-bc-cat">M&amp;A · Other</div>
+      <div class="ni-bc-count">4</div>
+      <div class="ni-bc-signal">HiveHub seed round marks first venture capital entry into GCC honey infrastructure; Hormuz supply shock is the macro wildcard affecting all import-dependent players.</div>
+    </div>
+  </div>
+
+  <div class="ni-dq-note">
+    Data coverage: Web search results as of 13 May 2026 · Honey · GCC (Saudi Arabia, UAE, Kuwait, Qatar, Bahrain, Oman). Items marked with ⚠ could not be verified against a primary source URL. Recommend cross-checking High Priority items before strategic decisions.
+  </div>
+
+</div><!-- /ni-wrap -->
+</div><!-- /news-honey -->
+
+<!-- No-content fallback for other products -->
+<div id="news-no-content" style="display:none;padding:80px 0;text-align:center">
   <div class="tab-ph-icon">
     <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z"/></svg>
   </div>
   <h3>News &amp; Intelligence</h3>
-  <p>Curated market news, regulatory updates, new product launches, and analyst commentary relevant to the GCC consumer markets.</p>
+  <p>News intelligence for <strong id="news-no-product">this product</strong> is under research.</p>
   <span class="coming-pill">Coming Soon</span>
+</div>
+
 </div>
 
 <!-- ═══ STATISTICS PANEL ════════════════════════════════════ -->
@@ -4295,6 +5919,9 @@ class MarketDashboard {
     if (document.getElementById('tab-value-chain').classList.contains('active')) {
       renderValueChainTab(val);
     }
+    if (document.getElementById('tab-news').classList.contains('active')) {
+      renderNewsTab(val);
+    }
   }
 
   async onYearChange(val) {
@@ -4377,6 +6004,7 @@ function switchDashTab(tab) {
   if (tab === 'competition') renderCompetitionTab(dashboard.activeProduct);
   if (tab === 'value-chain') renderValueChainTab(dashboard.activeProduct);
   if (tab === 'definition')  renderDefinitionTab(dashboard.activeProduct);
+  if (tab === 'news')        renderNewsTab(dashboard.activeProduct);
 }
 
 function renderValueChainTab(product) {
@@ -4403,6 +6031,14 @@ function renderDefinitionTab(product) {
   document.getElementById('def-no-content').style.display = hasContent ? 'none' : '';
   const tabEl = document.getElementById('tab-definition');
   if (tabEl) tabEl.style.padding = hasContent ? '' : '80px 0';
+}
+
+function renderNewsTab(product) {
+  const isHoney = (product || '').toLowerCase().includes('honey');
+  document.getElementById('news-honey').style.display      = isHoney ? '' : 'none';
+  document.getElementById('news-no-content').style.display = isHoney ? 'none' : '';
+  const el = document.getElementById('news-no-product');
+  if (el) el.textContent = product || 'this product';
 }
 
 // ── EXPERT PANEL FILTER TABS ──────────────────────────────
@@ -4735,21 +6371,24 @@ function openCompanyProfile(companyId) {
 }
 
 function renderCompetitionTab(product, companyId) {
-  const isHoney = product && product.toLowerCase().includes('honey');
+  const p = (product || '').toLowerCase();
+  const isHoney = p.includes('honey');
+  const isHydroponic = p.includes('hydroponic');
   document.getElementById('comp-honey-profile').style.display = isHoney ? '' : 'none';
-  document.getElementById('comp-no-profile').style.display = isHoney ? 'none' : '';
-  if (!isHoney && product) {
+  document.getElementById('comp-hydroponic-produce-profile').style.display = isHydroponic ? '' : 'none';
+  document.getElementById('comp-no-profile').style.display = (!isHoney && !isHydroponic) ? '' : 'none';
+  if (!isHoney && !isHydroponic && product) {
     document.getElementById('comp-np-product').textContent = product;
     document.getElementById('comp-np-title').textContent = `${product} — Competitor Profiles`;
     document.getElementById('comp-np-sub').textContent = `Competitor profiling · ${product} market · profile under research`;
   }
   if (isHoney) {
     const cid = companyId || _activeCompany;
-    if (cid) {
-      openCompanyProfile(cid);
-    } else {
-      openCompanySelector();
-    }
+    if (cid) { openCompanyProfile(cid); } else { openCompanySelector(); }
+  }
+  if (isHydroponic) {
+    if (companyId) { openCoProfile('hydroponic-produce', companyId); }
+    else { openCoSelector('hydroponic-produce'); }
   }
 }
 
@@ -5017,6 +6656,84 @@ if (_urlProduct) {
 if (window.location.hash === '#statistics') {
   requestAnimationFrame(() => showStatisticsPanel());
 }
+
+// ── Generic competition-tab helpers (shared across all products) ──
+if (typeof openCoProfile === 'undefined') {
+  function openCoProfile(slug, companyId) {
+    const wrapper = document.getElementById('comp-' + slug + '-profile');
+    if (!wrapper) return;
+    wrapper.querySelectorAll('[id^="comp-' + slug + '-pf-"]').forEach(el => el.style.display = 'none');
+    document.getElementById('comp-' + slug + '-selector').style.display = 'none';
+    const panel = document.getElementById('comp-' + slug + '-pf-' + companyId);
+    if (panel) panel.style.display = '';
+    if (window['renderCompCharts_' + slug]) window['renderCompCharts_' + slug](companyId);
+  }
+  function openCoSelector(slug) {
+    const wrapper = document.getElementById('comp-' + slug + '-profile');
+    if (!wrapper) return;
+    wrapper.querySelectorAll('[id^="comp-' + slug + '-pf-"]').forEach(el => el.style.display = 'none');
+    document.getElementById('comp-' + slug + '-selector').style.display = '';
+  }
+}
+
+// ── Hydroponic Produce competition charts ──
+const _hpChartsRendered = {};
+window['renderCompCharts_hydroponic-produce'] = function(companyId) {
+  if (_hpChartsRendered[companyId]) return;
+  _hpChartsRendered[companyId] = true;
+  const {G, TXT, CARD_BG} = _getChartColors();
+  const C1='#B8924A', C2='#8B6F2F', C3='#3D6B5C', C4='#1F3A5F', C5='#A89F8E', C6='#A8331E';
+
+  const _hpBubble = [
+    {label:'Pure Harvest', data:[{x:82,y:65,r:28}], backgroundColor:C1+'DD', borderColor:C1, borderWidth:1.5},
+    {label:'Bustanica',    data:[{x:75,y:72,r:22}], backgroundColor:C3+'CC', borderColor:C3, borderWidth:1.5},
+    {label:'Badia Farms',  data:[{x:28,y:82,r:11}], backgroundColor:C6+'CC', borderColor:C6, borderWidth:1.5},
+    {label:'Madar Farms',  data:[{x:22,y:70,r:10}], backgroundColor:C4+'DD', borderColor:C4, borderWidth:1.5},
+    {label:'Emirates H.',  data:[{x:52,y:42,r: 8}], backgroundColor:C5+'CC', borderColor:C5, borderWidth:1.5}
+  ];
+  const _hpBubbleOpts = {
+    responsive:true, maintainAspectRatio:false,
+    plugins:{
+      legend:{labels:{color:TXT,font:{size:9},boxWidth:10,boxHeight:10,padding:10}},
+      datalabels:{formatter:(_,ctx)=>ctx.dataset.label,color:TXT,font:{size:8.5,weight:'500'},anchor:'end',align:'top',offset:2}
+    },
+    scales:{
+      x:{min:0,max:100,title:{display:true,text:'Distribution breadth →',color:TXT,font:{size:9}},grid:{color:G},border:{color:G},ticks:{color:TXT,font:{size:9}}},
+      y:{min:0,max:100,title:{display:true,text:'Price premium index ↑',color:TXT,font:{size:9}},grid:{color:G},border:{color:'transparent'},ticks:{color:TXT,font:{size:9}}}
+    },
+    animation:{duration:700}
+  };
+
+  const _hpDonut = {
+    'pure-harvest':        {data:[55,25,10,10], labels:['Retail Supermarkets','HoReCa / Foodservice','Online / D2C','Institutional / Airlines']},
+    'bustanica':           {data:[40,45, 8, 7], labels:['Retail Supermarkets','HoReCa / Airline','Online / D2C','Institutional']},
+    'badia-farms':         {data:[10,75, 8, 7], labels:['Retail (Spinneys)','HoReCa / Hotels','Online / D2C','Direct Delivery']},
+    'madar-farms':         {data:[45,35,10,10], labels:['Retail Supermarkets','HoReCa','Online / D2C','Institutional']},
+    'emirates-hydroponics':{data:[50,25,20, 5], labels:['Retail Supermarkets','HoReCa / Restaurants','Wholesale Distributors','Airline / Institutional']}
+  };
+
+  const dEl = document.getElementById('ch-hp-' + companyId + '-donut');
+  if (dEl && _hpDonut[companyId]) {
+    new Chart(dEl, {
+      type:'doughnut',
+      data:{labels:_hpDonut[companyId].labels, datasets:[{data:_hpDonut[companyId].data, backgroundColor:[C1,C3,C4,C6], borderWidth:2, borderColor:CARD_BG}]},
+      options:{
+        cutout:'65%', responsive:true, maintainAspectRatio:false,
+        plugins:{
+          datalabels:{display:true,color:'#fff',font:{size:10,weight:'700'},formatter:(v,ctx)=>{const t=ctx.dataset.data.reduce((a,b)=>a+b,0);const p=v/t*100;return p<6?'':p.toFixed(0)+'%'}},
+          legend:{display:true,position:'right',labels:{color:TXT,font:{size:10},padding:10,boxWidth:10,boxHeight:10}},
+          tooltip:{callbacks:{label:c=>{const t=c.dataset.data.reduce((a,b)=>a+b,0);return c.label+': '+c.parsed.toFixed(0)+'% of sales'}}}
+        },
+        animation:{duration:700}
+      }
+    });
+  }
+
+  const bEl = document.getElementById('ch-hp-' + companyId + '-bubble');
+  if (bEl) {
+    new Chart(bEl, {type:'bubble', data:{datasets:_hpBubble}, options:_hpBubbleOpts});
+  }
+};
 </script>
 </body>
 </html>
