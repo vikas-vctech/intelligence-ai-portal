@@ -6869,6 +6869,8 @@ function selectSbtCompany(product, companyId) {
 const DTAB_IDS = ['mktoverview','competition','value-chain','definition','news','swot'];
 function switchDashTab(tab) {
   hideStatisticsPanel();
+  document.getElementById('sec-launch').style.display = 'none';
+  document.getElementById('sb-launch')?.classList.remove('sb-open');
   DTAB_IDS.forEach(t => document.getElementById(`dtab-${t}`)?.classList.toggle('active', t===tab));
   const isOverview = tab === 'mktoverview';
   document.getElementById('mkt-overview-panels').style.display = isOverview ? '' : 'none';
@@ -7543,7 +7545,7 @@ function showLaunchPanel() {
   document.querySelectorAll('.sb-item').forEach(el => el.classList.remove('sb-open'));
   document.getElementById('sb-launch')?.classList.add('sb-open');
   _launchHideAll();
-  document.getElementById('sec-launch').style.display = '';
+  document.getElementById('sec-launch').style.display = 'block';
   if (window.innerWidth <= 767) closeSidebar();
 }
 
