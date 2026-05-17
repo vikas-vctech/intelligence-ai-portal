@@ -809,6 +809,29 @@ html[data-theme="light"] .def-table tbody tr:nth-child(even) td:not(.def-row-hdr
 .def-bullet li{margin-bottom:3px}
 .def-no-content{padding:80px 0;text-align:center}
 
+/* ══ SWOT TAB ════════════════════════════════════════════════ */
+#tab-swot{display:none;padding:0}
+#tab-swot.active{display:block}
+.swot-wrap{padding:24px 0 40px}
+.swot-grid-outer{position:relative;width:100%}
+.swot-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.swot-cell{background:var(--bg-card);min-height:200px}
+.swot-cell-hdr{background:var(--atlas-compass);color:#fff;font-family:var(--font-display);font-size:13px;font-weight:600;text-align:center;padding:9px 16px;letter-spacing:.04em}
+.swot-cell-body{padding:16px 20px}
+.swot-bullet{list-style:none;padding:0;margin:0}
+.swot-bullet li{padding:6px 0 6px 16px;position:relative;font-size:11.5px;line-height:1.52;color:var(--text-secondary);border-bottom:1px solid var(--border)}
+.swot-bullet li:last-child{border-bottom:none}
+.swot-bullet li::before{content:"•";position:absolute;left:2px;color:var(--atlas-compass);font-size:13px;line-height:1.4}
+.swot-bullet li strong{color:var(--text-primary);font-weight:600}
+.swot-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:108px;height:108px;border-radius:50%;background:var(--bg-primary);border:3px solid var(--border);display:flex;align-items:center;justify-content:center;z-index:20;pointer-events:none;box-shadow:0 2px 16px rgba(0,0,0,.18)}
+.swot-center-disc{width:84px;height:84px;border-radius:50%;background:var(--atlas-compass);display:flex;align-items:center;justify-content:center;position:relative}
+.swot-center-lbl{color:#fff;font-family:var(--font-display);font-size:14px;font-weight:700;letter-spacing:.1em}
+.swot-icon-dot{position:absolute;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid var(--bg-primary)}
+.swot-dot-str{top:-8px;left:-8px;background:var(--atlas-compass)}
+.swot-dot-weak{top:-8px;right:-8px;background:#b45309}
+.swot-dot-opp{bottom:-8px;left:-8px;background:#2a7a6a}
+.swot-dot-thr{bottom:-8px;right:-8px;background:#9b1c1c}
+
 /* ═══ NEWS INTELLIGENCE TAB ═══ */
 .ni-wrap{padding:28px 32px 60px}
 .ni-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;flex-wrap:wrap;gap:12px}
@@ -1276,6 +1299,7 @@ html[data-theme="light"] .def-table tbody tr:nth-child(even) td:not(.def-row-hdr
   <button class="dash-tab"        id="dtab-value-chain"  onclick="switchDashTab('value-chain')">Value Chain</button>
   <button class="dash-tab"        id="dtab-definition"   onclick="switchDashTab('definition')">Definition</button>
   <button class="dash-tab"        id="dtab-news"         onclick="switchDashTab('news')">News</button>
+  <button class="dash-tab"        id="dtab-swot"         onclick="switchDashTab('swot')">SWOT</button>
 
   <div class="nav-filters" style="margin-left:auto;padding:0;border-top:none">
     <div class="nav-filter-group">
@@ -5094,6 +5118,117 @@ html[data-theme="light"] .def-table tbody tr:nth-child(even) td:not(.def-row-hdr
 
 </div>
 
+<!-- ═══ SWOT TAB ════════════════════════════════════════════ -->
+<div id="tab-swot">
+
+  <!-- Goat Milk SWOT — shown only when Goat Milk is the active product -->
+  <div id="swot-goatmilk" style="display:none">
+    <div class="page-header" style="margin-bottom:0;border-bottom:1px solid var(--border)">
+      <div>
+        <h1>SWOT Analysis — Goat Milk UAE</h1>
+        <div class="page-header-sub">Strengths · Weaknesses · Opportunities · Threats · UAE market · 2025</div>
+      </div>
+    </div>
+    <div class="swot-wrap">
+      <div class="swot-grid-outer">
+        <div class="swot-grid">
+
+          <!-- ── Strengths (top-left) ── -->
+          <div class="swot-cell">
+            <div class="swot-cell-hdr">Strengths</div>
+            <div class="swot-cell-body">
+              <ul class="swot-bullet">
+                <li><strong>Freshness edge:</strong> local UAE milk reaches consumers in 24–48h vs 3–6-week imports</li>
+                <li><strong>Strong "UAE origin" appeal</strong> aligned with food security push (ADAFSA, MOCCAE)</li>
+                <li><strong>Built-in health proposition:</strong> easier digestion, lower lactose, A2-like protein</li>
+                <li><strong>Scalable launch:</strong> 500 goats (~1,000 L/day) supports D2C or retail entry</li>
+                <li><strong>Cost advantage:</strong> no import/freight/distributor costs: AED 3–5/L cheaper vs imports</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- ── Weaknesses (top-right) ── -->
+          <div class="swot-cell">
+            <div class="swot-cell-hdr">Weaknesses</div>
+            <div class="swot-cell-body">
+              <ul class="swot-bullet">
+                <li><strong>No brand equity vs established players:</strong> 12–18 months to build awareness</li>
+                <li><strong>Processing gap:</strong> small scale limits to fresh milk (no UHT, yogurt, cheese)</li>
+                <li><strong>High-cost base:</strong> imported feed, water, land, labour; less competitive vs imports</li>
+                <li><strong>No retail ties:</strong> listings require certifications + 9–12 months onboarding</li>
+                <li><strong>Seasonal dips:</strong> summer heat cuts output by ~20–35%, risking supply gaps</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- ── Opportunities (bottom-left) ── -->
+          <div class="swot-cell">
+            <div class="swot-cell-hdr">Opportunities</div>
+            <div class="swot-cell-body">
+              <ul class="swot-bullet">
+                <li><strong>Untapped categories:</strong> goat labneh, pure goat halloumi, UHT milk: first-mover advantage</li>
+                <li><strong>AED 95–110M market fully import-dependent:</strong> strong import substitution potential</li>
+                <li><strong>Rising health/gut awareness</strong> shifting demand from cow to goat dairy</li>
+                <li><strong>Government support (MOCCAE, ADAFSA):</strong> subsidies, land, faster approvals</li>
+                <li><strong>Proven premium D2C demand:</strong> consumers pay 2–3× for farm-direct products</li>
+                <li><strong>Ramadan demand spike</strong> for labneh/laban with no local goat brand ownership</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- ── Threats (bottom-right) ── -->
+          <div class="swot-cell">
+            <div class="swot-cell-hdr">Threats</div>
+            <div class="swot-cell-body">
+              <ul class="swot-bullet">
+                <li><strong>Entrenched imports</strong> (Delamere, Soignon) with strong retail ties; high entry barriers</li>
+                <li><strong>Structural cost disadvantage</strong> vs large-scale European producers; pricing pressure</li>
+                <li><strong>Lengthy regulatory approvals</strong> (HACCP, ESMA, Halal): 9–18 month revenue delay</li>
+                <li><strong>Regional supply risk</strong> (e.g., Iran tensions): higher goat import/setup costs</li>
+                <li><strong>Perception gap:</strong> "imported = premium" among UAE shoppers</li>
+                <li><strong>Climate &amp; water stress:</strong> rising costs, need for resilient breeds/infrastructure</li>
+              </ul>
+            </div>
+          </div>
+
+        </div><!-- /swot-grid -->
+
+        <!-- Center badge -->
+        <div class="swot-center">
+          <div class="swot-center-disc">
+            <span class="swot-center-lbl">SWOT</span>
+            <div class="swot-icon-dot swot-dot-str">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            </div>
+            <div class="swot-icon-dot swot-dot-weak">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
+            </div>
+            <div class="swot-icon-dot swot-dot-opp">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+            </div>
+            <div class="swot-icon-dot swot-dot-thr">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"/></svg>
+            </div>
+          </div>
+        </div><!-- /swot-center -->
+
+      </div><!-- /swot-grid-outer -->
+      <div class="footnote" style="margin-top:16px">Source: Primary Research, Secondary Research · UAE Goat Milk Market · 2025</div>
+    </div><!-- /swot-wrap -->
+  </div><!-- /swot-goatmilk -->
+
+  <!-- No-content fallback for other products -->
+  <div id="swot-no-content" class="tab-placeholder">
+    <div class="tab-ph-icon">
+      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+    </div>
+    <h3>SWOT Analysis</h3>
+    <p>SWOT analysis for <strong id="swot-no-product">this product</strong> is under research.</p>
+    <span class="coming-pill">Coming Soon</span>
+  </div>
+
+</div><!-- /tab-swot -->
+
 <!-- ═══ STATISTICS PANEL ════════════════════════════════════ -->
 <div id="sec-statistics">
 
@@ -6324,13 +6459,13 @@ function selectSbtCompany(product, companyId) {
 }
 
 // ── REPORT TABS ───────────────────────────────────────────
-const DTAB_IDS = ['mktoverview','competition','value-chain','definition','news'];
+const DTAB_IDS = ['mktoverview','competition','value-chain','definition','news','swot'];
 function switchDashTab(tab) {
   hideStatisticsPanel();
   DTAB_IDS.forEach(t => document.getElementById(`dtab-${t}`)?.classList.toggle('active', t===tab));
   const isOverview = tab === 'mktoverview';
   document.getElementById('mkt-overview-panels').style.display = isOverview ? '' : 'none';
-  ['competition','value-chain','experts','definition','news'].forEach(t => {
+  ['competition','value-chain','experts','definition','news','swot'].forEach(t => {
     const el = document.getElementById(`tab-${t}`);
     if (el) el.classList.toggle('active', t===tab);
   });
@@ -6338,6 +6473,7 @@ function switchDashTab(tab) {
   if (tab === 'value-chain') renderValueChainTab(dashboard.activeProduct);
   if (tab === 'definition')  renderDefinitionTab(dashboard.activeProduct);
   if (tab === 'news')        renderNewsTab(dashboard.activeProduct);
+  if (tab === 'swot')        renderSwotTab(dashboard.activeProduct);
 }
 
 function renderValueChainTab(product) {
@@ -6368,6 +6504,16 @@ function renderDefinitionTab(product) {
   document.getElementById('def-no-content').style.display = hasContent ? 'none' : '';
   const tabEl = document.getElementById('tab-definition');
   if (tabEl) tabEl.style.padding = hasContent ? '' : '80px 0';
+}
+
+function renderSwotTab(product) {
+  const p = (product || '').toLowerCase();
+  const isGoatMilk = p.includes('goat');
+  const hasContent = isGoatMilk;
+  document.getElementById('swot-goatmilk').style.display   = isGoatMilk ? '' : 'none';
+  document.getElementById('swot-no-content').style.display = hasContent ? 'none' : '';
+  const el = document.getElementById('swot-no-product');
+  if (el) el.textContent = product || 'this product';
 }
 
 function renderNewsTab(product) {
