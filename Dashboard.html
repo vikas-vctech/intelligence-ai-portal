@@ -7008,7 +7008,10 @@ function switchDashTab(tab) {
   document.getElementById('mkt-overview-panels').style.display = isOverview ? '' : 'none';
   ['competition','value-chain','experts','definition','news','swot'].forEach(t => {
     const el = document.getElementById(`tab-${t}`);
-    if (el) el.classList.toggle('active', t===tab);
+    if (!el) return;
+    const isActive = t === tab;
+    el.classList.toggle('active', isActive);
+    if (isActive) el.style.display = '';  // clear any inline override from hide functions
   });
   if (tab === 'competition') renderCompetitionTab(dashboard.activeProduct);
   if (tab === 'value-chain') renderValueChainTab(dashboard.activeProduct);
@@ -7224,7 +7227,7 @@ function showStatisticsPanel() {
   document.getElementById('sec-launch').style.display = 'none';
   ['competition','value-chain','experts','definition','news','swot'].forEach(t => {
     const el = document.getElementById(`tab-${t}`);
-    if (el) el.style.display = 'none';
+    if (el) { el.classList.remove('active'); el.style.display = ''; }
   });
   document.getElementById('sec-statistics').style.display = 'block';
   if (!_statChartsRendered) {
@@ -7669,7 +7672,7 @@ function _launchHideAll() {
   document.getElementById('sec-statistics').style.display = 'none';
   ['competition','value-chain','experts','definition','news','swot'].forEach(t => {
     const el = document.getElementById(`tab-${t}`);
-    if (el) el.style.display = 'none';
+    if (el) { el.classList.remove('active'); el.style.display = ''; }
   });
 }
 
